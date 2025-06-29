@@ -8,7 +8,12 @@
   },
   "fonts": {
     "family": "Inter",
-    "weights": [400, 500, 600, 700]
+    "weights": [
+      400,
+      500,
+      600,
+      700
+    ]
   },
   "colors": {
     "primary": "#020618",

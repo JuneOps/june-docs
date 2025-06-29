@@ -1,14 +1,21 @@
-<svg width="433" height="485" viewBox="0 0 433 485" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M285.611 161.963C318.672 197.583 319.026 252.537 286.427 288.494L217.943 364.035L148.488 289.203C115.428 253.583 115.073 198.629 147.672 162.671V162.671C184.502 122.047 248.26 121.72 285.611 161.963V161.963Z" stroke="url(#paint0_linear_3_26)" stroke-width="36"/>
-<path d="M331.695 120.323C387.941 178.607 388.183 270.889 332.242 329.467L217.454 449.665L102.04 330.069C45.7934 271.785 45.552 179.503 101.493 120.925L107.648 114.48C166.913 52.4214 265.917 52.1624 325.506 113.91L331.695 120.323Z" stroke="url(#paint1_linear_3_26)" stroke-width="48"/>
-<defs>
-<linearGradient id="paint0_linear_3_26" x1="344.054" y1="224.93" x2="90.0474" y2="226.569" gradientUnits="userSpaceOnUse">
-<stop stop-color="#00CD9D"/>
-<stop offset="1" stop-color="#01654E"/>
-</linearGradient>
-<linearGradient id="paint1_linear_3_26" x1="432.357" y1="224.632" x2="1.37738" y2="225.76" gradientUnits="userSpaceOnUse">
-<stop stop-color="#00CD9D"/>
-<stop offset="1" stop-color="#01654E"/>
-</linearGradient>
-</defs>
+<svg width="600" height="60" viewBox="0 0 600 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- June Icon (scaled down and positioned) -->
+  <g transform="translate(0, 5) scale(0.12, 0.12)">
+    <path d="M285.611 161.963C318.672 197.583 319.026 252.537 286.427 288.494L217.943 364.035L148.488 289.203C115.428 253.583 115.073 198.629 147.672 162.671V162.671C184.502 122.047 248.26 121.72 285.611 161.963V161.963Z" stroke="url(#paint0_linear_3_26)" stroke-width="36"/>
+    <path d="M331.695 120.323C387.941 178.607 388.183 270.889 332.242 329.467L217.454 449.665L102.04 330.069C45.7934 271.785 45.552 179.503 101.493 120.925L107.648 114.48C166.913 52.4214 265.917 52.1624 325.506 113.91L331.695 120.323Z" stroke="url(#paint1_linear_3_26)" stroke-width="48"/>
+  </g>
+  
+  <!-- "June Docs" Text -->
+  <text x="70" y="55" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="48" font-weight="600" fill="white">Docs</text>
+  
+  <defs>
+    <linearGradient id="paint0_linear_3_26" x1="344.054" y1="224.93" x2="90.0474" y2="226.569" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00CD9D"/>
+      <stop offset="1" stop-color="#01654E"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear_3_26" x1="432.357" y1="224.632" x2="1.37738" y2="225.76" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00CD9D"/>
+      <stop offset="1" stop-color="#01654E"/>
+    </linearGradient>
+  </defs>
 </svg>
