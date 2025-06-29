@@ -1,0 +1,251 @@
+---
+title: 'MDM Integrations Overview'
+description: 'Connect your Mobile Device Management systems with June for comprehensive device management'
+---
+
+## Supported MDM Platforms
+
+June seamlessly integrates with leading MDM solutions to provide comprehensive device management and asset tracking capabilities across all your platforms.
+
+<CardGroup cols={2}>
+  <Card href="/integrations/jamf-pro">
+    <div className="flex flex-row gap-2 mb-2"> 
+      <img src="/images/jamf_logo.png" alt="Jamf Pro" width={25} height={25} />
+      <span className="text-base font-bold text-white">Jamf Pro</span>
+    </div>
+    Complete integration guide for Mac device management with Jamf Pro
+  </Card>
+  
+  <Card href="/integrations/microsoft-intune">
+    <div className="flex flex-row gap-2 mb-2"> 
+      <img src="/images/ms_entra_id_logo.png" alt="Microsoft Intune" width={25} height={25} />
+      <span className="text-base font-bold text-white">Microsoft Intune</span>
+    </div>
+    Cross-platform device management with Microsoft Intune
+  </Card>
+  
+  <Card href="/integrations/kandji">
+    <div className="flex flex-row gap-2 mb-2">
+      <div className="bg-white rounded-md p-1">
+        <img src="/images/kandji_bee_dark.png" alt="Kandji" width={25} height={25} />
+      </div>
+      <div className="text-base font-bold text-white">Kandji</div>
+    </div>
+    Modern Mac management platform integration
+  </Card>
+  
+</CardGroup>
+
+## Integration Benefits
+
+### Unified Device Visibility
+- **Single Dashboard**: View all devices regardless of MDM platform
+- **Consistent Reporting**: Generate reports across multiple MDM systems
+- **Centralized Search**: Find devices using natural language across all platforms
+- **Unified Workflows**: Apply consistent processes across different MDM systems
+
+### Enhanced Device Management
+- **Remote Actions**: Perform device actions through June's interface
+- **Health Monitoring**: Comprehensive device health across all platforms
+- **Compliance Tracking**: Monitor compliance policies across MDM systems
+- **Asset Lifecycle**: Track device lifecycle from procurement to retirement
+
+### AI-Powered Insights
+- **Predictive Analytics**: Anticipate device issues before they occur
+- **Cross-Platform Trends**: Identify patterns across different device types
+- **Optimization Recommendations**: Get actionable insights for fleet optimization
+- **Automated Workflows**: Trigger actions based on device status and health
+
+## Quick Start Guide
+
+### 1. Choose Your MDM Platform
+
+Select the MDM system you want to integrate:
+
+<Steps>
+  <Step title="Mac Management">
+    - **Jamf Pro**: Enterprise Mac management
+    - **Kandji**: Modern Mac device management
+  </Step>
+  
+  <Step title="Cross-Platform Management">
+    - **Microsoft Intune**: Windows, Mac, iOS, Android support
+  </Step>
+  
+  <Step title="Multiple Systems">
+    - **Multi-MDM Setup**: Integrate multiple MDM platforms simultaneously
+  </Step>
+</Steps>
+
+### 2. Prepare Integration Requirements
+
+Each MDM platform has specific requirements:
+
+- **API Access**: Admin access to create API credentials
+- **Network Connectivity**: Ensure June can reach your MDM systems
+- **Permissions**: Appropriate read/write permissions for device management
+- **Testing Environment**: Recommended for initial setup and testing
+
+### 3. Follow Platform-Specific Guide
+
+Click on your MDM platform above to access detailed integration instructions including:
+- Step-by-step setup process
+- Required permissions and configurations
+- Data synchronization details
+- Troubleshooting common issues
+
+## Common Integration Features
+
+### Data Synchronization
+
+All MDM integrations provide:
+
+| Data Type | Description | Sync Frequency |
+|-----------|-------------|----------------|
+| **Device Inventory** | Hardware specs, serial numbers, models | Real-time |
+| **User Assignments** | Device ownership and location | Real-time |
+| **Compliance Status** | Policy adherence and health | Every 15-30 minutes |
+| **Application Inventory** | Installed software and versions | Daily |
+| **Configuration Data** | Profiles, policies, and settings | Real-time |
+
+### Remote Device Actions
+
+Supported actions vary by MDM platform:
+
+<AccordionGroup>
+  <Accordion title="Basic Actions">
+    - Restart device
+    - Lock device
+    - Locate device
+    - Update inventory
+  </Accordion>
+  
+  <Accordion title="Security Actions">
+    - Remote wipe
+    - Passcode reset
+    - Lost mode activation
+    - Certificate management
+  </Accordion>
+  
+  <Accordion title="Management Actions">
+    - Install/remove applications
+    - Deploy configuration profiles
+    - Update device settings
+    - Force policy updates
+  </Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+### Security
+- **Least Privilege**: Grant minimal required permissions for API access
+- **Credential Rotation**: Regularly rotate API keys and certificates
+- **Secure Storage**: Store credentials securely in June's encrypted vault
+- **Access Monitoring**: Review integration access logs regularly
+
+### Performance
+- **Sync Optimization**: Configure appropriate sync frequencies for your environment
+- **Filtering**: Use device filters to reduce unnecessary data transfer
+- **Peak Hours**: Schedule intensive operations during off-peak hours
+- **Monitoring**: Set up alerts for integration health and performance
+
+### Management
+- **Documentation**: Maintain documentation of integration configurations
+- **Testing**: Test integrations in non-production environments first
+- **Change Management**: Plan and communicate integration changes
+- **Backup**: Document settings for disaster recovery
+
+## Integration Health Monitoring
+
+### Key Metrics
+
+Monitor these metrics for all MDM integrations:
+
+- **Sync Success Rate**: Percentage of successful synchronizations
+- **Data Freshness**: How recently device data was updated
+- **API Response Times**: Performance of MDM API calls
+- **Error Rates**: Frequency and types of integration errors
+
+### Alerting
+
+Set up alerts for:
+- Integration failures or connection issues
+- Sync delays or performance degradation
+- API rate limiting or quota issues
+- Data inconsistencies between systems
+
+## Multi-MDM Environments
+
+Many organizations use multiple MDM platforms:
+
+### Common Scenarios
+- **Platform-Specific**: Jamf for Mac, Intune for Windows
+- **Departmental**: Different MDMs for different teams
+- **Geographic**: Regional MDM preferences
+- **Acquisition**: Inherited MDM systems from acquisitions
+
+### Management Strategies
+- **Clear Boundaries**: Define which MDM manages which devices
+- **Consistent Policies**: Align security and compliance across platforms
+- **Unified Reporting**: Use June for consolidated views and reporting
+- **Avoid Overlap**: Prevent devices from being managed by multiple MDMs
+
+## Troubleshooting
+
+### Common Issues
+
+<AccordionGroup>
+  <Accordion title="Authentication Failures">
+    - Verify API credentials are correct and haven't expired
+    - Check if accounts have been disabled or permissions changed
+    - Ensure network connectivity between June and MDM systems
+    - Review firewall rules and IP allowlisting
+  </Accordion>
+  
+  <Accordion title="Sync Problems">
+    - Check device enrollment status in MDM systems
+    - Verify API permissions include all required scopes
+    - Review sync frequency and timing settings
+    - Monitor for API rate limiting or quota issues
+  </Accordion>
+  
+  <Accordion title="Performance Issues">
+    - Implement device filtering to reduce data volume
+    - Optimize sync schedules for off-peak hours
+    - Monitor API response times and server performance
+    - Consider geographic or departmental segmentation
+  </Accordion>
+</AccordionGroup>
+
+### Getting Help
+
+- **Platform-Specific Guides**: Detailed troubleshooting in individual integration guides
+- **June Support**: Contact support for integration-specific assistance
+- **Community Forum**: Join discussions with other June users
+- **Professional Services**: Expert assistance for complex integrations
+
+## Next Steps
+
+After setting up your MDM integrations:
+
+<CardGroup cols={2}>
+  <Card title="Identity Provider Setup" href="/integrations/identity-providers">
+    Connect your identity provider for complete user-device correlation
+  </Card>
+  
+  <Card title="Device Management" href="/device-management/asset-discovery">
+    Start managing your devices with June's comprehensive features
+  </Card>
+  
+  <Card title="AI Insights" href="/ai-features/ai-insights">
+    Enable AI-powered insights and automation for your device fleet
+  </Card>
+  
+  <Card title="Custom Views" href="/smart-search/creating-custom-views">
+    Create custom views for different device types and use cases
+  </Card>
+</CardGroup>
+
+<Note>
+MDM integrations typically establish connection within 15-30 minutes. Large environments may require additional time for initial device synchronization.
+</Note> 

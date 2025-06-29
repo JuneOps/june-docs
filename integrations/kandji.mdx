@@ -1,0 +1,369 @@
+---
+title: 'Kandji Integration'
+description: 'Complete integration guide for connecting Kandji with June'
+---
+
+Connect your Kandji tenant with June for modern Mac device management and comprehensive asset tracking.
+
+## What you'll accomplish
+- Generate API access token in Kandji
+- Configure the June integration  
+- Understand Kandji data mapping
+- Set up automated sync preferences
+
+## Prerequisites
+
+Before starting the integration, ensure you have:
+- Kandji tenant with API access
+- Admin or appropriate API permissions in Kandji
+- June organization admin permissions
+- Understanding of your Kandji device management setup
+
+## Setup Process
+
+### Step 1: Generate API Token in Kandji
+
+<Steps>
+  <Step title="Access Kandji Settings">
+    1. Log into your Kandji tenant
+    2. Navigate to **Settings** in the left sidebar
+    3. Go to **Access** section
+    4. Select **API Token**
+  </Step>
+  
+  <Step title="Create New Token">
+    1. Click **Generate New Token**
+    2. Enter a descriptive name: "June Integration Token"
+    3. Set appropriate permissions (see permissions section below)
+    4. Click **Generate**
+  </Step>
+  
+  <Step title="Copy and Secure Token">
+    1. **Immediately** copy the generated token
+    2. Store it securely - you won't be able to view it again
+    3. Note the creation date for future reference
+  </Step>
+</Steps>
+
+### Step 2: Configure Token Permissions
+
+Ensure your API token has the following permissions:
+
+#### Required Permissions
+- **Devices**: Read access to device inventory and details
+- **Users**: Read access to user assignments  
+- **Blueprints**: Read access to device blueprint configurations
+- **Apps**: Read access to application inventory
+- **Compliance**: Read access to device compliance status
+
+#### Optional Permissions (Recommended)
+- **Audit Logs**: Read access for troubleshooting
+- **Library**: Read access to configuration profiles and scripts
+- **Reports**: Read access for enhanced analytics
+
+### Step 3: Configure June Integration
+
+<Steps>
+  <Step title="Access June Integrations">
+    1. Log into June
+    2. Navigate to **Integrations > MDM Systems**
+    3. Click **Add Integration**
+  </Step>
+  
+  <Step title="Select Kandji">
+    1. Choose "Kandji" from the available integrations
+    2. Click **Configure** to start the setup wizard
+  </Step>
+  
+  <Step title="Enter Kandji Details">
+    Provide the following information:
+    - **Kandji Subdomain**: Your Kandji subdomain (e.g., `yourcompany` from `yourcompany.kandji.io`)
+    - **API Token**: The token generated in Step 1
+    - **Integration Name**: Friendly name for this integration (optional)
+  </Step>
+  
+  <Step title="Test Connection">
+    1. Click **Test Connection** to verify the setup
+    2. June will attempt to connect and retrieve sample data
+    3. Resolve any authentication issues before proceeding
+  </Step>
+</Steps>
+
+### Step 4: Configure Sync Preferences
+
+<Steps>
+  <Step title="Set Sync Frequency">
+    Choose sync interval based on your environment:
+    - **Every 15 minutes**: For dynamic environments with frequent changes
+    - **Every 30 minutes**: Balanced approach (recommended)
+    - **Hourly**: For stable environments with fewer device changes
+  </Step>
+  
+  <Step title="Select Data to Sync">
+    Choose which device attributes to synchronize:
+    - ✅ Device inventory and specifications
+    - ✅ User assignments and locations
+    - ✅ Blueprint assignments and compliance
+    - ✅ Application inventory
+    - ✅ Device health and status
+    - ⚠️ Audit events (optional)
+  </Step>
+  
+  <Step title="Configure Alerts">
+    Set up notifications for:
+    - Sync failures and connection issues
+    - Compliance violations detected
+    - New devices discovered
+    - Integration performance issues
+  </Step>
+</Steps>
+
+## Data Synchronization
+
+### Kandji Data Mapping
+
+Kandji's modern approach to device management maps well to June's asset management:
+
+| Kandji Data | June Field | Description |
+|-------------|------------|-------------|
+| **Device Name** | Device Name | Primary device identifier |
+| **Serial Number** | Asset Tag | Unique hardware identifier |
+| **Model** | Hardware Model | Device model information |
+| **Blueprint** | Asset Category | Device configuration category |
+| **User Assignment** | Employee Assignment | Device ownership |
+| **Compliance Score** | Health Status | Overall device health |
+| **Installed Apps** | Software Inventory | Application tracking |
+| **Last Check-in** | Last Seen | Device connectivity status |
+
+### Blueprint Integration
+
+Kandji blueprints provide powerful device categorization:
+
+<AccordionGroup>
+  <Accordion title="Blueprint Categories">
+    - **Executive Devices**: High-privilege user configurations
+    - **General Staff**: Standard employee device setup
+    - **Developer Workstations**: Development-focused configurations
+    - **Shared Devices**: Kiosk and shared computer setups
+    - **BYOD Devices**: Bring-your-own-device configurations
+  </Accordion>
+  
+  <Accordion title="Blueprint Compliance">
+    - Overall blueprint compliance score
+    - Individual policy compliance status
+    - Configuration drift detection
+    - Remediation recommendations
+  </Accordion>
+  
+  <Accordion title="Custom Blueprints">
+    - Department-specific configurations
+    - Role-based device setups
+    - Security level classifications
+    - Geographic location variations
+  </Accordion>
+</AccordionGroup>
+
+## Advanced Features
+
+### Device Health Monitoring
+
+Kandji provides comprehensive device health data:
+
+#### Health Metrics
+- **System Health**: CPU, memory, and storage utilization
+- **Security Health**: FileVault status, Gatekeeper compliance
+- **Update Health**: macOS and application update status
+- **Policy Health**: Configuration profile compliance
+
+#### Health Scoring
+June translates Kandji's health data into actionable insights:
+- **Healthy (90-100%)**: Device fully compliant and optimized
+- **Warning (70-89%)**: Minor issues requiring attention
+- **Critical (Below 70%)**: Significant problems needing immediate action
+
+### Application Management
+
+<Steps>
+  <Step title="App Inventory Sync">
+    Sync comprehensive application data:
+    - Installed applications and versions
+    - Managed app deployment status
+    - License compliance information
+    - Security software status
+  </Step>
+  
+  <Step title="App Compliance Tracking">
+    Monitor application compliance:
+    - Required app installation status
+    - Prohibited software detection
+    - Version compliance tracking
+    - Security update status
+  </Step>
+  
+  <Step title="Custom App Categories">
+    Organize applications by:
+    - Business function (productivity, development, design)
+    - Security classification (approved, restricted, prohibited)
+    - License type (commercial, open source, internal)
+    - Department usage (IT, HR, Finance, etc.)
+  </Step>
+</Steps>
+
+### User and Location Management
+
+Kandji's user assignment features integrate seamlessly:
+
+- **User Profiles**: Sync user information and device assignments
+- **Location Tracking**: Map device locations to organizational structure
+- **Assignment History**: Track device ownership changes over time
+- **Departure Management**: Handle device reassignment during employee transitions
+
+## Troubleshooting
+
+### Common Authentication Issues
+
+<AccordionGroup>
+  <Accordion title="Invalid API Token">
+    **Symptoms**: "Authentication failed" or "Invalid token" errors
+    
+    **Solutions**:
+    - Verify the API token was copied correctly
+    - Check if the token has been revoked or expired
+    - Ensure sufficient permissions were granted to the token
+    - Generate a new token if needed
+  </Accordion>
+  
+  <Accordion title="Insufficient Permissions">
+    **Symptoms**: "Access denied" errors for specific operations
+    
+    **Solutions**:
+    - Review token permissions in Kandji settings
+    - Ensure all required permissions are enabled
+    - Check if permissions were modified after token creation
+    - Regenerate token with proper permissions
+  </Accordion>
+  
+  <Accordion title="Subdomain Issues">
+    **Symptoms**: "Tenant not found" or connection errors
+    
+    **Solutions**:
+    - Verify the Kandji subdomain is correct
+    - Check for typos in the subdomain field
+    - Ensure the Kandji tenant is active and accessible
+    - Test direct access to Kandji web interface
+  </Accordion>
+</AccordionGroup>
+
+### Sync Problems
+
+<AccordionGroup>
+  <Accordion title="Missing Devices">
+    **Possible Causes**:
+    - Devices not enrolled in Kandji
+    - Blueprint restrictions limiting visibility
+    - Recent enrollment not yet processed
+    - API permissions insufficient for device access
+    
+    **Solutions**:
+    - Verify device enrollment status in Kandji
+    - Check blueprint assignments and permissions
+    - Allow time for new enrollments to process
+    - Review API token permissions
+  </Accordion>
+  
+  <Accordion title="Outdated Compliance Data">
+    **Possible Causes**:
+    - Devices not checking in regularly
+    - Sync frequency too low for compliance needs
+    - Network connectivity issues
+    
+    **Solutions**:
+    - Force device check-in from Kandji console
+    - Increase sync frequency in June
+    - Check device network connectivity
+    - Review Kandji agent status on devices
+  </Accordion>
+  
+  <Accordion title="Performance Issues">
+    **Symptoms**: Slow syncs, timeouts, incomplete data transfers
+    
+    **Solutions**:
+    - Implement device filtering if large tenant
+    - Stagger sync schedules during off-peak hours
+    - Monitor Kandji API rate limits
+    - Consider breaking large environments into segments
+  </Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+### Security
+- **Token Management**: Regularly rotate API tokens (quarterly recommended)
+- **Least Privilege**: Grant only necessary permissions to integration tokens
+- **Access Monitoring**: Review API access logs in Kandji regularly
+- **Secure Storage**: Store tokens securely in June's encrypted storage
+
+### Performance  
+- **Optimal Sync Frequency**: Balance data freshness with API usage
+- **Smart Filtering**: Use device categories to optimize sync performance
+- **Peak Hours**: Schedule intensive syncs during low-usage periods
+- **Resource Monitoring**: Watch for API rate limiting and adjust accordingly
+
+### Compliance
+- **Regular Audits**: Periodically review integration permissions and access
+- **Change Documentation**: Document any changes to integration configuration
+- **Compliance Alerting**: Set up proactive alerts for compliance violations
+- **Blueprint Alignment**: Ensure Kandji blueprints align with organizational policies
+
+## Integration Benefits
+
+### Unified Management
+- **Single Pane of Glass**: View Kandji-managed devices alongside other platforms
+- **Consolidated Reporting**: Generate reports across multiple device management platforms  
+- **Streamlined Workflows**: Apply consistent processes across all Mac devices
+- **Simplified Administration**: Reduce context switching between management tools
+
+### Enhanced Insights
+- **Cross-Platform Analytics**: Compare Mac performance against other platforms
+- **Trend Analysis**: Identify patterns in Mac device health and usage
+- **Predictive Maintenance**: Use AI insights to predict Mac device issues
+- **Cost Optimization**: Optimize Mac refresh cycles based on actual usage data
+
+## Next Steps
+
+Once your Kandji integration is configured:
+
+<CardGroup cols={2}>
+  <Card title="Mac-Specific Views" href="/smart-search/creating-custom-views">
+    Create views specifically for Mac device management
+  </Card>
+  
+  <Card title="Blueprint Compliance" href="/security-compliance/security-policies">
+    Set up compliance monitoring for Kandji blueprint policies
+  </Card>
+  
+  <Card title="User Correlation" href="/integrations/okta">
+    Connect identity providers for complete user-device correlation
+  </Card>
+  
+  <Card title="Automated Workflows" href="/workflows/device-actions">
+    Set up automated actions based on Kandji device status
+  </Card>
+</CardGroup>
+
+## Support Resources
+
+Need help with your Kandji integration?
+
+- **Kandji Documentation**: Review Kandji API documentation and guides
+- **June Community**: Join discussions about Mac device management
+- **Integration Support**: Contact June support for integration-specific issues
+- **Best Practices**: Consult with June solutions engineers for optimization
+
+<Note>
+Kandji integration typically establishes connection within minutes. Large tenants may require additional time for initial device synchronization to complete.
+</Note>
+
+<Tip>
+Consider using Kandji's custom attributes feature to add organization-specific metadata that will sync to June custom fields.
+</Tip> 

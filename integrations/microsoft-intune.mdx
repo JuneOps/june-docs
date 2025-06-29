@@ -1,0 +1,438 @@
+---
+title: 'Microsoft Intune Integration'
+description: 'Complete integration guide for connecting Microsoft Intune with June'
+---
+
+Connect your Microsoft Intune environment with June for comprehensive device management across Windows, macOS, iOS, and Android devices.
+
+## What you'll accomplish
+- Register an Azure application for June
+- Configure Microsoft Graph API permissions
+- Set up the June integration
+- Understand cross-platform device synchronization
+
+## Prerequisites
+
+Before starting the integration, ensure you have:
+- Microsoft Entra ID with Intune licensing
+- Global Administrator or Intune Administrator role
+- Azure app registration permissions
+- June organization admin permissions
+
+## Setup Process
+
+### Step 1: Register Azure Application
+
+<Steps>
+  <Step title="Access Azure Portal">
+    1. Sign in to the [Azure portal](https://portal.azure.com)
+    2. Navigate to **Azure Active Directory**
+    3. Select **App registrations** from the left menu
+  </Step>
+  
+  <Step title="Create New Registration">
+    1. Click **New registration**
+    2. Enter application details:
+       - **Name**: "June Device Management"
+       - **Supported account types**: "Accounts in this organizational directory only"
+       - **Redirect URI**: Leave blank for now
+    3. Click **Register**
+  </Step>
+  
+  <Step title="Note Application Details">
+    From the app overview page, copy and save:
+    - **Application (client) ID**
+    - **Directory (tenant) ID**
+    - **Object ID**
+  </Step>
+</Steps>
+
+### Step 2: Configure API Permissions
+
+<Steps>
+  <Step title="Access API Permissions">
+    1. In your Azure app registration, go to **API permissions**
+    2. Click **Add a permission**
+    3. Select **Microsoft Graph**
+    4. Choose **Application permissions**
+  </Step>
+  
+  <Step title="Add Required Permissions">
+    Add the following Microsoft Graph permissions:
+    
+    **Device Management**:
+    - `DeviceManagementManagedDevices.Read.All`
+    - `DeviceManagementConfiguration.Read.All`
+    - `DeviceManagementApps.Read.All`
+    
+    **Directory**:
+    - `Device.Read.All`
+    - `User.Read.All`
+    - `Group.Read.All`
+    - `Organization.Read.All`
+  </Step>
+  
+  <Step title="Grant Admin Consent">
+    1. Click **Grant admin consent for [your organization]**
+    2. Confirm the consent in the dialog
+    3. Verify all permissions show "Granted" status
+  </Step>
+</Steps>
+
+### Step 3: Create Client Secret
+
+<Steps>
+  <Step title="Access Certificates & Secrets">
+    1. Go to **Certificates & secrets** in your app registration
+    2. Click **New client secret**
+  </Step>
+  
+  <Step title="Configure Secret">
+    1. Enter a description: "June Integration Secret"
+    2. Choose expiration period (24 months recommended)
+    3. Click **Add**
+  </Step>
+  
+  <Step title="Copy Secret Value">
+    1. **Immediately** copy the secret **Value** (not the Secret ID)
+    2. Store it securely - you won't be able to see it again
+    3. Note the expiration date for future renewal
+  </Step>
+</Steps>
+
+### Step 4: Configure June Integration
+
+<Steps>
+  <Step title="Access June Integrations">
+    1. Log into June
+    2. Navigate to **Integrations > MDM Systems**
+    3. Click **Add Integration**
+  </Step>
+  
+  <Step title="Select Microsoft Intune">
+    1. Choose "Microsoft Entra ID (Intune)" from available integrations
+    2. Click **Configure** to start setup
+  </Step>
+  
+  <Step title="Enter Azure Details">
+    Provide the information from your Azure app registration:
+    - **Tenant ID**: Directory (tenant) ID from Step 1
+    - **Client ID**: Application (client) ID from Step 1  
+    - **Client Secret**: Secret value from Step 3
+    - **Integration Name**: Friendly name (optional)
+  </Step>
+  
+  <Step title="Complete OAuth Flow">
+    1. Click **Authenticate** to start OAuth flow
+    2. Sign in with your Azure administrator account
+    3. Grant consent for the requested permissions
+    4. Verify successful authentication
+  </Step>
+</Steps>
+
+### Step 5: Configure Sync Settings
+
+<Steps>
+  <Step title="Choose Device Types">
+    Select which device platforms to sync:
+    - ✅ Windows 10/11 devices
+    - ✅ macOS devices  
+    - ✅ iOS/iPadOS devices
+    - ✅ Android devices
+  </Step>
+  
+  <Step title="Set Sync Frequency">
+    Choose sync interval based on your environment:
+    - **Every 15 minutes**: For dynamic environments
+    - **Every 30 minutes**: Balanced approach (recommended)
+    - **Hourly**: For stable environments with fewer changes
+  </Step>
+  
+  <Step title="Configure Data Scope">
+    Select what data to synchronize:
+    - Device inventory and specifications
+    - Compliance policy status
+    - App installation status
+    - User assignments
+    - Device health and encryption status
+  </Step>
+</Steps>
+
+## Data Synchronization
+
+### Supported Device Types
+
+| Platform | Device Types | Key Data Synced |
+|----------|-------------|-----------------|
+| **Windows** | Desktops, Laptops, Tablets | Hardware specs, compliance status, installed apps |
+| **macOS** | MacBooks, iMacs, Mac minis | System info, security settings, application inventory |
+| **iOS/iPadOS** | iPhones, iPads | Device model, OS version, app compliance |
+| **Android** | Phones, Tablets | Device info, work profile status, managed apps |
+
+### Intune-Specific Features
+
+<AccordionGroup>
+  <Accordion title="Compliance Policy Status">
+    - Overall device compliance score
+    - Specific policy violations
+    - Remediation recommendations
+    - Compliance trend analysis
+  </Accordion>
+  
+  <Accordion title="App Protection Policies">
+    - Managed app installation status
+    - App protection policy compliance
+    - Data protection status
+    - App usage analytics
+  </Accordion>
+  
+  <Accordion title="Device Encryption">
+    - BitLocker status (Windows)
+    - FileVault status (macOS)
+    - Device encryption compliance
+    - Key recovery information availability
+  </Accordion>
+  
+  <Accordion title="Conditional Access">
+    - Device registration status
+    - Azure AD join status
+    - Conditional access policy compliance
+    - Authentication methods enrolled
+  </Accordion>
+</AccordionGroup>
+
+## Advanced Configuration
+
+### Device Filtering
+
+Configure filters to sync specific device sets:
+
+<Steps>
+  <Step title="Platform Filtering">
+    Choose specific platforms or versions:
+    - Windows 10 version 1909 and later
+    - macOS 11.0 (Big Sur) and later
+    - iOS 14.0 and later
+    - Android 8.0 and later
+  </Step>
+  
+  <Step title="Compliance Filtering">
+    Sync based on compliance status:
+    - Compliant devices only
+    - Non-compliant devices for remediation
+    - All devices regardless of status
+  </Step>
+  
+  <Step title="User/Group Filtering">
+    Filter by user assignments or Azure AD groups:
+    - Specific Azure AD security groups
+    - Department-based groups
+    - Location-based assignments
+  </Step>
+</Steps>
+
+### Custom Attribute Mapping
+
+Map Intune device properties to June custom fields:
+
+| Intune Property | June Custom Field | Description |
+|----------------|-------------------|-------------|
+| `purchaseOrderIdentifier` | Purchase Order | Asset purchase tracking |
+| `notes` | Device Notes | Administrative notes |
+| `deviceCategory` | Asset Category | Device categorization |
+| `enrollmentType` | Enrollment Method | How device was enrolled |
+
+## Remote Device Actions
+
+June can trigger remote actions through Intune:
+
+### Available Actions
+
+<CardGroup cols={2}>
+  <Card title="Device Management">
+    - Restart device
+    - Shutdown device
+    - Lock device
+    - Reset passcode
+  </Card>
+  
+  <Card title="Security Actions">
+    - Remote wipe
+    - Retire device
+    - Fresh start (Windows)
+    - Lost mode (iOS)
+  </Card>
+  
+  <Card title="Compliance Actions">
+    - Sync device
+    - Check compliance
+    - Update policies
+    - Refresh certificates
+  </Card>
+  
+  <Card title="Information Gathering">
+    - Collect diagnostics
+    - Get BitLocker keys
+    - Hardware inventory
+    - Installed app scan
+  </Card>
+</CardGroup>
+
+### Configuring Remote Actions
+
+<Steps>
+  <Step title="Enable Remote Actions">
+    In June integration settings, enable remote action capabilities
+  </Step>
+  
+  <Step title="Set Permissions">
+    Configure which users can perform remote actions:
+    - IT Administrators: All actions
+    - IT Technicians: Basic management actions
+    - Department Managers: Limited actions for their devices
+  </Step>
+  
+  <Step title="Configure Approval Workflows">
+    Set up approval requirements for sensitive actions:
+    - Device wipe: Requires manager approval
+    - Data collection: IT admin approval
+    - Basic actions: No approval needed
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+### Authentication Issues
+
+<AccordionGroup>
+  <Accordion title="Invalid Client Credentials">
+    **Symptoms**: "Invalid client" or "Authentication failed" errors
+    
+    **Solutions**:
+    - Verify Tenant ID, Client ID, and Client Secret are correct
+    - Check if client secret has expired
+    - Ensure app registration is in the correct tenant
+    - Confirm admin consent was granted
+  </Accordion>
+  
+  <Accordion title="Insufficient Permissions">
+    **Symptoms**: "Access denied" or "Forbidden" errors when syncing
+    
+    **Solutions**:
+    - Review API permissions in Azure app registration
+    - Ensure admin consent was granted for all permissions
+    - Check if permissions were accidentally removed
+    - Verify the user granting consent had sufficient privileges
+  </Accordion>
+  
+  <Accordion title="Tenant Access Issues">
+    **Symptoms**: "Tenant not found" or "Invalid tenant" errors
+    
+    **Solutions**:
+    - Confirm Tenant ID is correct (check Azure portal)
+    - Verify app registration exists in the correct tenant
+    - Check if tenant has appropriate licensing
+    - Ensure network connectivity to Azure endpoints
+  </Accordion>
+</AccordionGroup>
+
+### Sync Problems
+
+<AccordionGroup>
+  <Accordion title="Missing Devices">
+    **Possible Causes**:
+    - Devices not enrolled in Intune
+    - Insufficient permissions to access device data
+    - Device filtering excluding expected devices
+    - Conditional access blocking access
+    
+    **Solutions**:
+    - Verify device enrollment status in Intune portal
+    - Check API permissions include all required scopes
+    - Review device filters in June integration settings
+    - Confirm devices meet sync criteria
+  </Accordion>
+  
+  <Accordion title="Outdated Device Information">
+    **Possible Causes**:
+    - Devices not syncing with Intune regularly
+    - Long sync intervals in June
+    - Network connectivity issues
+    
+    **Solutions**:
+    - Force device sync in Intune portal
+    - Reduce sync frequency in June
+    - Check device connectivity and management status
+    - Review Intune device compliance policies
+  </Accordion>
+  
+  <Accordion title="Performance Issues">
+    **Symptoms**: Slow syncs, API throttling, timeouts
+    
+    **Solutions**:
+    - Implement device filtering to reduce data volume
+    - Stagger sync schedules during off-peak hours
+    - Monitor Microsoft Graph API throttling limits
+    - Consider breaking large tenants into multiple integrations
+  </Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+### Security
+- **Certificate-Based Authentication**: Consider using certificates instead of client secrets for enhanced security
+- **Secret Rotation**: Regularly rotate client secrets before expiration
+- **Least Privilege**: Grant only necessary API permissions
+- **Conditional Access**: Apply appropriate conditional access policies
+
+### Performance
+- **Smart Filtering**: Use device and user filters to optimize sync performance
+- **Batch Processing**: Allow June to batch API requests for efficiency
+- **Off-Peak Syncing**: Schedule intensive operations during low-usage periods
+- **Monitor Throttling**: Watch for Microsoft Graph API rate limits
+
+### Compliance
+- **Regular Audits**: Periodically review app permissions and access
+- **Change Management**: Document any changes to the integration configuration
+- **Compliance Monitoring**: Set up alerts for compliance policy violations
+- **Data Retention**: Understand data retention policies for synced information
+
+## Microsoft Graph API Limits
+
+Be aware of Microsoft Graph throttling limits:
+
+| Resource Type | Throttle Limits | Best Practices |
+|--------------|----------------|----------------|
+| **Device queries** | 1000 requests/10 minutes | Use filtering and paging |
+| **User queries** | 3000 requests/5 minutes | Batch requests when possible |
+| **Application data** | 600 requests/20 seconds | Implement retry logic |
+
+## Next Steps
+
+Once your Intune integration is configured:
+
+<CardGroup cols={2}>
+  <Card title="Conditional Access" href="/security-compliance/access-control">
+    Set up conditional access policies based on device compliance
+  </Card>
+  
+  <Card title="Cross-Platform Views" href="/smart-search/creating-custom-views">
+    Create views that span across different device platforms
+  </Card>
+  
+  <Card title="Compliance Reporting" href="/reporting/standard-reports">
+    Generate compliance reports across your entire device fleet
+  </Card>
+  
+  <Card title="Automated Workflows" href="/workflows/device-actions">
+    Set up automated remediation based on compliance status
+  </Card>
+</CardGroup>
+
+<Warning>
+Client secrets expire and must be renewed. Set calendar reminders to rotate secrets before expiration to avoid integration disruption.
+</Warning>
+
+<Note>
+Intune integration supports all major device platforms. Sync frequency and data availability may vary by platform and enrollment type.
+</Note> 

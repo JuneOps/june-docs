@@ -1,0 +1,247 @@
+---
+title: 'Quick Start Guide'
+description: 'Get up and running with June in minutes'
+---
+
+Welcome to June! This guide will help you connect your systems and start managing your device fleet in under 15 minutes.
+
+## What you'll accomplish
+- Connect your MDM system to import device data
+- Set up identity provider integration for user management
+- View your complete asset inventory
+- Understand your device health at a glance
+
+## Step 1: Initial Setup
+
+<Steps>
+  <Step title="Access June">
+    Navigate to your June instance and log in with your administrator credentials.
+  </Step>
+  
+  <Step title="Complete Profile Setup">
+    Fill out your profile information and set your preferences for notifications and time zones.
+  </Step>
+</Steps>
+
+## Step 2: Connect Your MDM System
+
+The first essential step is connecting your MDM system to import all your device data.
+
+<Steps>
+  <Step title="Navigate to Integrations">
+    Go to **Integrations > MDM Systems** from the main navigation.
+  </Step>
+  
+  <Step title="Choose Your MDM Provider">
+    Select your MDM system from the available options:
+    
+    <CardGroup cols={2}>
+      <Card href="/integrations/jamf-pro">
+        <div className="flex flex-row gap-2 mb-2"> 
+          <img src="/images/jamf_logo.png" alt="Jamf Pro" width={25} height={25} />
+          <span className="text-base font-bold text-white">Jamf Pro</span>
+        </div>
+        Complete integration guide for Mac device management with Jamf Pro
+      </Card>
+
+      <Card href="/integrations/microsoft-intune">
+        <div className="flex flex-row gap-2 mb-2"> 
+          <img src="/images/ms_entra_id_logo.png" alt="Microsoft Intune" width={25} height={25} />
+          <span className="text-base font-bold text-white">Microsoft Intune</span>
+        </div>
+        Cross-platform device management with Microsoft Intune
+      </Card>
+
+      <Card href="/integrations/kandji">
+        <div className="flex flex-row gap-2 mb-2">
+          <div className="bg-white rounded-md p-1">
+            <img src="/images/kandji_bee_dark.png" alt="Kandji" width={25} height={25} />
+          </div>
+          <div className="text-base font-bold text-white">Kandji</div>
+        </div>
+        Modern Mac management platform integration
+      </Card>
+    </CardGroup>
+  </Step>
+  
+  <Step title="Follow Integration Guide">
+    Click on your MDM provider and follow the detailed setup instructions. Each integration typically requires:
+    - API credentials or tokens from your MDM system
+    - Appropriate permissions for data access
+    - Testing the connection
+  </Step>
+  
+  <Step title="Verify Data Sync">
+    Once connected, June will begin importing your device data. This typically takes 5-15 minutes for the initial sync.
+    
+    <Check>
+    You'll see devices appearing in your dashboard as the sync progresses.
+    </Check>
+  </Step>
+</Steps>
+
+## Step 3: Set Up Identity Provider Integration
+
+Connect your identity provider for seamless user management and single sign-on.
+
+<Steps>
+  <Step title="Access Identity Integrations">
+    Navigate to **Integrations > Identity Providers** from the main menu.
+  </Step>
+  
+  <Step title="Select Your Identity Provider">
+    Choose your organization's identity provider:
+    
+    <CardGroup cols={2}>
+      <Card href="/integrations/okta">
+        <div className="flex flex-row gap-2 mb-2"> 
+          <div className="bg-white rounded-md">
+            <img src="/images/okta_logo.png" alt="Okta" width={25} height={25} />
+          </div>
+          <span className="text-base font-bold text-white">Okta</span>
+        </div>
+        Okta Enterprise identity management
+      </Card>
+
+      <Card href="/integrations/google-workspace">
+        <div className="flex flex-row gap-2 mb-2"> 
+          <img src="/images/google_logo.png" alt="Google Workspace" width={25} height={25} />
+          <span className="text-base font-bold text-white">Google Workspace</span>
+        </div>
+        Google's identity suite
+      </Card>
+
+      <Card href="/integrations/microsoft-entra-id">
+        <div className="flex flex-row gap-2 mb-2"> 
+          <img src="/images/ms_entra_id_logo.png" alt="Microsoft Entra ID" width={25} height={25} />
+          <span className="text-base font-bold text-white">Microsoft Entra ID</span>
+        </div>
+        Microsoft Entra ID
+      </Card>
+    </CardGroup>
+  </Step>
+  
+  <Step title="Configure SSO and Provisioning">
+    Follow the provider-specific guide to set up:
+    - SAML single sign-on configuration
+    - User provisioning (SCIM) if available
+    - Group and role mapping
+  </Step>
+  
+  <Step title="Test Authentication">
+    Test the integration with a pilot user to ensure:
+    - SSO login works correctly
+    - User attributes are mapped properly
+    - Role assignments are applied
+  </Step>
+</Steps>
+
+## Step 4: View Your Asset Inventory
+
+Now that your systems are connected, explore your complete device inventory.
+
+<Steps>
+  <Step title="Access Your Dashboard">
+    Return to the main dashboard to see your device overview with real data from your MDM system.
+  </Step>
+  
+  <Step title="Explore Asset Categories">
+    Review the different device categories automatically discovered:
+    - **Laptops**: MacBooks, Windows laptops, Chromebooks
+    - **Desktops**: iMacs, Windows PCs, workstations
+    - **Mobile Devices**: iPhones, iPads, Android devices
+    - **Specialized Equipment**: Monitors, accessories, and other IT assets
+  </Step>
+  
+  <Step title="Check Device Health">
+    June automatically analyzes your device fleet to show:
+    - **Health Status**: Overall device condition and performance
+    - **Compliance**: Policy adherence and security posture
+    - **Update Status**: Operating system and application updates
+    - **Usage Patterns**: Device utilization and performance metrics
+  </Step>
+  
+  <Step title="Try Smart Search">
+    Use June's natural language search to find specific devices:
+    - "Show me all MacBooks that need updates"
+    - "Find devices assigned to the Sales team"
+    - "List all Windows laptops with low battery health"
+    
+    <Tip>
+    Save frequently used searches as custom views for quick access later.
+    </Tip>
+  </Step>
+</Steps>
+
+## Step 5: Explore AI Insights
+
+June's AI analyzes your device data to provide actionable insights.
+
+<Steps>
+  <Step title="Review AI Recommendations">
+    Navigate to **AI Features > AI Insights** to see:
+    - Devices at risk of hardware failure
+    - Optimization opportunities for better performance
+    - Security recommendations and compliance gaps
+    - Cost-saving suggestions for device refresh cycles
+  </Step>
+  
+  <Step title="Set Up Automated Alerts">
+    Configure notifications for:
+    - Critical device health issues
+    - Compliance violations
+    - Upcoming refresh recommendations
+    - Security alerts requiring attention
+  </Step>
+</Steps>
+
+## Next Steps
+
+You're now ready to leverage June's full capabilities:
+
+<CardGroup cols={2}>
+  <Card title="Organization Setup" href="/getting-started/organization-setup">
+    Add team members, configure roles, and set up department structure
+  </Card>
+  
+  <Card title="Advanced Search" href="/smart-search">
+    Master June's intelligent search and filtering capabilities
+  </Card>
+  
+  <Card title="Asset Lifecycle" href="/asset-lifecycle">
+    Set up refresh policies and lifecycle management workflows
+  </Card>
+  
+  <Card title="Reporting & Analytics" href="/reporting">
+    Create custom reports and dashboards for stakeholders
+  </Card>
+</CardGroup>
+
+## Need Help?
+
+<AccordionGroup>
+  <Accordion title="Integration Issues">
+    If you're having trouble connecting your MDM or identity provider:
+    - Verify your API credentials and permissions
+    - Check our [troubleshooting guide](/troubleshooting/integration-issues)
+    - Contact support with your specific error messages
+  </Accordion>
+  
+  <Accordion title="No Devices Showing">
+    If devices aren't appearing after MDM integration:
+    - Wait 15-30 minutes for initial sync to complete
+    - Verify your MDM system has devices enrolled
+    - Check the integration sync status in Settings
+  </Accordion>
+  
+  <Accordion title="User Access Issues">
+    If team members can't access June:
+    - Ensure SSO is properly configured
+    - Verify user groups are mapped to appropriate roles
+    - Check user provisioning settings in your identity provider
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+Complete setup typically takes 15-30 minutes. Once your integrations are running, June will continuously sync data and provide real-time insights into your device fleet.
+</Note> 

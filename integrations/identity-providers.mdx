@@ -1,0 +1,277 @@
+---
+title: 'Identity Provider Integrations Overview'
+description: 'Connect your identity provider with June for seamless user management and single sign-on'
+---
+
+Connect June with your identity provider to enable single sign-on (SSO), automated user provisioning, and seamless user lifecycle management.
+
+## Supported Identity Providers
+
+<CardGroup cols={2}>
+  <Card title="Okta" icon="key" href="/integrations/okta">
+    Complete Okta integration with SSO and SCIM provisioning
+  </Card>
+  
+  <Card title="Google Workspace" icon="google" href="/integrations/google-workspace">
+    Sync users and groups from Google Workspace
+  </Card>
+  
+  <Card title="Microsoft Entra ID" icon="microsoft" href="/integrations/microsoft-entra-id">
+    Azure AD integration for enterprise user management
+  </Card>
+  
+  <Card title="SAML/SCIM Generic" icon="shield-halved" href="/integrations/saml-scim">
+    Generic SAML and SCIM integrations for other providers
+  </Card>
+</CardGroup>
+
+## Integration Benefits
+
+### Single Sign-On (SSO)
+- **Seamless Login**: Users access June with their existing credentials
+- **Reduced Password Fatigue**: Eliminate separate June passwords
+- **Enhanced Security**: Leverage your IdP's security features
+- **Compliance**: Meet enterprise authentication requirements
+
+### Automated User Management
+- **User Provisioning**: Automatically create June accounts
+- **Attribute Sync**: Keep user information up-to-date
+- **Role Assignment**: Map IdP groups to June roles
+- **Deprovisioning**: Disable access when users leave
+
+### Enhanced Security
+- **Multi-Factor Authentication**: Leverage existing MFA policies
+- **Conditional Access**: Apply context-aware access controls
+- **Audit Trail**: Comprehensive logging of authentication events
+- **Risk-Based Authentication**: Adaptive security based on user behavior
+
+## Quick Start Guide
+
+### 1. Choose Your Identity Provider
+
+Select your organization's primary identity provider:
+
+<Steps>
+  <Step title="Enterprise Identity Providers">
+    - **Okta**: Comprehensive identity management platform
+    - **Microsoft Entra ID**: Azure Active Directory for enterprise
+    - **Google Workspace**: Google's identity and productivity suite
+  </Step>
+  
+  <Step title="Generic Standards">
+    - **SAML 2.0**: Industry standard for SSO
+    - **SCIM 2.0**: Standard for user provisioning
+    - **Custom Integration**: API-based integration for other providers
+  </Step>
+</Steps>
+
+### 2. Prepare Integration Requirements
+
+All identity provider integrations require:
+
+- **Administrative Access**: Admin privileges in your IdP
+- **June Admin Rights**: Organization admin permissions in June
+- **User Attributes**: Understanding of user data structure
+- **Group Structure**: Knowledge of existing groups and roles
+
+### 3. Follow Provider-Specific Guide
+
+Click on your identity provider above for detailed instructions including:
+- SSO configuration steps
+- User provisioning setup (SCIM)
+- Group and role mapping
+- Testing and troubleshooting
+
+## Common Integration Features
+
+### User Attributes
+
+Standard attributes synced across all providers:
+
+| Attribute | Description | Required |
+|-----------|-------------|----------|
+| **Email** | Primary identifier and login | Yes |
+| **First Name** | User's given name | Yes |
+| **Last Name** | User's family name | Yes |
+| **Department** | Organizational department | No |
+| **Job Title** | User's role/position | No |
+| **Manager** | Reporting relationship | No |
+| **Employee ID** | Unique employee identifier | No |
+
+### Role Mapping
+
+Map IdP groups to June roles:
+
+<AccordionGroup>
+  <Accordion title="Administrative Roles">
+    - **Organization Admin**: Full system access
+    - **IT Manager**: Device management and reporting
+    - **IT Technician**: Basic device operations
+  </Accordion>
+  
+  <Accordion title="Business Roles">
+    - **Department Manager**: Department-specific access
+    - **Team Lead**: Team device oversight
+    - **End User**: Personal device access only
+  </Accordion>
+  
+  <Accordion title="Custom Roles">
+    - **Compliance Officer**: Audit and compliance access
+    - **Finance Manager**: Cost and budget reporting
+    - **Security Analyst**: Security monitoring access
+  </Accordion>
+</AccordionGroup>
+
+### Provisioning Actions
+
+Supported SCIM operations:
+
+- **Create**: Automatically create new user accounts
+- **Read**: Retrieve user information and status
+- **Update**: Sync changes to user attributes
+- **Delete/Deactivate**: Disable access for departing users
+
+## Authentication Methods
+
+### SAML 2.0 SSO
+
+Benefits of SAML integration:
+- **Industry Standard**: Widely supported protocol
+- **Secure**: Cryptographically signed assertions
+- **Flexible**: Supports various authentication flows
+- **Metadata Exchange**: Simplified configuration
+
+### OAuth/OpenID Connect
+
+Modern authentication features:
+- **API Access**: Secure API authentication
+- **Token-Based**: Stateless authentication tokens
+- **Scope Control**: Granular permission management
+- **Refresh Tokens**: Long-lived authentication sessions
+
+### Directory Sync
+
+Direct directory integration:
+- **LDAP/Active Directory**: Traditional directory services
+- **API Integration**: Modern REST API connections
+- **Real-Time Sync**: Immediate user updates
+- **Batch Processing**: Efficient bulk operations
+
+## Best Practices
+
+### Security
+- **Principle of Least Privilege**: Grant minimum required access
+- **Regular Audits**: Review user access and permissions periodically
+- **MFA Enforcement**: Require multi-factor authentication
+- **Session Management**: Configure appropriate session timeouts
+
+### User Management
+- **Consistent Naming**: Use standard naming conventions for groups
+- **Automated Lifecycle**: Leverage SCIM for user provisioning
+- **Department Alignment**: Align access with organizational structure
+- **Regular Cleanup**: Remove unused accounts and permissions
+
+### Integration Health
+- **Monitor Sync Status**: Track provisioning success rates
+- **Certificate Management**: Monitor SAML certificate expiration
+- **Error Handling**: Set up alerts for authentication failures
+- **Performance Monitoring**: Track login times and user experience
+
+## User Lifecycle Management
+
+### Onboarding
+1. **User Created**: New user added to identity provider
+2. **Automatic Provisioning**: June account created via SCIM
+3. **Role Assignment**: Groups mapped to appropriate June roles
+4. **Device Assignment**: Devices allocated based on department/role
+5. **Access Verification**: User can log in and access assigned resources
+
+### Updates
+1. **Attribute Changes**: Department, role, or manager updates
+2. **Automatic Sync**: Changes propagated to June
+3. **Permission Updates**: Access adjusted based on new attributes
+4. **Device Reassignment**: Device access updated if needed
+
+### Offboarding
+1. **User Deactivated**: Account disabled in identity provider
+2. **Automatic Deprovisioning**: June access immediately disabled
+3. **Device Recovery**: Devices marked for recovery
+4. **Data Security**: Ensure secure handling of departing user data
+
+## Troubleshooting
+
+### Common Authentication Issues
+
+<AccordionGroup>
+  <Accordion title="SSO Login Failures">
+    - Verify SAML configuration and metadata
+    - Check certificate validity and signing
+    - Ensure user is assigned to June application
+    - Review attribute mapping requirements
+  </Accordion>
+  
+  <Accordion title="User Provisioning Problems">
+    - Verify SCIM endpoint and authentication
+    - Check required user attributes are present
+    - Review API rate limits and quotas
+    - Validate user attribute mappings
+  </Accordion>
+  
+  <Accordion title="Permission Issues">
+    - Check group membership and role mappings
+    - Verify June role configuration
+    - Review department-based access rules
+    - Test with different user profiles
+  </Accordion>
+</AccordionGroup>
+
+### Getting Help
+
+- **Provider-Specific Guides**: Detailed troubleshooting in individual guides
+- **June Support**: Contact support for integration assistance
+- **Community Resources**: Join user forums and discussions
+- **Professional Services**: Expert help for complex configurations
+
+## Compliance and Auditing
+
+### Audit Trail
+- **Authentication Events**: Track all login attempts and outcomes
+- **Provisioning Activity**: Log user creation, updates, and deletions
+- **Permission Changes**: Record role and access modifications
+- **Integration Health**: Monitor sync status and errors
+
+### Compliance Features
+- **SOC 2 Compliance**: Meet security and availability requirements
+- **GDPR Support**: Handle user data according to privacy regulations
+- **Industry Standards**: Support for healthcare, finance, and other regulated industries
+- **Data Retention**: Configurable retention policies for audit data
+
+## Next Steps
+
+After setting up your identity provider integration:
+
+<CardGroup cols={2}>
+  <Card title="MDM Integration" href="/integrations/mdm-integrations">
+    Connect your device management systems for complete user-device correlation
+  </Card>
+  
+  <Card title="Employee Onboarding" href="/employee-management/employee-onboarding">
+    Set up automated device assignment and onboarding workflows
+  </Card>
+  
+  <Card title="Access Control" href="/security-compliance/access-control">
+    Configure advanced access controls and security policies
+  </Card>
+  
+  <Card title="Reporting" href="/reporting/standard-reports">
+    Generate reports that include user and authentication data
+  </Card>
+</CardGroup>
+
+<Warning>
+Test all identity provider changes in a development environment before applying to production to avoid user access disruptions.
+</Warning>
+
+<Note>
+Identity provider integrations typically sync user data within 15 minutes. Large user bases may require additional time for initial synchronization.
+</Note> 

@@ -1,0 +1,495 @@
+---
+title: 'Google Workspace Integration'
+description: 'Complete integration guide for connecting Google Workspace with June for SSO and user provisioning'
+---
+
+Connect June with Google Workspace to enable single sign-on (SSO) and automated user provisioning for seamless identity management across your organization.
+
+## What you'll accomplish
+- Configure SAML SSO with Google Workspace
+- Set up user provisioning via Google Directory API
+- Map Google Groups to June roles
+- Automate user lifecycle management
+
+## Prerequisites
+
+Before starting the integration, ensure you have:
+- Google Workspace Super Admin access
+- June organization admin permissions
+- Google Cloud Console project access
+- Understanding of your organization's group structure in Google Workspace
+
+## SAML SSO Configuration
+
+### Step 1: Create SAML Application in Google Workspace
+
+<Steps>
+  <Step title="Access Google Admin Console">
+    1. Sign in to the [Google Admin Console](https://admin.google.com)
+    2. Navigate to **Apps > Web and mobile apps**
+    3. Click **Add app > Add custom SAML app**
+  </Step>
+  
+  <Step title="Configure App Details">
+    1. Enter app name: "June"
+    2. Upload June logo (optional)
+    3. Enter description: "June Device Management Platform"
+    4. Click **Continue**
+  </Step>
+  
+  <Step title="Download Google IdP Information">
+    1. Download the **IDP metadata** file
+    2. Copy the **SSO URL** and **Entity ID** for reference
+    3. Note the **Certificate** information
+    4. Click **Continue**
+  </Step>
+  
+  <Step title="Configure Service Provider Details">
+    Enter the following SAML configuration:
+    
+    **ACS URL**: `https://yourdomain.june.com/auth/saml/callback`
+    **Entity ID**: `https://yourdomain.june.com`
+    **Start URL**: `https://yourdomain.june.com/auth/saml` (optional)
+    **Name ID Format**: EMAIL
+    **Name ID**: Basic Information > Primary email
+  </Step>
+  
+  <Step title="Configure Attribute Mapping">
+    Add the following attribute mappings:
+    
+    | Google Directory Attribute | App Attribute |
+    |---------------------------|---------------|
+    | Basic Information > First name | `firstName` |
+    | Basic Information > Last name | `lastName` |
+    | Basic Information > Primary email | `email` |
+    | Basic Information > Department | `department` |
+    | Basic Information > Job title | `title` |
+  </Step>
+</Steps>
+
+### Step 2: Configure June SSO Settings
+
+<Steps>
+  <Step title="Access June SSO Settings">
+    1. Log into June
+    2. Navigate to **Administration > SSO Settings**
+    3. Click **Configure SAML**
+  </Step>
+  
+  <Step title="Upload Google Metadata">
+    1. Upload the metadata XML file downloaded from Google
+    2. Verify the configuration details are populated correctly
+    3. Test the SAML configuration
+  </Step>
+  
+  <Step title="Enable SSO">
+    1. Enable SAML authentication
+    2. Configure fallback authentication if desired
+    3. Save the configuration
+  </Step>
+  
+  <Step title="Test SSO">
+    1. Test login with a pilot user account
+    2. Verify user attributes are mapped correctly
+    3. Confirm role assignments work as expected
+  </Step>
+</Steps>
+
+### Step 3: Configure User Access
+
+<Steps>
+  <Step title="Assign Users to June App">
+    1. In Google Admin Console, go to **Apps > Web and mobile apps**
+    2. Click on the June application
+    3. Go to **User access**
+    4. Turn on access for specific organizational units or groups
+  </Step>
+  
+  <Step title="Configure Service Status">
+    1. Choose **ON for everyone** or **ON for some organizations**
+    2. If using organizational units, select the appropriate OUs
+    3. Click **Save**
+  </Step>
+</Steps>
+
+## User Provisioning with Google Directory API
+
+### Step 1: Set Up Google Cloud Project
+
+<Steps>
+  <Step title="Create or Select Cloud Project">
+    1. Go to [Google Cloud Console](https://console.cloud.google.com)
+    2. Create a new project or select an existing one
+    3. Note the project ID for later use
+  </Step>
+  
+  <Step title="Enable Directory API">
+    1. Navigate to **APIs & Services > Library**
+    2. Search for "Admin SDK API"
+    3. Click **Enable** to activate the API
+  </Step>
+  
+  <Step title="Create Service Account">
+    1. Go to **APIs & Services > Credentials**
+    2. Click **Create Credentials > Service Account**
+    3. Enter details:
+       - **Name**: "June Integration Service Account"
+       - **ID**: `june-integration`
+       - **Description**: "Service account for June user provisioning"
+    4. Click **Create and Continue**
+  </Step>
+  
+  <Step title="Generate Service Account Key">
+    1. Click on the created service account
+    2. Go to **Keys** tab
+    3. Click **Add Key > Create new key**
+    4. Select **JSON** format
+    5. Download and securely store the key file
+  </Step>
+</Steps>
+
+### Step 2: Configure Domain-Wide Delegation
+
+<Steps>
+  <Step title="Enable Domain-Wide Delegation">
+    1. In the service account settings, check **Enable Google Workspace Domain-wide Delegation**
+    2. Note the **Client ID** (numeric ID)
+    3. Save the service account
+  </Step>
+  
+  <Step title="Authorize API Scopes">
+    1. In Google Admin Console, go to **Security > API Controls**
+    2. Click **Domain-wide Delegation**
+    3. Click **Add new**
+    4. Enter the service account **Client ID**
+    5. Add the following OAuth scopes:
+       - `https://www.googleapis.com/auth/admin.directory.user.readonly`
+       - `https://www.googleapis.com/auth/admin.directory.group.readonly`
+       - `https://www.googleapis.com/auth/admin.directory.orgunit.readonly`
+    6. Click **Authorize**
+  </Step>
+</Steps>
+
+### Step 3: Configure June Integration
+
+<Steps>
+  <Step title="Access June User Provisioning">
+    1. In June, navigate to **Administration > User Provisioning**
+    2. Click **Configure Google Workspace**
+    3. Select **Google Directory API** integration
+  </Step>
+  
+  <Step title="Upload Service Account Key">
+    1. Upload the JSON key file downloaded from Google Cloud
+    2. Enter your Google Workspace domain (e.g., `yourcompany.com`)
+    3. Enter a delegated admin email address
+  </Step>
+  
+  <Step title="Test Connection">
+    1. Click **Test Connection** to verify the setup
+    2. June will attempt to read user data from Google Directory
+    3. Resolve any permission issues before proceeding
+  </Step>
+  
+  <Step title="Configure Sync Settings">
+    1. Set sync frequency (recommended: every 30 minutes)
+    2. Choose organizational units to sync
+    3. Configure user attribute mappings
+    4. Set up group-based role assignments
+  </Step>
+</Steps>
+
+## Group and Role Mapping
+
+### Google Groups Structure
+
+Create dedicated Google Groups for June access:
+
+| Google Group | June Role | Access Level |
+|--------------|-----------|--------------|
+| `june-admins@yourcompany.com` | Organization Admin | Full administrative access |
+| `june-it-managers@yourcompany.com` | IT Manager | Device management and reporting |
+| `june-it-technicians@yourcompany.com` | IT Technician | Basic device management tasks |
+| `june-dept-managers@yourcompany.com` | Department Manager | Department-specific device access |
+| `june-users@yourcompany.com` | End User | View assigned devices only |
+
+### Advanced Group Mapping
+
+<Steps>
+  <Step title="Department-Based Access">
+    Create groups for department-specific access:
+    - `june-engineering@yourcompany.com`: Access to engineering devices
+    - `june-sales@yourcompany.com`: Access to sales team devices
+    - `june-finance@yourcompany.com`: Access to finance department devices
+  </Step>
+  
+  <Step title="Location-Based Access">
+    Set up location-based groups:
+    - `june-sf-office@yourcompany.com`: San Francisco office devices
+    - `june-ny-office@yourcompany.com`: New York office devices
+    - `june-remote@yourcompany.com`: Remote worker devices
+  </Step>
+  
+  <Step title="Role-Based Workflows">
+    Configure approval workflows based on groups:
+    - IT Managers: Can approve device actions
+    - Department Managers: Can approve for their teams
+    - End Users: Request-only access
+  </Step>
+</Steps>
+
+## Organizational Unit Mapping
+
+### Sync by Organizational Unit
+
+<Steps>
+  <Step title="Configure OU Sync">
+    Map Google Workspace organizational units to June departments:
+    - **Engineering OU** → Engineering Department
+    - **Sales OU** → Sales Department
+    - **Marketing OU** → Marketing Department
+    - **Finance OU** → Finance Department
+  </Step>
+  
+  <Step title="Nested OU Support">
+    Handle nested organizational units:
+    - **Engineering/Frontend** → Engineering Frontend Team
+    - **Engineering/Backend** → Engineering Backend Team
+    - **Sales/Enterprise** → Enterprise Sales Team
+    - **Sales/SMB** → SMB Sales Team
+  </Step>
+  
+  <Step title="User Assignment Rules">
+    Configure automatic user assignment:
+    - Users inherit department from their OU
+    - Device access based on OU membership
+    - Manager relationships preserved from Google Directory
+  </Step>
+</Steps>
+
+## Advanced Configuration
+
+### Custom Attributes
+
+<Steps>
+  <Step title="Sync Custom Attributes">
+    Sync additional Google Directory attributes to June:
+    - Employee ID
+    - Cost center
+    - Employee type (contractor, full-time, etc.)
+    - Location information
+    - Manager relationships
+  </Step>
+  
+  <Step title="Configure Attribute Mapping">
+    Map Google Directory custom attributes to June fields:
+    
+    | Google Directory Attribute | June Custom Field |
+    |---------------------------|-------------------|
+    | `employeeId` | Employee ID |
+    | `costCenter` | Cost Center |
+    | `employeeType` | Employee Type |
+    | `buildingId` | Office Location |
+    | `managerId` | Manager |
+  </Step>
+</Steps>
+
+### Conditional Access Integration
+
+<Steps>
+  <Step title="Context-Aware Access">
+    1. Configure Google's Context-Aware Access policies
+    2. Require device certificates for June access
+    3. Set up IP-based access restrictions
+    4. Configure risk-based authentication
+  </Step>
+  
+  <Step title="Device Trust Integration">
+    1. Integrate with Google Endpoint Verification
+    2. Require managed devices for June access
+    3. Set up device compliance policies
+    4. Configure automatic device registration
+  </Step>
+</Steps>
+
+## Data Synchronization
+
+### User Data Sync
+
+| Google Directory Field | June Field | Sync Frequency |
+|------------------------|------------|----------------|
+| **Primary Email** | Email | Real-time |
+| **First Name** | First Name | Real-time |
+| **Last Name** | Last Name | Real-time |
+| **Department** | Department | Every 30 minutes |
+| **Job Title** | Job Title | Every 30 minutes |
+| **Manager** | Manager | Every 30 minutes |
+| **Organizational Unit** | Department | Every 30 minutes |
+| **Employee ID** | Employee ID | Daily |
+| **Last Login** | Last Active | Every hour |
+
+### Group Membership Sync
+
+- **Security Groups**: Synced for role assignment
+- **Distribution Lists**: Synced for communication purposes
+- **Organizational Units**: Mapped to departments
+- **Nested Groups**: Hierarchical relationships preserved
+
+## Troubleshooting
+
+### SAML Authentication Issues
+
+<AccordionGroup>
+  <Accordion title="Login Failures">
+    **Symptoms**: "Authentication failed" or redirect issues
+    
+    **Solutions**:
+    - Verify SAML configuration in Google Admin Console
+    - Check certificate validity and expiration
+    - Ensure user is assigned to June application
+    - Review attribute mappings and required fields
+    - Test with a user who has all required attributes
+  </Accordion>
+  
+  <Accordion title="Attribute Mapping Problems">
+    **Symptoms**: Missing user information or incorrect role assignments
+    
+    **Solutions**:
+    - Verify attribute statements in Google SAML app
+    - Check June attribute mapping configuration
+    - Ensure required attributes are populated in Google Directory
+    - Test with a user that has all required attributes
+    - Review Google Directory schema for custom attributes
+  </Accordion>
+  
+  <Accordion title="Role Assignment Issues">
+    **Symptoms**: Users getting incorrect permissions or access levels
+    
+    **Solutions**:
+    - Review Google Group memberships
+    - Check June role mapping configuration
+    - Verify group-based role assignment rules
+    - Test role changes with group membership updates
+    - Ensure groups are properly synced to June
+  </Accordion>
+</AccordionGroup>
+
+### Directory API Issues
+
+<AccordionGroup>
+  <Accordion title="API Authentication Failures">
+    **Symptoms**: "Invalid credentials" or "Access denied" errors
+    
+    **Solutions**:
+    - Verify service account key file is correct and not expired
+    - Check domain-wide delegation is properly configured
+    - Ensure OAuth scopes are correctly authorized
+    - Verify delegated admin email has appropriate permissions
+    - Test service account authentication independently
+  </Accordion>
+  
+  <Accordion title="Sync Problems">
+    **Symptoms**: Users not syncing or outdated information
+    
+    **Solutions**:
+    - Check API quotas and rate limiting
+    - Verify organizational unit permissions
+    - Review sync logs for specific error messages
+    - Ensure users are in included organizational units
+    - Test with a smaller subset of users first
+  </Accordion>
+  
+  <Accordion title="Permission Errors">
+    **Symptoms**: "Insufficient permissions" when accessing user data
+    
+    **Solutions**:
+    - Verify all required OAuth scopes are authorized
+    - Check if service account has necessary domain-wide delegation
+    - Ensure delegated admin has appropriate Google Workspace permissions
+    - Review Google Workspace audit logs for permission denials
+    - Test with a Super Admin account for delegation
+  </Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+### Security
+- **Service Account Management**: Regularly rotate service account keys
+- **Least Privilege**: Grant only necessary OAuth scopes and permissions
+- **Access Monitoring**: Review Google Workspace audit logs regularly
+- **Certificate Management**: Monitor SAML certificate expiration dates
+
+### User Management
+- **Consistent Naming**: Use standard naming conventions for groups and OUs
+- **Automated Lifecycle**: Leverage Directory API for automated user provisioning
+- **Department Alignment**: Align June access with organizational structure
+- **Regular Audits**: Conduct regular access audits and cleanup
+
+### Performance
+- **Sync Optimization**: Configure appropriate sync frequencies for your needs
+- **API Efficiency**: Use batch operations and pagination for large datasets
+- **Rate Limiting**: Monitor and respect Google API quotas
+- **Error Handling**: Implement proper retry logic for API failures
+
+### Integration Health
+- **Monitor Sync Status**: Track provisioning success rates and sync health
+- **API Monitoring**: Set up alerts for API quota issues and failures
+- **User Experience**: Monitor login success rates and user feedback
+- **Performance Tracking**: Track sync duration and API response times
+
+## Compliance and Auditing
+
+### Audit Capabilities
+- **Authentication Logs**: Track all login attempts and SAML assertions
+- **Provisioning Activity**: Log user creation, updates, and deletions
+- **Permission Changes**: Record role and access modifications
+- **API Activity**: Monitor Directory API usage and access patterns
+
+### Google Workspace Integration
+- **Audit Log Integration**: Sync Google Workspace audit events to June
+- **Compliance Reporting**: Generate reports for regulatory requirements
+- **Data Retention**: Configure retention policies for audit data
+- **Access Reviews**: Automated access reviews based on Google Groups
+
+## Next Steps
+
+Once your Google Workspace integration is configured:
+
+<CardGroup cols={2}>
+  <Card title="Device Assignment Automation" href="/employee-management/employee-onboarding">
+    Set up automated device assignment based on Google Directory attributes
+  </Card>
+  
+  <Card title="Chrome Device Management" href="/integrations/google-chrome-management">
+    Integrate with Google Chrome Enterprise for Chromebook management
+  </Card>
+  
+  <Card title="Workflow Automation" href="/workflows/common-workflows">
+    Create automated workflows triggered by user lifecycle events
+  </Card>
+  
+  <Card title="Reporting and Analytics" href="/reporting/standard-reports">
+    Generate reports that include Google Workspace user and authentication data
+  </Card>
+</CardGroup>
+
+## Support Resources
+
+Need help with your Google Workspace integration?
+
+- **Google Documentation**: Review Google Workspace Admin SDK documentation
+- **June Support**: Contact support for integration-specific assistance
+- **Community Forum**: Join discussions about Google Workspace integrations
+- **Professional Services**: Consider professional implementation assistance
+
+<Warning>
+Test all SSO and provisioning changes in a development environment or with a pilot group before rolling out organization-wide to avoid user access disruptions.
+</Warning>
+
+<Note>
+Google Workspace integration changes may take up to 24 hours to fully propagate across all Google services. Always test with pilot users before organization-wide deployment.
+</Note>
+
+<Tip>
+Consider using Google Cloud Monitoring to track API usage and set up alerts for quota limits to ensure smooth operation of your integration.
+</Tip> 

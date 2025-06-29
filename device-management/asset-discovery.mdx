@@ -1,0 +1,395 @@
+---
+title: 'Asset Discovery & Inventory'
+description: 'Discover, classify, and monitor your device inventory with June'
+---
+
+June's asset discovery engine automatically identifies, classifies, and monitors all devices in your organization, providing real-time visibility into your entire device fleet.
+
+## What you'll accomplish
+- Understand how June discovers and classifies devices
+- Set up automated device health monitoring
+- Learn to track asset lifecycle and history
+- Configure device details and custom attributes
+
+## How Asset Discovery Works
+
+June discovers devices through multiple channels to ensure comprehensive coverage:
+
+### Discovery Sources
+
+<CardGroup cols={2}>
+  <Card title="MDM Integration" icon="link">
+    Primary source: Devices managed by your MDM systems (Jamf Pro, Intune, Kandji)
+  </Card>
+  
+  <Card title="Network Scanning" icon="wifi">
+    Secondary discovery: Network-connected devices detected via scanning
+  </Card>
+  
+  <Card title="Manual Addition" icon="plus">
+    Direct entry: Manually add devices not discovered automatically
+  </Card>
+  
+  <Card title="CSV Import" icon="file-import">
+    Bulk import: Upload existing inventory data from spreadsheets or other systems
+  </Card>
+</CardGroup>
+
+### Automatic Classification
+
+June automatically classifies discovered devices based on:
+
+- **Device Type**: Desktop, laptop, tablet, mobile, server
+- **Operating System**: macOS, Windows, iOS, Android, Linux
+- **Manufacturer**: Apple, Dell, HP, Lenovo, Microsoft, etc.
+- **Form Factor**: MacBook Pro, iMac, Surface Pro, etc.
+- **Ownership**: Corporate, personal, shared
+
+## Understanding Asset Classification
+
+### Device Categories
+
+| Category | Description | Examples |
+|----------|-------------|----------|
+| **Computing Devices** | Primary work devices | MacBook Pro, Dell Laptop, iMac |
+| **Mobile Devices** | Phones and tablets | iPhone, iPad, Android phones |
+| **Peripherals** | Connected accessories | Keyboards, mice, monitors |
+| **Infrastructure** | Network and server equipment | Routers, switches, servers |
+| **Other Assets** | Miscellaneous IT equipment | Printers, projectors, cameras |
+
+### Health Status Indicators
+
+June continuously monitors device health with these status levels:
+
+<AccordionGroup>
+  <Accordion title="Healthy" icon="circle-check">
+    - Last check-in within expected timeframe
+    - No critical security issues
+    - OS and applications up to date
+    - Adequate storage and performance
+  </Accordion>
+  
+  <Accordion title="Warning" icon="triangle-exclamation">
+    - Minor issues detected (low storage, outdated software)
+    - Check-in slightly delayed
+    - Non-critical compliance violations
+    - Performance degradation noted
+  </Accordion>
+  
+  <Accordion title="Critical" icon="circle-exclamation">
+    - Security vulnerabilities detected
+    - Significant check-in delays
+    - Critical compliance failures
+    - Hardware failures or major issues
+  </Accordion>
+  
+  <Accordion title="Unknown" icon="circle-question">
+    - Device not responding
+    - Lost or stolen
+    - Pending deployment
+    - Insufficient data for assessment
+  </Accordion>
+</AccordionGroup>
+
+## Device Health Monitoring
+
+### Automated Health Checks
+
+June performs continuous health monitoring across multiple dimensions:
+
+#### System Health
+- CPU and memory utilization
+- Storage capacity and usage
+- Battery health (for mobile devices)
+- Hardware component status
+
+#### Security Health
+- OS patch level and updates
+- Antivirus status and definitions
+- Firewall configuration
+- Encryption status
+
+#### Compliance Health
+- Policy adherence
+- Certificate validity
+- Configuration compliance
+- Access control compliance
+
+### Setting Up Health Monitoring
+
+<Steps>
+  <Step title="Configure Health Policies">
+    1. Navigate to Device Management > Health Policies
+    2. Set thresholds for different health metrics
+    3. Define escalation rules for critical issues
+    4. Configure notification preferences
+  </Step>
+  
+  <Step title="Customize Health Checks">
+    Adjust monitoring parameters:
+    - Check-in frequency expectations
+    - Storage warning thresholds
+    - Update compliance timeframes
+    - Performance benchmarks
+  </Step>
+  
+  <Step title="Set Up Alerts">
+    Configure alerts for:
+    - Critical health status changes
+    - Devices going offline
+    - Compliance violations
+    - Performance degradation
+  </Step>
+</Steps>
+
+## Asset Lifecycle Tracking
+
+### Lifecycle Stages
+
+June tracks devices throughout their entire lifecycle:
+
+<Steps>
+  <Step title="Procurement">
+    - Purchase order tracking
+    - Vendor information
+    - Cost and budget allocation
+    - Delivery and receiving
+  </Step>
+  
+  <Step title="Deployment">
+    - Initial configuration
+    - Employee assignment
+    - Setup and installation
+    - Quality assurance checks
+  </Step>
+  
+  <Step title="Active Use">
+    - Daily operation monitoring
+    - Health and performance tracking
+    - Maintenance and support
+    - User satisfaction
+  </Step>
+  
+  <Step title="Maintenance">
+    - Repairs and upgrades
+    - Warranty management
+    - Preventive maintenance
+    - Performance optimization
+  </Step>
+  
+  <Step title="Retirement">
+    - End-of-life planning
+    - Data wiping and security
+    - Asset disposal or recycling
+    - Final accounting
+  </Step>
+</Steps>
+
+### Tracking History and Changes
+
+June maintains comprehensive audit trails:
+
+- **Assignment History**: Track device ownership and location changes
+- **Configuration Changes**: Monitor policy and setting modifications
+- **Maintenance Records**: Log repairs, upgrades, and service events
+- **Performance Trends**: Historical performance and health data
+- **Compliance History**: Track compliance status over time
+
+## Viewing Device Details
+
+### Device Overview
+
+Each device page provides comprehensive information:
+
+#### Basic Information
+- Device name and type
+- Serial number and asset tag
+- Current user assignment
+- Location and department
+- Health status and last check-in
+
+#### Hardware Specifications
+- Processor and memory
+- Storage capacity and usage
+- Network interfaces
+- Connected peripherals
+
+#### Software Inventory
+- Operating system version
+- Installed applications
+- Security software status
+- Configuration profiles
+
+#### Compliance Status
+- Policy adherence
+- Security posture
+- Update status
+- Certificate validity
+
+### Custom Device Attributes
+
+Add organization-specific information:
+
+<Steps>
+  <Step title="Access Device Settings">
+    Navigate to Administration > Device Management > Custom Attributes
+  </Step>
+  
+  <Step title="Create Custom Fields">
+    Add fields such as:
+    - Purchase order number
+    - Warranty expiration
+    - Cost center assignment
+    - Service provider
+  </Step>
+  
+  <Step title="Configure Field Types">
+    Choose appropriate field types:
+    - Text fields for notes and IDs
+    - Date fields for important dates
+    - Number fields for costs and quantities
+    - Dropdown lists for standardized values
+  </Step>
+  
+  <Step title="Set Field Permissions">
+    Control who can view and edit custom attributes
+  </Step>
+</Steps>
+
+## Advanced Discovery Features
+
+### Network Discovery
+
+Configure network scanning for comprehensive discovery:
+
+<Steps>
+  <Step title="Define Network Ranges">
+    Specify IP ranges to scan for devices
+  </Step>
+  
+  <Step title="Set Discovery Schedules">
+    Configure automated scanning frequency
+  </Step>
+  
+  <Step title="Configure Detection Rules">
+    Set rules for identifying and classifying discovered devices
+  </Step>
+</Steps>
+
+### Integration-Based Discovery
+
+Leverage existing systems for device discovery:
+
+- **Active Directory**: Discover domain-joined devices
+- **DHCP Servers**: Identify devices from DHCP leases
+- **Network Monitoring Tools**: Import from existing monitoring systems
+- **Asset Management Systems**: Sync with existing inventory databases
+
+## Bulk Operations
+
+### Import Existing Inventory
+
+<Steps>
+  <Step title="Prepare CSV File">
+    Create a CSV file with required columns:
+    - Device name or serial number
+    - Device type and manufacturer
+    - Current user assignment
+    - Location and department
+  </Step>
+  
+  <Step title="Map Data Fields">
+    Map CSV columns to June device attributes
+  </Step>
+  
+  <Step title="Validate and Import">
+    Review data for accuracy before completing the import
+  </Step>
+</Steps>
+
+### Bulk Device Updates
+
+Update multiple devices simultaneously:
+
+- Change device assignments
+- Update location information
+- Apply tags and categories
+- Modify custom attributes
+
+## Best Practices
+
+### Discovery Optimization
+
+<Card title="Discovery Best Practices" icon="lightbulb">
+  - **Regular Sync**: Ensure MDM integrations sync frequently
+  - **Network Coverage**: Configure network discovery for comprehensive coverage
+  - **Data Quality**: Regularly review and clean up device data
+  - **Standardization**: Use consistent naming conventions and categorization
+</Card>
+
+### Health Monitoring
+
+- Set realistic health thresholds based on your environment
+- Configure appropriate alert frequencies to avoid notification fatigue
+- Regularly review and adjust health policies
+- Use trending data to identify patterns and proactive maintenance needs
+
+### Lifecycle Management
+
+- Define clear lifecycle stages for your organization
+- Automate lifecycle transitions where possible
+- Maintain accurate cost and warranty information
+- Plan refresh cycles based on device health and performance data
+
+## Troubleshooting Discovery Issues
+
+### Common Problems
+
+<AccordionGroup>
+  <Accordion title="Devices Not Appearing">
+    - Check MDM integration sync status
+    - Verify network connectivity and permissions
+    - Review discovery filters and exclusions
+    - Confirm device enrollment status in source systems
+  </Accordion>
+  
+  <Accordion title="Duplicate Devices">
+    - Verify unique identifier configuration
+    - Check for devices appearing in multiple discovery sources
+    - Review merge rules and duplicate detection settings
+    - Manually merge or remove duplicates as needed
+  </Accordion>
+  
+  <Accordion title="Health Status Issues">
+    - Review health policy configuration
+    - Check data freshness and sync timing
+    - Verify device connectivity and management status
+    - Adjust health thresholds if too sensitive
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+Once you have a comprehensive device inventory:
+
+<CardGroup cols={2}>
+  <Card title="Smart Search" href="/smart-search/using-smart-search">
+    Learn to find devices quickly using natural language queries
+  </Card>
+  
+  <Card title="Remote Actions" href="/device-management/remote-device-actions">
+    Perform remote management tasks on your discovered devices
+  </Card>
+  
+  <Card title="Custom Views" href="/smart-search/creating-custom-views">
+    Create saved views for different device categories and use cases
+  </Card>
+  
+  <Card title="Reporting" href="/reporting/standard-reports">
+    Generate inventory reports and analytics from your device data
+  </Card>
+</CardGroup>
+
+<Note>
+Device discovery runs continuously in the background. New devices are typically discovered within 15-30 minutes of being connected to your network or enrolled in MDM systems.
+</Note> 

@@ -1,0 +1,196 @@
+---
+title: 'Organization Setup'
+description: 'Configure your organization structure, team members, and permissions in June'
+---
+
+Set up your organization structure to ensure proper access control and efficient device management across your teams.
+
+## What you'll accomplish
+- Add team members and assign appropriate roles
+- Set up company entities and departments
+- Configure organization preferences
+- Understand permissions and access control
+
+## Adding Team Members and Roles
+
+### User Roles Overview
+
+June provides several built-in roles to match your organization's needs:
+
+- **Organization Admin**: Full access to all features and settings
+- **IT Manager**: Device management, reporting, and user administration
+- **IT Technician**: Device actions and basic management tasks
+- **Department Manager**: View and manage devices for their department
+- **End User**: View assigned devices and submit requests
+
+### Adding Team Members
+
+<Steps>
+  <Step title="Navigate to User Management">
+    Go to Administration > User Management from the main navigation.
+  </Step>
+  
+  <Step title="Invite New Users">
+    Click "Add User" and enter the user's email address and basic information.
+  </Step>
+  
+  <Step title="Assign Roles">
+    Select the appropriate role based on their responsibilities and access needs.
+  </Step>
+  
+  <Step title="Set Department Assignment">
+    Assign users to their respective departments for proper access control.
+  </Step>
+  
+  <Step title="Send Invitation">
+    The user will receive an email invitation with setup instructions.
+  </Step>
+</Steps>
+
+## Setting Up Company Entities
+
+### Department Structure
+
+Organize your devices and users by department for better management:
+
+<Steps>
+  <Step title="Access Organization Settings">
+    Navigate to Administration > Organization Settings.
+  </Step>
+  
+  <Step title="Create Departments">
+    Add departments that match your company structure (e.g., Engineering, Sales, HR, Finance).
+  </Step>
+  
+  <Step title="Set Department Managers">
+    Assign department managers who can oversee devices and users in their area.
+  </Step>
+  
+  <Step title="Configure Department Policies">
+    Set specific policies for each department, such as refresh schedules and security requirements.
+  </Step>
+</Steps>
+
+### Location Management
+
+If your organization has multiple locations:
+
+- Add office locations and their details
+- Configure location-specific policies
+- Set up location managers
+- Enable location-based reporting
+
+## Configuring Organization Preferences
+
+### General Settings
+
+<AccordionGroup>
+  <Accordion title="Company Information">
+    - Company name and logo
+    - Primary contact information
+    - Time zone and regional settings
+    - Fiscal year settings for financial reporting
+  </Accordion>
+  
+  <Accordion title="Device Settings">
+    - Default device naming conventions
+    - Automatic device assignment rules
+    - Device health monitoring preferences
+    - Compliance policy defaults
+  </Accordion>
+  
+  <Accordion title="Notification Preferences">
+    - Organization-wide notification settings
+    - Escalation procedures
+    - Communication channels
+    - Emergency contact procedures
+  </Accordion>
+</AccordionGroup>
+
+## Understanding Permissions and Access Control
+
+### Permission Levels
+
+June uses a hierarchical permission system:
+
+| Permission Level | Access Rights |
+|------------------|---------------|
+| **Global** | Access to all organizational data and settings |
+| **Department** | Access limited to assigned department(s) |
+| **Device-specific** | Access to specific devices only |
+| **Read-only** | View-only access with no modification rights |
+
+### Role-Based Access Control (RBAC)
+
+<Steps>
+  <Step title="Review Default Roles">
+    Examine the built-in roles and their permissions to understand the access structure.
+  </Step>
+  
+  <Step title="Create Custom Roles">
+    If needed, create custom roles that match your organization's specific requirements.
+  </Step>
+  
+  <Step title="Assign Granular Permissions">
+    Fine-tune permissions for specific features like device actions, reporting, or user management.
+  </Step>
+  
+  <Step title="Test Access Levels">
+    Verify that users have appropriate access by testing with different role assignments.
+  </Step>
+</Steps>
+
+### Best Practices for Access Control
+
+<Card title="Security Guidelines" icon="shield-check">
+  - Follow the principle of least privilege
+  - Regularly review and audit user permissions
+  - Use department-based access for most users
+  - Limit global admin access to essential personnel
+  - Implement approval workflows for sensitive actions
+</Card>
+
+## Integration with Identity Providers
+
+If your organization uses an identity provider:
+
+<CardGroup cols={2}>
+  <Card href="/integrations/okta">
+    <div className="flex flex-row gap-2 mb-2"> 
+      <div className="bg-white rounded-md">
+        <img src="/images/okta_logo.png" alt="Okta" width={25} height={25} />
+      </div>
+      <span className="text-base font-bold text-white">Okta</span>
+    </div>
+    Okta Enterprise identity management
+  </Card>
+
+  <Card href="/integrations/google-workspace">
+    <div className="flex flex-row gap-2 mb-2"> 
+      <img src="/images/google_logo.png" alt="Google Workspace" width={25} height={25} />
+      <span className="text-base font-bold text-white">Google Workspace</span>
+    </div>
+    Google's identity suite
+  </Card>
+
+  <Card href="/integrations/microsoft-entra-id">
+    <div className="flex flex-row gap-2 mb-2"> 
+      <img src="/images/ms_entra_id_logo.png" alt="Microsoft Entra ID" width={25} height={25} />
+      <span className="text-base font-bold text-white">Microsoft Entra ID</span>
+    </div>
+    Microsoft Entra ID
+  </Card>
+</CardGroup>
+
+## Next Steps
+
+Once your organization is set up:
+
+1. **Connect Integrations**: Link your MDM and identity provider systems
+2. **Import Device Data**: Sync your existing device inventory
+3. **Configure Policies**: Set up refresh policies and compliance rules
+4. **Train Team Members**: Ensure everyone knows how to use their assigned features
+
+<Note>
+Changes to organization structure and permissions may take a few minutes to propagate across all systems.
+</Note> 
