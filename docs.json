@@ -84,29 +84,6 @@
             ]
           }
         ]
-      },
-      {
-        "tab": "Reference",
-        "groups": [
-          {
-            "group": "Legacy Guides",
-            "pages": [
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Documentation Tools",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
-            ]
-          }
-        ]
       }
     ],
     "global": {

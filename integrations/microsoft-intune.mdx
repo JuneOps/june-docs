@@ -3,6 +3,8 @@ title: 'Microsoft Intune Integration'
 description: 'Complete integration guide for connecting Microsoft Intune with June'
 ---
 
+<img src="/images/intune_integration_page.png" alt="Microsoft Intune Integration" />
+
 Connect your Microsoft Intune environment with June for comprehensive device management across Windows, macOS, iOS, and Android devices.
 
 ## What you'll accomplish
@@ -21,86 +23,7 @@ Before starting the integration, ensure you have:
 
 ## Setup Process
 
-### Step 1: Register Azure Application
-
-<Steps>
-  <Step title="Access Azure Portal">
-    1. Sign in to the [Azure portal](https://portal.azure.com)
-    2. Navigate to **Azure Active Directory**
-    3. Select **App registrations** from the left menu
-  </Step>
-  
-  <Step title="Create New Registration">
-    1. Click **New registration**
-    2. Enter application details:
-       - **Name**: "June Device Management"
-       - **Supported account types**: "Accounts in this organizational directory only"
-       - **Redirect URI**: Leave blank for now
-    3. Click **Register**
-  </Step>
-  
-  <Step title="Note Application Details">
-    From the app overview page, copy and save:
-    - **Application (client) ID**
-    - **Directory (tenant) ID**
-    - **Object ID**
-  </Step>
-</Steps>
-
-### Step 2: Configure API Permissions
-
-<Steps>
-  <Step title="Access API Permissions">
-    1. In your Azure app registration, go to **API permissions**
-    2. Click **Add a permission**
-    3. Select **Microsoft Graph**
-    4. Choose **Application permissions**
-  </Step>
-  
-  <Step title="Add Required Permissions">
-    Add the following Microsoft Graph permissions:
-    
-    **Device Management**:
-    - `DeviceManagementManagedDevices.Read.All`
-    - `DeviceManagementConfiguration.Read.All`
-    - `DeviceManagementApps.Read.All`
-    
-    **Directory**:
-    - `Device.Read.All`
-    - `User.Read.All`
-    - `Group.Read.All`
-    - `Organization.Read.All`
-  </Step>
-  
-  <Step title="Grant Admin Consent">
-    1. Click **Grant admin consent for [your organization]**
-    2. Confirm the consent in the dialog
-    3. Verify all permissions show "Granted" status
-  </Step>
-</Steps>
-
-### Step 3: Create Client Secret
-
-<Steps>
-  <Step title="Access Certificates & Secrets">
-    1. Go to **Certificates & secrets** in your app registration
-    2. Click **New client secret**
-  </Step>
-  
-  <Step title="Configure Secret">
-    1. Enter a description: "June Integration Secret"
-    2. Choose expiration period (24 months recommended)
-    3. Click **Add**
-  </Step>
-  
-  <Step title="Copy Secret Value">
-    1. **Immediately** copy the secret **Value** (not the Secret ID)
-    2. Store it securely - you won't be able to see it again
-    3. Note the expiration date for future renewal
-  </Step>
-</Steps>
-
-### Step 4: Configure June Integration
+### Step 1: Configure June Integration
 
 <Steps>
   <Step title="Access June Integrations">
@@ -111,50 +34,33 @@ Before starting the integration, ensure you have:
   
   <Step title="Select Microsoft Intune">
     1. Choose "Microsoft Entra ID (Intune)" from available integrations
-    2. Click **Configure** to start setup
-  </Step>
-  
-  <Step title="Enter Azure Details">
-    Provide the information from your Azure app registration:
-    - **Tenant ID**: Directory (tenant) ID from Step 1
-    - **Client ID**: Application (client) ID from Step 1  
-    - **Client Secret**: Secret value from Step 3
-    - **Integration Name**: Friendly name (optional)
+    2. Click **Connect** to start setup
   </Step>
   
   <Step title="Complete OAuth Flow">
-    1. Click **Authenticate** to start OAuth flow
-    2. Sign in with your Azure administrator account
-    3. Grant consent for the requested permissions
-    4. Verify successful authentication
+    1. Sign in with your Azure administrator account
+    2. Grant consent for the requested permissions. 
+    3. On success, you’ll return to June with integration activated.
   </Step>
 </Steps>
 
-### Step 5: Configure Sync Settings
+### Step 2: Configure Sync Settings
 
 <Steps>
-  <Step title="Choose Device Types">
-    Select which device platforms to sync:
-    - ✅ Windows 10/11 devices
-    - ✅ macOS devices  
-    - ✅ iOS/iPadOS devices
-    - ✅ Android devices
-  </Step>
   
   <Step title="Set Sync Frequency">
     Choose sync interval based on your environment:
-    - **Every 15 minutes**: For dynamic environments
-    - **Every 30 minutes**: Balanced approach (recommended)
-    - **Hourly**: For stable environments with fewer changes
+    - **Every day**: For most environments
+    - **Every other day**: For environments with a large number of devices
+    - **Every week**: For environments with infrequent changes
   </Step>
   
   <Step title="Configure Data Scope">
     Select what data to synchronize:
-    - Device inventory and specifications
-    - Compliance policy status
+    - Device inventory and specifications (always on)
+    - Device location 
     - App installation status
-    - User assignments
-    - Device health and encryption status
+    - Employee information
   </Step>
 </Steps>
 
@@ -192,55 +98,7 @@ Before starting the integration, ensure you have:
     - Device encryption compliance
     - Key recovery information availability
   </Accordion>
-  
-  <Accordion title="Conditional Access">
-    - Device registration status
-    - Azure AD join status
-    - Conditional access policy compliance
-    - Authentication methods enrolled
-  </Accordion>
 </AccordionGroup>
-
-## Advanced Configuration
-
-### Device Filtering
-
-Configure filters to sync specific device sets:
-
-<Steps>
-  <Step title="Platform Filtering">
-    Choose specific platforms or versions:
-    - Windows 10 version 1909 and later
-    - macOS 11.0 (Big Sur) and later
-    - iOS 14.0 and later
-    - Android 8.0 and later
-  </Step>
-  
-  <Step title="Compliance Filtering">
-    Sync based on compliance status:
-    - Compliant devices only
-    - Non-compliant devices for remediation
-    - All devices regardless of status
-  </Step>
-  
-  <Step title="User/Group Filtering">
-    Filter by user assignments or Azure AD groups:
-    - Specific Azure AD security groups
-    - Department-based groups
-    - Location-based assignments
-  </Step>
-</Steps>
-
-### Custom Attribute Mapping
-
-Map Intune device properties to June custom fields:
-
-| Intune Property | June Custom Field | Description |
-|----------------|-------------------|-------------|
-| `purchaseOrderIdentifier` | Purchase Order | Asset purchase tracking |
-| `notes` | Device Notes | Administrative notes |
-| `deviceCategory` | Asset Category | Device categorization |
-| `enrollmentType` | Enrollment Method | How device was enrolled |
 
 ## Remote Device Actions
 
@@ -251,54 +109,15 @@ June can trigger remote actions through Intune:
 <CardGroup cols={2}>
   <Card title="Device Management">
     - Restart device
+    - Assign device to user
     - Shutdown device
-    - Lock device
-    - Reset passcode
   </Card>
-  
-  <Card title="Security Actions">
-    - Remote wipe
-    - Retire device
-    - Fresh start (Windows)
-    - Lost mode (iOS)
-  </Card>
-  
+
   <Card title="Compliance Actions">
     - Sync device
-    - Check compliance
-    - Update policies
-    - Refresh certificates
   </Card>
-  
-  <Card title="Information Gathering">
-    - Collect diagnostics
-    - Get BitLocker keys
-    - Hardware inventory
-    - Installed app scan
-  </Card>
+
 </CardGroup>
-
-### Configuring Remote Actions
-
-<Steps>
-  <Step title="Enable Remote Actions">
-    In June integration settings, enable remote action capabilities
-  </Step>
-  
-  <Step title="Set Permissions">
-    Configure which users can perform remote actions:
-    - IT Administrators: All actions
-    - IT Technicians: Basic management actions
-    - Department Managers: Limited actions for their devices
-  </Step>
-  
-  <Step title="Configure Approval Workflows">
-    Set up approval requirements for sensitive actions:
-    - Device wipe: Requires manager approval
-    - Data collection: IT admin approval
-    - Basic actions: No approval needed
-  </Step>
-</Steps>
 
 ## Troubleshooting
 

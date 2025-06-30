@@ -18,16 +18,8 @@ June discovers devices through multiple channels to ensure comprehensive coverag
 ### Discovery Sources
 
 <CardGroup cols={2}>
-  <Card title="MDM Integration" icon="link">
+  <Card title="MDM Integration" icon="plug" iconType="light">
     Primary source: Devices managed by your MDM systems (Jamf Pro, Intune, Kandji)
-  </Card>
-  
-  <Card title="Network Scanning" icon="wifi">
-    Secondary discovery: Network-connected devices detected via scanning
-  </Card>
-  
-  <Card title="Manual Addition" icon="plus">
-    Direct entry: Manually add devices not discovered automatically
   </Card>
   
   <Card title="CSV Import" icon="file-import">
@@ -199,7 +191,9 @@ June maintains comprehensive audit trails:
 
 ### Device Overview
 
-Each device page provides comprehensive information:
+<img src="/images/device_details.png" alt="Device Details" />
+
+Each device page provides comprehensive information. You can also view the device details in the device list view by clicking on the device.
 
 #### Basic Information
 - Device name and type
@@ -212,7 +206,6 @@ Each device page provides comprehensive information:
 - Processor and memory
 - Storage capacity and usage
 - Network interfaces
-- Connected peripherals
 
 #### Software Inventory
 - Operating system version
@@ -223,67 +216,21 @@ Each device page provides comprehensive information:
 #### Compliance Status
 - Policy adherence
 - Security posture
-- Update status
-- Certificate validity
+- Disk encryption status
+- Firewall status
+- Remote access status
 
-### Custom Device Attributes
+#### Refresh Policy
+- Last refresh date
+- Next refresh date
+- Refresh status
+- Refresh policy
 
-Add organization-specific information:
-
-<Steps>
-  <Step title="Access Device Settings">
-    Navigate to Administration > Device Management > Custom Attributes
-  </Step>
-  
-  <Step title="Create Custom Fields">
-    Add fields such as:
-    - Purchase order number
-    - Warranty expiration
-    - Cost center assignment
-    - Service provider
-  </Step>
-  
-  <Step title="Configure Field Types">
-    Choose appropriate field types:
-    - Text fields for notes and IDs
-    - Date fields for important dates
-    - Number fields for costs and quantities
-    - Dropdown lists for standardized values
-  </Step>
-  
-  <Step title="Set Field Permissions">
-    Control who can view and edit custom attributes
-  </Step>
-</Steps>
-
-## Advanced Discovery Features
-
-### Network Discovery
-
-Configure network scanning for comprehensive discovery:
-
-<Steps>
-  <Step title="Define Network Ranges">
-    Specify IP ranges to scan for devices
-  </Step>
-  
-  <Step title="Set Discovery Schedules">
-    Configure automated scanning frequency
-  </Step>
-  
-  <Step title="Configure Detection Rules">
-    Set rules for identifying and classifying discovered devices
-  </Step>
-</Steps>
-
-### Integration-Based Discovery
-
-Leverage existing systems for device discovery:
-
-- **Active Directory**: Discover domain-joined devices
-- **DHCP Servers**: Identify devices from DHCP leases
-- **Network Monitoring Tools**: Import from existing monitoring systems
-- **Asset Management Systems**: Sync with existing inventory databases
+#### Device Deprecation
+- Current asset value
+- Deprecation date
+- Deprecation reason
+- Deprecation status
 
 ## Bulk Operations
 

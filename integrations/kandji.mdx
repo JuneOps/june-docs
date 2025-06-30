@@ -3,6 +3,8 @@ title: 'Kandji Integration'
 description: 'Complete integration guide for connecting Kandji with June'
 ---
 
+<img src="/images/kandji_integration_page.png" alt="Kandji Integration" />
+
 Connect your Kandji tenant with June for modern Mac device management and comprehensive asset tracking.
 
 ## What you'll accomplish
@@ -55,11 +57,7 @@ Ensure your API token has the following permissions:
 - **Blueprints**: Read access to device blueprint configurations
 - **Apps**: Read access to application inventory
 - **Compliance**: Read access to device compliance status
-
-#### Optional Permissions (Recommended)
 - **Audit Logs**: Read access for troubleshooting
-- **Library**: Read access to configuration profiles and scripts
-- **Reports**: Read access for enhanced analytics
 
 ### Step 3: Configure June Integration
 
@@ -77,9 +75,9 @@ Ensure your API token has the following permissions:
   
   <Step title="Enter Kandji Details">
     Provide the following information:
-    - **Kandji Subdomain**: Your Kandji subdomain (e.g., `yourcompany` from `yourcompany.kandji.io`)
+    - **Kandji Subdomain**: Your Kandji subdomain (e.g., `yourcompany` from `yourcompany.api.kandji.io`)
     - **API Token**: The token generated in Step 1
-    - **Integration Name**: Friendly name for this integration (optional)
+    - **Sync Interval**: How often June should sync with Kandji. Default is daily.
   </Step>
   
   <Step title="Test Connection">
@@ -101,12 +99,12 @@ Ensure your API token has the following permissions:
   
   <Step title="Select Data to Sync">
     Choose which device attributes to synchronize:
-    - ✅ Device inventory and specifications
-    - ✅ User assignments and locations
-    - ✅ Blueprint assignments and compliance
-    - ✅ Application inventory
-    - ✅ Device health and status
-    - ⚠️ Audit events (optional)
+    - Device inventory and specifications
+    - User assignments and locations
+    - Blueprint assignments and compliance
+    - Application inventory
+    - Device health and status
+    - Audit events
   </Step>
   
   <Step title="Configure Alerts">
@@ -129,39 +127,10 @@ Kandji's modern approach to device management maps well to June's asset manageme
 | **Device Name** | Device Name | Primary device identifier |
 | **Serial Number** | Asset Tag | Unique hardware identifier |
 | **Model** | Hardware Model | Device model information |
-| **Blueprint** | Asset Category | Device configuration category |
 | **User Assignment** | Employee Assignment | Device ownership |
 | **Compliance Score** | Health Status | Overall device health |
 | **Installed Apps** | Software Inventory | Application tracking |
 | **Last Check-in** | Last Seen | Device connectivity status |
-
-### Blueprint Integration
-
-Kandji blueprints provide powerful device categorization:
-
-<AccordionGroup>
-  <Accordion title="Blueprint Categories">
-    - **Executive Devices**: High-privilege user configurations
-    - **General Staff**: Standard employee device setup
-    - **Developer Workstations**: Development-focused configurations
-    - **Shared Devices**: Kiosk and shared computer setups
-    - **BYOD Devices**: Bring-your-own-device configurations
-  </Accordion>
-  
-  <Accordion title="Blueprint Compliance">
-    - Overall blueprint compliance score
-    - Individual policy compliance status
-    - Configuration drift detection
-    - Remediation recommendations
-  </Accordion>
-  
-  <Accordion title="Custom Blueprints">
-    - Department-specific configurations
-    - Role-based device setups
-    - Security level classifications
-    - Geographic location variations
-  </Accordion>
-</AccordionGroup>
 
 ## Advanced Features
 
@@ -173,13 +142,6 @@ Kandji provides comprehensive device health data:
 - **System Health**: CPU, memory, and storage utilization
 - **Security Health**: FileVault status, Gatekeeper compliance
 - **Update Health**: macOS and application update status
-- **Policy Health**: Configuration profile compliance
-
-#### Health Scoring
-June translates Kandji's health data into actionable insights:
-- **Healthy (90-100%)**: Device fully compliant and optimized
-- **Warning (70-89%)**: Minor issues requiring attention
-- **Critical (Below 70%)**: Significant problems needing immediate action
 
 ### Application Management
 
@@ -197,15 +159,6 @@ June translates Kandji's health data into actionable insights:
     - Required app installation status
     - Prohibited software detection
     - Version compliance tracking
-    - Security update status
-  </Step>
-  
-  <Step title="Custom App Categories">
-    Organize applications by:
-    - Business function (productivity, development, design)
-    - Security classification (approved, restricted, prohibited)
-    - License type (commercial, open source, internal)
-    - Department usage (IT, HR, Finance, etc.)
   </Step>
 </Steps>
 
@@ -231,6 +184,7 @@ Kandji's user assignment features integrate seamlessly:
     - Check if the token has been revoked or expired
     - Ensure sufficient permissions were granted to the token
     - Generate a new token if needed
+    - Test the connection by clicking the "Test Connection" button.
   </Accordion>
   
   <Accordion title="Insufficient Permissions">
@@ -241,6 +195,7 @@ Kandji's user assignment features integrate seamlessly:
     - Ensure all required permissions are enabled
     - Check if permissions were modified after token creation
     - Regenerate token with proper permissions
+    - Test the connection by clicking the "Test Connection" button.
   </Accordion>
   
   <Accordion title="Subdomain Issues">
@@ -305,9 +260,8 @@ Kandji's user assignment features integrate seamlessly:
 
 ### Performance  
 - **Optimal Sync Frequency**: Balance data freshness with API usage
-- **Smart Filtering**: Use device categories to optimize sync performance
-- **Peak Hours**: Schedule intensive syncs during low-usage periods
-- **Resource Monitoring**: Watch for API rate limiting and adjust accordingly
+- **Daily Sync**: We sync the data for all devices every day. You can manually sync the data by clicking the "Sync Now" button. However, we recommend leaving it on daily sync.
+- **Resource Monitoring**: Kandji has a rate limit of 10,000 requests per hour per customer. If you have a large number of devices, you may need to stagger your syncs. However, we don't see people hitting this limit.
 
 ### Compliance
 - **Regular Audits**: Periodically review integration permissions and access
@@ -338,8 +292,8 @@ Once your Kandji integration is configured:
     Create views specifically for Mac device management
   </Card>
   
-  <Card title="Blueprint Compliance" href="/security-compliance/security-policies">
-    Set up compliance monitoring for Kandji blueprint policies
+  <Card title="Compliance agents" href="/security-compliance/security-policies">
+    Set up compliance monitoring for Kandji device compliance.
   </Card>
   
   <Card title="User Correlation" href="/integrations/okta">
