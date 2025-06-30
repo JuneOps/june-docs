@@ -24,82 +24,67 @@ Before starting the integration, ensure you have:
 ### Step 1: Create API Account in Jamf Pro
 
 <Steps>
-  <Step title="Access User Management">
+  <Step title="Setting up API role">
     1. Log into your Jamf Pro server
-    2. Navigate to Settings > System > User Accounts & Groups
-    3. Click the "+" button to create a new account
+    2. Navigate to Settings > System > API roles and clients
+    3. Go to the API roles tab and click the "+" button to create a new API role
+    4. Set the API role name to "June Integration"
+    5. Assign the following permissions:
+      - `Read Computers`
+      - `Read Mobile Devices`
+      - `Read Users`
+      - `Read Departments`
+      - `Read Buildings`
+      - `Read Mobile Device Applications`
+      - `Read Mac Applications`
+    6. Click "Save"
   </Step>
   
-  <Step title="Configure Account Details">
-    1. Enter a username (e.g., "june-integration")
-    2. Set a strong password
-    3. Select "Service Account" as the account type
-    4. Note the username and password for June configuration
-  </Step>
-  
-  <Step title="Assign API Privileges">
-    In the Privileges section, ensure the account has:
-    - **API access**: Enabled
-    - **Web application access**: Enabled (if needed for troubleshooting)
+  <Step title="Setting up API client">
+    1. Go to the API clients tab and click the "+" button to create a new API client
+    2. Set the API client name to "June Integration API Client"
+    3. Select the API role you created in the previous step
+    4. Set the access lifetime token to 60 (default value)
+    5. Click on the "Enable API client" button
+    6. Click "Save"
+    7. Generate the API client secret by clicking on the "Generate" button
+    8. Note the client ID and client secret for June configuration which we will use in the next step.
   </Step>
 </Steps>
 
-### Step 2: Configure API Permissions
-
-The API account needs specific read permissions:
-
-#### Required Permissions
-- **Computers**: Read access to computer inventory
-- **Computer Groups**: Read access to smart and static groups
-- **Policies**: Read access to policy information
-- **Configuration Profiles**: Read access to profile deployment status
-- **Users**: Read access to user information (if user assignment tracking is needed)
-
-#### Setting Permissions
-<Steps>
-  <Step title="Navigate to Privileges">
-    In the user account settings, go to the Privileges tab
-  </Step>
-  
-  <Step title="Configure Object Permissions">
-    For each required object type:
-    1. Find the object in the list
-    2. Set permissions to "Read" or "Create, Read, Update" as needed
-    3. Apply to "All Objects" or specific categories
-  </Step>
-  
-  <Step title="Save Configuration">
-    Save the user account with the configured permissions
-  </Step>
-</Steps>
-
-### Step 3: Add Integration in June
+### Step 2: Add Integration in June
 
 <Steps>
   <Step title="Access Integrations">
     1. Log into June
-    2. Navigate to Integrations > MDM Systems
-    3. Click "Add Integration"
+    2. Navigate to Integrations page
+    3. Choose "Jamf Pro" from the available integrations
   </Step>
   
-  <Step title="Select Jamf Pro">
-    1. Choose "Jamf Pro" from the available integrations
-    2. Click "Configure" to start the setup wizard
-  </Step>
-  
-  <Step title="Enter Connection Details">
-    Provide the following information:
+  <Step title="Configure Jamf Pro">
+    1. Enter the Jamf Pro server URL
+    2. Provide the following information:
     - **Jamf Pro Server URL**: Your Jamf Pro server URL (e.g., `https://yourcompany.jamfcloud.com`)
     - **Client ID**: Client ID from the API account created in Step 1
     - **Client Secret**: Client Secret from the API account created in Step 1
     - **Sync Frequency**: How often June should sync with Jamf Pro. Default is daily.
+    3. Click "Save"
+    4. You should see whether you are successfully connected to Jamf Pro.
   </Step>
   
   <Step title="Test Connection">
-    1. Click "Test Connection" to verify the setup
+    1. Click "Test Connection" to verify the setup from the dropdown option.
     2. June will attempt to connect and retrieve a sample of data
     3. Resolve any connection issues before proceeding
   </Step>
+
+  <Step title="Kick off the sync">
+    1. Click "Sync Now" option from the dropdown to sync your data.
+    2. June will start syncing your data. 
+    3. You should see the sync progress in the "Sync Status" column.
+    4. You should start to see assets getting populated in June in a few minutes.
+  </Step>
+  
 </Steps>
 
 ### Step 4: Configure Sync Settings
@@ -126,7 +111,6 @@ The API account needs specific read permissions:
 ## Data Synchronization
 
 ### What Gets Synced
-
 
 
 |Data Type | Jamf Pro Source | June Destination | Notes |

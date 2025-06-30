@@ -102,11 +102,11 @@ All MDM integrations provide:
 
 | Data Type | Description | Sync Frequency |
 |-----------|-------------|----------------|
-| **Device Inventory** | Hardware specs, serial numbers, models | Real-time |
-| **User Assignments** | Device ownership and location | Real-time |
-| **Compliance Status** | Policy adherence and health | Every 15-30 minutes |
+| **Device Inventory** | Hardware specs, serial numbers, models | Daily |
+| **User Assignments** | Device ownership and location | Daily |
+| **Compliance Status** | Policy adherence and health | Daily |
 | **Application Inventory** | Installed software and versions | Daily |
-| **Configuration Data** | Profiles, policies, and settings | Real-time |
+| **Configuration Data** | Profiles, policies, and settings | Daily |
 
 ### Remote Device Actions
 
@@ -115,23 +115,15 @@ Supported actions vary by MDM platform:
 <AccordionGroup>
   <Accordion title="Basic Actions">
     - Restart device
-    - Lock device
-    - Locate device
-    - Update inventory
+    - Rename device
+    - Assign/Unassign device to user
+    - Update inventory (Device check-in)
   </Accordion>
   
-  <Accordion title="Security Actions">
+  <Accordion title="Security Actions (coming soon)">
     - Remote wipe
     - Passcode reset
     - Lost mode activation
-    - Certificate management
-  </Accordion>
-  
-  <Accordion title="Management Actions">
-    - Install/remove applications
-    - Deploy configuration profiles
-    - Update device settings
-    - Force policy updates
   </Accordion>
 </AccordionGroup>
 
