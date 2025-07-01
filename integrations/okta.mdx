@@ -3,27 +3,35 @@ title: 'Okta Integration'
 description: 'Complete integration guide for connecting Okta with June for SSO and user provisioning'
 ---
 
-Connect June with Okta to enable single sign-on (SSO) and automated user provisioning for streamlined identity management.
+<img src="/images/okta_integrations_page.png" alt="Okta Integration" />
+
+Connect your Okta environment with June to enable secure API-based access to users, groups, and application assignments.
 
 ## What you'll accomplish
-- Configure SAML SSO with Okta
-- Set up SCIM user provisioning
-- Map Okta groups to June roles
-- Automate user lifecycle management
+- Create an Okta OAuth 2.0 application
+- Assign admin roles to the app
+- Provide June with your client ID and tenant URL
+- Enable automated identity data ingestion
 
 ## Prerequisites
 
 Before starting the integration, ensure you have:
-- Okta admin access (Super Admin or Application Admin)
-- June organization admin permissions
-- Understanding of your organization's group structure in Okta
-- SCIM provisioning enabled (optional but recommended)
+- Okta Super Admin access
+- Access to create OAuth 2.0 applications in Okta
 
-## SAML SSO Configuration
+## Okta OAuth 2.0 Application setup
 
 ### Step 1: Add June Application in Okta
 
 <Steps>
+  <Step title="Access Integrations">
+    1. Log into June
+    2. Navigate to Integrations page
+    3. Choose "Okta" from the available integrations
+    4. Before you enter any details, you will need to create an Okta OAuth 2.0 application.
+    5. Copy the **Okta public key URL**. You will need this for configuring client credentials using **PUBLIC KEYS** in Okta.
+  </Step>
+  
   <Step title="Access Okta Applications">
     1. Log into your Okta admin console
     2. Navigate to **Applications > Applications**
@@ -31,330 +39,72 @@ Before starting the integration, ensure you have:
   </Step>
   
   <Step title="Choose Integration Type">
-    1. Select **SAML 2.0** as the sign-in method
+    1. Select **API Services** as the sign-in method
     2. Click **Next** to continue
-    3. Enter application name: "June"
+    3. Enter application name: "June API Integration"
+    <img src="/images/new_okta_app_integration.png" alt="Okta Create App Integration" />
   </Step>
   
-  <Step title="Configure SAML Settings">
-    Enter the following SAML configuration:
-    
-    **General Settings**:
-    - **Single Sign-On URL**: `https://yourdomain.june.com/auth/saml/callback`
-    - **Audience URI (SP Entity ID)**: `https://yourdomain.june.com`
-    - **Name ID Format**: EmailAddress
-    - **Application Username**: Email
-    
-    **Advanced Settings**:
-    - **Response**: Signed
-    - **Assertion Signature**: Signed
-    - **Signature Algorithm**: RSA-SHA256
-    - **Digest Algorithm**: SHA256
+  <Step title="Configure Client Credentials">
+    1. Select the **June API Integration** application
+    2. Go to the **General** tab
+    3. Click **Edit** on the **Client Credentials** section
+    4. Select **Public key / Private key** option
+    5. Under **PUBLIC KEYS**, select **Use a URL to fetch keys dynamically**
+    6. and add the **Okta public key URL** you copied earlier to the **Url** field.
+    7. Click **Save**
+    <img src="/images/okta_public_key.png" alt="Okta Public Key" />
   </Step>
   
-  <Step title="Configure Attribute Statements">
-    Add the following attribute mappings:
-    
-    | Name | Name Format | Value |
-    |------|-------------|--------|
-    | `email` | Unspecified | `user.email` |
-    | `firstName` | Unspecified | `user.firstName` |
-    | `lastName` | Unspecified | `user.lastName` |
-    | `department` | Unspecified | `user.department` |
-    | `title` | Unspecified | `user.title` |
+  <Step title="Turn off DPoP">
+    1. Go to the **General** tab
+    2. Click **Edit** on the **General Settings** section
+    3. Uncheck the **Require Demonstrating Proof of Possession (DPoP) header in token requests** checkbox
+    4. Click **Save**
   </Step>
+  
+  <Step title="Okta API Scopes">
+    1. Go to the **Okta API Scopes** tab
+    2. Grant the following scopes to the application:
+      - `okta.users.read`
+      - `okta.groups.read`
+      - `okta.apps.read`
+  </Step>
+
+  <Step title="Assign Admin Roles">
+    1. Go to the **Admin roles** tab
+    2. Click **Edit assignments**
+    3. Select **Read-only Administrator** role to assign to the application
+    4. Click **Save Changes**
+    <img src="/images/admin_roles_okta.png" alt="Okta Admin Roles" />
+  </Step>
+
 </Steps>
 
-### Step 2: Configure June in Okta
+### Step 2: Set up Okta Integration in June
 
 <Steps>
-  <Step title="Complete Application Setup">
-    1. Click **Next** to proceed to feedback section
-    2. Select appropriate feedback options
-    3. Click **Finish** to create the application
+  <Step title="Complete Integration Setup">
+    1. Go back to June integrations page and select **Okta**
+    2. Copy the **Client ID** from the **Client Credentials** section in Okta and paste it in the **Client ID** field
+    3. Copy your Okta tenant URL and paste it in the **Tenant URL** field
+    4. Click **Save**
+    5. If the integration is successful, you should see a message saying "Integration setup complete" and the **Status** should be **Active**.
   </Step>
   
-  <Step title="Download Metadata">
-    1. Go to the **Sign On** tab of your June application
-    2. Click **Identity Provider metadata** link
-    3. Save the metadata XML file
+  <Step title="Test the Integration">
+    1. Click on the dropdown menu that has the status of the integration
+    2. Click **Test Integration**
+    3. If the integration is successful, you should see a message saying "Integration test successful" and the **Status** should be **Active**.
+    4. If the integration is not successful, you should see a message saying "Integration test failed" and the **Status** should be **Inactive**.
   </Step>
-  
-  <Step title="Assign Users/Groups">
-    1. Go to the **Assignments** tab
-    2. Assign appropriate users and groups to the June application
-    3. Consider creating dedicated Okta groups for June access levels
+
+  <Step title="Sync data from Okta">
+    1. Click on the dropdown menu that has the status of the integration
+    2. Click **Sync Now**
+    3. You should see the employees from Okta being synced to June under the **Employees** tab.
   </Step>
 </Steps>
-
-### Step 3: Configure June SSO Settings
-
-<Steps>
-  <Step title="Access June SSO Settings">
-    1. Log into June
-    2. Navigate to **Administration > SSO Settings**
-    3. Click **Configure SAML**
-  </Step>
-  
-  <Step title="Upload Okta Metadata">
-    1. Upload the metadata XML file from Okta
-    2. Verify the configuration details are populated correctly
-    3. Test the SAML configuration
-  </Step>
-  
-  <Step title="Enable SSO">
-    1. Enable SAML authentication
-    2. Configure fallback authentication if desired
-    3. Save the configuration
-  </Step>
-  
-  <Step title="Test SSO">
-    1. Test login with a pilot user account
-    2. Verify user attributes are mapped correctly
-    3. Confirm role assignments work as expected
-  </Step>
-</Steps>
-
-## SCIM User Provisioning
-
-### Step 1: Enable SCIM in June
-
-<Steps>
-  <Step title="Access User Provisioning">
-    1. In June, navigate to **Administration > User Provisioning**
-    2. Click **Enable SCIM Provisioning**
-    3. Generate a SCIM API token
-  </Step>
-  
-  <Step title="Configure SCIM Settings">
-    1. Copy the SCIM endpoint URL
-    2. Note the API token (store securely)
-    3. Configure user attribute mappings if needed
-  </Step>
-  
-  <Step title="Set Provisioning Rules">
-    Configure how users should be provisioned:
-    - Default role for new users
-    - Department assignment rules
-    - Account activation requirements
-    - Deprovisioning behavior
-  </Step>
-</Steps>
-
-### Step 2: Configure SCIM in Okta
-
-<Steps>
-  <Step title="Enable Provisioning">
-    1. In your June application in Okta, go to **Provisioning**
-    2. Click **Configure API Integration**
-    3. Check **Enable API integration**
-  </Step>
-  
-  <Step title="Enter SCIM Details">
-    1. **SCIM connector base URL**: Enter June's SCIM endpoint
-    2. **Unique identifier field for users**: `email`
-    3. **Authentication**: Select **Bearer** token
-    4. **API Token**: Enter the token from June
-  </Step>
-  
-  <Step title="Test Connection">
-    1. Click **Test API Credentials**
-    2. Verify successful connection
-    3. Click **Save** to save the configuration
-  </Step>
-  
-  <Step title="Configure Provisioning Features">
-    Enable the following features:
-    - ✅ **Create Users**: Automatically create June accounts
-    - ✅ **Update User Attributes**: Sync attribute changes
-    - ✅ **Deactivate Users**: Disable accounts when removed from Okta
-    - ⚠️ **Sync Password**: Only if password sync is desired
-  </Step>
-</Steps>
-
-### Step 3: Configure Attribute Mapping
-
-<Steps>
-  <Step title="Map User Attributes">
-    Configure attribute mapping between Okta and June:
-    
-    | Okta Attribute | June Attribute | Required |
-    |----------------|----------------|----------|
-    | `email` | `email` | Yes |
-    | `firstName` | `first_name` | Yes |
-    | `lastName` | `last_name` | Yes |
-    | `department` | `department` | No |
-    | `title` | `job_title` | No |
-    | `manager` | `manager` | No |
-    | `employeeNumber` | `employee_id` | No |
-  </Step>
-  
-  <Step title="Configure Group Mapping">
-    Map Okta groups to June roles:
-    - Create specific Okta groups for June roles
-    - Configure group-based role assignment
-    - Set up department-based access control
-  </Step>
-  
-  <Step title="Test Provisioning">
-    1. Assign a test user to the June application
-    2. Verify the user is created in June with correct attributes
-    3. Test attribute updates and deprovisioning
-  </Step>
-</Steps>
-
-## Group and Role Mapping
-
-### Recommended Okta Group Structure
-
-Create dedicated Okta groups for June access:
-
-| Okta Group Name | June Role | Access Level |
-|-----------------|-----------|--------------|
-| `June-Admins` | Organization Admin | Full administrative access |
-| `June-IT-Managers` | IT Manager | Device management and reporting |
-| `June-IT-Technicians` | IT Technician | Basic device management tasks |
-| `June-Dept-Managers` | Department Manager | Department-specific device access |
-| `June-Users` | End User | View assigned devices only |
-
-### Advanced Group Mapping
-
-<Steps>
-  <Step title="Department-Based Access">
-    Create groups for department-specific access:
-    - `June-Engineering`: Access to engineering devices
-    - `June-Sales`: Access to sales team devices
-    - `June-Finance`: Access to finance department devices
-  </Step>
-  
-  <Step title="Location-Based Access">
-    Set up location-based groups:
-    - `June-SF-Office`: San Francisco office devices
-    - `June-NY-Office`: New York office devices
-    - `June-Remote`: Remote worker devices
-  </Step>
-  
-  <Step title="Role-Based Workflows">
-    Configure approval workflows based on groups:
-    - IT Managers: Can approve device actions
-    - Department Managers: Can approve for their teams
-    - End Users: Request-only access
-  </Step>
-</Steps>
-
-## Advanced Configuration
-
-### Conditional Access Integration
-
-<Steps>
-  <Step title="Device Trust Policies">
-    1. Configure Okta device trust policies
-    2. Require managed device access for June
-    3. Set up risk-based authentication
-  </Step>
-  
-  <Step title="Multi-Factor Authentication">
-    1. Require MFA for June application access
-    2. Configure appropriate MFA methods
-    3. Set up adaptive MFA based on risk
-  </Step>
-  
-  <Step title="Network Zone Restrictions">
-    1. Define trusted network zones
-    2. Require specific network access for admin functions
-    3. Set up location-based access controls
-  </Step>
-</Steps>
-
-### Custom Attributes and Hooks
-
-<Steps>
-  <Step title="Custom User Attributes">
-    Sync additional Okta attributes to June:
-    - Cost center information
-    - Employee type (contractor, full-time, etc.)
-    - Security clearance level
-    - Device allocation preferences
-  </Step>
-  
-  <Step title="Okta Workflows Integration">
-    Use Okta Workflows for advanced automation:
-    - Automated device assignment based on department
-    - Custom approval workflows for device requests
-    - Integration with HR systems for onboarding
-    - Notification workflows for device lifecycle events
-  </Step>
-</Steps>
-
-## Troubleshooting
-
-### SAML Authentication Issues
-
-<AccordionGroup>
-  <Accordion title="Login Failures">
-    **Symptoms**: "Authentication failed" or redirect issues
-    
-    **Solutions**:
-    - Verify SAML configuration URLs are correct
-    - Check certificate validity and signing settings
-    - Ensure user is assigned to June application in Okta
-    - Review attribute mappings and required fields
-  </Accordion>
-  
-  <Accordion title="Attribute Mapping Problems">
-    **Symptoms**: Missing user information or incorrect role assignments
-    
-    **Solutions**:
-    - Verify attribute statements in Okta application
-    - Check June attribute mapping configuration
-    - Ensure required attributes are populated in Okta user profiles
-    - Test with a user that has all required attributes
-  </Accordion>
-  
-  <Accordion title="Role Assignment Issues">
-    **Symptoms**: Users getting incorrect permissions or access levels
-    
-    **Solutions**:
-    - Review group memberships in Okta
-    - Check June role mapping configuration
-    - Verify group-based role assignment rules
-    - Test role changes with group membership updates
-  </Accordion>
-</AccordionGroup>
-
-### SCIM Provisioning Issues
-
-<AccordionGroup>
-  <Accordion title="Provisioning Failures">
-    **Symptoms**: Users not created or sync errors in Okta
-    
-    **Solutions**:
-    - Verify SCIM endpoint URL and API token
-    - Check June SCIM logs for error details
-    - Ensure required user attributes are present
-    - Review rate limiting and API quotas
-  </Accordion>
-  
-  <Accordion title="Attribute Sync Problems">
-    **Symptoms**: User attributes not updating or mapping incorrectly
-    
-    **Solutions**:
-    - Review attribute mapping configuration in Okta
-    - Check field requirements and data types
-    - Verify custom attribute setup in June
-    - Test with manual attribute updates
-  </Accordion>
-  
-  <Accordion title="Deprovisioning Issues">
-    **Symptoms**: Users not deactivated when removed from Okta
-    
-    **Solutions**:
-    - Verify deprovisioning is enabled in Okta
-    - Check June user deactivation settings
-    - Review assignment removal vs. application deactivation
-    - Test deprovisioning workflow with test users
-  </Accordion>
-</AccordionGroup>
 
 ## Best Practices
 
@@ -376,41 +126,14 @@ Create dedicated Okta groups for June access:
 - **Sync Frequency**: Configure appropriate sync frequencies for your needs
 - **Error Monitoring**: Set up monitoring for provisioning errors and failures
 
-## Next Steps
-
-Once your Okta integration is configured:
-
-<CardGroup cols={2}>
-  <Card title="Device Assignment Automation" href="/employee-management/employee-onboarding">
-    Set up automated device assignment based on user attributes
-  </Card>
-  
-  <Card title="Conditional Access Policies" href="/security-compliance/access-control">
-    Implement advanced access controls based on device and user context
-  </Card>
-  
-  <Card title="Workflow Automation" href="/workflows/common-workflows">
-    Create automated workflows triggered by user lifecycle events
-  </Card>
-  
-  <Card title="Reporting and Analytics" href="/reporting/standard-reports">
-    Generate reports that include user and authentication data
-  </Card>
-</CardGroup>
-
 ## Support Resources
 
 Need help with your Okta integration?
 
-- **Okta Documentation**: Review Okta SAML and SCIM integration guides
+- **Okta Documentation**: Review this [article](https://support.okta.com/help/s/article/403-error-with-org2org-provisioning-with-oauth?language=en_US) about why June needs admin roles assigned.
 - **June Support**: Contact support for integration-specific assistance
 - **Community Forum**: Join discussions about identity provider integrations
-- **Professional Services**: Consider professional implementation assistance
-
-<Warning>
-Test all SSO and provisioning changes in a development environment before applying to production to avoid user access disruptions.
-</Warning>
 
 <Note>
-Okta integration changes may take up to 15 minutes to propagate. Always test with pilot users before rolling out organization-wide.
+Syncing data from Okta to June may take up to 15 minutes based on the number of users in your Okta environment.
 </Note> 
