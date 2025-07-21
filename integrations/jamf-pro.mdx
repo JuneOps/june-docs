@@ -112,7 +112,6 @@ Before starting the integration, ensure you have:
 
 ### What Gets Synced
 
-
 |Data Type | Jamf Pro Source | June Destination | Notes |
 |-----------|----------------|------------------|--------|
 | **Device Identity** | Computer Name, Serial Number | Device Name, Asset Tag | Primary device identification |
@@ -193,7 +192,7 @@ Before starting the integration, ensure you have:
     
     **Solutions**:
     - Increase sync frequency if needed
-    - Force inventory update on devices
+    - Force inventory update on devices by clicking on the "Sync Now" button in the integration page.
     - Check device connectivity and management status
     - Review sync logs for specific error messages
   </Accordion>
@@ -203,8 +202,8 @@ Before starting the integration, ensure you have:
     
     **Solutions**:
     - Reduce sync frequency during peak hours
-    - Implement device filtering to sync fewer devices
     - Monitor Jamf Pro server performance during sync windows
+    - You could be hitting the rate limit of the Jamf Pro API. You could try to increase the sync frequency to reduce the number of devices that are synced.
   </Accordion>
 </AccordionGroup>
 

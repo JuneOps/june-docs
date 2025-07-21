@@ -52,12 +52,14 @@ Before starting the integration, ensure you have:
 Ensure your API token has the following permissions:
 
 #### Required Permissions
-- **Devices**: Read access to device inventory and details
-- **Users**: Read access to user assignments  
 - **Blueprints**: Read access to device blueprint configurations
-- **Apps**: Read access to application inventory
-- **Compliance**: Read access to device compliance status
-- **Audit Logs**: Read access for troubleshooting
+- **Users**: Read access to user assignments  
+- **Audit Logs**: Read access for fetching devices audit events
+- **Tag Management**: Read and write access to tags
+- **Tenant Details**: Read access to tenant license information. This is used to test the connection.
+- **Devices**: Access to device information, device actions, and device secrets (optional).
+
+<img src="/images/kandji_permissions.png" alt="Kandji Permissions" />
 
 ### Step 3: Configure June Integration
 
@@ -75,7 +77,7 @@ Ensure your API token has the following permissions:
   
   <Step title="Enter Kandji Details">
     Provide the following information:
-    - **Kandji Subdomain**: Your Kandji subdomain (e.g., `yourcompany` from `yourcompany.api.kandji.io`)
+    - **Kandji Organization API URL**: Your Kandji organization API URL (e.g., `https://yourcompany.api.kandji.io`).
     - **API Token**: The token generated in Step 1
     - **Sync Interval**: How often June should sync with Kandji. Default is daily.
   </Step>
@@ -91,85 +93,41 @@ Ensure your API token has the following permissions:
 
 <Steps>
   <Step title="Set Sync Frequency">
-    Choose sync interval based on your environment:
-    - **Every 15 minutes**: For dynamic environments with frequent changes
-    - **Every 30 minutes**: Balanced approach (recommended)
-    - **Hourly**: For stable environments with fewer device changes
+    Choose how often June should sync with Kandji:
+    - **Every day**: Recommended for most environments
+    - **Every other day**: For larger environments or limited bandwidth
+    - **Weekly**: For environments with fewer changes
   </Step>
   
-  <Step title="Select Data to Sync">
-    Choose which device attributes to synchronize:
-    - Device inventory and specifications
-    - User assignments and locations
-    - Blueprint assignments and compliance
-    - Application inventory
-    - Device health and status
-    - Audit events
+  <Step title="Choose Data to Sync">
+    Select which device attributes to synchronize:
+    - Device Data (Always included)
+    - Employee Data
+    - Installed Software applications
+    - Device Actions (Restart, Lock, Wipe, etc.)
   </Step>
-  
-  <Step title="Configure Alerts">
-    Set up notifications for:
-    - Sync failures and connection issues
-    - Compliance violations detected
-    - New devices discovered
-    - Integration performance issues
+</Steps>
+
+### Step 5: Schedule your first sync
+
+<Steps>
+  <Step title="Schedule your first sync">
+    Click on the "Sync Now" button to schedule your first sync.
   </Step>
 </Steps>
 
 ## Data Synchronization
 
-### Kandji Data Mapping
+### What Gets Synced
 
-Kandji's modern approach to device management maps well to June's asset management:
-
-| Kandji Data | June Field | Description |
-|-------------|------------|-------------|
-| **Device Name** | Device Name | Primary device identifier |
-| **Serial Number** | Asset Tag | Unique hardware identifier |
-| **Model** | Hardware Model | Device model information |
-| **User Assignment** | Employee Assignment | Device ownership |
-| **Compliance Score** | Health Status | Overall device health |
-| **Installed Apps** | Software Inventory | Application tracking |
-| **Last Check-in** | Last Seen | Device connectivity status |
-
-## Advanced Features
-
-### Device Health Monitoring
-
-Kandji provides comprehensive device health data:
-
-#### Health Metrics
-- **System Health**: CPU, memory, and storage utilization
-- **Security Health**: FileVault status, Gatekeeper compliance
-- **Update Health**: macOS and application update status
-
-### Application Management
-
-<Steps>
-  <Step title="App Inventory Sync">
-    Sync comprehensive application data:
-    - Installed applications and versions
-    - Managed app deployment status
-    - License compliance information
-    - Security software status
-  </Step>
-  
-  <Step title="App Compliance Tracking">
-    Monitor application compliance:
-    - Required app installation status
-    - Prohibited software detection
-    - Version compliance tracking
-  </Step>
-</Steps>
-
-### User and Location Management
-
-Kandji's user assignment features integrate seamlessly:
-
-- **User Profiles**: Sync user information and device assignments
-- **Location Tracking**: Map device locations to organizational structure
-- **Assignment History**: Track device ownership changes over time
-- **Departure Management**: Handle device reassignment during employee transitions
+|Data Type | Kandji Source | June Destination | Notes |
+|-----------|----------------|------------------|--------|
+| **Device Identity** | Computer Name, Serial Number | Device Name, Asset Tag | Primary device identification |
+| **Hardware Info** | Model, Processor, Memory, Storage | Hardware Specifications | Complete hardware inventory |
+| **Software** | Operating System, Software Applications | System Info, App Inventory | OS version and installed apps |
+| **User Assignment** | User and Location fields | Employee Assignment | Links devices to users |
+| **Compliance** | Last Inventory, Check-in Status | Health Status | Device connectivity and compliance |
+| **Department Data** | Device assignment to departments | Department and Location | Organizational groupings |
 
 ## Troubleshooting
 
@@ -181,9 +139,9 @@ Kandji's user assignment features integrate seamlessly:
     
     **Solutions**:
     - Verify the API token was copied correctly
+    - Ensure that the *Tenant Details* permission is enabled.
     - Check if the token has been revoked or expired
     - Ensure sufficient permissions were granted to the token
-    - Generate a new token if needed
     - Test the connection by clicking the "Test Connection" button.
   </Accordion>
   
@@ -193,8 +151,8 @@ Kandji's user assignment features integrate seamlessly:
     **Solutions**:
     - Review token permissions in Kandji settings
     - Ensure all required permissions are enabled
-    - Check if permissions were modified after token creation
-    - Regenerate token with proper permissions
+    - Check if permissions were modified after token creation.
+    - Edit the token permissions in Kandji and save.
     - Test the connection by clicking the "Test Connection" button.
   </Accordion>
   
@@ -202,51 +160,48 @@ Kandji's user assignment features integrate seamlessly:
     **Symptoms**: "Tenant not found" or connection errors
     
     **Solutions**:
-    - Verify the Kandji subdomain is correct
+    - Verify the Kandji organization API URL is correct. You must enter the full URL https://subdomain.api.kandji.io
     - Check for typos in the subdomain field
     - Ensure the Kandji tenant is active and accessible
     - Test direct access to Kandji web interface
   </Accordion>
 </AccordionGroup>
 
-### Sync Problems
+### Sync Issues
 
 <AccordionGroup>
   <Accordion title="Missing Devices">
     **Possible Causes**:
     - Devices not enrolled in Kandji
-    - Blueprint restrictions limiting visibility
-    - Recent enrollment not yet processed
-    - API permissions insufficient for device access
+    - Devices haven't checked in recently
+    - Insufficient permissions to access certain devices
     
     **Solutions**:
     - Verify device enrollment status in Kandji
-    - Check blueprint assignments and permissions
-    - Allow time for new enrollments to process
-    - Review API token permissions
+    - Check last inventory date for missing devices
+    - Confirm API permissions cover all required devices
   </Accordion>
   
-  <Accordion title="Outdated Compliance Data">
+  <Accordion title="Outdated Information">
     **Possible Causes**:
     - Devices not checking in regularly
-    - Sync frequency too low for compliance needs
-    - Network connectivity issues
+    - Sync frequency too low
+    - Network issues preventing updates
     
     **Solutions**:
-    - Force device check-in from Kandji console
-    - Increase sync frequency in June
-    - Check device network connectivity
-    - Review Kandji agent status on devices
+    - Increase sync frequency if needed
+    - Force inventory update on devices by clicking on the "Sync Now" button in the integration page.
+    - Check device connectivity and management status
+    - Review sync logs for specific error messages
   </Accordion>
   
-  <Accordion title="Performance Issues">
-    **Symptoms**: Slow syncs, timeouts, incomplete data transfers
+  <Accordion title="Performance Problems">
+    **Symptoms**: Slow syncs, timeouts, high resource usage
     
     **Solutions**:
-    - Implement device filtering if large tenant
-    - Stagger sync schedules during off-peak hours
-    - Monitor Kandji API rate limits
-    - Consider breaking large environments into segments
+    - Reduce sync frequency during peak hours
+    - Monitor Kandji server performance during sync windows
+    - You could be hitting the rate limit of the Kandji API. You could try to increase the sync frequency to reduce the number of devices that are synced.
   </Accordion>
 </AccordionGroup>
 
@@ -315,9 +270,5 @@ Need help with your Kandji integration?
 - **Best Practices**: Consult with June solutions engineers for optimization
 
 <Note>
-Kandji integration typically establishes connection within minutes. Large tenants may require additional time for initial device synchronization to complete.
+Kandji integration typically establishes connection within minutes. It can take up to 1 hour for the initial sync to complete depending on the number of devices in your organization.
 </Note>
-
-<Tip>
-Consider using Kandji's custom attributes feature to add organization-specific metadata that will sync to June custom fields.
-</Tip> 
