@@ -54,6 +54,7 @@
           {
             "group": "MDM Platforms",
             "pages": [
+              "integrations/apple-business-manager",
               "integrations/jamf-pro",
               "integrations/microsoft-intune",
               "integrations/kandji"
