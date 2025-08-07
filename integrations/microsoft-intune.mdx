@@ -33,7 +33,7 @@ Before starting the integration, ensure you have:
   </Step>
   
   <Step title="Select Microsoft Intune">
-    1. Choose "Microsoft Entra ID (Intune)" from available integrations
+    1. Choose "Microsoft Entra" from available integrations
     2. Click **Connect** to start setup
   </Step>
   
@@ -57,10 +57,10 @@ Before starting the integration, ensure you have:
   
   <Step title="Configure Data Scope">
     Select what data to synchronize:
+    - Sync all employees
     - Device inventory and specifications (always on)
-    - Device location 
-    - App installation status
-    - Employee information
+    - Sync Software Applications
+    - Device actions
   </Step>
 </Steps>
 
@@ -74,50 +74,6 @@ Before starting the integration, ensure you have:
 | **macOS** | MacBooks, iMacs, Mac minis | System info, security settings, application inventory |
 | **iOS/iPadOS** | iPhones, iPads | Device model, OS version, app compliance |
 | **Android** | Phones, Tablets | Device info, work profile status, managed apps |
-
-### Intune-Specific Features
-
-<AccordionGroup>
-  <Accordion title="Compliance Policy Status">
-    - Overall device compliance score
-    - Specific policy violations
-    - Remediation recommendations
-    - Compliance trend analysis
-  </Accordion>
-  
-  <Accordion title="App Protection Policies">
-    - Managed app installation status
-    - App protection policy compliance
-    - Data protection status
-    - App usage analytics
-  </Accordion>
-  
-  <Accordion title="Device Encryption">
-    - BitLocker status (Windows)
-    - FileVault status (macOS)
-    - Device encryption compliance
-    - Key recovery information availability
-  </Accordion>
-</AccordionGroup>
-
-## Remote Device Actions
-
-June can trigger remote actions through Intune:
-
-### Available Actions
-
-<CardGroup cols={2}>
-  <Card title="Device Management">
-    - Restart device
-    - Assign device to user
-    - Shutdown device
-  </Card>
-
-  <Card title="Compliance Actions">
-    - Sync device
-  </Card>
-
-</CardGroup>
 
 ## Troubleshooting
 
