@@ -38,6 +38,12 @@
               "getting-started/quick-start",
               "getting-started/organization-setup"
             ]
+          },
+          {
+            "group": "Product Updates",
+            "pages": [
+              "changelog"
+            ]
           }
         ]
       },
@@ -82,6 +88,17 @@
             "group": "AI Features",
             "pages": [
               "ai-features/ai-insights"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "groups": [
+          {
+            "group": "Recent Updates",
+            "pages": [
+              "changelog"
             ]
           }
         ]
