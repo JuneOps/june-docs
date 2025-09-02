@@ -1,0 +1,52 @@
+## AI-Powered Data Enrichment
+
+<Frame>
+<video
+  controls
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  className="w-full aspect-video rounded-xl"
+  src="/videos/ai_data_enrichment.mp4"
+  onLoadedMetadata={(e) => { e.target.playbackRate = 1.25; }}
+></video>
+</Frame>
+
+We’ve enhanced June with intelligent data enrichment that automatically adds context to your IT inventory. 
+These AI-powered capabilities remove the need for manual research and give you the information you need to 
+make faster, better decisions. From real-time device valuations to plain-English software descriptions, 
+June now delivers the insights you used to look up elsewhere.
+
+**Automated Device Valuations**
+- Apple devices now include automatic market value estimates based on current conditions and specifications.
+- Get instant insights for budget planning, insurance reporting, and refresh cycle optimization.
+- Eliminate manual price research and ensure accurate financial reporting across your entire Apple fleet.
+- Coupled with data from Apple Business Manager, now plan depreciation and hardware spend across all of your Apple devices.
+
+**Intelligent Software Context**
+- June AI now generates clear, plain-English descriptions for every discovered application.
+- Helps IT teams quickly understand purpose and functionality without hours of manual research.
+- Surfaces context that makes software reviews, approvals, and renewals faster and more consistent.
+
+## Product Improvements
+
+- **Agent run settings**: Gain full control over when AI agents run. Choose flexible options like daily, weekdays, or weekends, and set exact execution times so agents operate on your schedule.
+- **Software Ownership Tracking**: Assign approvers and sponsors to software applications, making it easy to see who owns renewals and budgets.
+- **Kandji Firewall Tracking**: Firewall status from Kandji-managed devices is now collected 
+and applied against your compliance policies. This means June can fully evaluate 
+firewall requirements for assets managed in Kandji, just like it already does for other MDM systems.
+- **Recovery Key Status**: You can now see escrow status for each device directly on the compliance tab. 
+This makes it easy to confirm whether recovery keys are properly escrowed in Jamf or Kandji, ensuring devices meet your encryption requirements.
+- **Navigation**: Software and asset sections have been reorganized so you can find devices, apps, and policies faster.
+- **Software policy analyzer updates**: When the analyzer updates a policy, June now highlights the exact change and shows the reasoning behind it. This gives you clear visibility into both what was changed and why.
+- **Improved integration events**. Integration events now have a partial success status when the integration sync finishes with errors but still managed to sync some data.
+- **Performance**: The employee page now loads 2× faster, making it quicker to view device assignments and employee details.
+
+## Bug Fixes
+
+- Jamf sync no longer makes unnecessary API calls that triggered rate-limit errors.
+- Fixed an issue where ABM data was being overridden with null values causing existing data to be cleared out.
+- Slack integration handles 429 errors correctly; channel selection works with either name or ID
+- Asset compliance fields are now correctly populated for devices that were previously missing some fields.
+- Fixed a bug where mobile device activity was not being fetched from Jamf. The system was always calling the computer history endpoint; it now scopes correctly by device type.
