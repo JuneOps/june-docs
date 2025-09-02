@@ -45,8 +45,8 @@ This makes it easy to confirm whether recovery keys are properly escrowed in Jam
 
 ## Bug Fixes
 
-- Removed unnecessary API calls that were causing rate limit errors causing the Jamf sync to fail.
+- Jamf sync no longer makes unnecessary API calls that triggered rate-limit errors.
 - Fixed an issue where ABM data was being overridden with null values causing existing data to be cleared out.
-- Fixed 429 rate-limit errors; you can now configure the integration using either a channel name or channel ID.
-- Resolved an issue where compliance fields were not being pulled in correctly to display the current status of a device.
+- Slack integration handles 429 errors correctly; channel selection works with either name or ID
+- Asset compliance fields are now correctly populated for devices that were previously missing some fields.
 - Fixed a bug where mobile device activity was not being fetched from Jamf. The system was always calling the computer history endpoint; it now scopes correctly by device type.
