@@ -1,0 +1,21 @@
+## Enhanced Data Visibility and Tracking
+
+This week we focused on improving user experience and fixing bugs across the platform. We've added table sorting to asset, software, and employee sections, enhanced data source tracking so you know where your information comes from, and resolved several integration issues that were affecting data quality.
+
+## Product Improvements
+
+- **Universal table sorting**: All asset tables, software tables, and employee sections now support comprehensive sorting across all columns.
+- **Integration source visibility**: See which integration last updated each employee and asset record, giving you complete transparency into your data sources.
+- **Update history tracking**: View a detailed history of data changes with timestamps and source information for better audit trails.
+- **Custom property display**: Employee detail pages now show all properties pulled from your identity providers, giving you a complete view of employee information.
+- **Improved table performance**: Fixed layout issues and column width inconsistencies that caused visual jitter when sorting.
+- **Enhanced AI prompts**: Updated AI agent prompts to better handle employee and cost-related questions with more accurate responses.
+
+## Bug Fixes and Reliability Improvements
+
+- **Okta optimization**: Okta integration now syncs login events for active users only, significantly improving sync performance and reducing unnecessary API calls.
+- **Google Workspace stability**: Fixed app name extraction errors that were causing Google integration jobs to fail.
+- **Jamf purchase data preservation**: Jamf integration no longer overwrites purchase details from Apple Business Manager, ensuring data integrity across integrations.
+- **Product pricing accuracy**: Fixed catalog price update jobs to properly create purchase details when they don't exist, ensuring accurate cost tracking.
+- **Faster data processing**: Optimized backend queries for better performance when loading large datasets.
+- **Reduced API overhead**: Minimized unnecessary API calls across all integrations to improve sync reliability and speed.
