@@ -1,21 +1,14 @@
-## Enhanced Asset Management and Device Actions
+## Device Management and Organizational Visibility
 
-This week we focused on expanding asset management capabilities and improving device lifecycle tracking. You can now take direct actions on devices, track asset conditions more comprehensively, and have better organizational data management.
+This week we focused on device management and organizational structure improvements. You can now assign devices to employees with automatic MDM sync, track physical device conditions, and manage departments and locations directly in June.
 
 ## Product Improvements
 
-- **Device Assignment Actions**: Assign and unassign devices directly from the June interface with seamless Jamf integration for streamlined device management.
-- **Asset Condition Tracking**: Comprehensive asset condition monitoring including battery health, physical condition, screen damage, and port functionality for better refresh planning.
-- **Enhanced Refresh Planning**: Updated asset usage snapshots with structured data tracking including device turn-on/off patterns, OS loads, and overall device health metrics.
-- **AI Agent Conversations**: Agents can now start conversations proactively with pre-built messages, enabling more automated and contextual interactions.
-- **Department and Location Management**: New resolvers and UI for managing departments and locations with better organizational structure visibility.
-- **Windows 11 Support**: Enhanced AI search capabilities to properly identify and query Windows 11 devices with updated system prompts.
-- **Software Policy Roles**: Improved software policy role management with enhanced assignment and tracking capabilities.
-- **Provider Identity Tracking**: Better tracking of department and location data sources from identity providers for improved data lineage.
+- **Device Assignment with MDM Sync**: Assign and unassign devices to employees directly in June with automatic synchronization to your MDM system. Assignment automatically updates location and department information, eliminating the need to manage data in multiple places.
+- **Physical Asset Condition Tracking**: New asset condition monitoring system that tracks whether devices turn on, all ports and keys work, enclosure condition, display status, and other physical attributes. This helps determine if devices are suitable for redeployment or should be recycled/decommissioned, providing better refresh planning beyond just age and warranty data.
+- **Department and Location Management**: New UI for managing departments and locations with visibility into which employees and assets belong to each organizational unit. This organizational data was previously not visible in the application.
+- **Software Policy Contact Assignment**: Assign employees and their roles to software policies, allowing you to designate primary contacts for renewals and contract management.
 
-## Bug Fixes and Reliability Improvements
+## Bug Fixes
 
-- **Jamf Integration**: Enhanced Jamf device actions with proper assignment workflows and improved error handling.
-- **GraphQL Performance**: Optimized resolvers for departments, locations, and asset conditions for faster data loading.
-- **UI Consistency**: Improved asset condition and status popovers with better visual design and user experience.
-- **Data Synchronization**: Better handling of provider identity data for departments and locations across different integrations.
+- **Windows 11 Device Recognition**: Fixed AI agent to properly identify Windows 11 devices by recognizing that OS version 10.0.22000 and above indicates Windows 11, resolving incorrect device classification.
