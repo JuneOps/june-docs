@@ -1,0 +1,17 @@
+## Device Security & Platform Stability
+
+This week, we're enhancing device security with the ability to view lock pins. The majority of our work focused on significant performance and stability improvements for backend services, job processing, and MDM sync.
+
+## Product Improvements
+
+- **View Device Lock Pin**: You can now look up and view the device lock pin for computers directly in the June UI.
+- **MDM Sync Performance**: Greatly improved the performance and efficiency of the daily MDM sync, reducing database load and speeding up data processing.
+- **Improved Background Job Performance**: Optimized how background jobs and device actions are queued and processed, leading to a more responsive system.
+
+## Bug Fixes
+
+- **Jamf Mobile Device Assignment**: Fixed a bug that was preventing correct device assignment for mobile devices in Jamf.
+- **Agent Stability**: Resolved an issue with the agent's ability to handle parallel tool calls.
+- **ITSM Webhook Permissions**: Fixed a data permission (RLS) issue that was affecting the processing of ITSM webhooks.
+- **Background Job Prioritization**: Corrected a bug to ensure that long-running and quick background jobs are prioritized appropriately.
+- **Backend Stability**: Fixed a database transaction issue to prevent data rollbacks during certain events.
