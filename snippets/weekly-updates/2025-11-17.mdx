@@ -1,0 +1,29 @@
+## Agent Capabilities and Bulk Operations
+
+We've enhanced June's AI capabilities and introduced bulk operations to streamline your device management workflows. You can now manage multiple devices at once, get better visibility into integration capabilities, and experience improved chat interactions.
+
+## Product Improvements
+
+- **Bulk Device Status Updates**: Update the status of multiple devices simultaneously from both the UI and chat interface. This streamlines device lifecycle management, especially useful when processing large batches of assets during refresh cycles or decommissioning.
+
+- **Status and Condition Updates via Chat**: Use June's AI agent to update device status and condition directly through conversation. The agent can now modify device states based on natural language requests, making it faster to log device issues or status changes without navigating through multiple screens.
+
+- **Enhanced Agent Tool Interface**: Completely redesigned the tool approval and execution interface in chat. Actions now display clearer previews before execution with better visual formatting, making it easier to understand what changes will be made before approving them.
+
+- **Device Metadata Visibility**: Asset metadata fields from your MDM are now displayed in the device details section, providing more comprehensive device information directly in June without needing to check your MDM console.
+
+- **Improved Integration Management**: When disconnecting an integration, you now have two options: disconnect (keeps data) or delete (removes underlying data). This prevents accidental data loss when temporarily disconnecting services. Additionally, integration capabilities are now visible even before connecting, helping you understand what each integration can do.
+
+## Bug Fixes
+
+- **Security Updates**: Resolved Vite vulnerability affecting Windows users and added infrastructure for ongoing security scans to proactively identify potential issues.
+
+- **Ticket Creation Parameters**: Resolved issue with create ticket tool parameters not being passed correctly to ITSM integrations, ensuring ticket creation workflows function properly.
+
+- **Employee Status Synchronization**: Fixed bug where employee status would incorrectly toggle when an employee has multiple identity provider connections, ensuring consistent employee state across integrations.
+
+- **Mobile Device Assignment (JAMF)**: Corrected mobile device assignment logic in JAMF integration, ensuring proper user association for iOS and iPadOS devices.
+
+- **Contract Date Display**: Fixed incorrect date formatting for software contracts, ensuring renewal and expiration dates display accurately.
+
+- **Websocket Stability**: Resolved disconnection issues in the agents chat interface, providing more reliable real-time communication and preventing message loss.
