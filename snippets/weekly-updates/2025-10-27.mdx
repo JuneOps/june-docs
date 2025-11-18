@@ -1,0 +1,26 @@
+## Unified Software Inventory (Part 2) & ITSM
+
+This week, we're launching the next major phase of our Unified Software Inventory, allowing you to manage contracts and licenses. We've also continued building our ITSM integration framework and improved key workflows.
+
+## Product Improvements
+
+- **Software Contract & License Management**:
+  - You can now create and manage **software contracts**, including renewal dates and owners.
+  - **Assign licenses** to users directly from the software details page.
+  - A new UI to view and manage all software contracts.
+- **New Software Details Page**: Launched a completely redesigned software details page, which includes new counts for applications, licenses, and contracts.
+- **ITSM Webhook Framework**: Continued foundational work for our upcoming ITSM integrations by building secure webhook endpoints to receive events.
+- **Smarter June Bot**: Improved the June Bot's ability to understand prompts and retrieve software details.
+- **Refresh Planning in Sidebar**: Added "Refresh Planning" as a primary item in the navigation sidebar for easier access.
+- **Cleaner Refresh Planning**: Decommissioned assets are no longer included in the refresh planning queue.
+- **UI & Performance Updates**:
+  - Your sorting preferences (e.g., A-Z) on tables are now saved locally.
+  - Renamed the "Deleted" device status to "Awaiting Enrollment" for clarity.
+  - Deployed routine gem and dependency upgrades for security and performance.
+
+## Bug Fixes
+
+- **Stale Asset Detection**: Fixed an issue in the logic used to identify stale assets, improving data accuracy.
+- **Refresh Planning UI**: Corrected a bug on the refresh planning page that affected chart display and data.
+- **Integration Loading**: Resolved a bug that could prevent active integrations from loading correctly.
+- **Device Assignment**: Improved how device unassignment actions are handled, especially for devices that are no longer found in your MDM.
