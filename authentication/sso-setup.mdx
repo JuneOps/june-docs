@@ -1,0 +1,256 @@
+---
+title: "Okta SSO Setup"
+description: "Configure SSO authentication for your June organization using Okta"
+---
+
+Enable Single Sign-On (SSO) so teammates can access June with their existing Okta credentials.
+
+## What you'll accomplish
+
+- Configure Okta as your SSO provider
+- Create an OIDC app integration in Okta
+- Enable seamless authentication for your team
+- Improve security with centralized identity management
+
+## Prerequisites
+
+Make sure you have:
+
+- **Okta Admin access** to create app integrations
+- **June organization admin** permissions
+- **Verified email domain** set up in June via **Settings > Email Domains**
+
+<Info>
+  June currently supports Okta as the SSO provider. Additional identity
+  providers are coming soon.
+</Info>
+
+## Step 1: Create the Okta app integration
+
+<Steps>
+  <Step title="Open Okta Applications">
+    1. Log into the Okta admin console.  
+    2. Go to **Applications** > **Applications**.  
+    3. Click **Create App Integration**.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_1.png"
+        alt="Okta Applications page showing the Create App Integration button"
+      />
+    </Frame>
+  </Step>
+
+  <Step title="Choose OIDC Web Application">
+    1. Select **OIDC - OpenID Connect**.  
+    2. Choose **Web Application**.  
+    3. Click **Next**.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_2.png"
+        alt="Okta create app integration dialog with OIDC Web Application selected"
+      />
+    </Frame>
+
+    <Tip>
+      OIDC is recommended for web apps because it delivers OAuth 2.0 tokens with
+      Single Sign-On support.
+    </Tip>
+  </Step>
+
+  <Step title="Set general settings">
+    - **App integration name**: Use something clear like "June SSO".
+  </Step>
+
+  <Step title="Configure redirect URIs">
+    1. In **Sign-in redirect URIs**, enter `https://auth.juneops.com`.  
+    2. Leave **Sign-out redirect URIs** empty (optional).
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_3.png"
+        alt="Okta Web App Integration settings with redirect URI configured"
+      />
+    </Frame>
+
+    <Note>
+      The redirect URI must match exactly `https://auth.juneops.com` for SSO to
+      succeed.
+    </Note>
+  </Step>
+
+  <Step title="Set assignments">
+    Choose who can use June through Okta:
+
+    - Allow everyone in your organization.
+    - Limit to selected groups for a safer pilot.
+    - Skip now and assign later.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_4.png"
+        alt="Okta assignment options for the June SSO app"
+      />
+    </Frame>
+
+    <Tip>
+      Start with a small test group, then expand once validation succeeds.
+    </Tip>
+  </Step>
+
+  <Step title="Save and capture credentials">
+    1. Click **Save** to create the app.  
+    2. On the **General** tab, find **Client Credentials**.  
+    3. Copy the **Client ID**.  
+    4. Copy the **Client Secret** (click to reveal before copying).
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_5.png"
+        alt="Okta client credentials section showing Client ID and Client Secret"
+      />
+    </Frame>
+
+    <Warning>
+      Keep the Client Secret private—never share it or commit it to version
+      control.
+    </Warning>
+  </Step>
+</Steps>
+
+## Step 2: Select your authorization server in Okta
+
+<Steps>
+  <Step title="Open Authorization Servers">
+    1. In Okta admin, go to **Security > API > Authorization Servers**.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_6.png"
+        alt="Okta Authorization Servers list in the API section"
+      />
+    </Frame>
+  </Step>
+
+  <Step title="Choose the server for June">
+    - Use the **default** authorization server or a custom server you maintain for June.  
+    - Ensure any required scopes are enabled on this server.
+  </Step>
+
+  <Step title="Add an access policy">
+    1. With the server selected, open the **Access Policies** tab.  
+    2. Click **Add New Access Policy** and configure it for June. Create the
+       policy before adding any policy rules.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_7.png"
+        alt="Adding a new access policy on the authorization server"
+      />
+    </Frame>
+  </Step>
+
+  <Step title="Add a policy rule">
+    1. Open the policy you just created and click **Add Rule**.  
+    2. Required **Grant type**: **Authorization Code**.  
+    3. Required scopes: **openid**, **profile**, **email**.  
+    4. Everything else can stay at defaults unless you have specific requirements.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_9.png"
+        alt="Adding a policy rule for the authorization server"
+      />
+    </Frame>
+  </Step>
+
+  <Step title="Copy the Issuer URI">
+    1. Open the server and go to **Settings**.  
+    2. Copy the **Issuer URI** exactly as shown (keep the full path).  
+    3. You will paste this into June in the next section.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_8.png"
+        alt="Authorization Server settings showing the Issuer URI value"
+      />
+    </Frame>
+  </Step>
+</Steps>
+
+## Step 3: Configure SSO in June
+
+<Steps>
+  <Step title="Open Authentication settings">
+    1. Sign into the June dashboard.  
+    2. Go to **Settings**.  
+    3. Select **Authentication**.  
+    4. Choose **Okta** under Available SSO Providers.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/june_1.png"
+        alt="June settings page highlighting Okta as an SSO provider"
+      />
+    </Frame>
+  </Step>
+
+  <Step title="Enter Okta details">
+    1. **Issuer URL**: Paste the Issuer you copied from your chosen authorization server (Security > API > Authorization Servers).  
+    2. **Client ID**: Paste the value from Okta.  
+    3. **Client Secret**: Paste the secret from Okta.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/june_2.png"
+        alt="June Okta configuration form with Issuer URL, Client ID, and Client Secret"
+      />
+    </Frame>
+
+  </Step>
+
+  <Step title="Save and verify">
+    1. Click **Save** in June.
+  </Step>
+</Steps>
+
+<Note>
+  After you save, Okta SSO can take a few minutes to finish initializing. Users
+  may briefly see a login error during this window—wait a couple of minutes and
+  try again.
+</Note>
+
+## Authentication flow
+
+1. User enters their email on June and clicks **Continue**.  
+2. June redirects the user to Okta for sign-in.  
+3. After successful Okta authentication, the user is returned and logged into
+   June automatically.
+
+<Info>
+  If the user already has an active Okta session, the redirect back to June
+  completes without prompting for credentials.
+</Info>
+
+## User management
+
+### First-time SSO users
+- June creates the account automatically.  
+- Profile data (name, email) comes from Okta.  
+
+### Existing June users
+- Existing accounts are linked by matching email.  
+- Users are logged out and must sign in with Okta; prior login methods are no
+  longer valid.  
+- Permissions and data remain intact.
+
+## Support resources
+
+- Email June Support: support@juneops.com  
+- Okta reference: [OIDC Web App Guide](https://developer.okta.com/docs/guides/sign-into-web-app-redirect/go/main/)  
+
+<Check>
+  Once SSO is configured, your users get a seamless, secure login experience,
+  and you get centralized identity management with stronger security controls.
+</Check>
