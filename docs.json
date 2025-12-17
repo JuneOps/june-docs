@@ -93,6 +93,18 @@
         ]
       },
       {
+        "tab": "Authentication & Security",
+        "groups": [
+          {
+            "group": "Single Sign-On",
+            "pages": [
+              "authentication/sso-overview",
+              "authentication/sso-setup"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Changelog",
         "groups": [
           {
