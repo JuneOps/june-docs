@@ -119,7 +119,67 @@ Make sure you have:
   </Step>
 </Steps>
 
-## Step 2: Configure SSO in June
+## Step 2: Select your authorization server in Okta
+
+<Steps>
+  <Step title="Open Authorization Servers">
+    1. In Okta admin, go to **Security > API > Authorization Servers**.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_6.png"
+        alt="Okta Authorization Servers list in the API section"
+      />
+    </Frame>
+  </Step>
+
+  <Step title="Choose the server for June">
+    - Use the **default** authorization server or a custom server you maintain for June.  
+    - Ensure any required scopes are enabled on this server.
+  </Step>
+
+  <Step title="Add an access policy">
+    1. With the server selected, open the **Access Policies** tab.  
+    2. Click **Add New Access Policy** and configure it for June. Create the
+       policy before adding any policy rules.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_7.png"
+        alt="Adding a new access policy on the authorization server"
+      />
+    </Frame>
+  </Step>
+
+  <Step title="Add a policy rule">
+    1. Open the policy you just created and click **Add Rule**.  
+    2. Required **Grant type**: **Authorization Code**.  
+    3. Required scopes: **openid**, **profile**, **email**.  
+    4. Everything else can stay at defaults unless you have specific requirements.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_9.png"
+        alt="Adding a policy rule for the authorization server"
+      />
+    </Frame>
+  </Step>
+
+  <Step title="Copy the Issuer URI">
+    1. Open the server and go to **Settings**.  
+    2. Copy the **Issuer URI** exactly as shown (keep the full path).  
+    3. You will paste this into June in the next section.
+
+    <Frame>
+      <img
+        src="/images/sso/okta/okta_8.png"
+        alt="Authorization Server settings showing the Issuer URI value"
+      />
+    </Frame>
+  </Step>
+</Steps>
+
+## Step 3: Configure SSO in June
 
 <Steps>
   <Step title="Open Authentication settings">
@@ -137,8 +197,7 @@ Make sure you have:
   </Step>
 
   <Step title="Enter Okta details">
-    1. **Issuer URL**: `https://[TENANT].okta.com` (replace `[TENANT]` with your
-       Okta org name).  
+    1. **Issuer URL**: Paste the Issuer you copied from your chosen authorization server (Security > API > Authorization Servers).  
     2. **Client ID**: Paste the value from Okta.  
     3. **Client Secret**: Paste the secret from Okta.
 
@@ -149,19 +208,6 @@ Make sure you have:
       />
     </Frame>
 
-    <Tip>
-      In Okta, go to **Security** > **API** > **Authorization Servers** to copy
-      the Issuer URL.
-    </Tip>
-
-    <Frame>
-      <img
-        src="/images/sso/okta/okta_6.png"
-        alt="Okta Authorization Servers page showing the Issuer URL"
-      />
-    </Frame>
-
-    <Check>Confirm the Issuer URL exactly matches your Okta domain.</Check>
   </Step>
 
   <Step title="Save and verify">
@@ -198,11 +244,6 @@ Make sure you have:
 - Users are logged out and must sign in with Okta; prior login methods are no
   longer valid.  
 - Permissions and data remain intact.
-
-<Tip>
-  Encourage everyone to switch to SSO, then disable password login once all
-  users are confirmed.
-</Tip>
 
 ## Support resources
 
