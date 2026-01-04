@@ -13,6 +13,34 @@ Connect your Okta environment with June to enable secure API-based access to use
 - Provide June with your client ID and tenant URL
 - Enable automated identity data ingestion
 
+## Capabilities
+
+Once connected, June provides the following capabilities for Okta:
+
+### Data Synchronization
+
+| Capability | Description |
+|------------|-------------|
+| **Sync all employees** | Sync all your employees into June. For IDP integrations, this is always on. |
+| **Sync Software Applications** | Sync all your software applications into June. |
+| **Sync locations** | Sync all your office locations into June. |
+
+### Security Actions
+
+| Capability | Description |
+|------------|-------------|
+| **Expire user password in Okta** | Expire a user's password in Okta, forcing them to change it on next login. This is a security action used for compromised accounts or password policy enforcement. |
+| **Reset user MFA in Okta** | Reset all MFA factors for a locked out user in Okta. This removes all enrolled MFA factors and allows the user to enroll new ones. |
+
+### Group Management
+
+| Capability | Description |
+|------------|-------------|
+| **Add user to Okta group** | Add an employee to an Okta group to grant them group-based access and permissions. |
+| **Remove user from Okta group** | Remove an employee from an Okta group to revoke their group-based access and permissions. |
+| **List Okta groups** | Retrieve a list of all groups in Okta. Optionally filter by search query to find specific groups by name. |
+| **Get Okta group details** | Retrieve detailed information about a specific Okta group including its members. |
+
 ## Prerequisites
 
 Before starting the integration, ensure you have:
@@ -70,6 +98,9 @@ Before starting the integration, ensure you have:
       - `okta.groups.read`
       - `okta.apps.read`
       - `okta.logs.read`
+      - `okta.apps.manage`
+      - `okta.groups.manage`
+      - `okta.users.manage`
   </Step>
 
   <Step title="Assign Admin Roles">
@@ -106,26 +137,6 @@ Before starting the integration, ensure you have:
     3. You should see the employees from Okta being synced to June under the **Employees** tab.
   </Step>
 </Steps>
-
-## Best Practices
-
-### Security
-- **Principle of Least Privilege**: Grant minimum required access to users
-- **Regular Access Reviews**: Periodically review user access and group memberships
-- **MFA Enforcement**: Require multi-factor authentication for all users
-- **Certificate Management**: Monitor SAML certificate expiration dates
-
-### User Management
-- **Consistent Naming**: Use consistent naming conventions for groups and roles
-- **Automated Lifecycle**: Leverage SCIM for automated user provisioning/deprovisioning
-- **Department Alignment**: Align June access with organizational structure
-- **Regular Audits**: Conduct regular access audits and cleanup
-
-### Performance
-- **Group Optimization**: Use groups efficiently to minimize provisioning overhead
-- **Batch Operations**: Leverage bulk operations for large user base changes
-- **Sync Frequency**: Configure appropriate sync frequencies for your needs
-- **Error Monitoring**: Set up monitoring for provisioning errors and failures
 
 ## Support Resources
 

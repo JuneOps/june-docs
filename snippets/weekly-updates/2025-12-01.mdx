@@ -1,0 +1,18 @@
+## Identity Governance & Employee Insights
+
+This week's release focuses on Okta managed applications, enhanced employee details, and improved rate limiting for identity provider integrations.
+
+## Features
+
+- **Okta Managed Applications**: Full support for tracking Okta-managed applications, groups, and entitlements within June with new database models and sync capabilities.
+- **Employee Details Enhancement**: View which groups and applications each employee has access to, with source attribution for better identity governance insights.
+
+## Product Improvements
+
+- **Okta Rate Limiter**: Implemented cross-process adaptive rate limiting to respect Okta's conservative API limits.
+- **Okta Token Caching**: Authentication now caches tokens in the database, preventing unnecessary token refreshes that hit rate limits.
+- **UI Tweaks**: Fixed toast notifications and added avatar icons to member displays.
+
+## Bug Fixes
+
+- **Okta 429 Errors**: Fixed rate limit errors when fetching app assignment data from Okta.

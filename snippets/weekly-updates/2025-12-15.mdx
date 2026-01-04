@@ -1,0 +1,18 @@
+## Document uploading and AI processing
+
+This week introduces document attachments with AI processing, and important data integrity fixes.
+
+## Features
+
+- **Document Attachments**: Attach documents to assets, employees, and contracts with AI-powered parsing and extraction. Documents now support many-to-many relationships for flexible organization.
+
+## Product Improvements
+
+- **Software Activity Tracking**: Improved last active date tracking for software subscriptions by prioritizing assigned application events.
+
+## Bug Fixes
+
+- **Okta App Lookup**: Fixed duplicate software entries of applications with the same name.
+- **Okta Event Mapping**: Corrected email address matching issues that prevented `last_active_at` from being set properly.
+- **Okta Deleted Apps**: Gracefully handle errors when apps are deleted in Okta during sync, preventing sync failures.
+- **Security Vulnerabilities**: Patched security vulnerabilities in frontend dependencies.
