@@ -152,26 +152,6 @@ Before starting the integration, ensure you have:
   </Accordion>
 </AccordionGroup>
 
-## Best Practices
-
-### Security
-- **Certificate-Based Authentication**: Consider using certificates instead of client secrets for enhanced security
-- **Secret Rotation**: Regularly rotate client secrets before expiration
-- **Least Privilege**: Grant only necessary API permissions
-- **Conditional Access**: Apply appropriate conditional access policies
-
-### Performance
-- **Smart Filtering**: Use device and user filters to optimize sync performance
-- **Batch Processing**: Allow June to batch API requests for efficiency
-- **Off-Peak Syncing**: Schedule intensive operations during low-usage periods
-- **Monitor Throttling**: Watch for Microsoft Graph API rate limits
-
-### Compliance
-- **Regular Audits**: Periodically review app permissions and access
-- **Change Management**: Document any changes to the integration configuration
-- **Compliance Monitoring**: Set up alerts for compliance policy violations
-- **Data Retention**: Understand data retention policies for synced information
-
 ## Microsoft Graph API Limits
 
 Be aware of Microsoft Graph throttling limits:

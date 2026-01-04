@@ -3,7 +3,9 @@ title: 'Google Workspace Integration'
 description: 'Complete integration guide for connecting Google Workspace with June for automated employee data sync and identity management'
 ---
 
-<img src="/images/google_logo.png" alt="Google Workspace Integration" />
+<div className="w-30 h-30">
+  <img src="/images/google_integration.png" alt="Google Workspace Integration" className="my-5 w-100 h-100" />
+</div>
 
 Connect your Google Workspace environment with June to enable secure API-based access to users, groups, and organizational data for automated employee data synchronization.
 
@@ -11,6 +13,37 @@ Connect your Google Workspace environment with June to enable secure API-based a
 - Authorize June to access your Google Workspace data
 - Enable automated identity and device data synchronization
 - Set up comprehensive asset tracking and compliance monitoring
+
+## Capabilities
+
+Once connected, June provides the following capabilities for Google Workspace:
+
+### Data Synchronization
+
+| Capability | Description |
+|------------|-------------|
+| **Sync all employees** | Sync all your employees into June. For IDP integrations, this is always on. |
+| **Sync locations** | Sync all your office locations into June. |
+| **Sync Software Applications** | Sync all your software applications into June. |
+
+### Group Management
+
+| Capability | Description |
+|------------|-------------|
+| **Add user to Google group** | Add an employee to a Google Group so they receive the group's email, calendar invites, and access permissions. |
+| **Remove user from Google group** | Remove an employee from a Google Group to stop their group email, calendar invites, and access permissions. |
+| **Create Google group** | Create a new Google Group for email distribution, calendar invites, and managing shared access. |
+| **Delete Google group** | Delete a Google Group and remove all its members. |
+| **List Google groups** | Retrieve a list of Google Groups in Google Workspace, optionally filtered by a search query. |
+| **Get Google group details** | Retrieve detailed information about a specific Google Group. |
+| **List employee's Google groups** | List all Google Groups that an employee is a member of. |
+
+### Calendar Management
+
+| Capability | Description |
+|------------|-------------|
+| **Add user to Google Calendar** | Grant an employee access to a Google Calendar by adding them as a reader, writer, or owner. |
+| **Remove user from Google Calendar** | Remove an employee's access to a Google Calendar. |
 
 ## Prerequisites
 
@@ -20,20 +53,33 @@ Before starting the integration, ensure you have:
 
 ## Permissions and Data Access
 
-June requests the following read-only permissions to provide comprehensive asset management and security insights:
+June requests the following permissions to provide comprehensive asset management, security insights, and identity governance capabilities:
 
-| Scope | Access Type | Purpose |
-|-------|-------------|---------|
-| `admin.directory.user.readonly` | Read-only | Syncing user directory data: names, emails, status, org units, used for employee-device mapping and account visibility |
-| `admin.directory.group.readonly` | Read-only | Fetching Google Groups and memberships to model teams, departments, and apply group-based policies |
-| `admin.directory.resource.calendar.readonly` | Read-only | Accessing resource calendars, buildings, and equipment (e.g., meeting rooms) for inventory and usage insights |
-| `admin.directory.device.chromeos.readonly` | Read-only | Syncing ChromeOS device inventory for asset tracking, device assignment, and compliance reporting |
-| `admin.directory.device.mobile.readonly` | Read-only | Fetching managed mobile device data (iOS/Android) to track mobile assets and enforce security posture |
-| `admin.reports.audit.readonly` | Read-only | Pulling audit logs (logins, admin actions, access attempts) for activity monitoring and anomaly detection |
-| `admin.reports.usage.readonly` | Read-only | Retrieving user and service usage metrics (e.g., Gmail, Drive) to assess software adoption and identify inactive users |
+### Read-Only Permissions
+
+| Scope | Purpose |
+|-------|---------|
+| `admin.directory.user.readonly` | Syncing user directory data: names, emails, status, org units, used for employee-device mapping and account visibility |
+| `admin.directory.group.readonly` | Fetching Google Groups and memberships to model teams, departments, and apply group-based policies |
+| `admin.directory.resource.calendar.readonly` | Accessing resource calendars, buildings, and equipment (e.g., meeting rooms) for inventory and usage insights |
+| `admin.directory.device.chromeos.readonly` | Syncing ChromeOS device inventory for asset tracking, device assignment, and compliance reporting |
+| `admin.directory.device.mobile.readonly` | Fetching managed mobile device data (iOS/Android) to track mobile assets and enforce security posture |
+| `admin.reports.audit.readonly` | Pulling audit logs (logins, admin actions, access attempts) for activity monitoring and anomaly detection |
+| `admin.reports.usage.readonly` | Retrieving user and service usage metrics (e.g., Gmail, Drive) to assess software adoption and identify inactive users |
+
+### Write Permissions
+
+| Scope | Purpose |
+|-------|---------|
+| `admin.directory.group` | Managing Google Groups: create, update, and delete groups for automated team management |
+| `admin.directory.group.member` | Managing group memberships: add or remove users from groups for access control automation |
+| `admin.directory.user` | User lifecycle management: create, suspend, restore, and update user accounts for automated provisioning |
+| `calendar` | Calendar access management: add or remove user access to shared calendars during onboarding/offboarding |
+| `gmail.settings.sharing` | Email forwarding configuration: set up email forwarding for departing employees |
+| `gmail.settings.basic` | Gmail settings management: configure basic Gmail settings for user accounts |
 
 <Note>
-All permissions are read-only. June never modifies your Google Workspace data and only accesses the information necessary to provide asset management and security insights.
+Write permissions enable June's automation capabilities for identity governance, onboarding/offboarding workflows, and access management. All actions are logged and can be reviewed in the activity history.
 </Note>
 
 ## Google Workspace OAuth Integration
@@ -73,26 +119,6 @@ All permissions are read-only. June never modifies your Google Workspace data an
     3. You should see the employees from Google Workspace being synced to June under the **Employees** tab.
   </Step>
 </Steps>
-
-## Best Practices
-
-### Security
-- **Service Account Management**: Regularly rotate service account keys
-- **Least Privilege**: Grant only necessary OAuth scopes and permissions
-- **Access Monitoring**: Review Google Workspace audit logs regularly
-- **Domain-Wide Delegation**: Limit delegation to necessary service accounts only
-
-### User Management
-- **Consistent Naming**: Use standard naming conventions for groups and organizational units
-- **Automated Lifecycle**: Leverage Directory API for automated user provisioning
-- **Department Alignment**: Align June access with organizational structure
-- **Regular Audits**: Conduct regular access audits and cleanup
-
-### Performance
-- **Sync Optimization**: Configure appropriate sync frequencies for your needs
-- **API Efficiency**: Use batch operations and pagination for large datasets
-- **Rate Limiting**: Monitor and respect Google API quotas
-- **Error Monitoring**: Set up monitoring for provisioning errors and failures
 
 ## Troubleshooting
 
