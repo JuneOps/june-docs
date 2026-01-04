@@ -1,0 +1,267 @@
+---
+title: 'ITSM Integrations Overview'
+description: 'Connect your IT Service Management tools with June for AI-powered ticket handling and automation'
+---
+
+Connect June with your IT Service Management (ITSM) platform to enable an intelligent AI agent that can triage, respond to, and manage tickets on your behalf—with full access to your asset data.
+
+<Info>
+June does **not** sync or import tickets from your ITSM platform. Instead, June acts as an intelligent agent that responds when triggered by mentions or assignments.
+</Info>
+
+## Supported ITSM Platforms
+
+<CardGroup cols={2}>
+  <Card title="Jira & Jira Service Management" icon="ticket" href="/integrations/jira">
+    Enable June as an AI agent for Jira issue tracking and Jira Service Management requests
+  </Card>
+  
+  <Card title="Linear" icon="snowflake">
+    Enable June as an AI agent for Linear if you use it for your IT service management.
+  </Card>
+  
+  <Card title="Zendesk (Coming Soon)" icon="headset">
+    Customer service and IT support ticketing
+  </Card>
+  
+  <Card title="Freshservice (Coming Soon)" icon="leaf">
+    Modern IT service management solution
+  </Card>
+</CardGroup>
+
+## Integration Benefits
+
+### AI-Powered Ticket Handling
+- **Intelligent Triage**: June automatically classifies and prioritizes tickets based on content and context
+- **Asset-Aware Responses**: June references device specs, warranty status, and health data when responding
+- **Automated Actions**: June can update tickets, transition statuses, and create follow-up issues
+- **24/7 Availability**: June responds to tickets at any time, reducing response times
+
+### Streamlined IT Operations
+- **Reduced Resolution Time**: Common questions answered instantly by June with relevant asset data
+- **Smart Routing**: June can route tickets to the right team based on issue type and asset information
+- **Consistent Responses**: Ensure uniform quality in ticket responses across your support team
+- **Workload Reduction**: Let June handle routine tickets so your team can focus on complex issues
+
+### Enhanced Context
+- **Asset Correlation**: June identifies which devices and users are affected by each ticket
+- **Historical Patterns**: June can reference past tickets for similar issues on the same asset
+- **Proactive Suggestions**: Get recommendations for resolution based on asset health and history
+- **Knowledge Integration**: June leverages your documentation and runbooks when responding
+
+## Quick Start Guide
+
+### 1. Choose Your ITSM Platform
+
+Select the IT service management platform you want to integrate:
+
+<Steps>
+  <Step title="Atlassian Products">
+    - **Jira Software**: Issue and project tracking
+    - **Jira Service Management**: IT service desk and ITSM workflows
+  </Step>
+  
+  <Step title="Enterprise ITSM">
+    - **ServiceNow**: Full ITSM suite (Coming Soon)
+    - **Freshservice**: Modern cloud ITSM (Coming Soon)
+  </Step>
+  
+  <Step title="Support Platforms">
+    - **Zendesk**: Customer and IT support (Coming Soon)
+  </Step>
+</Steps>
+
+### 2. Prepare Integration Requirements
+
+All ITSM integrations require:
+
+- **API Access**: Admin privileges to create service accounts and API credentials
+- **June Admin Rights**: Organization admin permissions in June
+- **Project Access**: Access to the projects or queues you want to integrate
+- **Webhook Permissions**: Ability to create webhooks for real-time updates
+
+### 3. Follow Platform-Specific Guide
+
+Click on your ITSM platform above for detailed instructions including:
+- Service account and credential setup
+- OAuth scope configuration
+- Webhook configuration for real-time updates
+- Project access and permissions
+
+## Common Integration Features
+
+### How June Interacts with Tickets
+
+June can read and act on tickets when triggered:
+
+| Action | Description |
+|--------|-------------|
+| **Read ticket details** | Access summary, description, status, priority, assignee, and comments |
+| **Create tickets** | Create new issues with full details including custom fields |
+| **Update tickets** | Modify description, priority, labels, and other fields |
+| **Add comments** | Post public or internal comments (JSM supports private comments) |
+| **Transition status** | Move tickets through workflow states |
+| **Assign/Unassign** | Change ticket ownership |
+
+### Triggering June
+
+June responds to tickets through two primary methods:
+
+<AccordionGroup>
+  <Accordion title="Mention in Comments">
+    Tag the June service account in any comment (e.g., `@June AI please help with this`). June will read the ticket context and respond appropriately.
+  </Accordion>
+  
+  <Accordion title="Ticket Assignment">
+    Assign a ticket directly to the June service account. June will pick up the ticket and take action based on your configured workflows.
+  </Accordion>
+</AccordionGroup>
+
+### Webhook Events
+
+Webhooks notify June when to take action:
+
+| Event | Description | When June Acts |
+|-------|-------------|----------------|
+| **Issue Created** | New ticket created | If assigned to June or configured for auto-triage |
+| **Issue Updated** | Ticket modified | If June is mentioned or assigned |
+| **Comment Added** | New comment posted | If June is mentioned in the comment |
+| **Assignment Changed** | Ticket reassigned | If assigned to June |
+
+## Use Cases
+
+### Automated Ticket Triage
+
+<Steps>
+  <Step title="Assign to June">
+    Configure your ITSM to automatically assign new tickets to June, or set up a triage queue where June reviews incoming requests.
+  </Step>
+  
+  <Step title="Intelligent Classification">
+    June reads the ticket content, identifies the requester's devices, and classifies the issue type, priority, and required expertise.
+  </Step>
+  
+  <Step title="Route or Resolve">
+    June either resolves simple requests directly (with relevant asset information) or routes complex issues to the right team with context.
+  </Step>
+</Steps>
+
+### AI-Assisted Support
+
+<Steps>
+  <Step title="Mention June for Help">
+    When a technician needs help, they mention June in a comment to get AI-assisted analysis and suggestions.
+  </Step>
+  
+  <Step title="Asset-Aware Responses">
+    June provides responses that include relevant device information—specs, warranty status, installed software, and health history.
+  </Step>
+  
+  <Step title="Knowledge Integration">
+    June references your documentation, past resolutions for similar issues, and known problems to suggest solutions.
+  </Step>
+</Steps>
+
+### Proactive Device Management
+
+<Steps>
+  <Step title="Warranty Checks">
+    When handling hardware issues, June automatically checks warranty status and suggests repair, replacement, or warranty claim options.
+  </Step>
+  
+  <Step title="Create Follow-up Tickets">
+    June can create related tickets in other projects—for example, creating a procurement ticket when a device needs replacement.
+  </Step>
+  
+  <Step title="Status Updates">
+    June keeps tickets updated as it gathers information, transitions statuses, and logs actions taken.
+  </Step>
+</Steps>
+
+## Best Practices
+
+### Security
+- **Service Account Security**: Use dedicated service accounts with minimal required permissions
+- **Credential Rotation**: Rotate OAuth credentials periodically (quarterly recommended)
+- **Webhook Secrets**: Use unique, strong secrets for webhook authentication
+- **Access Auditing**: Regularly review service account activity and permissions
+
+### Performance
+- **Webhook Optimization**: Subscribe only to events where you want June to respond
+- **Project Scoping**: Limit the service account to projects where June should operate
+- **JQL Filters**: Use filters to control which tickets trigger webhooks
+- **Action Limits**: Configure appropriate rate limits for June's actions
+
+### Workflow Design
+- **Clear Triggers**: Define when June should act vs. when humans should handle tickets
+- **Escalation Paths**: Configure how June escalates complex issues to your team
+- **Response Templates**: Customize June's response style to match your team's voice
+- **Feedback Loop**: Review June's actions periodically to improve accuracy
+
+## Troubleshooting
+
+### Common Issues
+
+<AccordionGroup>
+  <Accordion title="Authentication Failures">
+    - Verify OAuth credentials haven't expired or been revoked
+    - Confirm service account has access to required projects
+    - Check that all required API scopes are granted
+    - Test credentials using the platform's API explorer
+  </Accordion>
+  
+  <Accordion title="June Not Responding">
+    - Verify webhook is configured and enabled
+    - Confirm you're using the correct service account username in mentions
+    - Check service account has access to the project
+    - Review webhook delivery logs for errors
+  </Accordion>
+  
+  <Accordion title="June's Actions Failing">
+    - Verify service account has sufficient permissions for the action
+    - Check workflow rules don't block the action (e.g., required fields, transitions)
+    - Review API rate limits haven't been exceeded
+    - Confirm the action is valid for the ticket's current state
+  </Accordion>
+  
+  <Accordion title="Incorrect Asset Information">
+    - Ensure asset data in June is up-to-date via MDM integrations
+    - Verify user-device assignments are current in your identity provider
+    - Check serial numbers and asset tags are correctly formatted
+    - Review June's asset matching logic for false positives
+  </Accordion>
+</AccordionGroup>
+
+### Getting Help
+
+- **Platform-Specific Guides**: Detailed troubleshooting in individual integration guides
+- **June Support**: Contact support for integration-specific assistance
+- **Community Forum**: Join discussions with other IT operations professionals
+- **Professional Services**: Expert assistance for complex ITSM workflows
+
+## Next Steps
+
+After setting up your ITSM integration:
+
+<CardGroup cols={2}>
+  <Card title="MDM Integration" href="/integrations/mdm-integrations">
+    Connect device management for complete asset visibility in tickets
+  </Card>
+  
+  <Card title="Identity Provider" href="/integrations/identity-providers">
+    Sync users to automatically correlate tickets with device assignments
+  </Card>
+  
+  <Card title="Automated Workflows" href="/workflows/device-actions">
+    Create workflows triggered by ticket events
+  </Card>
+  
+  <Card title="AI Insights" href="/ai-features/ai-insights">
+    Use AI to analyze ticket patterns and predict asset issues
+  </Card>
+</CardGroup>
+
+<Note>
+ITSM integrations typically establish connection within minutes. Real-time updates via webhooks begin immediately after webhook configuration is complete.
+</Note>
+
