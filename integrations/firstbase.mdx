@@ -1,0 +1,211 @@
+---
+title: 'Firstbase Integration'
+---
+
+<img src="/images/firstbase_integration.png" alt="Firstbase Integration" />
+
+Connect your Firstbase environment with June to track equipment orders, returns, and inventory across your organization.
+
+<Info>
+The Firstbase integration is **read-only**. June can query order status, returns, and inventory but cannot create or modify records in Firstbase.
+</Info>
+
+## What you'll accomplish
+
+- Generate an API key in Firstbase
+- Configure the June integration
+- Understand available data and actions
+- Track equipment orders and returns
+
+## Prerequisites
+
+Before starting the integration, ensure you have:
+
+- Firstbase admin access to generate an API key
+- June organization admin permissions
+
+## How June Works with Firstbase
+
+### Available Actions
+
+June can perform the following read-only actions with Firstbase:
+
+| Action | Description |
+|--------|-------------|
+| **Get order** | Retrieve order details including status, items, SKU info, and shipment tracking |
+| **List orders** | List all orders with filters for date range, person, and active status |
+| **Get orders by person** | Get all orders for a specific employee |
+| **Get return** | Retrieve return details including status, retrieval method, and items |
+| **List returns** | List all returns with filters for date range, person, and replacement status |
+| **Get returns by person** | Get all returns for a specific employee |
+| **Get employee** | Retrieve employee details from Firstbase (name, email, address, package) |
+| **Search employees** | Search for employees by email, first name, or last name |
+| **Get inventory by serial** | Look up inventory items by serial number |
+
+### Example Use Cases
+
+<AccordionGroup>
+  <Accordion title="Track equipment orders">
+    Ask June: "What's the status of John's laptop order?" or "Show me all orders from the last week."
+  </Accordion>
+  
+  <Accordion title="Check pending returns">
+    Ask June: "Show me all active equipment returns" or "Which returns are still in transit?"
+  </Accordion>
+  
+  <Accordion title="Find equipment by serial">
+    Ask June: "Who has the MacBook with serial C02XG1234?" to quickly identify equipment ownership.
+  </Accordion>
+  
+  <Accordion title="Audit employee equipment">
+    Ask June: "What orders and returns exist for jane@company.com?" for a complete equipment history.
+  </Accordion>
+  
+  <Accordion title="Monitor at-risk orders">
+    Ask June: "Show me orders with delivery exceptions" to identify orders that need attention.
+  </Accordion>
+</AccordionGroup>
+
+## Setup Process
+
+### Step 1: Generate an API Key
+
+<Steps>
+  <Step title="Access Firstbase Settings">
+    1. Log in to [Firstbase](https://app.firstbasehq.com)
+    2. Navigate to **Settings** → **API** (or **Integrations**)
+  </Step>
+  
+  <Step title="Create API Key">
+    1. Click **Generate API Key**
+    2. Enter a descriptive name: `june-integration`
+    3. Click **Create** to generate the key
+  </Step>
+  
+  <Step title="Copy and Save Key">
+    1. **Immediately copy** the API key
+    2. Store it securely for the next step
+    
+    <Warning>
+    You won't be able to view the API key again after leaving this page. If you lose it, you'll need to generate a new one.
+    </Warning>
+  </Step>
+</Steps>
+
+### Step 2: Connect in June
+
+<Steps>
+  <Step title="Access June Integrations">
+    1. Log into June
+    2. Navigate to **Settings** → **Integrations**
+    3. Select **Firstbase** from the available integrations
+  </Step>
+  
+  <Step title="Enter API Key">
+    1. Paste the API key from Step 1
+    2. Click **Connect**
+    3. Verify the connection status shows as **Active**
+  </Step>
+  
+  <Step title="Test the Connection">
+    1. Click **Test Connection** to verify the setup
+    2. June will attempt to retrieve sample data from Firstbase
+    3. Resolve any authentication issues before proceeding
+    
+    <Check>
+    Try asking June "Show me recent Firstbase orders" to verify the integration is working.
+    </Check>
+  </Step>
+</Steps>
+## Troubleshooting
+
+### Common Issues
+
+<AccordionGroup>
+  <Accordion title="Authentication failed - invalid or expired API key">
+    **Symptoms**: Connection fails or shows authentication errors
+    
+    **Solutions**:
+    - The API key may have been revoked in Firstbase
+    - Generate a new API key in Firstbase settings
+    - Update the API key in June's integration settings
+    - Verify there are no extra spaces when pasting the key
+  </Accordion>
+  
+  <Accordion title="Order not found or Employee not found">
+    **Symptoms**: June returns "not found" errors for specific records
+    
+    **Solutions**:
+    - Verify the ID is correct (UUIDs are case-sensitive)
+    - The record may have been deleted in Firstbase
+    - Check if you're using the correct identifier format
+  </Accordion>
+  
+  <Accordion title="Empty results when listing orders/returns">
+    **Symptoms**: Queries return no results when you expect data
+    
+    **Solutions**:
+    - Check your date filters—defaults to the last 30 days
+    - Verify the `person_id` if filtering by employee
+    - Confirm the employee has orders/returns in Firstbase
+    - Try broadening your search criteria
+  </Accordion>
+  
+  <Accordion title="Connection timeout errors">
+    **Symptoms**: Requests take too long and fail
+    
+    **Solutions**:
+    - Firstbase API may be experiencing issues
+    - Try again in a few minutes
+    - Check Firstbase status page for outages
+    - Contact June support if the issue persists
+  </Accordion>
+</AccordionGroup>
+
+## Security Best Practices
+
+### API Key Management
+
+- **Dedicated Keys**: Use a dedicated API key for June so it can be revoked independently if needed
+- **Secure Storage**: API keys are encrypted at rest in June's secure storage
+- **Regular Rotation**: Consider rotating API keys periodically (quarterly recommended)
+- **Access Auditing**: Review API access logs in Firstbase regularly
+
+### Data Access
+
+- **Read-Only Access**: The Firstbase integration cannot create or modify orders—only read data
+- **Minimal Scope**: June only accesses the data needed for equipment tracking
+
+## Next Steps
+
+Once your Firstbase integration is configured:
+
+<CardGroup cols={2}>
+  <Card title="MDM Integration" href="/integrations/mdm-integrations">
+    Connect device management to correlate Firstbase orders with managed devices
+  </Card>
+  
+  <Card title="Identity Providers" href="/integrations/identity-providers">
+    Sync employee data to match Firstbase records with June users
+  </Card>
+  
+  <Card title="Asset Discovery" href="/device-management/asset-discovery">
+    View Firstbase equipment alongside your complete asset inventory
+  </Card>
+  
+  <Card title="AI Insights" href="/ai-features/ai-insights">
+    Use AI to analyze equipment trends and procurement patterns
+  </Card>
+</CardGroup>
+
+## Support Resources
+
+Need help with your Firstbase integration?
+
+- **Firstbase Documentation**: Review Firstbase's API documentation for additional details
+- **June Support**: Contact support for integration-specific assistance
+
+<Note>
+The Firstbase integration establishes connection within minutes. Equipment data is available immediately after successful authentication.
+</Note>
+

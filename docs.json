@@ -54,7 +54,8 @@
             "group": "Overview",
             "pages": [
               "integrations/mdm-integrations",
-              "integrations/identity-providers"
+              "integrations/identity-providers",
+              "integrations/itsm-integrations"
             ]
           },
           {
@@ -71,6 +72,18 @@
             "pages": [
               "integrations/okta",
               "integrations/google-workspace"
+            ]
+          },
+          {
+            "group": "Ticketing & Service Management",
+            "pages": [
+              "integrations/jira"
+            ]
+          },
+          {
+            "group": "Procurement",
+            "pages": [
+              "integrations/firstbase"
             ]
           }
         ]
