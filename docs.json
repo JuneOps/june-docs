@@ -94,7 +94,8 @@
           {
             "group": "Device Management",
             "pages": [
-              "device-management/asset-discovery"
+              "device-management/asset-discovery",
+              "device-management/asset-upload"
             ]
           },
           {
