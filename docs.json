@@ -119,6 +119,17 @@
         ]
       },
       {
+        "tab": "Browser Extension",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "agents-extensions/browser-extension"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Changelog",
         "groups": [
           {
