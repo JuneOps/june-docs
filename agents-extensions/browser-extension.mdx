@@ -9,10 +9,10 @@ Currently available for **Google Chrome**.
 
 The June browser extension gives your organization visibility into which SaaS applications employees actively use and for how long. It runs silently in the background, only tracking the applications your organization has configured.
 
-## What you'll learn
+## Overview
 - How the extension works at a high level
 - What data it collects and what it doesn't
-- What permissions it needs and why
+- What permissions it requires and why
 - How the June Device Agent complements it
 
 ## How It Works
@@ -66,11 +66,15 @@ The extension requests the following permissions, each for a specific purpose:
   </Accordion>
 
   <Accordion title="Native Messaging" icon="message-dots">
-    Talks to the June Device Agent (if installed) to get the device serial number.
+    Communicates with the June Device Agent (if deployed) to retrieve the device serial number.
+  </Accordion>
+
+  <Accordion title="Idle Detection" icon="clock-rotate-left">
+    Pauses tracking when the device is idle so only active usage is reported.
   </Accordion>
 
   <Accordion title="User Email" icon="envelope">
-    Gets the browser profile email to identify the user.
+    Reads the browser profile email to associate usage data with an employee.
   </Accordion>
 
   <Accordion title="All URLs" icon="globe">
@@ -87,11 +91,11 @@ The agent runs locally only and makes no network requests. It reads the device s
 ## Frequently Asked Questions
 
 <AccordionGroup>
-  <Accordion title="Does the extension track my browsing history?">
-    No. The extension only measures how long configured applications are in focus. It does not record URLs, page content, keystrokes, or any activity on domains your organization hasn't configured.
+  <Accordion title="Does the extension track browsing history?">
+    No. The extension only measures how long configured applications are in focus. It does not record URLs, page content, keystrokes, or any activity on domains that haven't been configured.
   </Accordion>
 
-  <Accordion title="What happens if I'm offline?">
+  <Accordion title="What happens when a device is offline?">
     Usage data is stored locally on the device. Once connectivity returns, the extension sends the accumulated data on its next reporting cycle. Data older than 30 days is automatically discarded.
   </Accordion>
 
@@ -99,12 +103,12 @@ The agent runs locally only and makes no network requests. It reads the device s
     Usage data is reported periodically throughout the day. Only completed days are sent. The current day's data stays on-device until the following day.
   </Accordion>
 
-  <Accordion title="Can I see what's being tracked?">
-    You configure which applications are tracked in the June dashboard. Only the domains you explicitly add will be monitored.
+  <Accordion title="What applications are tracked?">
+    Only the domains explicitly configured in the June dashboard are monitored. No other domains are tracked.
   </Accordion>
 
   <Accordion title="Does it affect browser performance?">
-    No. The extension performs a lightweight check against your configured app list. No page content is scanned or modified.
+    No. The extension performs a lightweight domain check against the configured app list. No page content is scanned or modified.
   </Accordion>
 </AccordionGroup>
 
