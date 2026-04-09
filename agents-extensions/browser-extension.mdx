@@ -23,7 +23,7 @@ The June browser extension gives your organization visibility into which SaaS ap
   </Card>
 
   <Card title="Configuration" icon="gear">
-    Configuration — including tracked applications and domains — is pulled from June every 6 hours.
+    Tracked applications and domain configuration is pulled from June every 6 hours.
   </Card>
 
   <Card title="Usage Tracking" icon="chart-line">
@@ -58,7 +58,7 @@ The extension requests the following permissions, each for a specific purpose:
   </Accordion>
 
   <Accordion title="Alarms" icon="clock">
-    Keeps the extension running on schedule — refreshing configuration and sending usage reports.
+    Keeps the extension running on schedule for configuration refresh and usage reporting.
   </Accordion>
 
   <Accordion title="Tabs" icon="window-restore">
@@ -82,7 +82,7 @@ The extension requests the following permissions, each for a specific purpose:
 
 The June Device Agent is a lightweight native application that provides the device serial number to the browser extension. Deploy it via MDM alongside the extension.
 
-The agent runs locally only — no network requests. It reads the device serial number and passes it to the extension for hardware-level identification.
+The agent runs locally only and makes no network requests. It reads the device serial number and passes it to the extension for hardware-level identification.
 
 ## Frequently Asked Questions
 
@@ -96,7 +96,7 @@ The agent runs locally only — no network requests. It reads the device serial 
   </Accordion>
 
   <Accordion title="How often does it send data?">
-    Usage data is reported periodically throughout the day. Only completed days are sent — the current day's data stays on-device until the following day.
+    Usage data is reported periodically throughout the day. Only completed days are sent. The current day's data stays on-device until the following day.
   </Accordion>
 
   <Accordion title="Can I see what's being tracked?">
@@ -104,7 +104,7 @@ The agent runs locally only — no network requests. It reads the device serial 
   </Accordion>
 
   <Accordion title="Does it affect browser performance?">
-    No. The extension performs a lightweight check against your configured app list — no page content scanning or modification.
+    No. The extension performs a lightweight check against your configured app list. No page content is scanned or modified.
   </Accordion>
 </AccordionGroup>
 
