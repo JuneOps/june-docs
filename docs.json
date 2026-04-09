@@ -119,10 +119,10 @@
         ]
       },
       {
-        "tab": "Agents & Extensions",
+        "tab": "Browser Extension",
         "groups": [
           {
-            "group": "Browser Extension",
+            "group": "Overview",
             "pages": [
               "agents-extensions/browser-extension"
             ]
