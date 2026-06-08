@@ -81,9 +81,18 @@
             ]
           },
           {
+            "group": "Communication",
+            "pages": [
+              "integrations/slack",
+              "integrations/microsoft-teams"
+            ]
+          },
+          {
             "group": "Procurement",
             "pages": [
-              "integrations/firstbase"
+              "integrations/firstbase",
+              "integrations/zip",
+              "integrations/coupa"
             ]
           }
         ]
