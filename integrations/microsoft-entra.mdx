@@ -1,0 +1,63 @@
+---
+title: 'Microsoft Entra Integration'
+description: 'Connect Microsoft Entra ID with June to sync employees and manage devices'
+icon: '/images/ms_entra_id_logo.png'
+---
+
+<img src="/images/ms_entra_id_logo.png" alt="Microsoft Entra" width={48} height={48} />
+
+Connect Microsoft Entra ID with June to sync your employees and directory, and to manage enrolled devices, all from one place.
+
+## What you'll accomplish
+- Connect Microsoft Entra with a single admin-consent sign-in
+- Sync employees, groups, locations, and software applications
+- Manage enrolled devices and run device actions
+
+## Capabilities
+
+### Data synchronization
+
+| Capability | Description |
+|------------|-------------|
+| **Sync employees** | Email, name, department, job title, manager, and status. Always on for identity providers. |
+| **Sync locations** | Your office locations. |
+| **Sync software applications** | Applications managed through Microsoft Entra. |
+| **Sync devices** | Inventory and specifications for devices enrolled through Microsoft. |
+
+### Device actions
+
+| Action | Description |
+|--------|-------------|
+| **Restart device** | Remotely restart a managed device. |
+| **Lock device** | Remotely lock a managed device. |
+| **Rename device** | Update a device's name. |
+| **Assign / unassign user** | Change device ownership. |
+| **Retire device** | Remove a device from management. |
+| **Check in device** | Trigger a device check-in / inventory update. |
+| **Assign location** | Set a device's location. |
+
+## Prerequisites
+
+Before starting, ensure you have:
+- A Microsoft Entra tenant
+- A **Global Administrator** role (required to grant tenant-wide consent)
+- June organization admin permissions
+
+## Connect Microsoft Entra
+
+<Steps>
+  <Step title="Open June Integrations">
+    1. Log into June.
+    2. Navigate to the **Integrations** page.
+    3. Choose **Microsoft Entra**.
+  </Step>
+  <Step title="Authorize with Microsoft">
+    1. Click **Connect** to start the sign-in.
+    2. Sign in with your Microsoft Entra **Global Administrator** account.
+    3. Grant consent for the requested permissions.
+    4. On success, you return to June with the integration active.
+  </Step>
+  <Step title="Wait for the first sync">
+    June syncs your directory and devices, then refreshes daily. You can also trigger a manual sync from the integration settings.
+  </Step>
+</Steps>
