@@ -1,0 +1,186 @@
+---
+title: 'Zip Integration'
+icon: '/images/zip.webp'
+---
+
+Connect Zip with June to sync procurement agreements, track vendor contracts, and bring your software spend into June's contract intelligence.
+
+<Info>
+The Zip integration is **read-only**. June imports your agreements and their attached documents to build a contract inventory—it does not create or modify records in Zip.
+</Info>
+
+## What you'll accomplish
+
+- Generate an API key in Zip
+- Choose which purchase categories June syncs
+- Connect the June integration and run an initial sync
+- Understand how Zip agreements become contracts in June
+
+## Prerequisites
+
+Before starting the integration, ensure you have:
+
+- Zip admin access to generate an API key
+- June organization admin permissions
+- A list of the Zip purchase categories you want to track (e.g., `Software`, `SaaS`)
+
+## How June Works with Zip
+
+When connected, June syncs your Zip **agreements** and turns each one into a software contract in June. For every agreement, June imports:
+
+- **Contract value and currency**
+- **Start and end dates**, and a calculated contract length
+- **Status** (active or expired) and renewal status
+- **Vendor and agreement name**, matched to a software product in June
+- **Owner**, **departments**, and **categories**
+- **Attached documents** (e.g., the agreement PDF)
+
+<Note>
+Zip provides structured contract data directly through its API, so June uses those fields as-is. Attached documents are stored for reference, but June does not need to run document extraction to populate contract details.
+</Note>
+
+### What the category filter controls
+
+The **Sync Categories** setting is a comma-separated list of Zip purchase categories. Only agreements that match one of these categories are imported—everything else is skipped. This keeps June focused on the spend you care about (for example, just `Software`).
+
+## Setup Process
+
+### Step 1: Generate an API Key in Zip
+
+<Steps>
+  <Step title="Access Zip admin settings">
+    1. Log in to Zip as an administrator
+    2. Open your admin **Settings** and find the **API** (or **Integrations**) section
+  </Step>
+
+  <Step title="Create an API key">
+    1. Generate a new API key for June
+    2. Give it a descriptive name: `june-integration`
+  </Step>
+
+  <Step title="Copy and save the key">
+    1. **Immediately copy** the API key
+    2. Store it securely for the next step
+
+    <Warning>
+    Treat the API key like a password. If it is lost or exposed, revoke it in Zip and generate a new one.
+    </Warning>
+  </Step>
+</Steps>
+
+### Step 2: Connect in June
+
+<Steps>
+  <Step title="Access June Integrations">
+    1. Log into June
+    2. Navigate to **Settings** → **Integrations**
+    3. Select **Zip** from the available integrations
+  </Step>
+
+  <Step title="Enter configuration">
+    Provide the following:
+    - **API Key**: The key you generated in Zip
+    - **Sync Categories**: The Zip purchase categories to import, comma-separated (e.g., `Software, SaaS`)
+  </Step>
+
+  <Step title="Connect and sync">
+    1. Click **Connect**
+    2. June verifies the API key and the connection status shows **Active**
+    3. June automatically runs an initial sync of your agreements
+
+    <Check>
+    After the first sync completes, open your contracts in June to confirm Zip agreements have been imported.
+    </Check>
+  </Step>
+</Steps>
+
+## How the Sync Works
+
+- **Automatic on connect**: June runs a full sync as soon as the integration connects, and on its regular sync schedule thereafter.
+- **Agreements become contracts**: Each Zip agreement maps to one software contract in June, linked back to its Zip agreement ID so re-syncs update the same record.
+- **Vendor matching**: June matches each agreement to a known software product using the agreement and vendor names. Unmatched agreements are still imported and flagged so you can assign the right product.
+- **Documents**: Attached agreement files are imported and stored against the contract for reference.
+
+## Example Use Cases
+
+<AccordionGroup>
+  <Accordion title="Build a software contract inventory">
+    Sync your `Software` agreements so every active contract, its value, and its renewal date live in June alongside your devices and spend.
+  </Accordion>
+
+  <Accordion title="Track upcoming renewals">
+    With start and end dates imported, ask June which Zip contracts are expiring soon so nothing renews by surprise.
+  </Accordion>
+
+  <Accordion title="Tie spend to vendors">
+    Because agreements are matched to software products, June can roll up spend by vendor across everything you've synced.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Authentication failed - invalid API key">
+    **Symptoms**: Connection fails or shows authentication errors
+
+    **Solutions**:
+    - The API key may have been revoked in Zip—generate a new one and update it in June
+    - Verify there are no extra spaces when pasting the key
+    - Confirm the key has access to read agreements
+  </Accordion>
+
+  <Accordion title="No agreements imported after sync">
+    **Symptoms**: Sync completes but few or no contracts appear
+
+    **Solutions**:
+    - Check the **Sync Categories** value—only agreements in those categories are imported
+    - Confirm the category names exactly match the purchase categories used in Zip
+    - Verify there are agreements in those categories in Zip
+  </Accordion>
+
+  <Accordion title="Contracts imported but not matched to a vendor">
+    **Symptoms**: Contracts appear unmatched or assigned to a generic product
+
+    **Solutions**:
+    - Manually assign the correct software product—June preserves your assignment on future syncs
+    - Consider adding alternate names to the product so future matches succeed automatically
+  </Accordion>
+</AccordionGroup>
+
+## Security Best Practices
+
+- **Dedicated key**: Use a dedicated API key for June so it can be revoked independently
+- **Secure storage**: API keys are encrypted at rest in June's secure storage
+- **Read-only**: The Zip integration only reads agreements and documents—it never modifies Zip
+- **Scope by category**: Limit **Sync Categories** to the spend June needs to see
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Coupa Integration" href="/integrations/coupa">
+    Also using Coupa? Connect it to sync requisitions as contracts
+  </Card>
+
+  <Card title="Firstbase Integration" href="/integrations/firstbase">
+    Track equipment orders and returns alongside your contracts
+  </Card>
+
+  <Card title="AI Insights" href="/ai-features/ai-insights">
+    Use AI to analyze contract spend and renewal patterns
+  </Card>
+
+  <Card title="Identity Providers" href="/integrations/identity-providers">
+    Sync employees so contract owners map to the right people
+  </Card>
+</CardGroup>
+
+## Support Resources
+
+Need help with your Zip integration?
+
+- **Zip Documentation**: Review [Zip's developer documentation](https://developers.ziphq.com) for API key details
+- **June Support**: Contact support for integration-specific assistance
+
+<Note>
+The Zip integration connects within minutes and runs an initial sync automatically. Larger agreement sets may take a few minutes to finish importing.
+</Note>

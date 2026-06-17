@@ -1,0 +1,48 @@
+---
+title: 'Procurement Integrations'
+description: 'Connect your procurement tools with June to sync agreements, track vendor contracts, and build a complete software contract inventory'
+---
+
+## Supported Procurement Tools
+
+<CardGroup cols={2}>
+  <Card href="/integrations/firstbase">
+    <div className="w-30 h-30">
+      <img src="/images/firstbasehq_logo.png" alt="Firstbase" width={40} height={40} className="my-5" />
+    </div>
+    <div className="text-base font-bold text-white my-2">Firstbase</div>
+    <div className="text-sm text-gray-400">Track hardware equipment orders, shipment updates, and returns from Firstbase</div>
+  </Card>
+
+  <Card href="/integrations/zip">
+    <div className="w-30 h-30">
+      <img src="/images/zip.webp" alt="Zip" width={40} height={40} className="my-5" />
+    </div>
+    <div className="text-base font-bold text-white my-2">Zip</div>
+    <div className="text-sm text-gray-400">Sync procurement agreements and track vendor contracts from Zip</div>
+  </Card>
+
+  <Card href="/integrations/coupa">
+    <div className="w-30 h-30">
+      <img src="/images/coupa.svg" alt="Coupa" width={40} height={40} className="my-5" />
+    </div>
+    <div className="text-base font-bold text-white my-2">Coupa</div>
+    <div className="text-sm text-gray-400">Sync procurement requisitions and extract data from contract documents in Coupa</div>
+  </Card>
+</CardGroup>
+
+## What Gets Synced
+
+What June pulls depends on the tool. Firstbase covers **hardware procurement**, while Zip and Coupa cover **software and vendor contracts**.
+
+| Data | Description | Source |
+|------|-------------|--------|
+| **Equipment orders & shipments** | Hardware orders, shipment status, and returns | Firstbase |
+| **Agreements & requisitions** | Procurement records and their current status | Zip, Coupa |
+| **Vendor contracts** | Contract terms, renewal dates, and owners | Zip, Coupa |
+| **Software spend** | Costs tied to each vendor and contract | Zip, Coupa |
+| **Contract documents** | Key details extracted from attached agreements | Coupa |
+
+<Note>
+Procurement data syncs automatically on a daily basis. You can also trigger a manual sync from the integration settings.
+</Note>

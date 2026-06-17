@@ -1,0 +1,58 @@
+---
+title: 'Claude Enterprise Integration'
+description: 'Connect Claude Enterprise (claude.ai) with June to track billed, per-person Claude spend across all products'
+icon: '/images/claude.svg'
+---
+
+This is the recommended way to connect Claude. If you're on the Anthropic Console / API instead, see [Claude Platform](/integrations/claude-platform).
+
+## What you'll accomplish
+- Connect with your claude.ai **Analytics API key**
+- Track **billed** Claude spend over time, by model, by department, and per person
+- Identify top users and the teams driving usage
+- Get per-person totals that reconcile to your Anthropic bill
+
+## What June syncs
+
+From your Claude Enterprise account, June syncs:
+
+- **Billed spend per person**, across **all** Claude products (chat, Code, and more)
+- **Token usage per person**
+
+Because every figure is billed and attributed to a person, your per-person and per-department totals reconcile to your Anthropic invoice. Usage history is available from January 2026 onward and refreshes daily.
+
+## Capabilities
+
+This is a read-only spend integration. June ingests usage and billing data, and does not take actions in Anthropic.
+
+| Capability | Description |
+|------------|-------------|
+| **Billed spend** | Your authoritative Anthropic invoice total over the selected period, net of account credits. |
+| **Spend over time** | Cumulative spend/tokens by model or department across the period. |
+| **Per-person spend (billed)** | Billed spend and tokens attributed to each employee, across all Claude products. Searchable, sortable, and groupable by department. |
+| **Per-department & per-model breakdowns** | Where spend concentrates, plus top users. |
+| **Credits reconciliation** | Used spend minus account credits equals your billed total, surfaced explicitly. |
+
+## Prerequisites
+
+Before starting, ensure you have:
+- A Claude **Enterprise** (claude.ai) plan
+- **Primary Owner** access to generate an Analytics API key
+
+## Connect Claude Enterprise
+
+<Steps>
+  <Step title="Generate an Analytics API key">
+    1. Sign in to [claude.ai](https://claude.ai) as a **Primary Owner**.
+    2. Go to **Analytics → API keys**.
+    3. Create a new key and copy it.
+  </Step>
+  <Step title="Add the integration in June">
+    1. In June, open the **Integrations** page.
+    2. Choose **Claude Enterprise**.
+    3. Paste your **Analytics API key** and save.
+  </Step>
+  <Step title="Wait for the first sync">
+    June backfills your historical usage and refreshes daily. Spend and per-person data appear under **AI usage → Claude** once the first sync completes.
+  </Step>
+</Steps>

@@ -1,0 +1,37 @@
+---
+title: 'AI Tool Integrations'
+description: 'Connect your AI tools with June to track spend over time, by model, by department, and per person'
+---
+
+## Supported AI Tools
+
+<CardGroup cols={2}>
+  <Card href="/integrations/claude-enterprise">
+    <div className="w-30 h-30">
+      <img src="/images/claude.svg" alt="Claude Enterprise" width={40} height={40} className="my-5" />
+    </div>
+    <div className="text-base font-bold text-white my-2">Claude Enterprise</div>
+    <div className="text-sm text-gray-400">Billed, per-person Claude spend across every product. Recommended.</div>
+  </Card>
+
+  <Card href="/integrations/claude-platform">
+    <div className="w-30 h-30">
+      <img src="/images/claude.svg" alt="Claude Platform" width={40} height={40} className="my-5" />
+    </div>
+    <div className="text-base font-bold text-white my-2">Claude Platform</div>
+    <div className="text-sm text-gray-400">Billed Claude bill at the organization level, plus estimated per-person Claude Code usage</div>
+  </Card>
+</CardGroup>
+
+## What Gets Synced
+
+| Data | Description |
+|------|-------------|
+| **Spend** | Your Claude spend over the selected period, net of account credits |
+| **Spend over time** | Cumulative spend and token usage across the period |
+| **By model & department** | Where spend concentrates across models and teams |
+| **Per person** | Spend and token usage attributed to each employee |
+
+<Note>
+What June can attribute per person depends on the connection. **Claude Enterprise** gives billed, per-person spend across all products. **Claude Platform** gives your billed organization total plus an estimated per-person figure for Claude Code. See each page for details.
+</Note>

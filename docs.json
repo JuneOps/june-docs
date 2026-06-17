@@ -38,12 +38,6 @@
               "getting-started/quick-start",
               "getting-started/organization-setup"
             ]
-          },
-          {
-            "group": "Product Updates",
-            "pages": [
-              "changelog"
-            ]
           }
         ]
       },
@@ -55,7 +49,9 @@
             "pages": [
               "integrations/mdm-integrations",
               "integrations/identity-providers",
-              "integrations/itsm-integrations"
+              "integrations/itsm-integrations",
+              "integrations/procurement-integrations",
+              "integrations/ai-tools"
             ]
           },
           {
@@ -71,7 +67,8 @@
             "group": "Identity Providers",
             "pages": [
               "integrations/okta",
-              "integrations/google-workspace"
+              "integrations/google-workspace",
+              "integrations/microsoft-entra"
             ]
           },
           {
@@ -81,9 +78,25 @@
             ]
           },
           {
+            "group": "Communication",
+            "pages": [
+              "integrations/slack",
+              "integrations/microsoft-teams"
+            ]
+          },
+          {
             "group": "Procurement",
             "pages": [
-              "integrations/firstbase"
+              "integrations/firstbase",
+              "integrations/zip",
+              "integrations/coupa"
+            ]
+          },
+          {
+            "group": "AI Tools",
+            "pages": [
+              "integrations/claude-enterprise",
+              "integrations/claude-platform"
             ]
           }
         ]
@@ -125,17 +138,6 @@
             "group": "Overview",
             "pages": [
               "agents-extensions/browser-extension"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Changelog",
-        "groups": [
-          {
-            "group": "Recent Updates",
-            "pages": [
-              "changelog"
             ]
           }
         ]

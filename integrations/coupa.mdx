@@ -1,0 +1,235 @@
+---
+title: 'Coupa Integration'
+icon: '/images/coupa.svg'
+---
+
+Connect Coupa with June to sync procurement requisitions, extract data from attached contract documents, and build a complete software contract inventory.
+
+<Info>
+The Coupa integration is **read-only**. June imports your requisitions and their attached documents to build a contract inventory—it does not create or modify records in Coupa.
+</Info>
+
+## What you'll accomplish
+
+- Create an OAuth2 (OIDC) client in Coupa with read scopes
+- Connect the June integration
+- Choose which requisition statuses and spend categories to sync
+- Optionally map the Coupa fields June reads contract dates from
+
+## Prerequisites
+
+Before starting the integration, ensure you have:
+
+- Coupa admin access to create an OAuth2 / OIDC client
+- Your Coupa instance URL (e.g., `https://customer.coupahost.com`)
+- June organization admin permissions
+
+## How June Works with Coupa
+
+When connected, June syncs your Coupa **requisitions** and turns each one into a software contract in June. For every requisition, June imports:
+
+- **Contract value and currency** (from the requisition total)
+- **Status**, mapped to active, expired, or future
+- **Vendor and agreement name**, derived from the requisition lines and matched to a software product
+- **Owner** (the requester)
+- **Start and end dates**, from configured custom fields and/or extracted from attached documents
+- **Attached documents** from comments, lines, and the requisition itself
+
+<Note>
+Unlike Zip, Coupa requisitions often don't carry full contract terms as structured fields. June runs a **document extraction pipeline** on attached contracts to fill in details like dates, value, license counts, and renewal terms.
+</Note>
+
+### What the filters control
+
+| Setting | Required | What it controls |
+|---------|----------|------------------|
+| **Source** | Yes | Which Coupa object to sync. Currently **Requisitions**. |
+| **Requisition Statuses** | No | Which statuses are synced as contracts (e.g., Ordered, Approved, Pending Approval, Closed). Defaults to **Ordered**. |
+| **Spend Categories** | No | Which Coupa commodities to import as software contracts. Options load from your Coupa instance after you authenticate. |
+
+### Contract date fields
+
+Coupa stores contract dates in custom fields that vary by organization. You can tell June which fields to read:
+
+- **Start Date Field** / **End Date Field**: the names of the Coupa custom fields that hold the contract start and end dates (for example, `start-date` or `amort-start-date`).
+- Leave these **blank** to let June's document extraction determine the dates from the attached contract instead.
+
+## Setup Process
+
+### Step 1: Create an OAuth2 Client in Coupa
+
+<Steps>
+  <Step title="Access Coupa OIDC settings">
+    1. Log in to Coupa as an administrator
+    2. Navigate to **Setup** → **Integrations** → **OAuth2 / OIDC Clients**
+    3. Create a new client for June
+  </Step>
+
+  <Step title="Grant read scopes">
+    Grant the following read-only scopes so June can sync requisitions and related data:
+    - `core.requisition.read`
+    - `core.comment.read`
+    - `core.supplier.read`
+    - `core.common.read`
+    - `core.user.read`
+  </Step>
+
+  <Step title="Copy the credentials">
+    1. **Immediately copy** the **Client ID** and **Client Secret**
+    2. Note your **Instance URL** (e.g., `https://customer.coupahost.com`)
+    3. Store these securely for the next step
+
+    <Warning>
+    The client secret is shown once. If you lose it, generate a new client secret in Coupa.
+    </Warning>
+  </Step>
+</Steps>
+
+### Step 2: Connect in June
+
+<Steps>
+  <Step title="Access June Integrations">
+    1. Log into June
+    2. Navigate to **Settings** → **Integrations**
+    3. Select **Coupa** from the available integrations
+  </Step>
+
+  <Step title="Enter credentials">
+    Provide the following:
+    - **Coupa Instance URL**: e.g., `https://customer.coupahost.com`
+    - **OAuth2 Client ID**: from your OIDC client
+    - **OAuth2 Client Secret**: from your OIDC client
+  </Step>
+
+  <Step title="Connect">
+    1. Click **Connect**
+    2. June requests an access token and verifies API access
+    3. The connection status shows **Active**
+
+    <Check>
+    A successful connection confirms June can both authenticate and read requisitions from your instance.
+    </Check>
+  </Step>
+</Steps>
+
+### Step 3: Configure Sync Options
+
+<Steps>
+  <Step title="Choose statuses and categories">
+    1. Set **Requisition Statuses** to the statuses you want imported (default: Ordered)
+    2. Select the **Spend Categories** (commodities) to sync—these load from your Coupa instance
+  </Step>
+
+  <Step title="Map date fields (optional)">
+    If your organization stores contract dates in Coupa custom fields, enter the **Start Date Field** and **End Date Field** names. Otherwise, leave them blank and June will extract dates from attached documents.
+  </Step>
+
+  <Step title="Run a sync">
+    Coupa does not sync automatically on connect—start a **Sync** from the integration settings once your options are set.
+
+    <Check>
+    After the sync completes, open your contracts in June to confirm requisitions were imported.
+    </Check>
+  </Step>
+</Steps>
+
+## How the Sync Works
+
+- **Manual sync**: Coupa syncs run when you trigger them (it does not auto-sync on connect), so you can configure filters first.
+- **Requisitions become contracts**: Each requisition maps to one software contract, linked by its requisition ID so re-syncs update the same record. Multi-line requisitions are combined into a single contract; per-line detail is retained for reference.
+- **Document extraction**: June pulls attached documents, classifies which ones are contracts, downloads them securely, and extracts contract terms (value, dates, license counts, renewal terms). Contracts move through processing states until extraction completes or is flagged for review.
+- **Vendor matching**: June matches each contract to a known software product using requisition and supplier names, refined by names extracted from documents. Unmatched contracts are imported and flagged so you can assign the right product.
+
+## Example Use Cases
+
+<AccordionGroup>
+  <Accordion title="Turn requisitions into a contract inventory">
+    Sync your ordered software requisitions so each becomes a tracked contract with value, dates, and vendor in June.
+  </Accordion>
+
+  <Accordion title="Extract terms from contract PDFs">
+    Let June read attached contract documents to capture start/end dates and renewal terms that aren't stored as structured fields in Coupa.
+  </Accordion>
+
+  <Accordion title="Focus on the right spend">
+    Use status and spend-category filters to sync only the requisitions that represent real software contracts.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Authentication succeeded but API access failed">
+    **Symptoms**: June connects to OAuth but can't read requisitions
+
+    **Solutions**:
+    - Confirm all read scopes are granted: `core.requisition.read`, `core.comment.read`, `core.supplier.read`, `core.common.read`, `core.user.read`
+    - Verify the OIDC client is active in Coupa
+    - Double-check the instance URL is correct and reachable
+  </Accordion>
+
+  <Accordion title="Authentication failed">
+    **Symptoms**: "Authentication failed" on connect
+
+    **Solutions**:
+    - Verify the Client ID and Client Secret were copied correctly
+    - Generate a new client secret in Coupa if it may have been rotated or lost
+    - Confirm the instance URL uses the correct `https://...coupahost.com` form
+  </Accordion>
+
+  <Accordion title="Few or no contracts imported">
+    **Symptoms**: Sync completes but little data appears
+
+    **Solutions**:
+    - Broaden **Requisition Statuses** (e.g., include Approved and Pending Approval)
+    - Confirm the selected **Spend Categories** match where your software requisitions live
+    - Remember Coupa requires a manual sync—trigger one after changing filters
+  </Accordion>
+
+  <Accordion title="Contracts missing start/end dates">
+    **Symptoms**: Imported contracts have blank dates
+
+    **Solutions**:
+    - Set the **Start Date Field** and **End Date Field** to the Coupa custom fields where your dates live
+    - If dates live only in the contract PDF, leave those fields blank and let document extraction fill them in
+    - Check that contract documents are actually attached to the requisition
+  </Accordion>
+</AccordionGroup>
+
+## Security Best Practices
+
+- **Read-only scopes**: Grant only the read scopes June needs—it never writes to Coupa
+- **Secure storage**: Client credentials and access tokens are encrypted at rest in June's secure storage
+- **Token rotation**: June refreshes its access token automatically; rotate the client secret in Coupa periodically
+- **Scope by filter**: Use status and category filters to limit which requisitions June imports
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Zip Integration" href="/integrations/zip">
+    Also using Zip? Connect it to sync agreements as contracts
+  </Card>
+
+  <Card title="Firstbase Integration" href="/integrations/firstbase">
+    Track equipment orders and returns alongside your contracts
+  </Card>
+
+  <Card title="AI Insights" href="/ai-features/ai-insights">
+    Use AI to analyze contract spend, renewals, and extracted terms
+  </Card>
+
+  <Card title="Identity Providers" href="/integrations/identity-providers">
+    Sync employees so requisition owners map to the right people
+  </Card>
+</CardGroup>
+
+## Support Resources
+
+Need help with your Coupa integration?
+
+- **Coupa Documentation**: Review the [Coupa Core API documentation](https://compass.coupa.com/en-us/products/product-documentation/integration-technical-documentation/the-coupa-core-api) for OAuth and scope details
+- **June Support**: Contact support for integration-specific assistance
+
+<Note>
+After connecting, configure your filters and trigger a sync. Document extraction runs in the background, so contract terms may continue to populate for a short time after the initial sync.
+</Note>

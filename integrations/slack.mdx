@@ -1,0 +1,190 @@
+---
+title: 'Slack Integration'
+icon: '/images/slack.svg'
+---
+
+Connect your Slack workspace with June to receive live notifications, mirror agent activity into a channel, and let employees chat with June directly from Slack.
+
+<Info>
+Slack is a **communication channel**. June uses it to send notifications, post live-progress updates for agent requests, and (optionally) respond to employees who message June. It does not manage devices or import tickets.
+</Info>
+
+## What you'll accomplish
+
+- Install the June app into your Slack workspace
+- Choose the channel June posts notifications to
+- Decide whether to mirror agent request activity into Slack
+- Optionally let employees chat with June via DM or @mention
+
+## Prerequisites
+
+Before starting the integration, ensure you have:
+
+- A Slack workspace where you can install apps (Workspace Owner or Admin, or the ability to request app approval)
+- June organization admin permissions
+
+## How June Works with Slack
+
+When you connect Slack, June exchanges an OAuth token for your workspace and then:
+
+- **Reads your channel list** so you can pick a notifications channel
+- **Maps employees to Slack users** by looking up each person's work email, so notifications and chat reach the right person
+- **Posts notifications and live-progress cards** to the channel you select
+- **Optionally answers employees** who DM or @mention June
+
+### Capabilities
+
+| Capability | Description |
+|------------|-------------|
+| **Notifications** | June posts alerts and updates to your chosen Slack channel |
+
+### Channel options
+
+After connecting, you control two behaviors:
+
+| Setting | Default | What it does |
+|---------|---------|--------------|
+| **Mirror request executions into the Slack channel** | On | Every agent request execution posts a live-progress card in the configured channel so your team can watch June work in real time |
+| **Allow employees to chat with June via @mention** | Off | When enabled, June responds to direct messages and @mentions from employees in Slack |
+
+## Setup Process
+
+### Step 1: Install the June App in Slack
+
+<Steps>
+  <Step title="Start the connection from June">
+    1. Log into June
+    2. Navigate to **Settings** → **Integrations**
+    3. Select **Slack** from the available integrations
+    4. Click **Connect** to begin the Slack install flow
+  </Step>
+
+  <Step title="Approve the June app">
+    1. Slack opens an authorization screen showing the permissions June requests
+    2. Confirm the workspace shown is the correct one
+    3. Click **Allow** to install the June app
+
+    <Note>
+    If your workspace requires admin approval for new apps, the request is routed to a Workspace Admin. June can only finish connecting after the app is approved.
+    </Note>
+  </Step>
+
+  <Step title="Return to June">
+    Slack redirects you back to June and the connection status updates to **Active**. June stores the workspace token securely and records your Slack team ID.
+  </Step>
+</Steps>
+
+### Step 2: Choose a Notifications Channel
+
+<Steps>
+  <Step title="Select the channel">
+    1. In June's Slack integration settings, open the **Notification Channel** dropdown
+    2. Choose the channel June should post to (e.g., `#june-notifications`)
+    3. Save your selection
+  </Step>
+
+  <Step title="Invite June to private channels">
+    If you pick a **private** channel, invite the June app to it in Slack first (`/invite @June`) so June has permission to post.
+
+    <Check>
+    Confirm a test notification appears in the channel you selected.
+    </Check>
+  </Step>
+</Steps>
+
+### Step 3: Configure Behavior
+
+<Steps>
+  <Step title="Request mirroring">
+    Leave **Mirror request executions into the Slack channel** on if you want a live feed of agent activity in the channel, or turn it off for a quieter channel that only receives notifications.
+  </Step>
+
+  <Step title="Employee chat (optional)">
+    Turn on **Allow employees to chat with June via @mention** if you want employees to be able to DM or @mention June for help directly in Slack. Leave it off to keep June admin-only.
+  </Step>
+</Steps>
+
+## Example Use Cases
+
+<AccordionGroup>
+  <Accordion title="Stay on top of agent activity">
+    Keep request mirroring on so your IT channel sees a live card for every request June works on—what it's doing and how it resolves.
+  </Accordion>
+
+  <Accordion title="Route alerts to the right place">
+    Point notifications at a dedicated channel like `#it-alerts` so the right team sees June's updates without noise in general channels.
+  </Accordion>
+
+  <Accordion title="Self-service help for employees">
+    Enable employee chat so staff can ask June questions—about their devices, requests, or policies—without leaving Slack.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Notifications aren't appearing">
+    **Solutions**:
+    - Confirm a notification channel is selected in June's Slack settings
+    - For private channels, make sure the June app has been invited (`/invite @June`)
+    - Verify the connection status shows **Active**; reconnect if it doesn't
+  </Accordion>
+
+  <Accordion title="June isn't responding to messages">
+    **Solutions**:
+    - Confirm **Allow employees to chat with June via @mention** is turned on
+    - Check that the employee's Slack account uses the same work email June has on file—June matches people by email
+    - Make sure June has been added to the channel where the @mention happened
+  </Accordion>
+
+  <Accordion title="The app won't install / approval is pending">
+    **Solutions**:
+    - Your workspace may require admin approval for new apps—ask a Workspace Admin to approve the June app
+    - Verify you have permission to install apps in the workspace
+    - Re-run **Connect** from June after approval is granted
+  </Accordion>
+
+  <Accordion title="Connection shows disconnected">
+    **Solutions**:
+    - The workspace token may have been revoked in Slack—reconnect from June's Slack settings
+    - Confirm the June app hasn't been removed from your Slack workspace
+  </Accordion>
+</AccordionGroup>
+
+## Security Best Practices
+
+- **Scoped access**: June requests only the permissions it needs to post notifications and identify employees
+- **Token storage**: The Slack access token is encrypted at rest in June's secure storage
+- **Channel choice**: Use a dedicated channel for June so access is easy to reason about and audit
+- **Revoke anytime**: You can remove the June app from your Slack workspace at any time to immediately cut off access
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Microsoft Teams Integration" href="/integrations/microsoft-teams">
+    Prefer Teams? Connect it as an alternative communication channel
+  </Card>
+
+  <Card title="Identity Providers" href="/integrations/identity-providers">
+    Sync employee identities so June matches Slack users to the right people
+  </Card>
+
+  <Card title="Asset Discovery" href="/device-management/asset-discovery">
+    Connect your asset inventory so June has context for the requests it mirrors
+  </Card>
+
+  <Card title="AI Insights" href="/ai-features/ai-insights">
+    See how June reasons about the requests it reports on
+  </Card>
+</CardGroup>
+
+## Support Resources
+
+Need help with your Slack integration?
+
+- **Slack Documentation**: Review Slack's [app installation guide](https://slack.com/help/articles/202035138-Add-apps-to-your-Slack-workspace) for workspace-level details
+- **June Support**: Contact support for integration-specific assistance
+
+<Note>
+The Slack integration connects within minutes. Once a notification channel is selected, June begins posting immediately.
+</Note>

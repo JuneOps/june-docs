@@ -1,0 +1,69 @@
+---
+title: 'Claude Platform Integration'
+description: 'Connect the Anthropic Console (Admin API) with June to track your billed Claude bill and estimated per-user Claude Code usage'
+icon: '/images/claude.svg'
+---
+
+If you're on a claude.ai Enterprise plan, connect [Claude Enterprise](/integrations/claude-enterprise) instead. It gives billed, per-person spend across every product (see [Why Enterprise is better](#why-enterprise-is-better) below).
+
+## What you'll accomplish
+- Connect with your Anthropic **Admin API key**
+- See your **billed** Claude bill at the organization level (by workspace and model)
+- See **estimated** per-person **Claude Code** usage
+
+## What June syncs
+
+From your Anthropic Console, June syncs:
+
+- Your **billed organization total**, broken down by **workspace** and **model**. This is your authoritative invoice total. It is **not** attributed to individual people.
+- An **estimated per-user cost for Claude Code only**.
+
+Usage history is available from January 2026 onward and refreshes daily.
+
+<Warning>
+On the Platform connection, per-person spend is **estimated** and covers **Claude Code only**. It is Anthropic's per-user *estimate*, not a billed figure, and it excludes Claude chat and other products. Your organization total is billed and authoritative, but it cannot be broken down per person. For **billed**, per-person spend across **all** Claude products, connect [Claude Enterprise](/integrations/claude-enterprise) instead.
+</Warning>
+
+## Capabilities
+
+This is a read-only spend integration. June ingests usage and billing data, and does not take actions in Anthropic.
+
+| Capability | Description |
+|------------|-------------|
+| **Billed spend** | Your authoritative Anthropic invoice total over the selected period, net of account credits. |
+| **Spend over time** | Cumulative billed spend/tokens, by model, across the period. |
+| **Per-workspace & per-model breakdowns** | Where your billed org spend concentrates. |
+| **Estimated per-person Claude Code usage** | Anthropic's per-user estimate for Claude Code, clearly labeled as estimated and never summed on top of the billed total. |
+
+## Prerequisites
+
+Before starting, ensure you have:
+- An Anthropic **Console** account with access to **Admin keys**
+
+## Connect Claude Platform
+
+<Steps>
+  <Step title="Generate an Admin API key">
+    1. Open the [Claude Console](https://platform.claude.com).
+    2. Go to **Settings → Admin keys**.
+    3. Create a key (it starts with `sk-ant-admin…`) and copy it.
+  </Step>
+  <Step title="Add the integration in June">
+    1. In June, open the **Integrations** page.
+    2. Choose **Claude Platform**.
+    3. Paste your **Admin API key** and save.
+  </Step>
+  <Step title="Wait for the first sync">
+    June backfills your historical usage and refreshes daily. Spend appears under **AI usage → Claude** once the first sync completes.
+  </Step>
+</Steps>
+
+## Why Enterprise is better
+
+| | **Claude Platform** (this page) | **Claude Enterprise** |
+|---|---|---|
+| **Org total** | Billed (by workspace/model) | Billed (per user, summed) |
+| **Per-person spend** | Estimated, **Claude Code only** | **Billed**, **all products** |
+| **Reconciles to your bill per person** | No (estimated, partial) | Yes |
+
+If you have access to a claude.ai Enterprise plan, connect [Claude Enterprise](/integrations/claude-enterprise) for billed, per-person spend across every Claude product.
