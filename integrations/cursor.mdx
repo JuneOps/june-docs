@@ -1,0 +1,59 @@
+---
+title: 'Cursor Integration'
+description: 'Connect Cursor with June to track billed, per-person Cursor spend over time, by model, by department, and per person'
+icon: '/images/cursor-dark-mode.svg'
+---
+
+Connect your Cursor team to track billed Cursor spend, attributed to each person, with no estimates.
+
+## What you'll accomplish
+- Connect with your Cursor **Team Admin API key**
+- Track **billed** Cursor spend over time, by model, by department, and per person
+- See every Cursor seat, including people who have access but no usage (the seats you may be paying for and not using)
+- Identify top users and the teams driving usage
+
+## What June syncs
+
+From your Cursor team, June syncs:
+
+- **Billed spend per person** (the amount Cursor actually charges, in cents)
+- **Token usage per person**
+- **Your team roster**, so June can show every seat, including people with no usage
+
+Every figure is billed and attributed to a person, so your per-person and per-department totals are exact, not estimated. Usage history is available from January 2026 onward and refreshes daily.
+
+## Capabilities
+
+This is a read-only spend integration. June ingests usage and billing data, and does not take actions in Cursor.
+
+| Capability | Description |
+|------------|-------------|
+| **Billed spend** | The amount Cursor charges over the selected period. Seat-covered (included) usage shows at $0 but still counts as activity. |
+| **Spend over time** | Cumulative spend/tokens by model or department across the period. |
+| **Per-person spend (billed)** | Billed spend and tokens attributed to each employee. Searchable, sortable, and groupable by department. |
+| **Seat coverage** | Every Cursor seat in one view, including unused (idle) seats. Surfaces who has access but no usage, and people who left but still hold a seat. |
+| **Per-department & per-model breakdowns** | Where spend concentrates, plus top users. |
+
+## Prerequisites
+
+Before starting, ensure you have:
+- A Cursor team on a plan with **Admin API** access (Business or Enterprise)
+- **Admin** access to create a Team Admin API key
+
+## Connect Cursor
+
+<Steps>
+  <Step title="Generate a Team Admin API key">
+    1. Sign in to your Cursor team's dashboard as an **admin**.
+    2. Go to **Settings** and create a **Team Admin API key**.
+    3. Copy the key.
+  </Step>
+  <Step title="Add the integration in June">
+    1. In June, open the **Integrations** page.
+    2. Choose **Cursor**.
+    3. Paste your **Team Admin API key** and save.
+  </Step>
+  <Step title="Wait for the first sync">
+    June backfills your historical usage and refreshes daily. Spend, per-person data, and seats appear under **AI usage → Cursor** once the first sync completes.
+  </Step>
+</Steps>

@@ -96,7 +96,8 @@
             "group": "AI Tools",
             "pages": [
               "integrations/claude-enterprise",
-              "integrations/claude-platform"
+              "integrations/claude-platform",
+              "integrations/cursor"
             ]
           }
         ]
