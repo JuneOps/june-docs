@@ -1,0 +1,62 @@
+---
+title: 'OpenAI Integration'
+description: 'Connect OpenAI with June to track billed, per-person OpenAI spend over time, by model, by department, and per person'
+icon: '/images/openai-dark-mode.svg'
+---
+
+Connect your OpenAI organization to track billed OpenAI spend, attributed to each person, with no estimates.
+
+This connects your **OpenAI organization** (the API and platform bill). It does not cover ChatGPT Business or Enterprise seats, which are billed separately.
+
+## What you'll accomplish
+- Connect with your OpenAI **Admin API key**
+- Track **billed** OpenAI spend over time, by model, by department, and per person
+- See everyone in your OpenAI organization, including people with no usage
+- Identify top users and the teams driving spend
+
+## What June syncs
+
+From your OpenAI organization, June syncs:
+
+- **Billed spend per person** (the amount OpenAI actually charges, attributed to each person who uses it)
+- **Token usage per person**
+- **Your member roster**, so June can show everyone, including people with no usage
+
+Every figure is billed and attributed to a person, so your per-person and per-department totals are exact, not estimated. Usage that isn't tied to an individual (shared or automated activity) rolls up at the organization level. Usage history is available from January 2026 onward and refreshes daily.
+
+## Capabilities
+
+This is a read-only spend integration. June ingests usage and billing data, and does not take actions in OpenAI.
+
+| Capability | Description |
+|------------|-------------|
+| **Billed spend** | The amount OpenAI charges over the selected period, by model. |
+| **Spend over time** | Cumulative spend/tokens by model or department across the period. |
+| **Per-person spend (billed)** | Billed spend and tokens attributed to each person. Searchable, sortable, and groupable by department. |
+| **Organization-level spend** | Shared or automated usage that isn't tied to a person, surfaced separately so totals always reconcile to your OpenAI bill. |
+| **Member visibility** | Everyone in your OpenAI organization in one view, including people with no usage and people who left. |
+| **Per-department & per-model breakdowns** | Where spend concentrates, plus top users. |
+
+## Prerequisites
+
+Before starting, ensure you have:
+- An OpenAI organization with **Admin API key** access
+- **Owner** access to create an Admin API key
+
+## Connect OpenAI
+
+<Steps>
+  <Step title="Generate an Admin API key">
+    1. Sign in to your OpenAI organization as an **Owner**.
+    2. Go to your **Organization settings** and create an **Admin API key**.
+    3. Copy the key.
+  </Step>
+  <Step title="Add the integration in June">
+    1. In June, open the **Integrations** page.
+    2. Choose **OpenAI**.
+    3. Paste your **Admin API key** and save.
+  </Step>
+  <Step title="Wait for the first sync">
+    June backfills your historical usage and refreshes daily. Spend, per-person data, and members appear under **AI usage → OpenAI** once the first sync completes.
+  </Step>
+</Steps>

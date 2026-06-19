@@ -97,7 +97,8 @@
             "pages": [
               "integrations/claude-enterprise",
               "integrations/claude-platform",
-              "integrations/cursor"
+              "integrations/cursor",
+              "integrations/openai"
             ]
           }
         ]
