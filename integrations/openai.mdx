@@ -43,13 +43,20 @@ Before starting, ensure you have:
 - An OpenAI organization with **Admin API key** access
 - **Owner** access to create an Admin API key
 
+June only ever reads from OpenAI, so a **read-only** key is all it needs.
+
 ## Connect OpenAI
 
 <Steps>
-  <Step title="Generate an Admin API key">
+  <Step title="Generate a read-only Admin API key">
     1. Sign in to your OpenAI organization as an **Owner**.
-    2. Go to your **Organization settings** and create an **Admin API key**.
-    3. Copy the key.
+    2. Go to **Organization settings → Admin keys** and choose **Create new admin key**.
+    3. Give it a name (for example, "June") and, under **Permissions**, select **Read only**. June never writes to your OpenAI account, so read-only access is all it needs.
+    4. Create the key and copy it.
+
+    <Note>
+    Prefer least privilege? Choose **Restricted** instead and set **Usage API Scope** and **Organization Administration** to **Read** (leave the others **None**). June reads your spend and usage through the Usage API, and your member roster through Organization Administration, so both are required. A key missing Organization Administration will fail to connect.
+    </Note>
   </Step>
   <Step title="Add the integration in June">
     1. In June, open the **Integrations** page.
