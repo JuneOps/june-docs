@@ -7,8 +7,9 @@ icon: '/images/claude.svg'
 This is the recommended way to connect Claude. If you're on the Anthropic Console / API instead, see [Claude Platform](/integrations/claude-platform).
 
 ## What you'll accomplish
-- Connect with your claude.ai **Analytics API key**
+- Connect with your claude.ai **Analytics API key** and **Compliance API key**
 - Track **billed** Claude spend over time, by model, by department, and per person
+- See every Claude seat, including people who have access but no usage (the seats you may be paying for and not using)
 - Identify top users and the teams driving usage
 - Get per-person totals that reconcile to your Anthropic bill
 
@@ -18,8 +19,13 @@ From your Claude Enterprise account, June syncs:
 
 - **Billed spend per person**, across **all** Claude products (chat, Code, and more)
 - **Token usage per person**
+- **Your member roster**, so June can show every seat, including people with no usage
 
 Because every figure is billed and attributed to a person, your per-person and per-department totals reconcile to your Anthropic invoice. Usage history is available from January 2026 onward and refreshes daily.
+
+<Note>
+Claude Enterprise uses **two keys**: the **Analytics** key reads your spend and usage, and the **Compliance** key reads your member roster so June can show every seat (including unused ones). Both are required.
+</Note>
 
 ## Capabilities
 
@@ -30,14 +36,15 @@ This is a read-only spend integration. June ingests usage and billing data, and 
 | **Billed spend** | Your authoritative Anthropic invoice total over the selected period, net of account credits. |
 | **Spend over time** | Cumulative spend/tokens by model or department across the period. |
 | **Per-person spend (billed)** | Billed spend and tokens attributed to each employee, across all Claude products. Searchable, sortable, and groupable by department. |
+| **Seat coverage** | Every Claude seat in one view, including unused (idle) seats. Surfaces who has access but no usage, and people who left but still hold a seat. |
 | **Per-department & per-model breakdowns** | Where spend concentrates, plus top users. |
 | **Credits reconciliation** | Used spend minus account credits equals your billed total, surfaced explicitly. |
 
 ## Prerequisites
 
 Before starting, ensure you have:
-- A Claude **Enterprise** (claude.ai) plan
-- **Primary Owner** access to generate an Analytics API key
+- A Claude **Enterprise** (claude.ai) plan, with the **Compliance API** enabled for your organization
+- **Primary Owner** access to generate API keys
 
 ## Connect Claude Enterprise
 
@@ -45,14 +52,20 @@ Before starting, ensure you have:
   <Step title="Generate an Analytics API key">
     1. Sign in to [claude.ai](https://claude.ai) as a **Primary Owner**.
     2. Go to **Analytics → API keys**.
-    3. Create a new key and copy it.
+    3. Create a new key and copy it. This is your **Analytics API key** (it carries the `read:analytics` scope by default).
+  </Step>
+  <Step title="Generate a Compliance API key">
+    This key lets June read your member roster, so it can show every seat (including unused ones).
+    1. Go to **Organization settings → API** and create a key.
+    2. Select the **`read:compliance_user_data`** and **`read:compliance_org_data`** scopes, and copy it. This is your **Compliance API key**.
+    3. If those scopes aren't available, your organization needs the **Compliance API** enabled first. Request it from Anthropic, then create the key.
   </Step>
   <Step title="Add the integration in June">
     1. In June, open the **Integrations** page.
     2. Choose **Claude Enterprise**.
-    3. Paste your **Analytics API key** and save.
+    3. Paste your **Analytics API key** and your **Compliance API key**, then save.
   </Step>
   <Step title="Wait for the first sync">
-    June backfills your historical usage and refreshes daily. Spend and per-person data appear under **AI usage → Claude** once the first sync completes.
+    June backfills your historical usage and refreshes daily. Spend, per-person data, and seats appear under **AI usage → Claude** once the first sync completes.
   </Step>
 </Steps>
