@@ -1,0 +1,63 @@
+---
+title: 'GitHub Integration'
+description: 'Connect GitHub with June to measure engineering activity and the impact of AI tools on your codebase'
+icon: '/images/github-dark-mode.svg'
+---
+
+Connect your GitHub organization to power June's **AI Impact** view: how much of your engineering output involves AI tools, what those tools contribute, and what they cost per unit of work.
+
+## What you'll accomplish
+- Install the **June GitHub App** on your organization in a couple of clicks, with no keys to manage
+- See engineering activity (pull requests, reviews, and review conversations) for both people and AI tools
+- Break down AI reviewers and AI authors (Copilot, Devin, Greptile, and others) by tool
+- Connect AI tool activity to what you pay for those tools, when the tool is also a spend integration
+
+## What June syncs
+
+From your GitHub organization, June syncs:
+
+- **Your organization's members**, matched to employees in June
+- **Pull request activity**: who opened, merged, and reviewed, and when
+- **Review conversations**: comments on pull requests, split between people and bots
+- **AI tools and bots active in your organization**, so their output can be measured separately from your team's
+
+June reads activity metadata only. It does **not** read your source code, and it never writes anything to GitHub. Data refreshes daily.
+
+## Capabilities
+
+This is a read-only engineering activity integration. June ingests activity data and does not take actions in GitHub.
+
+| Capability | Description |
+|------------|-------------|
+| **Engineering activity** | Pull requests opened and merged, review counts, and review turnaround for your organization. |
+| **Human vs AI breakdown** | Activity split between your team and AI tools/bots, so AI contribution is measured, never mixed into people's numbers. |
+| **AI reviewers & authors** | Per-tool breakdowns of AI-generated reviews and AI-authored pull requests. |
+| **Tool cost connection** | When an AI tool is also connected as a spend integration (for example Claude or Cursor), its GitHub output appears beside what you pay for it. |
+| **Member coverage** | GitHub members matched to employees, so activity is attributed to the right person and department. |
+
+## Prerequisites
+
+Before starting, ensure you have:
+- A GitHub **organization** (personal accounts are not supported)
+- **Organization owner** access, or permission from an owner to install GitHub Apps
+
+## Connect GitHub
+
+<Steps>
+  <Step title="Start the install from June">
+    1. In June, open the **Integrations** page.
+    2. Choose **GitHub** and click **Install GitHub App**.
+  </Step>
+  <Step title="Approve the app on GitHub">
+    1. GitHub shows the June App's install page. Pick your organization.
+    2. Choose which repositories June can see. **All repositories** gives the most complete picture, but you can start with a subset.
+    3. Review the requested read-only permissions and approve.
+  </Step>
+  <Step title="You're done">
+    GitHub sends you back to June and the connection is created automatically; there are no keys or IDs to copy. The first sync backfills your recent activity; results appear under **AI Impact** once it completes.
+  </Step>
+</Steps>
+
+<Note>
+To change which repositories June can see later, adjust the June App's repository access in your GitHub organization settings. June picks up the change on the next sync.
+</Note>
