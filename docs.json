@@ -100,6 +100,12 @@
               "integrations/cursor",
               "integrations/openai"
             ]
+          },
+          {
+            "group": "Engineering",
+            "pages": [
+              "integrations/github"
+            ]
           }
         ]
       },
