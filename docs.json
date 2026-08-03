@@ -38,6 +38,12 @@
               "getting-started/quick-start",
               "getting-started/organization-setup"
             ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "administration/user-management"
+            ]
           }
         ]
       },
