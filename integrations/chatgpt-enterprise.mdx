@@ -1,0 +1,91 @@
+---
+title: 'ChatGPT Enterprise Integration'
+description: 'Connect ChatGPT Enterprise with June to track seats, per-person spend across ChatGPT and Codex, engagement, and spend limits'
+icon: '/images/openai-dark-mode.svg'
+---
+
+Connect your ChatGPT Enterprise workspace to see who holds a seat, who is actually using ChatGPT and Codex, what each person consumes, and the spend limits you have configured.
+
+This covers your **ChatGPT workspace** (seats, pooled credits, Codex). It does not cover your OpenAI API bill, which is billed separately. For that, see [OpenAI Platform](/integrations/openai).
+
+## What you'll accomplish
+- Connect with a single workspace **Admin API key**
+- See every ChatGPT seat, including people who have access but no usage
+- Track **per-person Codex activity**: sessions, conversation depth, and how much of their shipped code Codex contributed
+- See which surface each person works in (the Codex CLI, their IDE, the web, or cloud tasks)
+- Track **per-person spend limits** and how much of their monthly allowance each person has used, and update a limit from June
+- See **per-person spend split by product**, ChatGPT and Codex separately, in credits and dollars
+
+## What June syncs
+
+From your ChatGPT Enterprise workspace, June syncs:
+
+- **Your member roster**, so June can show every seat, including people with no usage
+- **Per-person Codex usage**: how often each person uses Codex, how deeply, and the code contribution behind it (lines written and committed, commits Codex contributed to)
+- **Per-person spend limits**, including who has an explicit override and who is uncapped, next to what they've consumed this month
+- **Per-person spend by product**: what each person consumed on ChatGPT and on Codex, in credits, with an estimated dollar figure
+
+Usage history is available from January 2026 onward and refreshes daily.
+
+<Note>
+ChatGPT Enterprise uses **one Admin API key** plus two identifiers you copy from the Admin Console: your **Workspace ID** and your **API Platform Organization ID**. ChatGPT enforces spend limits in **credits**, so June shows them in credits. June never converts a credit limit into a dollar figure.
+</Note>
+
+## Capabilities
+
+June ingests seat, usage, and limit data. The only action it can take in ChatGPT is updating a spend limit when an admin approves it in June.
+
+| Capability | Description |
+|------------|-------------|
+| **Seat coverage** | Every workspace seat in one view, including unused (idle) seats and people who left but still hold one. |
+| **Per-person Codex activity** | Sessions and conversation depth per person per day, searchable and groupable by department. |
+| **Code contribution** | Lines written and committed with Codex, and the share of each person's commits Codex contributed to. |
+| **Surface breakdown** | Where each person runs Codex: the CLI, an IDE, the web, or cloud tasks. |
+| **Spend limits** | Each person's monthly limit, who has an override, who is uncapped, and month-to-date consumption against it. Admins can update a limit from June. |
+| **Per-person spend by product** | What each person consumed on ChatGPT and on Codex, shown separately, in credits with estimated dollars. |
+
+## Prerequisites
+
+Before starting, ensure you have:
+- A **ChatGPT Enterprise** workspace
+- **Workspace Owner** access to create an Admin API key
+
+## What each permission is for
+
+The Admin key needs four grants. If a key is missing one, the connection fails at setup and names the missing grant.
+
+| Permission | What June does with it |
+|------------|------------------------|
+| **Workspace users** (read) | The member roster, so every seat shows - including unused ones and people who left. |
+| **Codex Enterprise analytics** (read) | Per-person Codex activity: sessions, conversation depth, code contribution, and which surface each person works in. |
+| **Usage limits** (read and write) | Each person's spend limit and how much they've used (OpenAI's console calls these usage limits). Write lets admins update a limit from June; a read-only key shows limits but can't update them. |
+| **Cost logs** (read) | Per-person spend, split by product (ChatGPT and Codex), in credits and estimated dollars. |
+
+<Note>
+The cost logs grant reads **billing rows only**: who consumed what, in credits and dollars. It never includes conversation content, files, or memories. June never asks for the permissions that do.
+</Note>
+
+## Connect ChatGPT Enterprise
+
+<Steps>
+  <Step title="Generate a workspace Admin API key">
+    1. Sign in to the OpenAI Admin Console as a **Workspace Owner**.
+    2. Go to **Credentials → Admin keys** and create a new key.
+    3. Under **Custom permissions**, grant read access to **workspace users**, **Codex Enterprise analytics**, and **cost logs**, and **read and write** on **usage limits**.
+    4. Create the key and copy it.
+  </Step>
+  <Step title="Copy your Workspace ID">
+    Your Workspace ID (it starts with `wksp_`) is shown in the Admin Console. June needs it because every workspace read is scoped to it.
+  </Step>
+  <Step title="Copy your API Platform Organization ID">
+    Your Organization ID (it starts with `org-`) is how June reads the cost logs behind per-person spend.
+  </Step>
+  <Step title="Add the integration in June">
+    1. In June, open the **Integrations** page.
+    2. Choose **ChatGPT Enterprise**.
+    3. Paste your **Admin API key**, **Workspace ID**, and **Organization ID**, then save.
+  </Step>
+  <Step title="Wait for the first sync">
+    June backfills your history and refreshes daily. Seats, activity, limits, and spend appear under **AI usage → OpenAI** once the first sync completes.
+  </Step>
+</Steps>

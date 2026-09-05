@@ -19,7 +19,7 @@ description: 'Connect your AI tools with June to track spend over time, by model
       <img src="/images/claude.svg" alt="Claude Platform" width={40} height={40} className="my-5" />
     </div>
     <div className="text-base font-bold text-white my-2">Claude Platform</div>
-    <div className="text-sm text-gray-400">Billed Claude bill at the organization level, plus estimated per-person Claude Code usage</div>
+    <div className="text-sm text-gray-400">Your billed Claude total at the organization level, plus estimated per-person Claude Code usage</div>
   </Card>
 
   <Card href="/integrations/cursor">
@@ -27,7 +27,7 @@ description: 'Connect your AI tools with June to track spend over time, by model
       <img src="/images/cursor-dark-mode.svg" alt="Cursor" width={40} height={40} className="my-5" />
     </div>
     <div className="text-base font-bold text-white my-2">Cursor</div>
-    <div className="text-sm text-gray-400">Billed, per-person Cursor spend, with no estimates</div>
+    <div className="text-sm text-gray-400">Billed per-person spend, engagement, spend limits, and skills</div>
   </Card>
 
   <Card href="/integrations/openai">
@@ -37,17 +37,26 @@ description: 'Connect your AI tools with June to track spend over time, by model
     <div className="text-base font-bold text-white my-2">OpenAI Platform</div>
     <div className="text-sm text-gray-400">Billed, per-person OpenAI API spend, with no estimates</div>
   </Card>
+
+  <Card href="/integrations/chatgpt-enterprise">
+    <div className="w-30 h-30">
+      <img src="/images/openai-dark-mode.svg" alt="ChatGPT Enterprise" width={40} height={40} className="my-5" />
+    </div>
+    <div className="text-base font-bold text-white my-2">ChatGPT Enterprise</div>
+    <div className="text-sm text-gray-400">Seats, per-person ChatGPT and Codex spend, engagement, and spend limits</div>
+  </Card>
 </CardGroup>
 
 ## What Gets Synced
 
 | Data | Description |
 |------|-------------|
-| **Spend** | Your Claude spend over the selected period, net of account credits |
+| **Spend** | Your spend over the selected period, net of account credits where the provider reports them |
 | **Spend over time** | Cumulative spend and token usage across the period |
 | **By model & department** | Where spend concentrates across models and teams |
-| **Per person** | Spend and token usage attributed to each employee |
+| **Per person** | Spend, token usage, and engagement attributed to each employee |
+| **Spend limits** | Per-person caps read from providers that enforce them, shown beside actual spend |
 
 <Note>
-What June can attribute per person depends on the connection. **Claude Enterprise** gives billed, per-person spend across all products. **Claude Platform** gives your billed organization total plus an estimated per-person figure for Claude Code. **Cursor** gives billed, per-person spend with no estimates. **OpenAI Platform** gives billed, per-person spend for your OpenAI API usage, with shared or automated usage surfaced at the organization level. See each page for details.
+What June can attribute per person depends on the connection. **Claude Enterprise** gives billed, per-person spend across all products. **Claude Platform** gives your billed organization total plus an estimated per-person figure for Claude Code. **Cursor** gives billed, per-person spend with no estimates. **OpenAI Platform** gives billed, per-person spend for your OpenAI API usage, with shared or automated usage shown at the organization level. **ChatGPT Enterprise** gives seats, per-person engagement and spend limits, and estimated per-person spend split by product. See each page for details.
 </Note>

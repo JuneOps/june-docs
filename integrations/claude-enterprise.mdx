@@ -4,7 +4,7 @@ description: 'Connect Claude Enterprise (claude.ai) with June to track billed, p
 icon: '/images/claude.svg'
 ---
 
-This is the recommended way to connect Claude. If you're on the Anthropic Console / API instead, see [Claude Platform](/integrations/claude-platform).
+This is the recommended way to connect Claude. If you use the Anthropic Console or API instead, see [Claude Platform](/integrations/claude-platform).
 
 ## What you'll accomplish
 - Connect with your claude.ai **Analytics API key** and **Compliance API key**
@@ -12,7 +12,7 @@ This is the recommended way to connect Claude. If you're on the Anthropic Consol
 - See every Claude seat, including people who have access but no usage (the seats you may be paying for and not using)
 - Identify top users and the teams driving usage
 - Get per-person totals that reconcile to your Anthropic bill
-- Optionally, add an **Admin API key** to see each person's configured Claude spend limit next to their actual spend
+- Optionally, add an **Admin API key** to see and update each person's spend limit
 
 ## What June syncs
 
@@ -20,28 +20,44 @@ From your Claude Enterprise account, June syncs:
 
 - **Billed spend per person**, across **all** Claude products (chat, Code, and more)
 - **Token usage per person**
+- **Per-person engagement**: sessions, conversations, and coding output (pull requests, commits) per person per day, split by product
+- **Skill usage**: which skills your team uses, how often, and the spend attributed to each
 - **Your member roster**, so June can show every seat, including people with no usage
 - **Per-person spend limits** (optional, with an Admin API key), so you can compare each person's cap against what they actually spend
 
 Because every figure is billed and attributed to a person, your per-person and per-department totals reconcile to your Anthropic invoice. Usage history is available from January 2026 onward and refreshes daily.
 
 <Note>
-Claude Enterprise uses **two required keys**: the **Analytics** key reads your spend and usage, and the **Compliance** key reads your member roster so June can show every seat (including unused ones). A third key, the **Admin API key**, is optional: it lets June read the spend limits you've configured in Anthropic, so each person's cap shows next to their actual spend. Without it, everything else works; you just won't see limits.
+Claude Enterprise uses **two required keys**. The **Analytics** key reads your spend and usage. The **Compliance** key reads your member roster, so June can show every seat, including unused ones. A third key, the **Admin API key**, is optional: it lets June show each person's spend limit beside their actual spend, and update a limit when an admin approves a change. Without it, everything else works. You just won't see limits.
 </Note>
 
 ## Capabilities
 
-This is a read-only spend integration. June ingests usage and billing data, and does not take actions in Anthropic.
+June ingests usage and billing data from Anthropic. With the optional Admin API key, the only action it can take is updating a spend limit when an admin approves the change in June.
 
 | Capability | Description |
 |------------|-------------|
 | **Billed spend** | Your authoritative Anthropic invoice total over the selected period, net of account credits. |
-| **Spend over time** | Cumulative spend/tokens by model or department across the period. |
+| **Spend over time** | Cumulative spend and token usage by model or department across the period. |
 | **Per-person spend (billed)** | Billed spend and tokens attributed to each employee, across all Claude products. Searchable, sortable, and groupable by department. |
 | **Seat coverage** | Every Claude seat in one view, including unused (idle) seats. Surfaces who has access but no usage, and people who left but still hold a seat. |
 | **Per-department & per-model breakdowns** | Where spend concentrates, plus top users. |
-| **Credits reconciliation** | Used spend minus account credits equals your billed total, surfaced explicitly. |
-| **Spend limits** (optional) | Each person's configured Claude spend limit shown beside their actual spend, so you can spot who is close to their cap and who has no cap set. Requires the Admin API key. |
+| **Engagement & adoption** | Who uses Claude, on which products, and how deeply: sessions, messages, and coding output per person. |
+| **Skill usage** | Which skills the team runs, how often, and what each costs per use. |
+| **Credits reconciliation** | Used spend minus account credits equals your billed total. |
+| **Spend limits** (optional) | Each person's spend limit beside their actual spend, so you can spot who is close to their cap and who has no cap set. Admins can also update a limit from June. Requires the Admin API key. |
+
+## What each key is for
+
+| Key | What June reads with it |
+|-----|-------------------------|
+| **Analytics API key** (required) | Spend, token usage, per-person engagement, and skill usage - the figures every chart and table is built from. |
+| **Compliance API key** (required) | Your member roster and groups, so every seat shows - including unused ones and people who left. |
+| **Admin API key** (optional) | Spend limits: each person's cap beside their actual spend, and updating a limit when an admin approves a change. |
+
+<Note>
+June only reads your **member directory** with the Compliance key: who is in the organization and which groups they belong to. It never requests conversation content.
+</Note>
 
 ## Prerequisites
 
@@ -64,7 +80,7 @@ Before starting, ensure you have:
     3. If those scopes aren't available, your organization needs the **Compliance API** enabled first. Request it from Anthropic, then create the key.
   </Step>
   <Step title="(Optional) Generate an Admin API key">
-    This key lets June read the per-person spend limits you've configured in Anthropic, so caps show beside actual spend in June. Skip it if you don't use spend limits.
+    This key lets June show each person's spend limit and update it when an admin approves a change. Skip it if you don't use spend limits.
     1. Sign in to the [Anthropic Console](https://console.anthropic.com) as an admin.
     2. Go to **Settings → Admin keys** and create a key (it starts with `sk-ant-admin`).
     3. Copy it. This is your **Admin API key**.
