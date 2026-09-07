@@ -1,6 +1,6 @@
 ---
 title: 'Cursor Integration'
-description: 'Connect Cursor with June to track billed, per-person Cursor spend over time, by model, by department, and per person'
+description: 'Connect Cursor with June to track billed per-person spend, day-by-day engagement, spend limits, and skill usage'
 icon: '/images/cursor-dark-mode.svg'
 ---
 
@@ -10,6 +10,9 @@ Connect your Cursor team to track billed Cursor spend, attributed to each person
 - Connect with your Cursor **Team Admin API key**
 - Track **billed** Cursor spend over time, by model, by department, and per person
 - See every Cursor seat, including people who have access but no usage (the seats you may be paying for and not using)
+- Track **per-person engagement**: who used Cursor each day, and the edits and lines of code they accepted
+- See each person's **spend limit** beside their actual spend, and update it from June on Enterprise plans
+- On Enterprise plans, see **skill usage** across the team
 - Identify top users and the teams driving usage
 
 ## What June syncs
@@ -18,6 +21,9 @@ From your Cursor team, June syncs:
 
 - **Billed spend per person** (the amount Cursor actually charges, in cents)
 - **Token usage per person**
+- **Per-person daily engagement**: active days, accepted edits and tab completions, and lines of code added
+- **Per-person spend limits**, so each person's cap shows next to what they actually spend
+- **Skill usage** (Enterprise plans): which skills the team uses and how often, detected automatically, with no extra setup
 - **Your team roster**, so June can show every seat, including people with no usage
 
 Every figure is billed and attributed to a person, so your per-person and per-department totals are exact, not estimated. Usage history is available from January 2026 onward and refreshes daily.
@@ -29,9 +35,12 @@ This is a read-only spend integration. June ingests usage and billing data, and 
 | Capability | Description |
 |------------|-------------|
 | **Billed spend** | The amount Cursor charges over the selected period. Seat-covered (included) usage shows at $0 but still counts as activity. |
-| **Spend over time** | Cumulative spend/tokens by model or department across the period. |
+| **Spend over time** | Cumulative spend and token usage by model or department across the period. |
 | **Per-person spend (billed)** | Billed spend and tokens attributed to each employee. Searchable, sortable, and groupable by department. |
 | **Seat coverage** | Every Cursor seat in one view, including unused (idle) seats. Surfaces who has access but no usage, and people who left but still hold a seat. |
+| **Engagement** | Who used Cursor each day and how much code they accepted. |
+| **Spend limits** | Each person's configured limit beside their actual spend, so you can spot who is close to their cap and who has no cap set. On Enterprise plans, admins can also update a limit from June. |
+| **Skill usage** (Enterprise) | Which skills the team uses and how often. Appears automatically on Enterprise plans. Team plans don't show it. |
 | **Per-department & per-model breakdowns** | Where spend concentrates, plus top users. |
 
 ## Prerequisites

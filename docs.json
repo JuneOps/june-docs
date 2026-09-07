@@ -104,7 +104,8 @@
               "integrations/claude-enterprise",
               "integrations/claude-platform",
               "integrations/cursor",
-              "integrations/openai"
+              "integrations/openai",
+              "integrations/chatgpt-enterprise"
             ]
           },
           {
