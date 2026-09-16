@@ -78,6 +78,12 @@
             ]
           },
           {
+            "group": "Knowledge",
+            "pages": [
+              "integrations/confluence"
+            ]
+          },
+          {
             "group": "Ticketing & Service Management",
             "pages": [
               "integrations/jira"
