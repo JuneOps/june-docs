@@ -53,9 +53,10 @@ Before starting, ensure you have:
 
 <Steps>
   <Step title="Generate a Team Admin API key">
-    1. Sign in to your Cursor team's dashboard as an **admin**.
-    2. Go to **Settings** and create a **Team Admin API key**.
-    3. Copy the key.
+    1. Sign in to [cursor.com/dashboard](https://cursor.com/dashboard) as a team **admin**.
+    2. Open **API Keys** and choose **New API Key**.
+    3. Give the key the **`admin:*`** scope. June reads team members, usage, and spend through the Admin API, and a read-only scope will connect and then fail on the first sync.
+    4. Copy the key.
   </Step>
   <Step title="Add the integration in June">
     1. In June, open the **Integrations** page.
