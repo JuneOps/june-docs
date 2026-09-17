@@ -20,7 +20,7 @@ An Atlassian organization administrator must also provide the organization ID an
 
     Save the token somewhere secure, such as a password manager. You'll paste it into June in step 3.
 
-    Use a standard token without scopes for this setup. Scoped tokens require a different Atlassian API endpoint.
+    Use a standard token without scopes for this setup.
 
     <Note>
       **API tokens expire after at most one year.** Set a reminder before your chosen date. Before the token expires, create a new one and replace it in June under **Settings → Integrations → Confluence → Connection Settings → Edit**. Save and choose **Test Connection** before revoking the old token.
@@ -82,7 +82,7 @@ Open **Settings → Integrations → Confluence** to manage the connection.
     Confirm the email belongs to the token's owner, the token has not expired or been revoked, and the URL points to the correct Confluence Cloud site. Check the token in [Atlassian API tokens](https://id.atlassian.com/manage-profile/security/api-tokens). Use **Create API token**, rather than a scoped token. Check that the user can sign in to Confluence and view the intended spaces.
   </Accordion>
   <Accordion title="Employee access setup (ACL) needs attention">
-    Check the organization ID, the admin key's expiration and all three required scopes. The admin key must identify the same Confluence site. June will not guess a directory when the provider returns an ambiguous match; contact June support if the directory cannot be identified.
+    Check the organization ID, the admin key's expiration and all three required scopes. The admin key must belong to the organization that owns your Confluence site. Contact June support if the connection still cannot be verified.
   </Accordion>
   <Accordion title="A space is missing">
     The connection only lists spaces the connected account can read. Check that account's access in Confluence.
@@ -92,4 +92,4 @@ Open **Settings → Integrations → Confluence** to manage the connection.
   </Accordion>
 </AccordionGroup>
 
-See [Atlassian's API-token guide](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/) and [AWS's Confluence Basic-authentication requirements](https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-confluence-basic-setup.html) for provider details.
+See [Atlassian's API-token guide](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/) for more help managing tokens.

@@ -80,7 +80,8 @@
           {
             "group": "Knowledge",
             "pages": [
-              "integrations/confluence"
+              "integrations/confluence",
+              "integrations/google-drive"
             ]
           },
           {
