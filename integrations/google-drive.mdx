@@ -1,0 +1,151 @@
+---
+title: "Google Drive"
+description: "Connect shared drives to June Knowledge while respecting Google Drive permissions."
+icon: "/images/google-drive.png"
+---
+
+Connect **Google Drive** under **Settings → Integrations → Knowledge**, then choose shared drives in the Knowledge workspace. June uses each employee's Google permissions when retrieving content for answers.
+
+Google Drive and Google Workspace are independent integrations in June. You can connect Google Drive without connecting Google Workspace. If you use both, Google Workspace continues to sync employee identities separately.
+
+## Before you start
+
+Have these ready:
+
+- Permission to manage Knowledge and integrations in June.
+- A Google Cloud project where you can enable APIs, create a service account, and create its JSON key. Ask your Google Cloud administrator for help if any of these actions are unavailable.
+- A Google Workspace **super administrator** to authorize domain-wide delegation and assign administrator roles.
+- An active Google Workspace user to use as the **delegated admin**, with access to the shared drives you want to connect. We recommend a dedicated user for June Knowledge.
+
+The person configuring Google Cloud, the Workspace super administrator, and the delegated admin can be different people. Personal Google accounts are not supported.
+
+### Where to grant permissions
+
+| Location | What to do |
+| --- | --- |
+| Service-account creation → **Permissions (optional)** | Leave blank. June does not require Google Cloud project roles on this service account. |
+| Service-account creation → **Principals with access (optional)** | Leave blank. June does not require additional people or accounts to be granted access here. |
+| Google Admin → **Domain-wide delegation** | Authorize the service account's numeric client ID with the scopes below. |
+| Google Admin → the delegated user's **Admin roles and privileges** | Assign Groups Reader, User Management Admin, and Storage Admin to the Workspace user. |
+| Google Drive → each shared drive's **Manage members** | Give the delegated Workspace user access to the content you want to include. |
+
+The optional fields in Google Cloud control access to Cloud resources and the service account itself. Workspace delegation, administrator roles, and shared-drive access are configured separately in the steps below. See Google's [service-account creation guide](https://docs.cloud.google.com/iam/docs/service-accounts-create).
+
+## Configure Google access
+
+<Steps>
+  <Step title="Enable the Google APIs">
+    Open the [Google Cloud console](https://console.cloud.google.com/) and select the project you will use for June Knowledge.
+
+    Go to **APIs & Services → Library**. Search for each API below, open its page, and choose **Enable**:
+
+    - **Google Drive API**
+    - **Google Drive Activity API**
+    - **Admin SDK API**
+
+    Enable all three in the same project as the service account. See Google's [API setup guide](https://developers.google.com/workspace/guides/enable-apis).
+  </Step>
+  <Step title="Create a service account">
+    1. In Google Cloud, open **IAM & Admin → Service Accounts → Create service account**.
+    2. Enter a name such as `June Knowledge`. Keep the generated service-account ID. The description is optional.
+    3. Leave **Permissions (optional)** empty. Do not select a project role such as Owner or Editor.
+    4. Leave **Principals with access (optional)** empty.
+    5. Choose **Create and close**. If your console shows **Create and continue**, proceed through the two optional sections without adding anything, then choose **Done**.
+
+    Open the new service account. Under **Details → Advanced settings → Domain-wide delegation**, copy its numeric **Client ID**. This is also available as `client_id` in the JSON key you create next. Keep it for the delegation step.
+  </Step>
+  <Step title="Download a JSON key">
+    1. On the service account, open **Keys**.
+    2. Choose **Add key → Create new key**.
+    3. Select **JSON**, then choose **Create**.
+
+    Save the downloaded file securely. You will upload this file to June as-is; you do not need to copy or edit the private key. Google only lets you download the private key when it is created.
+
+    If key creation is blocked by your organization's policy, ask your Google Cloud administrator to review whether a key is permitted for this project. See Google's [service-account key guide](https://docs.cloud.google.com/iam/docs/keys-create-delete).
+  </Step>
+  <Step title="Authorize domain-wide delegation">
+    Domain-wide delegation lets the service account act on behalf of Workspace users within the authorized scopes.
+
+    1. Sign in to the [Google Admin console](https://admin.google.com/) as a **super administrator**.
+    2. In the left navigation, expand **Security → Access and data control**, then click **API controls**.
+    3. On the API controls page, find **Domain-wide delegation** and click **Manage Domain Wide Delegation**. This is a control inside the page, not a separate item in the left navigation. If you have the Admin search dropdown open, close it to navigate using the sidebar.
+    4. Choose **Add new**.
+    5. In **Client ID**, paste the service account's numeric client ID. Use the number, not its email address or your Cloud project ID.
+    6. In **OAuth scopes**, paste the complete comma-separated line below.
+
+    ```text
+    https://www.googleapis.com/auth/drive.readonly,https://www.googleapis.com/auth/drive.metadata.readonly,https://www.googleapis.com/auth/admin.directory.user.readonly,https://www.googleapis.com/auth/admin.directory.group.readonly,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/forms.body.readonly
+    ```
+
+    Choose **Authorize**, then open **View details** for the new entry and confirm that all six scopes appear. These scopes belong in Google Admin; they are not roles to select in the service-account creation screen.
+
+    If your organization requires multi-party approval, another super administrator must approve the change. Delegation changes can take up to 24 hours to apply, although they usually apply sooner. See Google's [domain-wide delegation guide](https://knowledge.workspace.google.com/admin/apps/control-api-access-with-domain-wide-delegation).
+  </Step>
+  <Step title="Give the delegated user its Workspace admin roles">
+    The delegated admin is a Google Workspace user, such as `june-knowledge@example.com`. June uses this user's access to read Drive content and directory information.
+
+    In Google Admin, sign in as a super administrator and:
+
+    1. Open **Directory → Users**.
+    2. Choose an existing dedicated user, or use **Add new user** to create one.
+    3. Open that user's **Admin roles and privileges**.
+    4. Assign **Groups Reader**, **User Management Admin**, and **Storage Admin**, then save.
+
+    Assign these roles to the Workspace user. The service-account email ending in `iam.gserviceaccount.com` is a different identity. The delegated user does not need the Super Admin role for this connection.
+
+    Record the user's primary email address for June's **Delegated admin email** field, and keep the account active. These are Google Workspace admin roles; they will not appear in Google Cloud's project-role picker.
+
+    See Google's [administrator-role guide](https://knowledge.workspace.google.com/admin/users/prebuilt-administrator-roles) for each role's permissions.
+  </Step>
+  <Step title="Give the delegated user access to your shared drives">
+    For each shared drive you intend to include, have a drive manager open **Google Drive → Shared drives → the drive → Manage members** and add the delegated user's email.
+
+    **Viewer** provides read access. The user must also be allowed to download the intended files and access any limited-access folders you want to include. Sign in as the delegated user and confirm it can open the drive and read and download the intended content.
+
+    Workspace admin roles alone do not grant access to every file. This setup uses the delegated user's drive membership. See Google's [shared-drive membership guide](https://support.google.com/a/users/answer/9310249?hl=en).
+  </Step>
+  <Step title="Connect in June">
+    Open **Settings → Integrations → Knowledge → Google Drive** and provide:
+
+    - **Delegated admin email:** the Workspace user's primary email, such as `june-knowledge@example.com`.
+    - **Service-account JSON key:** the file downloaded from Google Cloud.
+
+    Choose **Connect Google Drive**. June verifies delegated authentication and Drive and Directory access. A successful connection does not confirm access to every file; review the inventory when adding your source.
+
+    The key is stored securely and is never displayed after saving. Connecting does not add documents to Knowledge.
+  </Step>
+</Steps>
+
+## Add a Knowledge source
+
+Open **Intelligence → Knowledge Base → Add source**, then choose Google Drive. Search shared drives by name or paste a shared-drive URL. Expand drives and folders to inspect their files using the same picker as other Knowledge providers.
+
+Select whole shared drives, name the source, and review the inventory before adding it. Their current and future content is included on sync. Folder/file selection, shortcuts, personal drives, and “Shared with me” are not supported in this release.
+
+Google permissions determine which documents can contribute to an employee's answers. There is no separate employee-audience selector. Knowledge inventory titles and links retain the workspace's existing visibility rules; inventory visibility does not grant access to document content.
+
+The employee's email in June must exactly match their Google email. Email aliases are not supported. June only uses documents the employee has permission to access. Documents are omitted from answers when access cannot be verified.
+
+## Manage the connection
+
+- Choose **Update credentials** to upload a replacement JSON key. Leave the upload empty to retain the saved key. A failed replacement preserves the existing credentials.
+- Choose **Test Connection** to verify access. Sync sources after updating or reconnecting.
+- Choose **Disconnect** to stop using Google Drive content in answers. Saved source configuration remains available.
+- Delete the connection's Knowledge sources and wait for their deletion to finish before deleting the connection. Original Google files are preserved.
+- Selected shared drives are fixed once source setup starts. To change them, delete the source and add it again after deletion finishes.
+
+## Troubleshooting
+
+**Which permissions should I select when creating the service account?** Leave both **Permissions (optional)** and **Principals with access (optional)** empty. Complete Workspace delegation, delegated-user roles, and shared-drive membership using the steps above.
+
+**I cannot create the service account or its key:** Ask your Google Cloud administrator to check your own account's permissions and any organization policy restricting key creation. Adding a project role to the service account does not fix missing permissions on your own account.
+
+**I cannot find Manage Domain Wide Delegation:** Sign in to Google Admin as a Workspace super administrator. Google Cloud project administration and Workspace super administration are separate permissions.
+
+**No shared drives appear:** Check that the delegated admin is a member of the drives and can read their contents. Administrative management privileges alone do not establish content access. Google's [shared-drive guide](https://support.google.com/a/users/answer/9310249?hl=en) explains how to add members and choose their access level.
+
+**Delegation cannot be verified:** Confirm that the JSON key and authorized numeric client ID belong to the same service account. Check that all six scopes are listed, all three APIs are enabled in that account's project, and the delegated email belongs to an active Workspace admin with the listed roles. Allow time for recent delegation changes to apply, including any required approval.
+
+**Employees receive no results:** Verify that the employee's June email matches their Google email, that they can access the content in Google Drive, and that the source has synced successfully. Use **Test Connection** to check the connection. Documents are omitted from answers when access cannot be verified.
+
+**Key rotation or revocation:** Save a new key in June before revoking the previous key in Google Cloud. Verify the connection and sync sources.

@@ -1,0 +1,95 @@
+---
+title: "Confluence"
+description: "Connect Confluence Cloud to June and configure access for Knowledge sources."
+icon: "/images/confluence_logo.png"
+---
+
+Connect Confluence from **Settings → Integrations** with an API token and organization credentials. June respects each employee's existing access in Confluence. You choose the content to include separately in the Knowledge workspace.
+
+## Before you start
+
+You need permission to manage Knowledge in June and a Confluence Cloud account that can read the spaces you intend to include. A dedicated Confluence user makes ownership and token rotation easier to manage.
+
+An Atlassian organization administrator must also provide the organization ID and admin API key for employee access checks.
+
+## Connect Confluence
+
+<Steps>
+  <Step title="Create an API token">
+    Sign in as the Confluence user at [Atlassian API tokens](https://id.atlassian.com/manage-profile/security/api-tokens). Choose **Create API token**, give it a name such as `June Knowledge`, set **Expires on**, then create and copy the token.
+
+    Save the token somewhere secure, such as a password manager. You'll paste it into June in step 3.
+
+    Use a standard token without scopes for this setup.
+
+    <Note>
+      **API tokens expire after at most one year.** Set a reminder before your chosen date. Before the token expires, create a new one and replace it in June under **Settings → Integrations → Confluence → Connection Settings → Edit**. Save and choose **Test Connection** before revoking the old token.
+    </Note>
+  </Step>
+  <Step title="Set up employee access checks (ACL)">
+    June uses Confluence's access control lists (ACLs) so employees only receive answers from content they can access in Confluence. **This setup is required.** An Atlassian organization administrator must complete these steps:
+
+    1. Open [Atlassian Administration](https://admin.atlassian.com), select your organization, then choose **Organization settings → API keys → Create API key → API keys with scopes**.
+    2. Enter a name such as `June Knowledge ACL` and choose an expiration date.
+
+       <Note>
+         **Admin API keys expire after at most one year.** Set a reminder before your chosen date. Before the key expires, create a new one and replace it in June under **Settings → Integrations → Confluence → Connection Settings → Edit**. Save and choose **Test Connection** before revoking the old key.
+       </Note>
+
+    3. Under **Key scopes**, select all three:
+
+       - `read:directories:admin`
+       - `read:workspaces:admin`
+       - `read:groups:admin`
+
+    4. Review the scopes and choose **Create**.
+    5. Copy the **Organization ID** and **API key** from the final screen. Save them somewhere secure, such as a password manager, to configure June in the next step. You can also find the organization ID after `/o/` in the Atlassian Administration URL.
+
+    This admin API key is separate from the user API token in step 1. See [Atlassian's API-key guide](https://support.atlassian.com/organization-administration/docs/manage-an-organization-with-the-admin-apis/) for more details.
+  </Step>
+  <Step title="Enter your connection settings">
+    In June, open **Settings → Integrations → Confluence** and enter:
+
+    | Field | What to enter |
+    | --- | --- |
+    | Confluence site URL | Your site, such as `https://company.atlassian.net` |
+    | Account email | The email of the user who created the token. Check it in [Atlassian account settings](https://id.atlassian.com/manage-profile/email). |
+    | API token | The user API token from step 1 |
+    | Atlassian organization ID | The organization ID from the previous step |
+    | Organization admin API key | The admin API key from the previous step |
+
+    Choose **Connect**. June validates the credentials for reading content and checking employee access. Resolve any validation errors to complete setup.
+  </Step>
+</Steps>
+
+## Choose content
+
+Open **Intelligence → Knowledge Base** and add a source using the connected Confluence account. Select the spaces, folders, or pages you want June to use.
+
+## Update or disconnect
+
+Open **Settings → Integrations → Confluence** to manage the connection.
+
+- Choose **Edit** under **Connection Settings** to update credentials. Save changes to validate them.
+- Choose **Test Connection** to check the saved credentials. Confirm that both content access and employee access checks succeed.
+- Create replacement account tokens in [Atlassian API tokens](https://id.atlassian.com/manage-profile/security/api-tokens), and replacement admin keys in [Atlassian Administration](https://admin.atlassian.com) under **Organization settings → API keys**. Save their replacements in June before revoking the old ones. Tokens are never displayed after saving.
+- Choose **Disconnect** to stop using the connection. Saved source configuration remains available.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="The email or API token could not be verified">
+    Confirm the email belongs to the token's owner, the token has not expired or been revoked, and the URL points to the correct Confluence Cloud site. Check the token in [Atlassian API tokens](https://id.atlassian.com/manage-profile/security/api-tokens). Use **Create API token**, rather than a scoped token. Check that the user can sign in to Confluence and view the intended spaces.
+  </Accordion>
+  <Accordion title="Employee access setup (ACL) needs attention">
+    Check the organization ID, the admin key's expiration and all three required scopes. The admin key must belong to the organization that owns your Confluence site. Contact June support if the connection still cannot be verified.
+  </Accordion>
+  <Accordion title="A space is missing">
+    The connection only lists spaces the connected account can read. Check that account's access in Confluence.
+  </Accordion>
+  <Accordion title="I already have Jira connected">
+    Jira and Confluence have separate connections. Keep your Jira connection as it is and follow the Confluence setup above.
+  </Accordion>
+</AccordionGroup>
+
+See [Atlassian's API-token guide](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/) for more help managing tokens.
