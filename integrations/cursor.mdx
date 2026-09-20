@@ -30,7 +30,7 @@ Every figure is billed and attributed to a person, so your per-person and per-de
 
 ## Capabilities
 
-This is a read-only spend integration. June ingests usage and billing data, and does not take actions in Cursor.
+June ingests usage and billing data from Cursor. The only action it can take is updating a spend limit when an admin approves the change in June.
 
 | Capability | Description |
 |------------|-------------|
@@ -55,7 +55,7 @@ Before starting, ensure you have:
   <Step title="Generate a Team Admin API key">
     1. Sign in to [cursor.com/dashboard](https://cursor.com/dashboard) as a team **admin**.
     2. Open **API Keys** and choose **New API Key**.
-    3. Give the key the **`admin:*`** scope. June reads team members, usage, and spend through the Admin API, and a read-only scope will connect and then fail on the first sync.
+    3. Give the key the **`admin:*`** scope. June reads team members, usage, and spend through Cursor's Admin API, which requires it.
     4. Copy the key.
   </Step>
   <Step title="Add the integration in June">

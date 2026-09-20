@@ -48,7 +48,7 @@ June ingests seat, usage, and limit data. The only action it can take in ChatGPT
 
 Before starting, ensure you have:
 - A **ChatGPT Enterprise** workspace
-- **Workspace Owner** access to create an Admin API key
+- **Workspace Owner** or **Workspace Admin** access to create an Admin API key. A Workspace Admin can create a Custom key for non-sensitive permissions only; if a permission below isn't offered to your Admin account, a Workspace Owner needs to create the key.
 
 ## What each permission is for
 
@@ -69,10 +69,11 @@ The cost logs grant reads **billing rows only**: who consumed what, in credits a
 
 <Steps>
   <Step title="Generate a workspace Admin API key">
-    1. Sign in to the OpenAI Admin Console as a **Workspace Owner**.
-    2. Go to **Credentials → Admin keys** and create a new key.
-    3. Under **Custom permissions**, grant read access to **workspace users**, **Codex Enterprise analytics**, and **cost logs**, and **read and write** on **usage limits**.
-    4. Create the key and copy it.
+    1. Sign in to the OpenAI Admin Console as a **Workspace Owner** or **Workspace Admin**.
+    2. Go to [**Credentials → Admin keys**](https://admin.openai.com/credentials?tab=admin-keys) and select **Create new admin key**.
+    3. Choose the workspace this key belongs to.
+    4. Under **Custom permissions**, grant read access to **workspace users**, **Codex Enterprise analytics**, and **cost logs**, and **read and write** on **usage limits**. If your account doesn't offer one of these, a Workspace Owner needs to create the key instead.
+    5. Copy the secret and store it somewhere safe. OpenAI shows it once; if you close the dialog first, you'll need to create a new key.
   </Step>
   <Step title="Copy your Workspace ID">
     Your Workspace ID (it starts with `wksp_`) is shown in the Admin Console. June needs it because every workspace read is scoped to it.
