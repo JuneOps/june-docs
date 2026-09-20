@@ -7,12 +7,12 @@ icon: '/images/claude.svg'
 This is the recommended way to connect Claude. If you use the Anthropic Console or API instead, see [Claude Platform](/integrations/claude-platform).
 
 ## What you'll accomplish
-- Connect with your claude.ai **Analytics API key** and **Compliance API key**
+- Connect with a single claude.ai API key
 - Track **billed** Claude spend over time, by model, by department, and per person
 - See every Claude seat, including people who have access but no usage (the seats you may be paying for and not using)
 - Identify top users and the teams driving usage
 - Get per-person totals that reconcile to your Anthropic bill
-- Optionally, add an **Admin API key** to see and update each person's spend limit
+- See each person's spend limit beside their actual spend, and update it from June
 
 ## What June syncs
 
@@ -23,17 +23,17 @@ From your Claude Enterprise account, June syncs:
 - **Per-person engagement**: sessions, conversations, and coding output (pull requests, commits) per person per day, split by product
 - **Skill usage**: which skills your team uses, how often, and the spend attributed to each
 - **Your member roster**, so June can show every seat, including people with no usage
-- **Per-person spend limits** (optional, with an Admin API key), so you can compare each person's cap against what they actually spend
+- **Per-person spend limits**, so you can compare each person's cap against what they actually spend
 
 Because every figure is billed and attributed to a person, your per-person and per-department totals reconcile to your Anthropic invoice. Usage history is available from January 2026 onward and refreshes daily.
 
 <Note>
-Claude Enterprise uses **two required keys**. The **Analytics** key reads your spend and usage. The **Compliance** key reads your member roster, so June can show every seat, including unused ones. A third key, the **Admin API key**, is optional: it lets June show each person's spend limit beside their actual spend, and update a limit when an admin approves a change. Without it, everything else works. You just won't see limits.
+Claude Enterprise uses **one key**. It reads your spend, usage, seats, and each person's spend limit, and lets admins update a limit from June.
 </Note>
 
 ## Capabilities
 
-June ingests usage and billing data from Anthropic. With the optional Admin API key, the only action it can take is updating a spend limit when an admin approves the change in June.
+June ingests usage, billing, and spend limit data from Anthropic. The only action it can take in your Claude account is updating a spend limit when an admin approves the change in June.
 
 | Capability | Description |
 |------------|-------------|
@@ -45,50 +45,46 @@ June ingests usage and billing data from Anthropic. With the optional Admin API 
 | **Engagement & adoption** | Who uses Claude, on which products, and how deeply: sessions, messages, and coding output per person. |
 | **Skill usage** | Which skills the team runs, how often, and what each costs per use. |
 | **Credits reconciliation** | Used spend minus account credits equals your billed total. |
-| **Spend limits** (optional) | Each person's spend limit beside their actual spend, so you can spot who is close to their cap and who has no cap set. Admins can also update a limit from June. Requires the Admin API key. |
+| **Spend limits** | Each person's spend limit beside their actual spend, so you can spot who is close to their cap and who has no cap set. Admins can also update a limit from June. |
 
-## What each key is for
+## What each scope is for
 
-| Key | What June reads with it |
-|-----|-------------------------|
-| **Analytics API key** (required) | Spend, token usage, per-person engagement, and skill usage - the figures every chart and table is built from. |
-| **Compliance API key** (required) | Your member roster and groups, so every seat shows - including unused ones and people who left. |
-| **Admin API key** (optional) | Spend limits: each person's cap beside their actual spend, and updating a limit when an admin approves a change. |
+All five scopes live on your one key.
+
+| Scope | What June needs it for |
+|-------|------------------------|
+| `read:analytics` | Reads your Claude spend and usage: the totals, per-person breakdowns, and engagement data behind every chart and table. |
+| `read:spend_limits` | Reads each person's configured spend limit, so June can show it beside what they actually spend. |
+| `write:spend_limits` | Lets admins update a person's spend limit from June, once an admin approves the change. |
+| `read:compliance_user_data` | Reads your member roster, so every seat shows, including people with no usage. |
+| `read:compliance_org_data` | Reads your organization's group structure, so June can attribute seats to the right team. |
 
 <Note>
-June only reads your **member directory** with the Compliance key: who is in the organization and which groups they belong to. It never requests conversation content.
+June only reads your **member directory** with the compliance scopes: who is in the organization and which groups they belong to. It never requests conversation content.
 </Note>
 
 ## Prerequisites
 
 Before starting, ensure you have:
 - A Claude **Enterprise** (claude.ai) plan, with the **Compliance API** enabled for your organization
-- **Primary Owner** access to generate API keys
+- **Primary Owner** access to your Claude Enterprise parent organization, to create a key carrying every scope June needs.
 
 ## Connect Claude Enterprise
 
 <Steps>
-  <Step title="Generate an Analytics API key">
-    1. Sign in to [claude.ai](https://claude.ai) as a **Primary Owner**.
-    2. Go to **Analytics → API keys**.
-    3. Create a new key and copy it. This is your **Analytics API key** (it carries the `read:analytics` scope by default).
-  </Step>
-  <Step title="Generate a Compliance API key">
-    This key lets June read your member roster, so it can show every seat (including unused ones).
-    1. Go to **Organization settings → API** and create a key.
-    2. Select the **`read:compliance_user_data`** and **`read:compliance_org_data`** scopes, and copy it. This is your **Compliance API key**.
-    3. If those scopes aren't available, your organization needs the **Compliance API** enabled first. Request it from Anthropic, then create the key.
-  </Step>
-  <Step title="(Optional) Generate an Admin API key">
-    This key lets June show each person's spend limit and update it when an admin approves a change. Skip it if you don't use spend limits.
-    1. Sign in to the [Anthropic Console](https://console.anthropic.com) as an admin.
-    2. Go to **Settings → Admin keys** and create a key (it starts with `sk-ant-admin`).
-    3. Copy it. This is your **Admin API key**.
+  <Step title="Generate your Claude API key">
+    This key lets June read your spend, usage, seats, and each person's spend limit, and lets admins update a limit from June.
+    1. Sign in to [claude.ai](https://claude.ai) as the **Primary Owner** of your Claude Enterprise parent organization. Only the parent organization's Primary Owner can create a key with every scope June needs.
+    2. Go to [**Organization settings → API**](https://claude.ai/admin-settings/api-access) and open the **Keys** section.
+    3. Click **Create key**, name it, and select all five scopes: **`read:analytics`**, **`read:spend_limits`**, **`write:spend_limits`**, **`read:compliance_user_data`**, and **`read:compliance_org_data`**.
+    4. Copy the secret (it starts with `sk-ant-api01-`) and store it somewhere safe. Anthropic shows it once; if you close the dialog first, you'll need to create a new key.
+
+    Scopes are set when you create the key and can't be changed afterward, so select all five now.
   </Step>
   <Step title="Add the integration in June">
     1. In June, open the **Integrations** page.
     2. Choose **Claude Enterprise**.
-    3. Paste your **Analytics API key** and your **Compliance API key** (and the **Admin API key**, if you created one), then save.
+    3. Paste your key, then save.
   </Step>
   <Step title="Wait for the first sync">
     June backfills your historical usage and refreshes daily. Spend, per-person data, and seats appear under **AI usage → Claude** once the first sync completes.
