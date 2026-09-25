@@ -29,19 +29,72 @@ Connect Microsoft Entra ID with June to sync your employees and directory, and t
 | Action | Description |
 |--------|-------------|
 | **Restart device** | Remotely restart a managed device. |
-| **Lock device** | Remotely lock a managed device. |
-| **Rename device** | Update a device's name. |
-| **Assign / unassign user** | Change device ownership. |
-| **Retire device** | Remove a device from management. |
-| **Check in device** | Trigger a device check-in / inventory update. |
-| **Assign location** | Set a device's location. |
+| **Shut down device** | Remotely shut down a managed device. |
+| **Check in device** | Ask a device to check in and update its inventory. |
+| **Delete device** | Remove a device from Intune. |
+| **Assign / unassign user** | Set or clear a device's primary user. |
+
+Intune has no locations, so assigning a device to a location in June clears its primary user in Intune.
 
 ## Prerequisites
 
 Before starting, ensure you have:
 - A Microsoft Entra tenant
-- A **Global Administrator** role (required to grant tenant-wide consent)
+- A **Global Administrator** role, to grant consent for the permissions listed in [Permissions](#permissions) below
 - June organization admin permissions
+
+## Permissions
+
+June requests the following Microsoft Graph permissions when you connect. A Global Administrator grants them once, through admin consent, and they apply across your tenant.
+
+June changes something in your tenant only for the device actions listed below. Every other permission is read-only.
+
+### Directory
+
+| Permission | What June uses it for |
+|------------|------------------------|
+| **User.Read.All** | Reads your people directory: names, job titles, departments, office locations, employment status, hire dates, and managers. |
+| **User-LifeCycleInfo.Read.All** | Reads each person's leave date, so June knows when someone is leaving. Microsoft protects leave dates with a permission separate from the rest of the directory. |
+| **Directory.Read.All** | Reads groups and group memberships in your directory. |
+| **RoleManagement.Read.Directory** | Reads who holds administrator roles in Microsoft Entra, including people eligible to activate a role through Privileged Identity Management, for reviewing administrator access. |
+
+### Apps and sign-ins
+
+| Permission | What June uses it for |
+|------------|------------------------|
+| **AuditLog.Read.All** | Reads sign-in activity, so June can show which apps people use and when they last signed in. Last sign-in requires a Microsoft Entra ID P1 or P2 license. |
+| **Application.Read.All** | Reads the enterprise applications connected to your directory and who is assigned to them. |
+
+### Devices
+
+Requires a Microsoft Intune license.
+
+| Permission | What June uses it for |
+|------------|------------------------|
+| **DeviceManagementManagedDevices.Read.All** | Reads your managed devices and the software installed on them. |
+| **DeviceManagementApps.Read.All** | Reads the Intune audit log, so June can show each device's history. |
+| **DeviceManagementConfiguration.Read.All** | Reads Intune configuration and compliance policies. |
+| **DeviceManagementRBAC.Read.All** | Reads Intune administrator roles and who holds them, for reviewing administrator access. |
+| **DeviceManagementManagedDevices.PrivilegedOperations.All** | Restarts, shuts down, force-checks-in, or deletes a device when an admin asks June to. Microsoft grants these actions as one permission; they can't be approved separately. |
+| **DeviceManagementManagedDevices.ReadWrite.All** | Sets or clears a device's primary user when you reassign it in June. |
+
+### BitLocker
+
+| Permission | What June uses it for |
+|------------|------------------------|
+| **BitlockerKey.Read.All** | Confirms each Windows device's BitLocker recovery key is backed up, and lets an authorized June admin reveal a recovery key when they need to unlock a device. June does not store recovery keys. |
+
+### Sign-in
+
+| Permission | What June uses it for |
+|------------|------------------------|
+| **User.Read** | Lets the administrator sign in to approve the connection. |
+
+<Note>
+**When June asks for new permissions**
+
+When June adds a capability that needs a new Microsoft permission, June adds it to the app registration. Your existing approval covers only the permissions you already granted, so a Global Administrator approves again: open **Integrations > Microsoft Entra**, then choose **Reconnect** from the menu. Until then, that capability doesn't work for your organization, and everything else keeps working.
+</Note>
 
 ## Connect Microsoft Entra
 
@@ -54,7 +107,7 @@ Before starting, ensure you have:
   <Step title="Authorize with Microsoft">
     1. Click **Connect** to start the sign-in.
     2. Sign in with your Microsoft Entra **Global Administrator** account.
-    3. Grant consent for the requested permissions.
+    3. Grant consent for the permissions listed in [Permissions](#permissions) below.
     4. On success, you return to June with the integration active.
   </Step>
   <Step title="Wait for the first sync">
