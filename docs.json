@@ -42,7 +42,9 @@
           {
             "group": "Administration",
             "pages": [
-              "administration/user-management"
+              "administration/role-based-access-control",
+              "administration/members",
+              "administration/custom-roles"
             ]
           }
         ]
@@ -197,5 +199,11 @@
       "x": "https://x.com/juneops",
       "linkedin": "https://linkedin.com/company/juneops"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/administration/user-management",
+      "destination": "/administration/members"
+    }
+  ]
 }
