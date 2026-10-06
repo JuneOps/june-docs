@@ -5,13 +5,13 @@ description: "Understand what each role lets a person see and do in June, and ho
 
 Every person in your June workspace has one or more roles. A role decides what they can see, what they can change, and what June can do for them in chat.
 
-If someone holds more than one role, their access is combined: they can do anything any of their roles allows. Changes to a role take effect right away for everyone who holds it. Past chat messages stay visible even after a role changes.
+If someone holds more than one role, their access is combined: they can do anything any of their roles allows. Changes to a role take effect right away for everyone who holds it. Added access doesn't reach a chat that's already open; start a new chat to use it. Past chat messages stay visible even after a role changes.
 
 ## Built-in roles
 
 - **Owner**: Has every read and write permission across June, and manages members and roles. One per workspace. To transfer ownership, contact support@juneops.com.
 - **Admin**: Has every read and write permission across June and manages members, but can't manage roles.
-- **Member**: Read-only access to employees, assets, software and AI usage, and can use June in chat.
+- **Member**: Read-only access to employees, assets, software and AI usage, plus exports and notes, and can use June in chat.
 - **Software Procurement**: Manages software and contracts. No access to assets.
 - **AI Usage**: Read-only access to AI usage, costs and spending limits.
 - **June AI (Bot)**: June's built-in agent. It appears in the members list but isn't a person.
@@ -44,7 +44,7 @@ When June wants to take an action that needs approval, a person can approve it i
 
 ### Personal and shared chats
 
-A chat is Personal (only you can see it) or Shared. To share a chat, switch it from **Personal** to **Shared** and choose a role under "Share with a role." A note there reads: "This role sets who can join and what June can access. Fixed after your first message." You can choose from your own roles that include `Use Agent`. Once shared, only people who hold that role, plus anyone with the `Access all Shared chats` permission, can open the chat, and June works within that role's access inside it. The chat shows "Access role" followed by the role name. Adding permissions to that role later doesn't widen shared chats that already exist.
+A chat is Personal (only you can see it) or Shared. To share a chat, switch it from **Personal** to **Shared** and choose a role under "Share with a role." A note there reads: "This role sets who can join and what June can access. Fixed after your first message." You can choose from your own roles that include `Use Agent`. Once shared, only people who hold that role, plus anyone with the `Access all Shared chats` permission (Admin and Owner by default), can open the chat, and June works within that role's access inside it. The chat shows "Access role" followed by the role name. Adding permissions to that role later doesn't widen shared chats that already exist.
 
 ### Slack
 
@@ -52,7 +52,7 @@ When someone sends June a direct message in Slack, June works with that person's
 
 ### Published runbooks
 
-Publishing a runbook requires the `Publish & activate runbooks` permission (Admin and Owner by default), and every tool the runbook uses must already be within the publisher's own access. Once published, a run can read data across the organization and use the tools configured on the runbook; actions that need approval still wait for approval.
+Publishing a runbook requires the `Publish & activate runbooks` permission (Admin and Owner by default), and every tool the runbook uses must already be within the publisher's own access. Once published, a run can read data across the organization and use the tools configured on the runbook, including when someone starts it from chat; actions that need approval still wait for approval.
 
 ## Managing roles
 
