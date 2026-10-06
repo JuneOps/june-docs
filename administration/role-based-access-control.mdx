@@ -1,0 +1,64 @@
+---
+title: "Role-based access control"
+description: "Understand what each role lets a person see and do in June, and how June uses roles in chat."
+---
+
+Every person in your June workspace has one or more roles. A role decides what they can see, what they can change, and what June can do for them in chat.
+
+If someone holds more than one role, their access is combined: they can do anything any of their roles allows. Changes to a role take effect right away for everyone who holds it. Past chat messages stay visible even after a role changes.
+
+## Built-in roles
+
+- **Owner**: Has every read and write permission across June, and manages members and roles. One per workspace. To transfer ownership, contact support@juneops.com.
+- **Admin**: Has every read and write permission across June and manages members, but can't manage roles.
+- **Member**: Read-only access to employees, assets, software and AI usage, and can use June in chat.
+- **Software Procurement**: Manages software and contracts. No access to assets.
+- **AI Usage**: Read-only access to AI usage, costs and spending limits.
+- **June AI (Bot)**: June's built-in agent. It appears in the members list but isn't a person.
+
+Only the Owner can edit what a built-in role includes (every role except Owner itself). See [Custom roles](/administration/custom-roles) for how.
+
+## Permission groups
+
+When a role is edited, its permissions are organized into groups: Agent, Requests, Reachouts, Signals, Runbooks, Knowledge Base, Assets, Software, Access Policies, AI usage, Employees, Groups, Departments, Locations, and Settings. Each permission covers either what a person can view or what they can do. Full detail on editing these is in [Custom roles](/administration/custom-roles).
+
+## How roles apply to June in chat
+
+### Using June
+
+Using June in chat requires the `Use Agent` permission.
+
+### Tools June can use
+
+June only uses the tools a person's roles allow. By default, integration tools (Google Workspace, Okta, Jamf, Kandji, Microsoft Entra, Slack, Jira, Linear, Firstbase) and custom tools are available to Admins and Owners only. June's own tools follow the person's permissions: for example, a Member can search and look up an employee's assets, while Software Procurement can also create and update contracts and record payments.
+
+### Data June shows
+
+When June searches your data, it only returns data the person is allowed to see. If someone asks about something outside their access, June tells them they don't have access to that data.
+
+Tools that reveal device secrets, such as recovery keys and unlock codes, also need the `Device recovery keys & unlock codes` permission.
+
+### Approvals
+
+When June wants to take an action that needs approval, a person can approve it if they have the `Approve Agent & Runbook tool actions` permission (Admin and Owner by default) and are themselves allowed to take that action. People named as the approver for a specific action can always approve it. Otherwise, they see "You don't have permission to approve this action."
+
+### Personal and shared chats
+
+A chat is Personal (only you can see it) or Shared. To share a chat, switch it from **Personal** to **Shared** and choose a role under "Share with a role." A note there reads: "This role sets who can join and what June can access. Fixed after your first message." You can choose from your own roles that include `Use Agent`. Once shared, only people who hold that role, plus anyone with the `Access all Shared chats` permission, can open the chat, and June works within that role's access inside it. The chat shows "Access role" followed by the role name. Adding permissions to that role later doesn't widen shared chats that already exist.
+
+### Slack
+
+When someone sends June a direct message in Slack, June works with that person's own access, and only they can open the conversation in June. When someone mentions @June in a channel, June works with the access of the person who sent that message. Employees who aren't June users can still message June for help; those conversations appear under Requests in June for people with access to Requests.
+
+### Published runbooks
+
+Publishing a runbook requires the `Publish & activate runbooks` permission (Admin and Owner by default), and every tool the runbook uses must already be within the publisher's own access. Once published, a run can read data across the organization and use the tools configured on the runbook; actions that need approval still wait for approval.
+
+## Managing roles
+
+- To invite people and assign roles to active members, see [Members](/administration/members).
+- To create a custom role or change what a role includes, see [Custom roles](/administration/custom-roles).
+
+## Need help?
+
+- Email support: support@juneops.com

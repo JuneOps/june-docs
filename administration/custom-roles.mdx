@@ -1,0 +1,66 @@
+---
+title: "Custom roles"
+description: "Create a role or change what a role includes, from the Roles & permissions page."
+---
+
+The "Roles & permissions" page, under `Settings > Roles`, lists every role in your workspace. By default, only the Owner can open it, through the `Manage roles & permissions` permission.
+
+## The roles list
+
+Each row shows a role's number of permissions and number of members. Custom roles carry a "Custom" badge; built-in roles are marked "Prebuilt". You can duplicate or delete a role from its row.
+
+## Create a role
+
+- Click "Add role".
+- Enter a "Name" and, optionally, a "Description".
+- Choose "Based on": "Empty role" starts with no permissions; starting from an existing role copies its current permissions. Later changes to the original role don't affect the copy.
+
+## Edit a role
+
+Click a role in the list to open it. Each role has two tabs.
+
+### Permissions
+
+A searchable checklist, grouped by area (Agent, Requests, Reachouts, Signals, Runbooks, Knowledge Base, Assets, Software, Access Policies, AI usage, Employees, Groups, Departments, Locations, Settings). Within each area, permissions are split into "What they can view" and "What they can do". Filter the list by All, Granted, or Not granted.
+
+### Tools
+
+Each tool shows its default: "Default: Allowed" or "Default: Not allowed". Set it to "Allow" or "Block" to override that default for this role. Filter by Built-in or Custom tools, and by Allowed or Not allowed. If a person holds several roles, a tool is available to them as soon as any one of those roles allows it.
+
+## Preview access
+
+The "Preview access" panel shows what the role grants, as Permissions and Available tools. While you have unsaved edits, it shows what access would look like after your changes, labeled "Nothing changes until you save."
+
+## Save changes
+
+Click "Review changes" to see a summary of your edits, then "Save changes". Changes apply right away to everyone who holds the role.
+
+## Your effective access
+
+The "Your effective access" panel on the Roles page shows the combined permissions you currently hold and which of your own roles grants each one.
+
+## Editing built-in roles
+
+Only the Owner can edit what a built-in role includes, the same way, on this page. The Owner role itself is the only one that can't be edited.
+
+## Rules
+
+- Role names must be unique, and can't reuse a built-in role's name.
+- A role can't be deleted while any member or pending invitation still holds it; reassign them first.
+- Once anyone holds a custom role, the role it was based on can't be changed.
+
+## Examples
+
+A custom role is useful when a built-in role gives either too little or too much.
+
+- **Helpdesk**: view assets and employees, and on the Tools tab allow your device management tools (for example Jamf), without access to settings or integration credentials.
+- **Finance**: view software, contracts, and AI costs for budgeting, without access to assets or settings.
+
+## Related
+
+- [Role-based access control](/administration/role-based-access-control): what each built-in role includes, and how roles apply to June in chat.
+- [Members](/administration/members): invite people and assign roles to active members.
+
+## Need help?
+
+- Email support: support@juneops.com
