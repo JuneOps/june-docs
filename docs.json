@@ -150,7 +150,8 @@
             "group": "Single Sign-On",
             "pages": [
               "authentication/sso-overview",
-              "authentication/sso-setup"
+              "authentication/sso-setup",
+              "authentication/scim-okta"
             ]
           }
         ]
