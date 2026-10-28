@@ -176,6 +176,7 @@ Turn on **Only people provisioned by Okta can join** to keep out anyone Okta has
 - **Generate new token** (on the **Token** row): June asks you to confirm. The old token stops working right away, so paste the new token into the **Authorization** field of the Okta app.
 - **Turn off the SCIM provisioning switch**: Okta stops adding and removing people in June. People already in June keep their access until you remove them in June.
   - In Okta, also turn off provisioning on the June SCIM app's **Provisioning** tab.
+  - **Only people provisioned by Okta can join** turns off too.
   - Turning SCIM back on creates a new token to paste into Okta.
   - Okta doesn't resend changes it couldn't send while SCIM was off. Retry them from Okta's **Dashboard** > **Tasks**, or click **Force Sync** on the **Provisioning** tab (**To App**).
 
