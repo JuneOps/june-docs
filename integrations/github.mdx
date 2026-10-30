@@ -18,11 +18,11 @@ Connect your GitHub organization to power June's **AI Impact** view: how much of
 From your GitHub organization, June syncs:
 
 - **Your organization's members**, matched to employees in June
-- **Pull request activity**: who opened, merged, and reviewed, and when
+- **Pull request activity**: who opened and reviewed each pull request, and when it was opened and merged
 - **Review conversations**: comments on pull requests, split between people and bots
 - **AI tools and bots active in your organization**, so their output can be measured separately from your team's
 
-June reads activity metadata only. It does **not** read your source code, and it never writes anything to GitHub. Data refreshes daily.
+June reads activity metadata only, such as line counts and commit author emails. It does **not** read your source code, and it never writes anything to GitHub. Archived repositories are skipped. Data refreshes daily.
 
 ## Capabilities
 
@@ -51,7 +51,10 @@ Before starting, ensure you have:
   <Step title="Approve the app on GitHub">
     1. GitHub shows the June App's install page. Pick your organization.
     2. Choose which repositories June can see. **All repositories** gives the most complete picture, but you can start with a subset.
-    3. Review the requested read-only permissions and approve.
+    3. Review the requested permissions and approve. All are read-only:
+       - **Repository permissions** > **Metadata** and **Pull requests**: the repositories and their pull requests, reviews and comments.
+       - **Organization permissions** > **Members**: your members, to match them to employees.
+       - **Organization permissions** > **Administration**: the other GitHub Apps installed in your organization, so June can identify AI tools such as Greptile or Devin.
   </Step>
   <Step title="You're done">
     GitHub sends you back to June and the connection is created automatically; there are no keys or IDs to copy. The first sync backfills up to a year of activity; results appear under **AI Impact** once it completes.
