@@ -9,3 +9,17 @@
 .mdx-content a.link:focus-visible {
   text-decoration-thickness: 2px;
 }
+
+/* Sidebar: no visible scrollbar; it still scrolls. */
+#sidebar-content {
+  scrollbar-width: none;
+}
+
+#sidebar-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sidebar: mark the current page with color only, no filled background. */
+#sidebar-content a.bg-primary\/10 {
+  background-color: transparent;
+}

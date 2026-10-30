@@ -26,7 +26,6 @@
       {
         "group": "Getting started",
         "pages": [
-          "index",
           "getting-started/quick-start",
           "getting-started/organization-setup",
           "device-management/asset-upload"
