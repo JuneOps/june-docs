@@ -22,29 +22,19 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Getting Started",
-        "groups": [
-          {
-            "group": "Welcome",
-            "pages": [
-              "index"
-            ]
-          },
-          {
-            "group": "Initial Setup",
-            "pages": [
-              "getting-started/quick-start",
-              "getting-started/organization-setup",
-              "device-management/asset-upload"
-            ]
-          }
+        "group": "Getting started",
+        "pages": [
+          "index",
+          "getting-started/quick-start",
+          "getting-started/organization-setup",
+          "device-management/asset-upload"
         ]
       },
       {
-        "tab": "Product",
-        "groups": [
+        "group": "Product",
+        "pages": [
           {
             "group": "Agents and automation",
             "pages": [
@@ -82,7 +72,8 @@
               "software/software-inventory",
               "software/contracts",
               "software/software-renewals",
-              "software/unused-licenses"
+              "software/unused-licenses",
+              "agents-extensions/browser-extension"
             ]
           },
           {
@@ -114,18 +105,13 @@
         ]
       },
       {
-        "tab": "Integrations",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": [
-              "integrations/mdm-integrations",
-              "integrations/identity-providers",
-              "integrations/itsm-integrations",
-              "integrations/procurement-integrations",
-              "integrations/ai-tools"
-            ]
-          },
+        "group": "Integrations",
+        "pages": [
+          "integrations/mdm-integrations",
+          "integrations/identity-providers",
+          "integrations/itsm-integrations",
+          "integrations/procurement-integrations",
+          "integrations/ai-tools",
           {
             "group": "MDM Platforms",
             "pages": [
@@ -184,17 +170,6 @@
             "group": "Engineering",
             "pages": [
               "integrations/github"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Browser Extension",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": [
-              "agents-extensions/browser-extension"
             ]
           }
         ]
