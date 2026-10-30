@@ -28,7 +28,7 @@
         "pages": [
           "getting-started/quick-start",
           "getting-started/organization-setup",
-          "device-management/asset-upload"
+          "getting-started/import-assets"
         ]
       },
       {
@@ -244,6 +244,10 @@
     {
       "source": "/integrations/ai-tools",
       "destination": "/ai-usage/ai-usage"
+    },
+    {
+      "source": "/device-management/asset-upload",
+      "destination": "/getting-started/import-assets"
     }
   ]
 }
