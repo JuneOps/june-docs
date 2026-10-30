@@ -1,119 +1,160 @@
 ---
 title: 'Browser Extension'
-description: 'Track SaaS application usage across your organization with the June browser extension'
+description: 'See which SaaS apps your employees actually use, and for how long, with the June browser extension'
 ---
 
-<Note>
-Available for **Google Chrome**, **Microsoft Edge**, and **Brave**. Deploying through Google Admin Console covers Chrome only; deploy through your device management tool for Edge and Brave.
-</Note>
+The June browser extension measures how long your employees keep your tracked apps open and in focus in their browser. June shows that usage beside each person's app access, so you can see who really uses what.
 
-The June browser extension gives your organization visibility into which SaaS applications employees actively use and for how long. It runs silently in the background, only tracking the applications your organization has configured.
+It works in Google Chrome, Microsoft Edge and Brave. You deploy it to managed browsers, and employees can't remove it.
 
-## Overview
-- How the extension works at a high level
-- What data it collects and what it doesn't
-- What permissions it requires and why
-- How the June Device Agent complements it
-
-## How It Works
+## How it works
 
 <CardGroup cols={2}>
-  <Card title="Device Registration" icon="user-check">
-    Identifies the user by their browser profile email. If the June Device Agent is deployed through your device management tool, it also retrieves the device serial number for hardware-level identification.
+  <Card title="Identify" icon="user-check">
+    June matches usage to an employee by device serial number, or by browser profile email if there is no serial number.
   </Card>
 
-  <Card title="Configuration" icon="gear">
-    Tracked applications and domain configuration are pulled from June every 6 hours.
+  <Card title="Configure" icon="gear">
+    The extension refreshes your Tracked Applications list from June every 6 hours.
   </Card>
 
-  <Card title="Usage Tracking" icon="chart-line">
-    Measures how long each configured application has active browser focus. Only tracks domains your organization has explicitly configured.
+  <Card title="Measure" icon="chart-line">
+    It counts the time a tracked app's tab is open and in focus, per day.
   </Card>
 
-  <Card title="Reporting" icon="paper-plane">
-    Usage data is stored locally throughout the day and only sent to June once the day is complete. Data older than 30 days is automatically discarded.
+  <Card title="Report" icon="paper-plane">
+    Usage stays on the device during the day. Completed days are sent to June.
   </Card>
 </CardGroup>
 
-## What It Tracks
+## What it tracks
 
-| Data | Description |
-|------|-------------|
-| **Application** | Which configured SaaS app was in focus |
-| **Duration** | Time spent actively using the app per day |
-| **Date** | The calendar day the usage occurred |
-| **Last activity** | When the app was last in focus that day |
+The extension measures time in focus for apps on your Tracked Applications list, and nothing else.
 
-<Note>
-The extension **only** tracks domains explicitly configured by your organization. It does not track browsing history, page content, keystrokes, or any activity on non-configured domains.
-</Note>
+- Time counts while a tracked app's tab is open and in focus.
+- Time stops when the person switches tabs or leaves the browser window.
+- Time does not pause when the person steps away from the computer.
+
+It doesn't record browsing history, URLs, page titles, page content or keystrokes. For sites that aren't on your list, it stores and sends nothing. It reads only the domain name of the page.
+
+### Choose which apps are tracked
+
+Manage the list under **Settings** > **Browser Extension**.
+
+- When you turn on the extension, June fills the list with your managed apps.
+- Add, edit or remove apps and domains at any time.
+- A domain also matches its `www.` version.
+- Wildcards work, for example `*.slack.com`.
+
+## What is sent to June
+
+Each report contains:
+
+- The date and your time zone
+- For each tracked app: an app identifier, seconds in focus, and the last time it was in focus that day
+
+Every request to June also includes:
+
+- The browser profile email
+- The device serial number, if the June Device Agent is installed
+- The browser name
+- Your organization's provisioning token
+
+The extension tries to send data every 6 hours, and when a tracked app comes into focus. Only completed days are sent. If a device is offline, data waits on the device and is sent when it reconnects. Unsent data older than 30 days is discarded on the device.
+
+If the extension can't identify the person, it doesn't report. This happens when there is no signed-in browser profile and no Device Agent.
+
+## Where it shows in June
+
+- **Apps:** apps the extension sees list **Browser extension** as a source.
+- **Employee access:** each person's app access shows when they last used the app and their average daily time over the past 7 days.
+- **New access records:** if someone uses a tracked app they had no access record for, June adds one. It is marked as found by the browser extension, not as a license.
+- **Rollout status:** **Settings** > **Browser Extension** shows how many browsers have the extension installed and how many checked in within the last 24 hours.
+
+## Deploy the extension
+
+June hosts the extension itself. It isn't in the Chrome Web Store.
+
+- Extension ID: `oogjlgdkbojpipjkjinhaeijjokhkkmd`
+- Install method: force-install by policy
+- Chrome: deploy with Google Admin Console
+- Edge and Brave: deploy with your device management tool
+
+Each organization has one provisioning token, set in the managed setting `provisioningToken`. If you regenerate the token, the old one stops working. Redeploy the extension with the new token.
+
+The step-by-step guide is in June under **Settings** > **Browser Extension**.
 
 ## Permissions
 
-The extension requests the following permissions, each for a specific purpose:
+The browser shows these permissions when the extension is installed.
 
 <AccordionGroup>
   <Accordion title="Storage" icon="hard-drive">
-    Stores usage data locally on the device so nothing is lost if the device goes offline.
+    Keeps usage on the device until it is sent.
   </Accordion>
 
   <Accordion title="Alarms" icon="clock">
-    Keeps the extension running on schedule for configuration refresh and usage reporting.
+    Runs the scheduled list refresh and reporting.
   </Accordion>
 
   <Accordion title="Tabs" icon="window-restore">
-    Detects which tab is in focus to measure active time on configured apps.
+    Sees which tab is in focus.
   </Accordion>
 
   <Accordion title="Native Messaging" icon="message-dots">
-    Communicates with the June Device Agent (if deployed) to retrieve the device serial number.
+    Talks to the June Device Agent, if installed, to get the device serial number. Chrome describes this as communicating with cooperating native applications.
   </Accordion>
 
-  <Accordion title="Idle Detection" icon="clock-rotate-left">
-    Pauses tracking when the device is idle so only active usage is reported.
-  </Accordion>
-
-  <Accordion title="User Email" icon="envelope">
-    Reads the browser profile email to associate usage data with an employee.
+  <Accordion title="Identity and user email" icon="envelope">
+    Reads the browser profile email.
   </Accordion>
 
   <Accordion title="All URLs" icon="globe">
-    Checks if the current page matches a configured app. No page content is read or collected.
+    Lets the extension check each page's domain against your list. Chrome describes this as being able to read and change data on all websites. The extension reads only the domain name and doesn't read or change page content.
+  </Accordion>
+
+  <Accordion title="Idle" icon="clock-rotate-left">
+    The extension requests this permission but doesn't use it today.
   </Accordion>
 </AccordionGroup>
 
 ## June Device Agent
 
-The June Device Agent is a lightweight native application for macOS and Windows that provides the device serial number to the browser extension. Deploy it through your device management tool (Jamf Pro, Kandji, or Microsoft Intune) alongside the extension.
+The June Device Agent is a small native app for macOS and Windows. It gives the extension the device serial number. It runs locally and makes no network requests.
 
-The agent runs locally only and makes no network requests. It reads the device serial number and passes it to the extension for hardware-level identification.
+Deploy it with:
 
-## Frequently Asked Questions
+- Jamf Pro or Kandji on macOS
+- Microsoft Intune on Windows
+
+On Windows, add a Microsoft Defender exclusion so the agent can run. The setup guide in June shows the exact steps.
+
+## Frequently asked questions
 
 <AccordionGroup>
   <Accordion title="Does the extension track browsing history?">
-    No. The extension only measures how long configured applications are in focus. It does not record URLs, page content, keystrokes, or any activity on domains that haven't been configured.
+    No. It records only time in focus for apps on your list. It doesn't record URLs, page titles, page content or keystrokes, and it stores nothing for other sites.
   </Accordion>
 
   <Accordion title="What happens when a device is offline?">
-    Usage data is stored locally on the device. Once connectivity returns, the extension sends the accumulated data on its next reporting cycle. Data older than 30 days is automatically discarded.
+    Usage stays on the device and is sent when the device reconnects. Unsent data older than 30 days is discarded.
   </Accordion>
 
   <Accordion title="How often does it send data?">
-    Usage data is reported periodically throughout the day. Only completed days are sent. The current day's data stays on-device until the following day.
+    It tries every 6 hours, and when a tracked app comes into focus. Only completed days are sent, so today's usage appears in June after the day ends.
   </Accordion>
 
-  <Accordion title="What applications are tracked?">
-    Only the applications listed under **Tracked Applications** in **Settings** > **Browser Extension** are monitored. No other domains are tracked.
+  <Accordion title="Which apps are tracked?">
+    Only apps on the Tracked Applications list under **Settings** > **Browser Extension**.
   </Accordion>
 
   <Accordion title="Does it affect browser performance?">
-    No. The extension performs a lightweight domain check against the configured app list. No page content is scanned or modified.
+    It does a quick domain check against your list. It doesn't scan or change page content.
   </Accordion>
 </AccordionGroup>
 
-## Getting Started
+## Get started
 
 <Card title="Deploy the Browser Extension" icon="rocket" href="https://app.juneops.com/settings/browser-extension">
-  Follow the step-by-step deployment guide in the June dashboard to roll out the extension to your organization.
+  Follow the step-by-step deployment guide in June to roll out the extension to your organization.
 </Card>
