@@ -15,17 +15,15 @@ Open **Resources > Software > Contracts**.
 
 ## Where contracts come from
 
-| Source | How it works |
-|---|---|
-| You | Click **New Contract**, or ask June in the [Agent](/agents/agent) to create one or record a payment |
-| [Zip](/integrations/zip) | Each agreement becomes a contract, with Zip's fields and attached documents. June does not extract from Zip documents |
-| [Coupa](/integrations/coupa) | Each requisition becomes a contract. June extracts the attached documents when the sync runs |
+- **You:** click **New Contract**, or ask June in the [Agent](/agents/agent) to create one or record a payment.
+- **[Zip](/integrations/zip):** each agreement becomes a contract, with Zip's fields and attached documents. June does not extract from Zip documents.
+- **[Coupa](/integrations/coupa):** each requisition becomes a contract. June extracts the attached documents when the sync runs.
 
 If June recognizes the product in a Zip or Coupa contract, it adds the app to the [Software inventory](/software/software-inventory) when needed. Otherwise the contract arrives unlinked and appears on **Needs Attention** for you to link. Saving any contract recalculates the app's health status. Creating a contract or changing its end date reschedules its renewal reminders.
 
 ## The contracts list
 
-The cards at the top are **Total Spend**, **Active Contracts**, **Expiring Soon** and **Next Renewal**. Click a card to filter the list, or click **Next Renewal** to open that contract. Tabs filter the list, each with a count.
+The cards at the top show total spend, active contracts, expiring soon and next renewal. Click a card to filter the list. Tabs filter the list too, each with a count.
 
 | Tab | Shows |
 |---|---|
@@ -37,7 +35,7 @@ The cards at the top are **Total Spend**, **Active Contracts**, **Expiring Soon*
 | **Ignored** | Contracts you chose to ignore |
 | **Needs Attention** | Not linked to an app, or a document extraction needs review or failed |
 
-A contract that is not linked to an app, or has no start date, is never active, so it is left out of spend. Search with **Search contracts...**. Display settings add **Renewal** (Pending, In review, Approved, Rejected), **App Linking** and **Review Status**, plus view and sort options.
+A contract that is not linked to an app, or has no start date, is never active, so it is left out of spend. Display settings filter by renewal status, app linking and review status.
 
 ## Add a contract
 
@@ -45,20 +43,20 @@ Only **Software Application** is required. The button needs the **Add Contracts*
 
 <Steps>
   <Step title="Start the form">
-    Click **New Contract**. From an app's **Contracts** tab, **New Contract** pre-selects the app.
+    Click **New Contract**. From an app's **Contracts** tab, the app is pre-selected.
   </Step>
   <Step title="Choose the application">
-    In **Software Application**, search for the app. To add one June has not found, type its name and choose **Link to "name"**.
+    Search for the app. To add one June has not found, type its name and choose **Link to "name"**.
   </Step>
   <Step title="Set the terms">
-    Pick a **Contract Type** and **Term**, enter the value, and set **Contract Validity**. **From** and **To** default to today and 12 months from today. Add **Number of Licenses**, **Billing frequency** and **Payment Method** if you know them. For renewal details, see [Software renewals](/software/software-renewals).
+    Pick a contract type and term, enter the value, and set the dates. **From** and **To** default to today and 12 months from today. Add the number of licenses, billing frequency and payment method if you know them. For renewal details, see [Software renewals](/software/software-renewals).
   </Step>
   <Step title="Create it">
     Click **Create Contract**. June opens the app's Contracts tab.
   </Step>
 </Steps>
 
-The **Summary** panel shows Monthly Cost, Annual Cost and Cost Per license as you type.
+The **Summary** panel shows monthly cost, annual cost and cost per license as you type.
 
 ### Contract types and terms
 
@@ -76,7 +74,7 @@ Fixed-term monthly cost is the total value divided by the contract length in mon
 
 ### Record payments
 
-Open the contract, click **Edit contract**, and use **Payments > Add payment**. Enter **Paid on**, **Amount** and an optional note. The section shows **Recorded spend** and **By month**. Edit or delete a payment from its row.
+Open the contract, click **Edit contract**, and add payments under **Payments**, each with a date, amount and optional note. The section shows recorded spend by month.
 
 For a usage-based contract, monthly cost is the most recent month with a recorded payment, or the base if there are none. Spend to date counts recorded payments, and the base for months with no payment.
 
@@ -86,10 +84,10 @@ Uploading a document stores it. It does not fill any fields until you process it
 
 <Steps>
   <Step title="Upload the document">
-    In **Documents**, click **Upload document**. PDF, Word, Excel and image files up to 10 MB are accepted.
+    In **Documents**, upload a file. PDF, Word, Excel and image files up to 10 MB are accepted.
   </Step>
   <Step title="Process it">
-    Click the **Process document** icon on the file. The status shows Processing, and the form refreshes with "Contract updated from latest extraction". Extraction reads fields such as dates, value, licenses, billing frequency, auto-renew and notice period.
+    Click the **Process document** icon on the file. The form refreshes when extraction finishes. Extraction reads fields such as dates, value, licenses, billing frequency, auto-renew and notice period.
   </Step>
 </Steps>
 
@@ -108,10 +106,8 @@ Open the **Needs Attention** tab. The Review column explains each one.
 
 ## Ignore or delete
 
-| Action | Where | What happens | Undo |
-|---|---|---|---|
-| **Ignore** | Row **More actions**, or the contract's **More actions** | Hides the contract from every tab except Ignored. It stops counting toward spend, health status and the renewal signal | **Restore** on the Ignored tab |
-| **Delete** | Contract's **More actions** | Removes the contract and cancels its renewal reminders | None |
+- **Ignore** (from **More actions**) hides the contract from every tab except Ignored. It stops counting toward spend, health status and the renewal signal. Undo it with **Restore** on the Ignored tab.
+- **Delete** (from the contract's **More actions**) removes the contract and cancels its renewal reminders. It can't be undone.
 
 Use Ignore for duplicates or imports you may want back. Reminders already scheduled for an ignored contract still send, so delete the contract to cancel them.
 

@@ -11,14 +11,12 @@ SCIM provisioning connects June to Okta so Okta decides who has access and what 
 
 ## Requirements
 
-| Requirement | Detail |
-|---|---|
-| Plan | Enterprise |
-| SSO | [Okta SSO](/admin/sso) is set up and active |
-| Turn SCIM on or off, generate a token | Owner only |
-| See the section, copy the URL, set a group's role | Owner, Admin, or a role with **Manage Members** |
-| Okta | You are an Okta admin and can create app integrations |
-| Email domains | People's emails are on a domain under **Settings > Email Domains**. June adds only people on those domains |
+- **Plan:** Enterprise.
+- **SSO:** [Okta SSO](/admin/sso) is set up and active.
+- **Turn SCIM on or off, generate a token:** Owner only.
+- **See the section, copy the URL, set a group's role:** Owner, Admin, or a role with **Manage Members**.
+- **Okta:** you are an Okta admin and can create app integrations.
+- **Email domains:** people's emails are on a domain under **Settings > Email Domains**. June adds only people on those domains.
 
 ## What changes in June when SCIM is on
 
@@ -113,7 +111,7 @@ On the **Token** row, click **Generate new token** and confirm. The current toke
 
 **Who can do this:** Owner.
 
-Turn off the **SCIM provisioning** switch and click **Turn off**. Okta stops adding and removing people. Everyone keeps their access and roles, and you manage people and roles in June again. Invitations and SSO sign-in add people again. Also turn off provisioning on the Okta app's **Provisioning** tab.
+Turn off the **SCIM provisioning** switch and confirm. Okta stops adding and removing people. Everyone keeps their access and roles, and you manage people and roles in June again. Invitations and SSO sign-in add people again. Also turn off provisioning on the Okta app's **Provisioning** tab.
 
 To undo, turn the switch back on. That creates a new token to paste into Okta. Okta does not resend changes it could not send while SCIM was off. Retry them from Okta's **Dashboard > Tasks**, or click **Force Sync** under **Provisioning > To App**.
 

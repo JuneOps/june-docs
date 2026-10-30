@@ -15,7 +15,7 @@ Click **Resources > Software**. The dashboard opens first.
   <img src="/images/software/software-inventory-dashboard.png" alt="The Software dashboard with cards for Total Applications, Total Spend, Contracts and Apps with Owners, then App Discovery Over Time and Spend by Department" />
 </Frame>
 
-Below the top cards are **App Discovery Over Time**, **Spend by Department**, **Upcoming Renewals**, apps without a contract or owner, and the top 10 recent, most active and least active apps. On **Apps with Owners** you can switch between Managed and Unmanaged apps. Click **Total Applications** or **Contracts** to open that list. Cards that need contract or usage permissions are hidden without them.
+The dashboard shows totals, app discovery over time, spend by department, upcoming renewals, apps without a contract or owner, and the most recent, most active and least active apps. On **Apps with Owners** you can switch between Managed and Unmanaged apps. Click **Total Applications** or **Contracts** to open that list. Cards that need contract or usage permissions are hidden without them.
 
 ## Open the list
 
@@ -39,7 +39,14 @@ Click **All Applications**, or **Total Applications** on the dashboard. Click a 
 
 If people reach an app through Okta, Okta records the sign-in instead of Google. "Added manually" and "Added via chat" show only while they are the app's only source.
 
-**What June does on its own:** it adds apps and updates them from your connected sources, removes a source when Okta, Microsoft Entra (including Intune devices), Jamf Pro or Kandji stop seeing the app on a full sync (Google, Zip, Coupa and the browser extension keep their history), recalculates health, and raises a daily **New apps detected** signal in Signals (June's alerts, under **Signals** in the sidebar when Signals is turned on) for apps found in the last 24 hours. The signal needs no action. June never changes your apps and never removes anyone's access.
+**What June does on its own:**
+
+- It adds apps and updates them from your connected sources.
+- It removes a source when Okta, Microsoft Entra (including Intune devices), Jamf Pro or Kandji stop seeing the app on a full sync. Google, Zip, Coupa and the browser extension keep their history.
+- It recalculates health.
+- It raises a daily **New apps detected** signal in Signals (June's alerts, under **Signals** in the sidebar when Signals is turned on) for apps found in the last 24 hours. The signal needs no action.
+
+June never changes your apps and never removes anyone's access.
 
 ### Managed and unmanaged
 
@@ -58,21 +65,13 @@ There is no add-app form. Use either path:
 
 ## Find apps in the list
 
-Type in **Search software...** or open the display settings.
+Type in **Search software...** or open the display settings. You can filter by contract, minimum users or devices, platform (which hides browser-only apps) and source, and sort by name, health status, users, contract value and more. A few defaults change what you see:
 
-| Setting | Options | Default |
-|---|---|---|
-| **View** | List, Tiles | List |
-| **Managed** | All, Managed, Unmanaged | Managed on your first visit |
-| **Contract** | All, Active Contract, No Contract | All |
-| **Min Users**, **Min Devices** | Any, 1+, 5+, 10+, 25+, 50+, 100+ | Any |
-| **Platform** | All, Mac, Windows, iOS, Android, tvOS, watchOS. Hides browser-only apps | All |
-| **Source** | All, each connected integration, Browser extension, Added manually, Added via chat, No source | All |
-| **Sort By** | Name, Health Status, Managed, Contract Value, Users, Installations, Subscriptions, Licenses, Latest Activity, Latest Install | Name, ascending |
-| **Include OS-bundled apps** | On, off. Adds system apps such as Finder and Notepad | Off |
-| **Unused apps** | Don't include, Include, Only unused | Don't include |
+- **Managed** starts on Managed on your first visit.
+- **Include OS-bundled apps** is off. Turning it on adds system apps such as Finder and Notepad.
+- **Unused apps** are left out by default. They have no users, no devices and no active contract. An app with an active contract and no usage stays in the list.
 
-**Unused apps** have no users, no devices and no active contract. An app with an active contract and no usage stays in the list. For paid seats nobody uses, see [Unused licenses](/software/unused-licenses). Settings you lack permission for are hidden.
+For paid seats nobody uses, see [Unused licenses](/software/unused-licenses). Settings you lack permission for are hidden.
 
 **Unmanaged apps installed on 10 or more devices:** set **Managed** to **Unmanaged** and **Min Devices** to **10+**.
 
@@ -99,34 +98,25 @@ Each app has a health badge. June recalculates it when a contract changes and wh
 
 ## The app page
 
-| Tab | What it shows |
-|---|---|
-| **Overview** | Usage numbers, spend, contract details, stakeholders, vendor contact, security, categories, departments and grouped apps |
-| **Subscriptions** | Each person with access: Employee, Department, Authentication, Assignment Source, Usage and Last Active |
-| **Installations** | Devices where the app is installed |
-| **Access** | How access is granted and approved. See [Access policies](/agents/access-policies) |
-| **Entitlements**, **Reviews** | Access reviews, on Enterprise with access reviews enabled |
-| **Contracts** | The app's contracts and payments. See [Contracts](/software/contracts) |
-| **Notes & Docs** | Notes and uploaded documents, including contract documents |
-| **Runbooks** | Runbooks for this app. See [Unused licenses](/software/unused-licenses) |
+An app's page has tabs for its overview (usage, spend, contract details, stakeholders, vendor contact, security, categories, departments and grouped apps), **Subscriptions** (each person with access, with last active), **Installations** (devices), **Access** (see [Access policies](/agents/access-policies)), **Contracts** (see [Contracts](/software/contracts)), **Notes & Docs** and **Runbooks** (see [Unused licenses](/software/unused-licenses)). **Entitlements** and **Reviews** hold access reviews, on Enterprise with access reviews enabled.
 
 Tabs and cards depend on your permissions. Apps grouped under another app show only Overview, Subscriptions and Installations.
 
 ## Owners and stakeholders
 
-Stakeholders are the people responsible for an app. To add one, open the app, go to **Overview > Stakeholders**, click **Add**, search for the employee in **Assign Employee Role** and choose a role. To remove one, click the trash icon, then **Remove Assignment**. Changes take effect immediately.
+Stakeholders are the people responsible for an app. Add one under **Overview > Stakeholders** by choosing an employee and a role. Remove one with the trash icon. Changes take effect immediately.
 
-A **Budget Owner** or **Contract Owner** is what counts as an owner. It sets **Apps with Owners** and the owner shown on **Upcoming Renewals**. The **No Designated Owner** Quick start checks for an owner and for a vendor contact. Other roles are Executive Sponsor, Procurement Manager, Legal Owner, Finance Owner, SME, Technical Support Contact, Access Approver and Security Owner.
+A **Budget Owner** or **Contract Owner** is what counts as an owner. It sets **Apps with Owners** and the owner shown on **Upcoming Renewals**. The **No Designated Owner** Quick start checks for an owner and for a vendor contact. The role picker lists the other roles, including Access Approver, which [access policies](/agents/access-policies) use.
 
 ## Organize apps
 
 - **Categories and Departments:** on Overview, click **+** on the card and select values. Categories can be created, renamed and deleted there.
-- **Vendor Contact:** click **+ Add contact**, enter Name, Email and Phone, then **Save**. Contract document processing fills an empty contact but never overwrites one you typed.
-- **Group duplicates:** on **Grouped Applications**, click **Group another application**, select the apps in **Group applications** and click **Group applications**. A grouped app leaves the list, and its users, devices and contracts count once under the parent. Click **Ungroup** to reverse it.
+- **Vendor Contact:** add a name, email and phone. Contract document processing fills an empty contact but never overwrites one you typed.
+- **Group duplicates:** on **Grouped Applications**, click **Group another application** and select the apps. A grouped app leaves the list, and its users, devices and contracts count once under the parent. Click **Ungroup** to reverse it.
 
 ## Export
 
-Click the download icon (**Export CSV**) at the right end of the toolbar to get a CSV of the apps in the current filters and sort. The icon is hidden when the list is empty. It has every list column plus contract, compliance and vendor contact fields. Exporting needs the Export software data permission.
+Click the download icon (**Export CSV**) at the right end of the toolbar to get a CSV of the apps in the current filters and sort. It has every list column plus contract, compliance and vendor contact fields. Exporting needs the Export software data permission.
 
 ## FAQ
 

@@ -15,32 +15,20 @@ You find both under **Settings** > **Agent**: **Context** and **Memory**.
   <img src="/images/agents/context-editor.png" alt="The Context editor under Settings, Agent, showing the Context header and description, a Search box, a + Section button, and one section of text." />
 </Frame>
 
-<Steps>
-  <Step title="Open Context">
-    Go to **Settings** > **Agent** > **Context**.
-  </Step>
-  <Step title="Write sections">
-    Start each topic with a `## ` heading, or click **+ Section**. Text before the first heading becomes an **Overview** section. The footer shows the section count and your length out of 65,536 characters. A new section needs a name before you can save.
-  </Step>
-  <Step title="Save">
-    Click **Save changes**.
-  </Step>
-</Steps>
+Start each topic with a `## ` heading, or click **+ Section**. Text before the first heading becomes an **Overview** section. A new section needs a name before you can save, and the whole document is capped at 65,536 characters. Click **Save changes** when you are done.
 
 Good context is policy and facts: approval rules, naming conventions, who to contact, what never to do. Context can't skip an approval step. See [When June acts without asking](/agents/agent#when-june-acts-without-asking).
 
 ## How June uses it
 
-| Document length | What June does |
-|---|---|
-| 16,000 characters or fewer | Loads the whole document for every chat, request and runbook. |
-| More than 16,000 characters | Loads a list of section titles with short excerpts, and reads the full section before acting on anything it covers. |
+- **16,000 characters or fewer:** June loads the whole document for every chat, request and runbook.
+- **More than 16,000 characters:** June loads a list of section titles with short excerpts, and reads the full section before acting on anything it covers.
 
 For long documents, give each section a title that says what it covers and put the key rule first.
 
 ## Version history and restore
 
-Every save creates a version, shown in **History** with the author and time. Select a version to compare it side by side with **Current**. **Restore v[N]** loads it into the editor, and it takes effect when you click **Save changes**. If you have unsaved edits, June asks **Replace unsaved changes?** first.
+Every save creates a version, shown in **History** with the author and time. You can compare any version with the current one and restore it. A restored version takes effect when you click **Save changes**.
 
 ## Memory
 

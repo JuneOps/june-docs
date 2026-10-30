@@ -15,9 +15,9 @@ Employees ask in Slack, or by asking June in a Jira ticket assigned to June. The
 
 The form lists the apps the employee is eligible for. An app is hidden when its policy is off, the employee doesn't match its eligibility rules, or they already have an open request for that policy. Only active employees and contractors can ask, one open request per policy at a time.
 
-Each access level shows whether it needs approval, whether the duration is chosen or permanent, and whether a justification is required. If the access level asks for them, the employee adds a **Business justification** (up to 2,000 characters, or the policy's own prompt) and a **Duration**, then clicks **Request access**.
+For each access level the form shows whether it needs approval, how long it lasts and whether a justification is required. The employee fills in what it asks for and submits.
 
-If the app isn't in the list, the employee chooses **Not listed? Request access that isn't shown above.** and enters the **Application Name** and why they need it. That goes to IT as a normal request and grants nothing on its own.
+If the app isn't in the list, the employee chooses **Not listed** and enters the application name and why they need it. That goes to IT as a normal request and grants nothing on its own.
 
 ## What happens next
 
@@ -32,17 +32,17 @@ An approval step lists the app's **Access approver**s, the requester's manager, 
 
 If June can't find an approver (for example, the employee has no manager) or an approver has no Slack account in your workspace, the request moves to **Needs review** and waits for IT. Approvals go out only in Slack, so Slack must be connected.
 
-**The approver's view.** An approver gets a Slack DM card with the app and access level, who it's for, the duration and the reason. They click **Approve** or **Reject**. Reject asks "Why are you rejecting it? The person will see this." (up to 500 characters). If June can't send that text to the employee, it asks the approver to rephrase. Approvers don't need a June role.
+**The approver's view.** An approver gets a Slack DM card with the app and access level, who it's for, the duration and the reason. They click **Approve** or **Reject**. Reject asks for a reason the employee will see. If June can't send that text to the employee, it asks the approver to rephrase. Approvers don't need a June role.
 
 ## What the employee sees
 
-- **Approved and granted:** "Your access is ready. If anything isn't working, let us know." A policy can use its own message or turn it off.
-- **Rejected:** "[Approver] declined your [App] [level] request: [reason]."
-- **Manual grant:** June first says "I've passed this to IT with what we covered and what I tried. You can keep replying here." After IT confirms the grant, the employee gets the "Your access is ready" message.
+- **Approved and granted:** June tells them their access is ready. A policy can use its own message or turn it off.
+- **Rejected:** June tells them who declined the request, with the reason.
+- **Manual grant:** June first says it passed the request to IT. After IT confirms the grant, the employee gets the access-ready message.
 
 ## Statuses
 
-The policy's **Access requests** table shows these. The request's **Access** tab says the same in plain words, such as "Waiting for approval from [names]" or "IT needs to grant access".
+The policy's **Access requests** table shows these. The request's **Access** tab says the same in plain words, such as waiting for approval from named people, or IT needing to grant access.
 
 | Status | Meaning |
 |---|---|
@@ -60,7 +60,7 @@ The linked [request](/help-desk/requests) shows In progress while access is runn
 
 ## Work a request in June
 
-Open **Requests**, then the request's **Access** tab. The card shows the app, access level, status, employee, duration, reason and each step. You can also find every request for a policy under **Access** > **Policies** > the app > the policy > **Access requests**, with an **Access journey** and **Activity log** for each.
+Open **Requests**, then the request's **Access** tab, which shows each step. You can also find every request for a policy under **Access** > **Policies** > the app > the policy > **Access requests**, with an **Access journey** and **Activity log** for each.
 
 **Who can do this:** Owners and Admins. Members can view requests on a policy but can't act on them. The Software Procurement role can't see access requests by default.
 
@@ -71,10 +71,10 @@ A manual grant sends no Slack message to the person who will grant it. The reque
 | Move past a stuck approval | **Override approval...** then **Override and continue** | The pending approval is bypassed, the override is recorded, and the request continues. On the policy page the action is **Approve & continue**. Only works while the request is waiting on approval. |
 | Finish a manual grant, or a failed automatic grant | **Confirm access granted** after granting in the app | The request continues as granted. If you can't grant it, click **Report issue** then **Pause for review**. |
 | Retry a failed automatic step | **Retry step** | The step is queued again. |
-| Remove access early | **Revoke access**, then **Revoke access** in the dialog | June starts the policy's revocation. The employee can ask again once it completes. |
+| Remove access early | **Revoke access** | June starts the policy's revocation. The employee can ask again once it completes. |
 | Finish a manual revocation | **Confirm access removed** | The access request moves to Revoked. |
 
-Manual revocations also reach IT as a Slack card ("Remove it by hand, then confirm here") with **Confirm revoked**, in the request's thread or the notifications channel.
+Manual revocations also reach IT as a Slack card with **Confirm revoked**, in the request's thread or the notifications channel.
 
 ## If something looks wrong
 

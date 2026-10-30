@@ -19,15 +19,13 @@ Directory sources sync once a day. After you change a department in your identit
 
 **Renaming at the source creates a new department.** The old one stays in the list, and June has no way to delete it. Assets follow the person or stay behind depending on their source:
 
-| Asset source | After a rename |
-|---|---|
-| [Kandji](/integrations/kandji), [Microsoft Intune](/integrations/microsoft-intune) | Takes the assigned person's current department at the next sync |
-| Jamf Pro | Keeps the old department until you change it in Jamf |
-| CSV import | Keeps the old department until you re-import |
+- [Kandji](/integrations/kandji) and [Microsoft Intune](/integrations/microsoft-intune): the asset takes the assigned person's current department at the next sync.
+- Jamf Pro: the asset keeps the old department until you change it in Jamf.
+- CSV import: the asset keeps the old department until you re-import.
 
 ## The Departments list
 
-Columns are **Department Name**, **Employees** (everyone in it, any status), **Assets**, **Software** (apps tagged with the department) and **Source**. Search by name, and sort by Department Name, Employees or Assets. If the list is empty, connect an identity provider or import a CSV. Departments appear from the names they report.
+The list shows each department's employees (everyone in it, any status), assets, software (apps tagged with the department) and source. Search by name, and sort by name, employees or assets. If the list is empty, connect an identity provider or import a CSV. Departments appear from the names they report.
 
 <Frame caption="The Departments list. Source shows which systems reported each department.">
   <img src="/images/people/departments-list.png" alt="Departments list showing Product, Finance and Sales, with Department Name, Employees, Assets, Software and Source columns" />
@@ -35,16 +33,14 @@ Columns are **Department Name**, **Employees** (everyone in it, any status), **A
 
 ## Open a department
 
-Tabs are **Overview**, **Employees**, **Assets**, **Software** and **AI usage**. Click a row in any tab to open it.
+A department has tabs for its employees, assets, software and AI usage, plus an **Overview**. Click a row in any tab to open it.
 
-**Overview** has charts for **Headcount Over Time**, **Asset Discovery**, **App Discovery** and AI spend, then card rows:
+**Overview** has charts for headcount over time, asset discovery, app discovery and AI spend, then cards:
 
-| Group | Cards |
-|---|---|
-| Employees | Total Employees (active and inactive), Recent Hires and Recent Departures (last 90 days), Upcoming Hires and Upcoming Departures (next 90 days) |
-| Assets | Total Assets, Total Value, Deployed, Refresh Due (overdue or due in the next 90 days) |
-| Software | Total Applications, Total Spend, Managed, Unmanaged |
-| AI | AI Spend, Tokens, Requests, Employees Using AI (last 30 days) |
+- **Employees:** total (active and inactive), recent hires and departures (last 90 days), upcoming hires and departures (next 90 days).
+- **Assets:** total assets, total value, deployed, and refresh due (overdue or due in the next 90 days).
+- **Software:** total applications, total spend, managed and unmanaged.
+- **AI:** AI spend, tokens, requests and employees using AI (last 30 days).
 
 ## How the numbers roll up
 
@@ -54,10 +50,7 @@ Tabs are **Overview**, **Employees**, **Assets**, **Software** and **AI usage**.
 
 ## Who can do what
 
-| Role | Open Departments |
-|---|---|
-| Owner, Admin, Member, Software Procurement | Yes |
-| AI Usage | No |
+Owner, Admin, Member and Software Procurement can open Departments. AI Usage cannot.
 
 Custom roles need **View Departments** to open Departments and **All Employees** for the Employees tab. The Source column needs **Employee identities & groups** and **Integrations**, so among built-in roles only Admin and Owner see it. Roles are set under **Settings > Roles**. See [Members and roles](/admin/roles).
 

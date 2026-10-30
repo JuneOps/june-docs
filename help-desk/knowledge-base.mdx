@@ -10,7 +10,7 @@ The Knowledge Base lets June answer employees' how-to and policy questions from 
 ## How June uses it
 
 - **In Slack,** an employee asks a question in a DM or a channel thread. While June is handling the request, it searches the Knowledge Base, answers from what it finds, and ends with a **Sources** list of linked document titles. June searches before it tells an employee it has no answer or offers to involve IT. Once IT owns the request, June no longer searches.
-- **In the [Agent](/agents/agent),** in a Personal chat, Owners, Admins and Members can turn it on: open **Add attachments or tools** and turn on **Knowledge Base**. A chip appears and answers show the documents they cite. The setting is saved for that chat. It isn't available in shared chats or in a request's **Ask June** tab.
+- **In the [Agent](/agents/agent),** Owners, Admins and Members can turn on **Knowledge Base** in a Personal chat. Answers show the documents they cite. The setting is saved for that chat. It isn't available in shared chats or in a request's **Ask June** tab.
 
 Requests that come from Jira don't use the Knowledge Base.
 
@@ -28,28 +28,25 @@ A source is a set of Confluence spaces, pages or folders, or whole Google shared
 
 <Steps>
   <Step title="Start">
-    Open **Knowledge Base** and click **Add source**.
-  </Step>
-  <Step title="Choose the app">
-    Pick a connected app. An app that isn't ready shows **Connect** or **Finish connection setup**.
+    Open **Knowledge Base**, click **Add source**, and pick a connected app.
   </Step>
   <Step title="Name it and choose content">
-    Enter a **Source name** (up to 200 characters), then pick between 1 and 100 items.
+    Name the source, then pick up to 100 items.
     - **Confluence:** search for spaces, pages or folders and tick them. Descendants are included, including pages added later.
     - **Google Drive:** tick whole shared drives. Content added later is included. My Drive, "Shared with me" and shortcuts aren't available.
   </Step>
   <Step title="Review and add">
-    Click **Review source**, check the selection, then click **Add source**. The first sync starts automatically.
+    Review the selection and add the source. The first sync starts automatically.
   </Step>
 </Steps>
 
-The same content can't belong to two sources on one connection. The review step names the source that already has it. Once setup starts, you can rename a source but not change its content: open **...** > **Settings**, edit the name and click **Save changes**. To change content, delete the source and add it again. To add a drive to an existing Drive source, delete it and add a new one with both drives, or add a separate source if the new drive doesn't overlap. Wait for the deletion to finish before re-adding overlapping content.
+The same content can't belong to two sources on one connection. The review step names the source that already has it. Once setup starts, you can rename a source but not change its content. To change content, delete the source and add it again. To add a drive to an existing Drive source, delete it and add a new one with both drives, or add a separate source if the new drive doesn't overlap. Wait for the deletion to finish before re-adding overlapping content.
 
 ## Sync
 
 June syncs every source daily at 3 a.m. US Eastern. To pick up a change sooner, open the source's **...** menu and click **Sync now**. It is unavailable while a sync is running, while the source is deleting, when the connection is inactive, or when your organization is over its storage allowance.
 
-An amber icon, **Source needs attention**, opens **Source details** with the last attempt, counts of documents scanned, indexed, modified, deleted, skipped and failed, and the selected content. The document list shows what's in your selection, not what June can answer from. The counts are totals for the last sync; they don't show whether a particular document was indexed.
+An amber **Source needs attention** icon opens **Source details**, with the last attempt and counts of documents scanned, indexed, modified, deleted, skipped and failed. The document list shows what's in your selection, not what June can answer from. The counts are totals for the last sync; they don't show whether a particular document was indexed.
 
 If a source isn't **Synced**, June doesn't search it:
 
@@ -85,7 +82,7 @@ Open the source's **...** menu, click **Delete source**, and confirm. June stops
     Their email in June may differ from their provider email. Fix the mismatch, then sync.
   </Accordion>
   <Accordion title="Knowledge Base is greyed out in the Agent">
-    It reads "Knowledge Base is syncing." or "Knowledge Base is temporarily unavailable." Try again shortly.
+    The Knowledge Base is syncing or temporarily unavailable. Try again shortly.
   </Accordion>
 </AccordionGroup>
 

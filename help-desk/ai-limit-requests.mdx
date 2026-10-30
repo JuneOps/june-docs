@@ -27,7 +27,7 @@ A limit policy decides what happens to Slack and Jira asks: who approves, how mu
     If a policy with eligibility rules covers the employee, June uses it ahead of a policy for everyone. If no policy covers them, or two of the same kind do, the ask goes to IT.
   </Step>
   <Step title="Set the reason prompt and duration">
-    **Business justification** is on by default, with the prompt "Why do you need more usage?". Turn it off if you don't need a reason. Set **Limit duration** to **Permanent** or **Until end of month**.
+    **Business justification** is on by default. Turn it off if you don't need a reason. Set **Limit duration** to **Permanent** or **Until end of month**.
   </Step>
   <Step title="Add tiers">
     A policy has 1 to 5 tiers, chosen by how many raises the person has had approved this month. Tier 1 covers the first raise, tier 2 the second, and the last tier applies to every later raise.
@@ -74,7 +74,7 @@ Open **AI usage**, choose **Claude** or **OpenAI** (ChatGPT), then the **Limit r
   <img src="/images/help-desk/ai-limit-requests-list.png" alt="Limit requests table with a search box and a count of 9 requests. Columns are Employee, Source, Monthly limit, Status and Actor. Every row has Source Claude. The first row is Pending with usage at 100% of its limit and a dash as Actor; the rows below are Approved or Declined, with Actor values such as 'Maya Patel · via console' and 'API · via console'." />
 </Frame>
 
-Columns are **Employee**, **Source**, **Monthly limit**, **Status** and **Actor**. Search by employee, and use the display settings to sort or filter by status.
+Search by employee, and sort or filter by status.
 
 | Status | Meaning |
 |---|---|
@@ -85,7 +85,7 @@ Columns are **Employee**, **Source**, **Monthly limit**, **Status** and **Actor*
 | Superseded | ChatGPT replaced the ask with a later one. |
 | Unknown | The provider reported a status June doesn't recognize. June treats the ask as open. |
 
-The **Actor** column shows who decided and where: a name with "via June", "via console" or "via Slack", or "Automatically via June" when no approval was needed. Hover for the decision reason. Asks nobody has decided yet show "-", as do Canceled and Superseded asks.
+The **Actor** column shows who decided and where, or "Automatically via June" when no approval was needed. Hover for the decision reason. Asks nobody has decided yet show "-", as do Canceled and Superseded asks.
 
 **Who can do this:** Owner and Admin (the **Change AI spending limits** permission). Members and the AI Usage role can view the list but not decide.
 
@@ -94,13 +94,13 @@ The **Actor** column shows who decided and where: a name with "via June", "via c
     Click the row. The panel shows the person's current limit, their default, what they asked for, and their reason. A warning icon beside a name means June couldn't match the requester; see below.
   </Step>
   <Step title="Set the limit">
-    **New limit** is prefilled with the amount they asked for. Quick chips add 25%, 50% or 100% to the current limit. To add a fixed amount, type the current limit plus that amount. If a policy sets the amount, leave it empty to raise by the policy's rule.
+    **New limit** is prefilled with the amount they asked for. Quick chips add 25%, 50% or 100% to the current limit. If a policy sets the amount, leave it empty to raise by the policy's rule.
   </Step>
   <Step title="Choose how long">
     **Duration** is **Indefinite** (shown as Permanent in Slack) or **Until end of month**. When a policy handles the ask, its duration applies.
   </Step>
   <Step title="Approve or decline">
-    To approve, click **Approve**. A reason is optional. To decline, type a reason and click **Decline**. For Slack and Jira asks, the employee sees the reason.
+    Approve, with an optional reason, or decline with a reason. For Slack and Jira asks, the employee sees the reason.
   </Step>
 </Steps>
 
@@ -112,18 +112,16 @@ To cancel a Slack or Jira ask, open the matching request in [Requests](/help-des
 
 The approvers on the tier's current step get a DM card showing who is asking, their usage this month (for example "\$150 of \$200 used this month (75%)"), raises already approved this month, the amount and duration the policy gives, and the reason.
 
-They click **Approve** or **Reject**. On an "approver decides" tier, Approve opens a form to pick the new limit: the employee's ask, 25%, 50% or 100% more, or another amount, within the tier's maximum. Reject asks for a reason the employee will see (up to 500 characters). Approvers don't need a June role.
+They click **Approve** or **Reject**. On an "approver decides" tier, Approve opens a form to pick the new limit: the employee's ask, 25%, 50% or 100% more, or another amount, within the tier's maximum. Reject asks for a reason the employee will see. Approvers don't need a June role.
 
 ## What the employee sees
 
 For Slack and Jira asks, June answers where the employee asked. Asks from inside Claude or ChatGPT get no message from June.
 
-| Moment | Message |
-|---|---|
-| Approved | "Approved. I'm raising your [tool] limit now and will let you know here when it's done." Sent only when the tier had approvers. |
-| Raised | "Your [tool] limit is now \$X a month", with ", until the end of the month" when temporary. For ChatGPT the amount reads "N credits a month". |
-| Declined | "[Decider] declined your request" followed by the reason, if there is one. |
-| Canceled | "Your request for more [tool] usage was canceled." |
+- **Approved:** June says it is raising the limit and will confirm when it's done. Sent only when the tier had approvers.
+- **Raised:** June gives the new monthly limit, and says it lasts until the end of the month when temporary. For ChatGPT the amount is in credits.
+- **Declined:** June says who declined, with the reason if there is one.
+- **Canceled:** June says the request for more usage was canceled.
 
 ## Temporary raises and history
 

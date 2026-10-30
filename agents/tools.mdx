@@ -11,13 +11,11 @@ Find them under **Settings** > **Agent** > **Tools**.
 
 ## Browse the catalog
 
-Tools are grouped by provider. Each group shows **Connected**, or a **Connect** button that opens its setup page. Each tool lists its name, a description and a **Read** or **Write** badge. Tools from a provider that isn't connected appear dimmed, and June skips them.
+Tools are grouped by provider. A provider that isn't connected shows a **Connect** button, and its tools appear dimmed because June skips them. If the action you need isn't in the catalog, you can [build a custom tool](#build-a-custom-tool).
 
 <Frame caption="The Tools catalog, with the June group connected.">
   <img src="/images/agents/tools-catalog.png" alt="The Tools page showing All tools, Standard and Custom tabs, a search box, the Create tool button, and the June provider group marked Connected with Read badges on each tool." />
 </Frame>
-
-Narrow the list with the filter: **Access** (Read or Write), **Connection**, **Providers**, or **Availability** > **Self-service**.
 
 | Provider | Read | Write |
 |---|---|---|
@@ -43,14 +41,18 @@ There's no global switch for a tool. You allow or block each one for each role.
     Go to **Settings** > **Roles**, open a role, and select the **Tools** tab.
   </Step>
   <Step title="Choose Allow or Block">
-    Find the tool with **Find a tool...**. Choose **Default** (shown as **Default: Allowed** or **Default: Not allowed**), **Allow** or **Block**. Each row says why: for example **Allowed by** a permission, **Manually allowed**, or **Blocked for this role**. A tool that returns recovery keys or PINs shows **Restricted** and can't be unlocked with **Allow** for someone who lacks permission to see that information.
+    Set each tool to its default, **Allow** or **Block**. Each row says why a tool is allowed or blocked. A tool that returns recovery keys or PINs is **Restricted** and can't be allowed for someone who lacks permission to see that information.
   </Step>
   <Step title="Save the role">
     Save to apply. Removed access applies even in open chats, and new access reaches new chats.
   </Step>
 </Steps>
 
-Defaults: integration tools are on for Admin and Owner and off for other roles. June's own tools follow the role's permissions, for example assigning an asset needs permission to update assets. A custom tool with no permissions chosen is for Admin and Owner only.
+Defaults:
+
+- Integration tools are on for Admin and Owner and off for other roles.
+- June's own tools follow the role's permissions. For example, assigning an asset needs permission to update assets.
+- A custom tool with no permissions chosen is for Admin and Owner only.
 
 To turn a tool off for everyone, block it on every role, or disconnect the integration. See [Members and roles](/admin/roles).
 
@@ -64,16 +66,16 @@ Credentials let custom tools authenticate to your APIs. Open **Settings** > **Ag
 
 <Steps>
   <Step title="Name it">
-    Enter a **Name** (shown when you pick authentication for a tool) and an optional **Description**.
+    Give it a name and an optional description.
   </Step>
   <Step title="Pick the auth method">
-    Choose **Bearer token**, **API key**, **Basic auth**, **OAuth 2.0** (client credentials) or **None (public API)**. Each asks for its own fields, such as header name, username, token URL, client ID and scopes.
+    Choose bearer token, API key, basic auth, OAuth 2.0 (client credentials) or none for a public API. Each asks for its own fields.
   </Step>
   <Step title="Enter the secret">
     Secrets are stored encrypted and never shown again. When editing, leave the field blank to keep the current one.
   </Step>
   <Step title="Add allowed hosts">
-    List every host the credential may call, up to 20. Requests go over https to those hosts only. Click **Create**.
+    List every host the credential may call, up to 20. Requests go over https to those hosts only.
   </Step>
 </Steps>
 
@@ -83,40 +85,40 @@ To delete a credential that a tool uses, first choose another authentication met
 
 <Steps>
   <Step title="Start">
-    Click **Create tool**. Enter a **Tool name** and **Tool description**.
+    Click **Create tool** and give it a name and description.
   </Step>
   <Step title="Choose authentication">
-    Under **Setup** > **Authentication**, pick a connected June integration or a stored credential, or click **Add credential securely**.
+    Pick a connected June integration or a stored credential, or add a credential securely.
   </Step>
   <Step title="Tell June when to use it">
-    Fill **Agent guidance** ("Use this tool when..."). It is required to publish.
+    Write **Agent guidance** that says when June should use the tool. It is required to publish.
   </Step>
   <Step title="Define inputs">
-    Click **Add an input** for each value the tool needs. Give each a name, type, description, and whether it takes any value or a fixed list.
+    Add an input for each value the tool needs, with a name, type and description.
   </Step>
   <Step title="Add API requests">
-    Set the method, an https URL, query parameters, headers, body and **Accepted statuses**. A tool can chain up to 10 requests, and later ones can use values captured from earlier ones. Secrets can only come from the credential, never from headers or inputs. A tool is a Write tool if any request uses a method other than GET.
+    Set the method, an https URL and the rest of each request. A tool can chain up to 10 requests, and later ones can use values captured from earlier ones. Secrets can only come from the credential, never from headers or inputs. A tool is a Write tool if any request uses a method other than GET.
   </Step>
   <Step title="Choose what is returned">
-    Under **Returned values**, rename values or hide ones only needed by later requests.
+    Rename returned values, or hide ones only needed by later requests.
   </Step>
   <Step title="Set availability">
-    Under **Tool availability**, turn on **Self-service** if employee runbooks may use it. Set **Software access** to **Grant access** or **Revoke access** to use it as a step in an [access policy](/agents/access-policies).
+    Turn on **Self-service** if employee runbooks may use it. Set **Software access** to **Grant access** or **Revoke access** to use it as a step in an [access policy](/agents/access-policies).
   </Step>
   <Step title="Set team access">
-    Under **Team access**, choose the permissions people need. With none, only Admin and Owner can use it.
+    Choose the permissions people need. With none, only Admin and Owner can use it.
   </Step>
   <Step title="Test, save, publish">
-    Run **Test draft**. Each request can be **Live** or **Mock**, and a live request that writes asks you to confirm because June doesn't retry or roll back test requests. Click **Save Draft**, then **Publish**.
+    Run **Test draft**. Each request can be **Live** or **Mock**, and a live request that writes asks you to confirm because June doesn't retry or roll back test requests. Then save the draft and publish.
   </Step>
 </Steps>
 
-| Status | Meaning |
-|---|---|
-| **Draft** | Saved, not available to June. |
-| **Published** | The version June uses. It may also have **Draft changes** not yet published. |
-| **Inactive** | June can't use it. Publish the saved draft to bring it back. |
-| **Archived** | Removed from pickers, and June can't run it. You can't archive a tool that a runbook or access policy still uses. |
+A custom tool is always in one of four states:
+
+- **Draft**: saved, not available to June.
+- **Published**: the version June uses. It may also have **Draft changes** not yet published.
+- **Inactive**: June can't use it. Publish the saved draft to bring it back.
+- **Archived**: removed from pickers, and June can't run it. You can't archive a tool that a runbook or access policy still uses.
 
 Open a tool, then **Tool actions** to **Deactivate** or **Archive** it.
 

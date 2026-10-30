@@ -9,13 +9,11 @@ SSO is for signing in. To have Okta also add and remove people and set their rol
 
 ## Requirements
 
-| Requirement | Detail |
-|---|---|
-| Plan | Enterprise |
-| Who can set it up | Owner or Admin |
-| Email domain | At least one, added under **Settings > Email Domains** |
-| Identity provider | Okta, using OpenID Connect (OIDC). One provider per organization |
-| Okta access | You can create app integrations and edit an authorization server |
+- **Plan:** Enterprise.
+- **Who can set it up:** Owner or Admin.
+- **Email domain:** at least one, added under **Settings > Email Domains**.
+- **Identity provider:** Okta, using OpenID Connect (OIDC). One provider per organization.
+- **Okta access:** you can create app integrations and edit an authorization server.
 
 This is the Okta sign-in app. It is separate from the [Okta integration](/integrations/okta), which syncs your employees and applications into June.
 
@@ -23,7 +21,7 @@ This is the Okta sign-in app. It is separate from the [Okta integration](/integr
 
 <Steps>
   <Step title="Add your email domain in June">
-    Go to **Settings > Email Domains** and add the domain your people sign in with. Until you do, the Okta card on **Settings > Authentication** is disabled and shows "Email domain required".
+    Go to **Settings > Email Domains** and add the domain your people sign in with. Until you do, the Okta card on **Settings > Authentication** is disabled.
   </Step>
   <Step title="Create the app in Okta">
     In the Okta admin console, go to **Applications > Applications**, click **Create App Integration**, choose **OIDC - OpenID Connect**, then **Web Application**, and click **Next**. Name it, for example, `June SSO`.
@@ -47,7 +45,7 @@ This is the Okta sign-in app. It is separate from the [Okta integration](/integr
       <img src="/images/admin/sso-providers.png" alt="The Authentication page with the heading Available SSO Providers and an Okta card" />
     </Frame>
 
-    Enter **Issuer URL**, **Client ID** and **Client Secret**, then click **Save**.
+    Enter the issuer URL, client ID and client secret, then click **Save**.
 
     <Frame caption="The Okta configuration form">
       <img src="/images/admin/sso-okta-form.png" alt="The Okta SSO form with Issuer URL, Client ID and Client Secret fields and Cancel and Save buttons" />
@@ -58,9 +56,9 @@ This is the Okta sign-in app. It is separate from the [Okta integration](/integr
       Once SSO is on, everyone on your email domains, including you, signs in through Okta. If a mistake in the Okta app locks people out, contact support@juneops.com.
     </Warning>
 
-    June shows "Configure SSO Provider" with the message "All existing users will need to sign back in for SSO authentication to take effect." That means each person's next sign-in goes through Okta. Nobody is signed out when you click **Configure**.
+    June asks you to confirm and warns that all existing users will need to sign back in. That means each person's next sign-in goes through Okta. Nobody is signed out when you click **Configure**.
 
-    The dialog also says setup can take a few minutes, during which June may be briefly unavailable. Choose a quiet time. Click **Configure**. June shows "SSO Provider Configured".
+    Setup can take a few minutes, during which June may be briefly unavailable. Choose a quiet time, then click **Configure**.
   </Step>
 </Steps>
 
@@ -77,9 +75,7 @@ When it works, **Settings > Authentication > Okta** shows a green **Active SSO P
 
 **Who can do this:** Owner, Admin.
 
-1. Go to **Settings > Authentication > Okta** and click **Edit**.
-2. Change the fields you need. Leave **Client Secret** blank to keep the current secret.
-3. Click **Update**, confirm **Update SSO Provider**, and June shows "SSO Provider Updated".
+Go to **Settings > Authentication > Okta** and click **Edit**. Change the fields you need, leaving **Client Secret** blank to keep the current secret, then click **Update** and confirm.
 
 ## Remove SSO
 

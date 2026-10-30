@@ -40,20 +40,17 @@ A source you did not connect has no say, and June does not infer a status from s
 
 ## See why a device has a status
 
-Hover the status to see its reason, for example "Jamf: in use by its user" or "Firstbase: return in progress". Every automatic status change records a reason. The Overview tab lists every status, assignee and ownership change with who made it and, for status changes, why.
+Hover the status to see its reason. Every automatic status change records a reason. The Overview tab lists every status, assignee and ownership change with who made it and, for status changes, why.
 
 A plain padlock beside a status means a person locked it. A shield-lock icon on the **Locked** status means the device itself is locked. They are unrelated.
 
 ## Find hidden devices
 
-On **Assets > All Assets**, the default **Status** filter hides Lost, Decommissioned, Locked and Recycled. Click **Display**, add them under **Status**, and they appear. A device whose status someone locked is not hidden. Only the **Locked** status is.
+The default **Status** filter on **Assets > All Assets** hides Lost, Decommissioned, Locked and Recycled. Add them under **Status** in **Display** to see them. A device whose status someone locked is not hidden. Only the **Locked** status is.
 
 ## Change a status
 
-1. Click the status in the list or in the detail header.
-2. Choose a **Status**.
-3. Optionally enter a **Reason** ("Why this status?").
-4. Click **Save**.
+Click the status in the list or in the detail header, choose a status, optionally enter a reason, and save.
 
 <Frame caption="The status popover with In Repair selected and Lock this status on.">
   <img src="/images/assets/asset-status-popover.png" alt="Status popover with In Repair selected, the Lock this status switch turned on, a required Reason field reading With IT for a battery swap, and Cancel and Save buttons" />
@@ -67,11 +64,7 @@ The picker adapts to the assignee. **Deployed** is not offered when the device h
 
 A lock stops syncs from changing the device's status and assignee. Condition, OS, security and purchase data keep syncing.
 
-1. Click the status and turn on **Lock this status**.
-2. Enter a **Reason**. It is required.
-3. Click **Save**.
-
-People can still change a locked device. To hand control back, open the popover, turn the lock off and click **Save**.
+To lock, click the status, turn on **Lock this status**, enter a reason (required), and save. People can still change a locked device. To hand control back, turn the lock off and save.
 
 ## Assignee and ownership
 

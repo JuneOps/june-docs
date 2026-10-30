@@ -14,7 +14,7 @@ Ticket context is a comment June adds to your Jira tickets with the reporter's d
     Follow [Jira](/integrations/jira) to connect Jira and its webhooks.
   </Step>
   <Step title="Enter the project key">
-    Go to **Settings** > **Integrations** > **Jira** and enter your IT project's key in **Default Project Key** (the same field June uses when it creates tickets), for example `IT`. June tracks one project, so enter one key.
+    Under **Settings** > **Integrations** > **Jira**, enter your IT project's key in **Default Project Key** (the same field June uses when it creates tickets), for example `IT`. June tracks one project, so enter one key.
   </Step>
 </Steps>
 
@@ -28,12 +28,10 @@ In other Jira project types, Jira has no internal comments. Anyone who can view 
 
 ## What the comment contains
 
-The comment is titled **Reporter Details** and signed "Posted by June".
+The comment is titled **Reporter Details** and signed "Posted by June". It has two sections:
 
-| Section | Contents |
-|---|---|
-| **Reporter Details** | Name, email, department, location and title. Fields June doesn't have are left out. Email is always shown. |
-| **Assigned Devices** | A numbered list. Each device shows product, serial, operating system and version, and status, plus last check-in, purchase date and warranty expiry where June knows them. If no device is assigned: "No devices currently assigned." |
+- **Reporter Details:** name, email, department, location and title. Fields June doesn't have are left out. Email is always shown.
+- **Assigned Devices:** a numbered list. Each device shows product, serial, operating system and status, plus last check-in, purchase date and warranty expiry where June knows them. If no device is assigned, the comment says so.
 
 June posts the comment once per ticket. It doesn't update when the ticket changes. If June can't post it because Jira is unreachable, it doesn't retry.
 
@@ -47,7 +45,7 @@ Matching the reporter uses fixed rules and no AI. June matches the Jira reporter
 
 If several employees share that name, June picks one only when exactly one of them comes from your identity provider. Otherwise it leaves the reporter unmatched.
 
-When June can't match a new ticket, it posts this instead: "June couldn't confidently match this ticket's reporter to an employee record, so reporter details were skipped." To fix it, correct the employee's email or name in your directory so it matches the Jira account. See [Employees](/people/employees).
+When June can't match a new ticket, it posts a comment saying it couldn't confidently match the reporter to an employee record, so reporter details were skipped. To fix it, correct the employee's email or name in your directory so it matches the Jira account. See [Employees](/people/employees).
 
 ## Devices and linking
 
@@ -57,7 +55,7 @@ June links every tracked ticket to its reporter, so the ticket shows up on their
 
 **Who can do this:** Member, Admin and Owner (permission **Requests & linked tickets**). Software Procurement and AI Usage don't have it.
 
-Open an employee or an asset and select the **Tickets** tab. It lists each linked ticket with its source, key, title, status, reporter and age. Use **Search tickets...** to search by title, key, status or reporter. Click a row to open the ticket in Jira. When nothing is linked, the tab says **No tickets**.
+The **Tickets** tab on an employee or an asset lists each linked ticket. Click a row to open the ticket in Jira.
 
 ## If something looks wrong
 

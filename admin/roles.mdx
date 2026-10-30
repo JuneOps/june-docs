@@ -26,17 +26,7 @@ Two permissions control most of this page. By default **Manage Members** belongs
 
 **Who can do this:** Owner, Admin, or a role with **Manage Members**.
 
-<Steps>
-  <Step title="Start an invitation">
-    Go to **Settings > Members** and click **Invite Member**.
-  </Step>
-  <Step title="Enter their details">
-    Enter their **Email address** and choose a **Role**. The default is Member. Owner is not offered.
-  </Step>
-  <Step title="Send">
-    Click **Send Invitation**. June emails them a link.
-  </Step>
-</Steps>
+Go to **Settings > Members**, click **Invite Member**, enter their email address and choose a role. The default is Member. Owner is not offered. June emails them a link.
 
 An invitation holds one role. Add more after the person joins.
 
@@ -50,17 +40,7 @@ While [SCIM](/admin/scim) is on, Okta adds people. **Invite Member** is replaced
 
 **Who can do this:** Owner, Admin, or a role with **Manage Members**.
 
-<Steps>
-  <Step title="Open the role picker">
-    On **Settings > Members**, click the role button on the person's row. It shows their first role, and "+N" if they hold more.
-  </Step>
-  <Step title="Tick the roles">
-    Tick one or more roles. In a long list, use **Search roles** to find one. At least one role is required.
-  </Step>
-  <Step title="Save">
-    Click **Save**. June shows "Role assignments updated."
-  </Step>
-</Steps>
+On **Settings > Members**, click the role button on the person's row, tick one or more roles, and save. At least one role is required.
 
 <Frame caption="The Roles popover on Settings > Members">
   <img src="/images/admin/roles-assign.png" alt="The Roles popover for a member, with a search box, roles with their permission counts and checkmarks, 2 selected, and Cancel and Save buttons" />
@@ -72,7 +52,7 @@ If a row shows **SCIM provisioned**, the person's roles come from their Okta gro
 
 **Who can do this:** Owner, Admin, or a role with **Manage Members**.
 
-Open the row's **...** menu, choose **Remove from organization**, then **Remove user**. June removes their role assignments and their access to your organization. Their June account, and any other organizations they belong to, are untouched. You can invite them again.
+Open the row's **...** menu and choose **Remove from organization**. June removes their role assignments and their access to your organization. Their June account, and any other organizations they belong to, are untouched. You can invite them again.
 
 You cannot remove yourself, the Owner or June AI. June AI is the first row on **Settings > Members**, labelled **Bot**, and cannot be edited or removed.
 
@@ -111,17 +91,11 @@ Owner and Admin differ by **Manage roles & permissions**, which only the Owner h
 Use a custom role when no built-in role fits, for example a help desk role that can edit assets but cannot open settings.
 
 <Steps>
-  <Step title="Open the dialog">
-    Go to **Settings > Roles** and click **Add role**. To copy an existing role, hover its row and click the copy icon instead.
-  </Step>
-  <Step title="Name it and choose a starting point">
-    Enter a **Name** and, optionally, a **Description**. Under **Based on**, choose **Empty role** to start with no permissions, or any role except Owner to copy its permissions and tool settings. A copy is a snapshot: later changes to the original do not change it.
-  </Step>
   <Step title="Add the role">
-    Click **Add role**. June opens the new role.
+    Go to **Settings > Roles** and click **Add role**. To copy an existing role, hover its row and click the copy icon instead. Enter a name and, optionally, a description. Under **Based on**, choose **Empty role** to start with no permissions, or any role except Owner to copy its permissions and tool settings. A copy is a snapshot: later changes to the original do not change it.
   </Step>
   <Step title="Choose permissions, then save">
-    On the **Permissions** tab, tick what the role can do. Ticking a permission also ticks the permissions it needs, and unticking one also unticks the permissions that depend on it. Click **Review changes**, check the grants and removals, then click **Save changes**. June shows "Role access saved."
+    On the **Permissions** tab, tick what the role can do. Ticking a permission also ticks the permissions it needs, and unticking one also unticks the permissions that depend on it. Click **Review changes**, check the grants and removals, then click **Save changes**.
   </Step>
 </Steps>
 
@@ -133,7 +107,7 @@ Role names are unique, and built-in names are reserved.
 
 **Who can do this:** Owner, or a role with **Manage roles & permissions**. This covers custom roles and built-in roles other than Owner.
 
-Open the role from **Settings > Roles**, make changes, then click **Review changes** and **Save changes**. On the **Permissions** tab, search or filter by **All**, **Granted** or **Not granted**. Each category lists **What they can view** and **What they can do**, and a dot marks an unsaved change.
+Open the role from **Settings > Roles**, make changes, then click **Review changes** and **Save changes**. On the **Permissions** tab, search or filter by granted and not granted. Each category lists what the role can view and what it can do, and a dot marks an unsaved change.
 
 <Frame caption="A custom role's Permissions tab">
   <img src="/images/admin/roles-permissions.png" alt="A custom role page with a Preview access button, Permissions and Tools tabs, a permission search box, All, Granted and Not granted filters, and permission categories" />
@@ -143,20 +117,18 @@ Open the role from **Settings > Roles**, make changes, then click **Review chang
 
 **Tools** are the actions Agent and runbooks can take in your connected apps, such as suspending a user in Okta. On the **Tools** tab, set a tool to **Allow** or **Block** to override its default.
 
-| Kind of tool | How access works |
-|---|---|
-| Integration tools | Allowed for Admin and Owner by default, not for other roles |
-| Tools in a section such as Software, Assets, Employees or Runbooks | The section's permissions grant access. A tool setting can only take it away |
+- **Integration tools:** allowed for Admin and Owner by default, not for other roles.
+- **Tools in a section such as Software, Assets, Employees or Runbooks:** the section's permissions grant access. A tool setting can only take it away.
 
 **When it takes effect.** Immediately. Removed access applies even in chats that are already open. Added access does not reach chats that are already open. Past messages and run results stay visible to the people who could see their chat or run.
 
-**To undo.** There is no version history. Edit the role back. The [Audit log](/admin/audit-log) shows what changed. If you leave with unsaved edits, June asks you to **Keep editing** or **Discard and leave**. If someone else changed roles while you were editing, June asks you to close the review and refresh before saving.
+**To undo.** There is no version history. Edit the role back. The [Audit log](/admin/audit-log) shows what changed. If you leave with unsaved edits, June asks you to keep editing or discard. If someone else changed roles while you were editing, June asks you to close the review and refresh before saving.
 
 ## Delete a custom role
 
 **Who can do this:** Owner, or a role with **Manage roles & permissions**. Built-in roles cannot be deleted.
 
-Hover the role on the list, click the trash icon, then **Delete**. June deletes a role only when nothing holds it:
+Hover the role on the list, click the trash icon, and confirm. June deletes a role only when nothing holds it:
 
 - Reassign everyone who holds it.
 - Cancel any pending invitation that carries it.

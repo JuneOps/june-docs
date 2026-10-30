@@ -13,14 +13,14 @@ Open **AI usage** in the **Resources** section of the sidebar. The page needs at
 
 ## The overview
 
-Choose a period at the top right: **7d**, **30d**, **This month**, **Last month**, or a custom range. The default is **This month**, and June remembers your choice on each page in your browser.
+Choose a period at the top right. The default is **This month**, and June remembers your choice on each page in your browser.
 
-The top strip shows total spend, tokens, active tools, people with usage, departments and models. The **Cumulative spend** chart groups by Total, Provider, Department or Model. Below it:
+The top strip shows total spend, tokens, active tools, people with usage, departments and models. The **Cumulative spend** chart groups by total, provider, department or model. Below it:
 
-- **Spend by provider**: select a row to open that tool's page.
-- **Organization-level spend by provider**: spend that isn't tied to a person, such as service accounts, workspaces and API keys.
-- **Top 10 users**: the heaviest users, ranked by tokens, with their spend.
-- **Spend by department**: departments against providers, with totals.
+- **Spend by provider:** select a row to open that tool's page.
+- **Organization-level spend by provider:** spend that isn't tied to a person, such as service accounts, workspaces and API keys.
+- **Top 10 users:** the heaviest users, ranked by tokens, with their spend.
+- **Spend by department:** departments against providers, with totals.
 
 ## Each tool's page
 
@@ -30,16 +30,7 @@ The top strip shows total spend, tokens, active tools, people with usage, depart
 
 The top row of a tool's **Overview** shows **Employee spend**, **API spend** (spend not tied to a person), the total, and the **Contract** card. Select **Employee spend** to open **Employee usage**, or **API spend** to open **Organization usage**. ChatGPT also shows **Credits used**. Cursor shows the total and the Contract card. Each spend stat carries a trend arrow against the period of equal length just before. Rising spend reads red.
 
-| Tab | What it answers |
-|---|---|
-| **Overview** | How much did this tool cost, how is that changing, and will we stay inside the contract? |
-| **Insights** | What should we fix? Checks on caching, model choice, seats, spend caps and tool overlap, sorted by impact. |
-| **Adoption** | Who is using it? Users with activity, daily active users against seats, and usage by product. The seat count is today's, so the trend shows the number of people, not a percentage. |
-| **Efficiency** | Are we using it well? Cost per user, cost per million tokens, cache hit rate and spend on large contexts. |
-| **Skills** | Which skills do people use, and what do they cost? Cursor shows no cost columns. |
-| **Employee usage** | What did each person use and spend? |
-| **Organization usage** | Which workspaces and API keys drive spend that isn't tied to a person? |
-| **Limit requests** | Who asked for more, and what happened? Claude and OpenAI only. See [AI limit requests](/help-desk/ai-limit-requests). |
+Each tool's page also has tabs for **Insights** (checks on caching, model choice, seats, spend caps and tool overlap, sorted by impact), **Adoption** (who is using it, with daily active users against seats), **Efficiency** (cost per user, cost per million tokens, cache hit rate and spend on large contexts), **Skills** (Cursor shows no cost columns), **Employee usage**, **Organization usage** (workspaces and API keys behind spend that isn't tied to a person) and **Limit requests** (Claude and OpenAI only; see [AI limit requests](/help-desk/ai-limit-requests)). On Adoption the seat count is today's, so the trend shows the number of people, not a percentage.
 
 ### Contract card
 
@@ -59,11 +50,9 @@ With no matching contract the card reads **No active contract**. With two, it re
 
 The total on each tool's page carries a label that tells you how much to trust the number as a bill.
 
-| Label | Meaning |
-|---|---|
-| **Billed spend** | The usage the provider bills for the period, including API and service-key usage that isn't tied to a person. |
-| **Estimated spend** | The provider's own dollar estimate of usage. It is not your invoice: what you pay is set by your contract. |
-| **Spend** | A mix: billed products plus the provider's estimate for products it doesn't bill per use, such as ChatGPT Enterprise credits. |
+- **Billed spend:** the usage the provider bills for the period, including API and service-key usage that isn't tied to a person.
+- **Estimated spend:** the provider's own dollar estimate of usage. It is not your invoice: what you pay is set by your contract.
+- **Spend:** a mix of billed products plus the provider's estimate for products it doesn't bill per use, such as ChatGPT Enterprise credits.
 
 Spend is net of credits and refunds, which appear under the total as a negative amount. For Claude, **Employee spend** plus **API spend** minus credits equals **Billed spend**. Estimated figures are never added on top of billed ones.
 
@@ -81,29 +70,19 @@ Usage from an account June can't match appears as organization-level spend, and 
 
 ## Find a person's usage
 
-On a tool's **Employee usage** tab, search by name, then use **Display** to choose the view, filters and sort. People are sorted by spend, highest first. Hover a column header for its exact definition.
+On a tool's **Employee usage** tab, search by name, then use **Display** to choose the view (list, department or group), filters and sort. People are sorted by spend, highest first.
 
 <Frame caption="Employee usage: search, the count line, the Display button and the first rows with the Monthly limit column"><img src="/images/ai-usage/ai-usage-employee-usage.png" alt="Claude Employee usage tab with the search box, the Display button at top right, and rows with model, sessions, output, cost per PR, spend and monthly limit" /></Frame>
 
-| Display option | Choices |
-|---|---|
-| **View** | List, Department, Group (by where the limit comes from) |
-| **Employment** | All, Active, Inactive |
-| **Seat** | Any, Seat, Removed, Never had a seat |
-| **Last used** | Any, Within 7 days, Within 30 days, Never used, Custom |
-| **Sort by** | Spend, Cost / PR, Cost / M tokens, Sessions, Tokens, Name, Last active |
-
-**Cost / PR** has values only for Claude Code users, because other tools don't report pull requests. Each [employee](/people/employees) and [department](/people/departments) also has its own **AI usage** tab.
+You can filter by employment (active or inactive), seat state and last used, and sort by spend, cost per PR, cost per million tokens, sessions, tokens, name or last active. **Cost / PR** has values only for Claude Code users, because other tools don't report pull requests. Each [employee](/people/employees) and [department](/people/departments) also has its own **AI usage** tab.
 
 ## Seats
 
 Seats have no screen of their own. Use the **Seat**, **Last used** and **Employment** filters on **Employee usage**, and the checks on **Insights**. Seat data comes from the tool's member list.
 
-| Seat state | Meaning |
-|---|---|
-| **Seat** | The person is on the tool's member list now. |
-| **Removed** | On the member list before, not now. June knows only that the seat was gone at the last check, so the spend shown may cover time on either side. |
-| **Never had a seat** | June has no member-list record for them. This includes people who left before you connected the tool. |
+- **Seat:** the person is on the tool's member list now.
+- **Removed:** on the member list before, not now. June knows only that the seat was gone at the last check, so the spend shown may cover time on either side.
+- **Never had a seat:** June has no member-list record for them. This includes people who left before you connected the tool.
 
 | To find | Do this |
 |---|---|

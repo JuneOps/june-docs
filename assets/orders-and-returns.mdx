@@ -15,15 +15,9 @@ Open an asset and click **Procurement**.
 
 <Frame caption="The Procurement tab during a return"><img src="/images/assets/orders-and-returns-procurement.png" alt="Procurement tab tiles for Deploy Status, Condition, Reported Assignee, Open Return and Source (Firstbase), with Order History showing a pending offboarding return" /></Frame>
 
-| Box | Shows |
-|---|---|
-| **Deploy Status** | The provider's own stage for the device, with its reason on hover. June's status is in the header |
-| **Condition** | The provider's condition grade |
-| **Reported Assignee** | Who the provider says has it, or "Provider warehouse: [name]" |
-| **Open Return** | Yes or No |
-| **Source** | The provider. Members do not see this box |
+The tiles show the provider's own view of the device: its stage (with the reason on hover), condition grade, who it says has the device (or "Provider warehouse: [name]"), whether a return is open, and the source. Members do not see the source tile. June's own status is in the header.
 
-**Order History** lists one row per order or return, labeled for example "Order · Onboarding", "Return · Offboarding" or "Order · Replacement". Each row shows its status and date, who it is for, the return reason, and the serial. Click **Track via [carrier]** to open tracking, or copy the tracking code.
+**Order History** lists one row per order or return, such as an onboarding order, an offboarding return or a replacement. Each row shows its status and date, who it is for, the return reason, and the serial. Open tracking from the row, or copy the tracking code.
 
 A return sent with no retrieval arranged has no tracking. An order line has no device until the provider assigns a serial. If the tab is empty, it says "No procurement data" (no provider reports this device) or "No order history".
 
@@ -46,10 +40,8 @@ June also raises an **Offboarding scheduled** signal for the leaver in Signals. 
 
 ## When the signals appear
 
-| Signal | Opens | Due |
-|---|---|---|
-| Onboarding scheduled | When the start date is within 90 days | 3 days after the start date |
-| Offboarding scheduled | When the leave date is within 90 days | 14 days after the leave date |
+- **Onboarding scheduled** opens when the start date is within 90 days and is due 3 days after the start date.
+- **Offboarding scheduled** opens when the leave date is within 90 days and is due 14 days after the leave date.
 
 Before the start date, Onboarding scheduled stays open even if the person has a device. After the start date it resolves once the person has a device, or when the due date passes. Change the due days in **Settings > Organization Policies**. Hire and leave dates come from [Employees](/people/employees).
 

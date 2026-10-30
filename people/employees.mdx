@@ -26,41 +26,31 @@ When Okta, Google Workspace and Entra ID disagree, the order is Okta, then Googl
 
 Your identity providers set status. Device tools, Slack and AI tools never do. A change you approve in the Agent can set it, and so can a CSV import's Status column. For people your identity provider covers, its value comes back on the next sync.
 
-| Status | Meaning |
-|---|---|
-| Active | The provider reports the account as active. Counted in **Total active**. |
-| Inactive | Deprovisioned or disabled, or not started yet. In Okta, staged and provisioned accounts are Inactive until activated. |
-| Suspended | Paused but still employed. Not counted in **Total active**. |
-| Archived | The provider reports the account as archived, or a status other than active, suspended or deactivated. |
-| Unknown | None of your connected identity providers lists the person, or no identity provider is connected. Without a connected identity provider, these people still count in **Total active**. |
+- **Active:** the provider reports the account as active. Counted in **Total active**.
+- **Inactive:** deprovisioned or disabled, or not started yet. In Okta, staged and provisioned accounts are Inactive until activated.
+- **Suspended:** paused but still employed. Not counted in **Total active**.
+- **Archived:** the provider reports the account as archived, or a status other than active, suspended or deactivated.
+- **Unknown:** none of your connected identity providers lists the person, or no identity provider is connected. Without a connected identity provider, these people still count in **Total active**.
 
 A termination date alone never changes status. If one sync finds more than 25 people, or 10% of your active people (whichever is larger), missing from your identity provider, June ignores the missing people for that sync and their status stays as it is. Status changes the provider reports, such as deprovisioning, always apply.
 
 ## The dashboard and the list
 
-**Employees** opens the dashboard: **Total active** (split into employees and contractors), **New hires** and **Upcoming offboardings** for the next 30 days, **Avg cost** per employee, and a monthly **Employees** chart with a range menu. Below them are breakdowns by department, location and status. Service accounts are not counted in Total active.
+**Employees** opens the dashboard: total active (split into employees and contractors), new hires and upcoming offboardings for the next 30 days, average cost per employee, and a monthly chart. Below them are breakdowns by department, location and status. Service accounts are not counted in **Total active**.
 
 <Frame caption="The Employees dashboard.">
   <img src="/images/people/employees-dashboard.png" alt="Tiles for Total active, New hires, Upcoming offboardings and Avg cost, and a monthly Employees chart split into employees and contractors, with a range menu" />
 </Frame>
 
-**Employees > All Employees** lists everyone. Columns are **Name**, **Role**, **Department**, **Location**, **Type**, **Status** and **Source**.
+**Employees > All Employees** lists everyone.
 
 - **Search** matches name, email and any column. **Smart Search** takes plain language, such as "employees without a device".
-- **Display** filters by Status, Department, Location and Type. June remembers your filters in your browser.
+- **Display** filters by status, department, location and type. June remembers your filters in your browser.
 - **Export CSV** downloads the rows matching your search and filters.
 
 ## Open a profile
 
-| Tab | Shows |
-|---|---|
-| Overview | Cost cards, **Employee Details**, **Identities**, **Lifecycle Events**, **Actions**, **Sync history** |
-| Assets, Installed Applications | Devices assigned to the person, and software found on them |
-| SaaS Subscriptions | Apps the person has an account in, with cost and last active |
-| AI usage | Spend, tokens and limits. See [AI usage](/ai-usage/ai-usage) |
-| Groups | Groups the person is in, and the apps they grant |
-| Tickets, Requests | Linked Jira, Linear or ServiceNow tickets, and their [requests](/help-desk/requests) |
-| Notes & Docs | Internal notes and documents (up to 10MB each) |
+A profile has an **Overview** (cost cards, employee details, identities, lifecycle events, actions and sync history) and tabs for the person's assets and installed applications, SaaS subscriptions (with cost and last active), AI usage (see [AI usage](/ai-usage/ai-usage)), groups (and the apps they grant), linked tickets and [requests](/help-desk/requests), and notes and documents (up to 10MB each).
 
 ### Identities
 
@@ -68,13 +58,9 @@ A termination date alone never changes status. If one sync finds more than 25 pe
 
 {/* screenshot placeholder: /employees/:id?tab=overview | person with Okta, Jamf and Firstbase identities, one row expanded | crop to Identities | file: /images/people/employees-identities.png */}
 
-| Dot | Meaning |
-|---|---|
-| Green | Active in the source, or the source lists the account and has no status of its own |
-| Red | The account ended (for example deprovisioned), or the source no longer lists it |
-| Grey | Not started yet, suspended or archived |
-
-Okta keeps deprovisioned accounts listed. Their dot is red.
+- **Green dot:** active in the source, or the source lists the account and has no status of its own.
+- **Red dot:** the account ended (for example deprovisioned), or the source no longer lists it. Okta keeps deprovisioned accounts listed, with a red dot.
+- **Grey dot:** not started yet, suspended or archived.
 
 ## Edit a person
 

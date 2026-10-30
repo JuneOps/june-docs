@@ -13,9 +13,9 @@ Owners, Admins and Members can view Compliance. Setting it up needs an Owner or 
 
 ## Set up compliance
 
-Until a compliance runbook runs, every device is Not assessed and the page reads "Compliance isn't set up".
+Until a compliance runbook runs, every device is Not assessed and the page says compliance isn't set up.
 
-1. Go to **Assets > Compliance** and click **Set up compliance**. This opens a new runbook from the Device compliance quick start. Members see "Ask an admin to set up a compliance runbook."
+1. Go to **Assets > Compliance** and click **Set up compliance**. This opens a new runbook from the Device compliance quick start. Members are asked to have an admin do this.
 2. Edit the checks in plain language to match your policy.
 3. Publish.
 
@@ -37,22 +37,15 @@ A runbook can also check Jamf Smart Group membership and extension attributes yo
 
 ## Find failing devices
 
-The page opens on **All** platforms. Tabs split by platform. Search takes devices, serials or assignees.
+The page opens on all platforms, with a tab per platform. Search takes devices, serials or assignees. You can filter by deployment status, compliance (Compliant, Non-compliant, Not assessed), a specific check, and, once you choose a check, its result (Pass, Fail, Unknown).
 
-| Filter | Options |
-|---|---|
-| **Deployment status** | The device's status in June, multi-select |
-| **Compliance** | Compliant, Non-compliant, Not assessed |
-| **Check** | Any check your policy reports |
-| **Result** | Pass, Fail, Unknown. Appears once you choose a Check |
+To find Macs failing FileVault, open the **macOS** tab, pick the disk encryption check, and set the result to Fail. Or set compliance to Non-compliant. On Windows, some checks show "Not Available" or "Not Applicable".
 
-To find Macs failing FileVault, open the **macOS** tab, pick the disk encryption **Check**, and set **Result** to Fail. Or set **Compliance** to Non-compliant. On Windows, some checks show "Not Available" or "Not Applicable".
-
-If no compliance runbook is active but results exist, a banner warns that "these results may be out of date".
+If no compliance runbook is active but results exist, a banner warns that these results may be out of date.
 
 ## See why a device failed
 
-Open the asset and look at **Compliance** on **Overview**. It shows the verdict, the reason, and each check as Pass, Fail or Unknown with its reason, plus device-reported details such as Disk Encryption Enabled, Firewall Enabled and Secure Boot Enabled. Click **View assessment history** for every earlier assessment, newest first, each with the reason recorded at the time.
+Open the asset and look at **Compliance** on **Overview**. It shows the verdict, the reason, and each check as Pass, Fail or Unknown with its reason, plus device-reported details such as disk encryption, firewall and Secure Boot. Click **View assessment history** for every earlier assessment, newest first, each with the reason recorded at the time.
 
 Peripherals are never assessed. Decommissioned and Recycled devices are left out of the counts by default. The Assets dashboard and All Assets also show a **Compliance** card, column and filter.
 

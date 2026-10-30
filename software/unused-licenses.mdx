@@ -15,12 +15,10 @@ A person is **active** in an app when they have access and were last active in t
 
 June learns when someone was last active from these sources:
 
-| Source | Activity it records |
-|---|---|
-| [Okta](/integrations/okta) | Sign-ins |
-| [Google Workspace](/integrations/google-workspace) | Sign in with Google events |
-| [Microsoft Entra](/integrations/microsoft-entra) | Sign-ins |
-| [Browser extension](/agents-extensions/browser-extension) | Active time in apps you set it to track |
+- [Okta](/integrations/okta): sign-ins.
+- [Google Workspace](/integrations/google-workspace): Sign in with Google events.
+- [Microsoft Entra](/integrations/microsoft-entra): sign-ins.
+- [Browser extension](/agents-extensions/browser-extension): active time in apps you set it to track.
 
 Jamf Pro also reports how long each app is used on each Mac, shown as **Daily Usage** and **Last Used** on the app's **Installations** tab. Device usage does not count toward Active Users, idle seats or health status.
 
@@ -32,37 +30,30 @@ Open the app, then **Overview**.
 
 - **Active Users:** active over total, such as 18 / 40.
 - **Licenses:** the number you pay for. It turns red when users exceed licenses.
-- **Seat Allocation:** a bar of subscriptions against licenses. Green is under 80%, amber is 80 to 99%, red is 100% or more.
+- **Seat Allocation:** subscriptions against licenses. Amber is 80 to 99%, red is 100% or more.
 - **Idle seat cost:** shown as "~\$X / yr" with a note such as "3 idle × \$240".
 
 Idle seats are the smaller of two numbers: your inactive users, or your licenses minus active users. Idle seat cost is idle seats times annual spend divided by licenses.
 
 ## List who has not used an app
 
-1. Open the app, then the **Subscriptions** tab. The line above the list reads "x/y used in last 30 days".
-2. Click the **Last Active** column to sort oldest first.
+Open the app's **Subscriptions** tab and sort the **Last Active** column oldest first. The line above the list shows how many people used the app in the last 30 days.
 
-To find former employees who still hold access, set **Employee status** to **Inactive** in the display settings.
-
-The **Last used** filter keeps only people who used the app within 30, 60 or 90 days, or in a custom range. The **Installations** tab works the same way for devices.
+To find former employees who still hold access, set **Employee status** to **Inactive** in the display settings. The **Last used** filter keeps only people who used the app within 30, 60 or 90 days, or in a custom range. The **Installations** tab works the same way for devices.
 
 ## Find apps where spend is wasted
 
-| Where | What you get |
-|---|---|
-| **All Applications**, sort by **Health Status** | **No Activity**, **Low adoption**, **Excess licenses** and **Needs licenses** badges. Rules are in [Software inventory](/software/software-inventory#health-status) |
-| **Software** dashboard | **Top 10 least active** apps |
-| **Runbooks > Quick starts** | **Low Adoption**: licensed apps where users are below 25% of licensed seats |
-| [Agent](/agents/agent) | Ask "Which users have not used Miro in 60 days?" Agent lists someone as a candidate only when their last-used date exists and is older than your cutoff |
+- **All Applications**, sorted by **Health Status**: badges for **No Activity**, **Low adoption**, **Excess licenses** and **Needs licenses**. Rules are in [Software inventory](/software/software-inventory#health-status).
+- **Software** dashboard: the **Top 10 least active** apps.
+- **Runbooks > Quick starts > Low Adoption**: licensed apps where users are below 25% of licensed seats.
+- [Agent](/agents/agent): ask "Which users have not used Miro in 60 days?" The Agent lists someone as a candidate only when their last-used date exists and is older than your cutoff.
 
 ## Ask before you remove
 
 Open the app's **Runbooks** tab and pick a template. Once the app has runbooks, click **New runbook** first. Choose who it covers: everyone assigned, or specific groups.
 
-| Template | What it does |
-|---|---|
-| **Software Usage Report** | Reports who used the app in the last 30 days, who did not (with last-used dates), and who has no data |
-| **Software Usage Employee Survey** | Messages each assigned employee in Slack: "Do you still need access to [app name]?" with Yes and No. Sends one reminder after 1 day and closes after 4 days. Needs [Slack](/integrations/slack) |
+- **Software Usage Report:** reports who used the app in the last 30 days, who did not (with last-used dates), and who has no data.
+- **Software Usage Employee Survey:** messages each assigned employee in Slack asking whether they still need access, with Yes and No. Sends one reminder after 1 day and closes after 4 days. Needs [Slack](/integrations/slack).
 
 Both run every Monday at 1:00 PM Eastern and act only when the app's earliest active contract ends in 84 to 90 days. If the contract ends sooner, or has no end date, they do not run; ask June in the Agent instead. A "No" answer does not remove anyone. See [Runbooks](/agents/runbooks).
 

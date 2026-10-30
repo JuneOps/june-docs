@@ -36,12 +36,10 @@ Open **AI usage**, choose **Claude**, **Cursor** or **OpenAI**, then open **Empl
 
 <Frame caption="Spend follows your date range; the limit follows the provider's period"><img src="/images/ai-usage/spend-limits-column.png" alt="Employee usage rows with the Spend and Monthly limit columns: two people at 100% in red with a warning icon, and others below at 85%, 40% and 48% in plain text" /></Frame>
 
-| What you see | Meaning |
-|---|---|
-| **\$805 / \$2k** with a percentage | Used so far against the cap. Hover for the exact amounts. |
-| Amber | 90% or more used. Further use is blocked at 100%. |
-| Red with a warning icon | The limit is reached. Further use is blocked until the period resets or the limit is raised. |
-| **No limit** | The person has no cap. |
+- **\$805 / \$2k** with a percentage: used so far against the cap.
+- **Amber:** 90% or more used. Further use is blocked at 100%.
+- **Red with a warning icon:** the limit is reached. Further use is blocked until the period resets or the limit is raised.
+- **No limit:** the person has no cap.
 
 The figure is the provider's count for the cap's current period. It doesn't follow the date range you chose, so it can differ from the **Spend** column.
 
@@ -49,23 +47,21 @@ To group people by where their limit comes from, set **View** to **Group** in **
 
 ### A person's limit history
 
-On an employee's page, the **AI usage** tab has a **Monthly Spend Limits** tile and a **Limit history** card. The card lists date, change and status. It shows ten at a time, with **Show older**, and isn't tied to the date range. Hover a change to see who made it and where:
+On an employee's page, the **AI usage** tab has a **Monthly Spend Limits** tile and a **Limit history** card listing each change and its status. Hover a change to see who made it and where:
 
-| Shown | Meaning |
-|---|---|
-| **via June** | Changed in June, from the page or from the Agent |
-| **via console** or **via Slack** | A request decided there |
-| **Automatically via June** | An AI limit policy changed it |
-| **Automatic revert** | A temporary raise ended |
+- **via June:** changed in June, from the page or from the Agent.
+- **via console** or **via Slack:** a request decided there.
+- **Automatically via June:** an AI limit policy changed it.
+- **Automatic revert:** a temporary raise ended.
 
 ## Change a limit
 
 <Steps>
   <Step title="Find the person">
-    Open **AI usage**, choose the tool, and open **Employee usage**. Search for the person.
+    Open **AI usage**, choose the tool, open **Employee usage**, and search for the person.
   </Step>
   <Step title="Open the panel">
-    Select **Update** under their limit, or **Set limit** if they have none. A panel opens beside the table. It shows their **Current** limit and the **Default** they would fall back to. If they have an open request, it shows the reason they gave.
+    Select **Update** under their limit, or **Set limit** if they have none. The panel shows their **Current** limit and the **Default** they would fall back to. If they have an open request, it shows the reason they gave.
   </Step>
   <Step title="Set the new limit">
     Type the new total limit, not the increase, or choose **+25%**, **+50%** or **+100%**. Choose **Default** to put them back on the default limit (shown when they have a personal limit and June knows the default). Cursor takes whole dollars and ChatGPT takes whole credits.
@@ -73,11 +69,8 @@ On an employee's page, the **AI usage** tab has a **Monthly Spend Limits** tile 
   <Step title="Choose how long">
     Choose **Indefinite** or **Until end of month**.
   </Step>
-  <Step title="Add a reason">
-    **Reason (optional)** is prefilled, for example "Raised by 25% for this month". Edit it, up to 500 characters. It is saved in the limit history.
-  </Step>
-  <Step title="Save">
-    Select **Save**. The button reads **Approve**, **Lower and decline**, **Reset and decline** or **Reset to default** when the change does that. A "Limit updated" message confirms it. June writes the change to the provider when you save.
+  <Step title="Add a reason and save">
+    The optional reason is prefilled and saved in the limit history. Select **Save**. The button reads **Approve**, **Lower and decline**, **Reset and decline** or **Reset to default** when the change does that. June writes the change to the provider when you save.
   </Step>
 </Steps>
 
@@ -103,7 +96,7 @@ If the tool's connection isn't active, June can't put the limit back. Check that
 | Largest increase in one change | 10 times the current limit |
 | When there is no current limit, or it is zero | \$5,000, or 100,000 credits |
 
-June also refuses negative amounts, a limit the person already has, a person with no account on that tool, a reset when it doesn't know the default, and a change when the provider's limit moved since you opened the panel ("This limit just changed, reopen to see it"). If June can't confirm a write, reopen the panel to see the current limit before you retry.
+June also refuses negative amounts, a limit the person already has, a person with no account on that tool, a reset when it doesn't know the default, and a change when the provider's limit moved since you opened the panel. If June can't confirm a write, reopen the panel to see the current limit before you retry.
 
 ## Change a limit from the Agent
 

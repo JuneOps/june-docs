@@ -34,9 +34,9 @@ Actions in your connected apps, such as adding someone to an Okta group or sendi
 
 ## Find an entry
 
-Go to **Settings > Audit Log**. Entries are listed newest first, 20 at a time, and more load as you scroll.
+Go to **Settings > Audit Log**. Entries are listed newest first.
 
-Filter by record type with **Events for**, or by person with **Updates by**. Use both together. They default to **Any type** and **Any user**. If nothing matches, the list says "No audit logs found" and names the filters you chose.
+Filter by record type with **Events for**, or by person with **Updates by**. Use both together. If nothing matches, the list says "No audit logs found" and names the filters you chose.
 
 To find who changed someone's role, set **Events for** to the role assignments record type and scan the Actor and Date columns. **Events for** takes one record type at a time. Role assignments made before people could hold several roles appear under **Organization Memberships**.
 
@@ -46,12 +46,7 @@ You can't export the audit log from the app.
 
 ## Read an entry
 
-| Column | Meaning |
-|---|---|
-| **Event** | The kind of record and what happened to it, such as "SoftwareSubscription update" |
-| **Actor** | Who made the change |
-| **Date** | When it happened, such as "Oct 29, 2026 3:42 PM" |
-| **IP Address** | Where the change came from. A dash means none was recorded |
+Each row shows the kind of record and what happened to it (such as "SoftwareSubscription update"), who made the change, when, and the IP address it came from. A dash means no IP address was recorded.
 
 Click a row to open **Audit Details**. **Audit Information** shows the actor, event, date, entity type and entity ID. **Changes Made** shows the changed fields as raw data, each with its old and new value. A created record lists its starting values.
 

@@ -33,7 +33,7 @@ The Agent is June's assistant. You ask in plain language, in the web app or in S
 | Employee Request runbooks | Approval for an action is an approval chain, such as the requester's manager. It is off until you add one. |
 | Access policies | A policy with no approval step approves on its own; one with approvers waits for them. June then grants and later removes access itself through an Okta or Google group or a custom tool, or asks IT to do it with a **Manual task** (the default). See [Access requests](/help-desk/access-requests). |
 | AI limit policies | A tier with no approval step raises the limit on its own; one with approvers waits for them. June then changes the limit in Claude or ChatGPT itself. See [AI limit requests](/help-desk/ai-limit-requests). |
-| Notes and notifications | June writes to Jira and Slack on its own, for example: the [Reporter Details comment](/agents/ticket-context); when it hands a request to IT, a Jira tracking ticket (kept in sync with the request) and a thread in your Slack notifications channel; access notices to requesters and IT; and runbook failure alerts. |
+| Notes and notifications | June writes to Jira and Slack on its own, for example: the [Reporter Details comment](/agents/ticket-context), a Jira tracking ticket (kept in sync with the request) and a Slack notifications thread when it hands a request to IT, access notices to requesters and IT, and runbook failure alerts. |
 | Memory | June saves durable, organization-wide facts without asking. It never saves private or person-specific details. |
 
 Runbook actions still ask for approval when:
@@ -51,7 +51,7 @@ A typed "yes" in conversation is never approval. Approval comes only from the ca
 
 <Steps>
   <Step title="Open the Agent">
-    Click **Agent** in the sidebar, or click the sparkle button in the header from any page. The panel and the full page share one conversation. On an asset, employee or software page, June answers in the context of the record you are viewing.
+    Click **Agent** in the sidebar, or the sparkle button in the header from any page. On an asset, employee or software page, June answers in the context of the record you are viewing.
   </Step>
   <Step title="Ask">
     Type your question and press Enter. You can attach a file, such as a PDF or a CSV.
@@ -61,9 +61,9 @@ A typed "yes" in conversation is never approval. Approval comes only from the ca
   </Step>
 </Steps>
 
-In a Personal chat, open **Add attachments or tools** and turn on **Knowledge Base** to let June search your company documents. June cites what it used. Owners, Admins and Members can use it. See [Knowledge Base](/help-desk/knowledge-base).
+In a Personal chat, turn on **Knowledge Base** to let June search your company documents. June cites what it used. Owners, Admins and Members can use it. See [Knowledge Base](/help-desk/knowledge-base).
 
-If you paste something that looks like a password or token, June blocks the message and offers **Add credential securely**. Saved credentials appear under **Settings** > **Agent** > **Credentials**. See [Tools](/agents/tools#credentials).
+If you paste something that looks like a password or token, June blocks the message and offers to save it as a credential. Saved credentials appear under **Settings** > **Agent** > **Credentials**. See [Tools](/agents/tools#credentials).
 
 ## Personal and Shared chats
 
@@ -72,38 +72,41 @@ The left rail has a **Personal** and **Shared** toggle.
 | | Personal | Shared |
 |---|---|---|
 | Who sees it | Only you | Everyone who holds the role you chose, plus anyone with **Access all Shared chats** (Admin and Owner) |
-| Role choice | None | Pick one in **Share with...** before the first message. It can't change afterwards |
+| Role choice | None | Pick one before the first message. It can't change afterwards |
 | What June can access | What you can access | What the chosen role can access |
 
-With only one eligible role, June picks it for you. Click the people icons in the chat header to see **Who can view**.
+With only one eligible role, June picks it for you.
 
 ## Approvals and questions
 
 When June wants to change something, a card appears above the composer and the composer stays locked until you decide.
 
-- Choose **Approve** or **Reject** on each action. For several, step through with **Previous** and **Next**, or use **Approve all** (with a count) or **Reject all**, then **Submit decisions**.
+- Approve or reject each action, or all of them at once.
 - Approved actions run independently. If one fails, the ones that succeeded stay done. Rejected actions don't run.
-- When June needs an answer instead, a **June needs your input** card offers choices or **Write an answer**.
+- When June needs an answer instead, a card offers choices or lets you write one.
 - In Slack, the same cards appear with **Approve** and **Reject** buttons, and the closed card shows who decided.
 
 **Who can approve:** a role with **Approve Agent & Runbook tool actions** (Admin and Owner by default) that also has permission for that exact action. Without both you see "You don't have permission to approve this action". To let another role approve, add the permission to a custom role in [Members and roles](/admin/roles). Anyone who can use the Agent can answer a question in their own chat.
 
 ## Find your chats
 
-Use **Filter task history** and set **State** to **Running**, **Needs attention** or **Failed**. The Agent item in the sidebar shows a dot when a task is waiting for input or approval.
+Filter task history by state to find tasks that are running, need attention or failed. The Agent item in the sidebar shows a dot when a task is waiting for input or approval.
 
-| Label on a chat | Meaning |
-|---|---|
-| **Managed by automation** | A runbook started it. |
-| **Managed in Slack** | It lives in Slack. Reply from June with **Reply to Slack...**. |
+- **Managed by automation**: a runbook started the chat.
+- **Managed in Slack**: the chat lives in Slack; reply from June with **Reply to Slack**.
 
 ## Employees in Slack and Jira
 
 Employees don't need a June login.
 
-- **Slack.** Open **Settings** > **Integrations** > **Slack** > **Slack Settings**. **June users** and **Employees** each have **Direct messages** and **Channels**, and all start off. For employees, pick channels or **Any channel June is in**, then invite June to the channel. In a channel June answers only messages that tag it. A June user with no employee record is told to use the Agent in June. See [Slack](/integrations/slack).
+- **Slack.** Turn it on under **Settings** > **Integrations** > **Slack** > **Slack Settings**. Everything starts off.
+  - **June users** and **Employees** each have **Direct messages** and **Channels**.
+  - For employees in channels, pick the channels or **Any channel June is in**, then invite June to the channel.
+  - In a channel, June answers only messages that tag it.
+  - A June user with no employee record is told to use the Agent in June.
+  - See [Slack](/integrations/slack).
 - **Jira.** Assigning a ticket to June starts a request. See [Jira](/integrations/jira).
-- **Microsoft Teams.** Microsoft Teams doesn't take employee requests or show approval cards. Use Slack.
+- **Microsoft Teams.** Teams doesn't take employee requests or show approval cards. Use Slack.
 
 June answers an employee's own questions, runs a runbook it has for the problem, and requests software access and more AI usage for them, working only on their own data. It never asks for passwords or recovery codes. In a shared channel, it moves the private part to a DM, and secrets go only to the person who asked. When it can't finish, it hands the request to IT; see [Requests](/help-desk/requests).
 
@@ -114,7 +117,7 @@ June answers an employee's own questions, runs a runbook it has for the problem,
     June answers only messages that tag it. Check that the channel is selected under **Slack Settings** (or **Any channel June is in** for employees), and that June is in the channel.
   </Accordion>
   <Accordion title="A chat says it is read-only">
-    You can read it but not send messages. Slack chats are read-only in June unless you use **Reply to Slack...**, and autonomous tasks can be steered only through their decision cards.
+    You can read it but not send messages. Slack chats are read-only in June unless you use **Reply to Slack**, and autonomous tasks can be steered only through their decision cards.
   </Accordion>
   <Accordion title="I changed a role but a chat still behaves the old way">
     Removing someone's access takes effect even in open chats. Newly added access reaches new chats only.

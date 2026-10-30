@@ -73,31 +73,22 @@ If two tools list the same device, the one naming a user June knows wins, then t
 
 ## Apple Business Manager
 
-It applies only when no provider or device management record exists, and only to a device whose status is Other.
-
-| Apple Business Manager reports | Status |
-|---|---|
-| Assigned to an MDM server | Awaiting Enrollment |
-| Not assigned | Other |
+It applies only when no provider or device management record exists, and only to a device whose status is Other. A device assigned to an MDM server becomes Awaiting Enrollment. A device that is not assigned stays Other.
 
 ## Check what a source says
 
-1. Open the asset and stay on **Overview**.
-2. Under **Sources**, click a source to expand it.
-3. Compare its Status, Assignee, Location and Last check-in with June's.
+Open the asset, stay on **Overview**, and click a source under **Sources** to expand it. Compare its status, assignee, location and last check-in with June's.
 
 <Frame caption="A source row expanded on the Overview tab"><img src="/images/assets/asset-sources-expanded.png" alt="Overview tab Sources section with the Firstbase row expanded, showing ID, Status DEPLOYED, Status reason RETURN_IN_PROGRESS, Assignee, Condition USED and Last reported, with Lifecycle Events below showing a status change from Deployed to Pending Return with the reason Firstbase: return in progress" /></Frame>
 
-Each row shows "Last reported" with a time. That is the last sync that saw the device, not the last change. Expanded, you see the source's own ID, Status, Status reason, Assignee, Location, Condition and Last check-in. Fields the source does not report are left out.
+Each row shows "Last reported" with a time. That is the last sync that saw the device, not the last change. Fields the source does not report are left out.
 
 ## If something looks wrong
 
-| You see | What to do |
-|---|---|
-| A source row with a red dot and "No longer reported" | That source stopped listing the device. Check the device in that system |
-| A device has no assignee though a source names someone | June could not match the person by email (by Entra user for Intune). Add or correct the employee, see [Employees](/people/employees) |
-| June is wrong because a source is wrong | Fix it in the source, such as returning the device in Firstbase or removing a stale record in Jamf. To stop June changing it meanwhile, [lock the status](/assets/asset-status) |
-| Many devices vanished from a tool at once | June treats a large drop as a bad listing and changes nothing until someone checks |
+- **A source row with a red dot and "No longer reported".** That source stopped listing the device. Check the device in that system.
+- **A device has no assignee though a source names someone.** June could not match the person by email (by Entra user for Intune). Add or correct the employee, see [Employees](/people/employees).
+- **June is wrong because a source is wrong.** Fix it in the source, such as returning the device in Firstbase or removing a stale record in Jamf. To stop June changing it meanwhile, [lock the status](/assets/asset-status).
+- **Many devices vanished from a tool at once.** June treats a large drop as a bad listing and changes nothing until someone checks.
 
 ## FAQ
 

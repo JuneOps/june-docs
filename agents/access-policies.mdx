@@ -32,25 +32,22 @@ Software Procurement has none of these. Approvers need no June role: they decide
     Open **Access** > **Policies**, open the app, and click **Add access policy**. If the app isn't listed, set **Management** to **All**: the list shows managed apps by default.
   </Step>
   <Step title="Name it">
-    The name is the access level employees see, such as "Standard access". Names are up to 80 characters, and each app can have one policy per name.
+    The name is the access level employees see, such as "Standard access". Each app can have one policy per name.
   </Step>
   <Step title="Choose eligible requesters">
-    Under **Eligible requesters**, leave it as all employees or add conditions on **Employee type** (Employee or Contractor), **Department**, **Group** or **Location**, each **Is** or **Is not**, matching all or any.
+    Leave **Eligible requesters** as all employees, or add conditions on employee type, department, group or location, each **Is** or **Is not**, matching all or any.
   </Step>
   <Step title="Set the request rules">
-    Under **Request settings**, choose **Access duration**: **Indefinite** (the default) or **Time-bound** with **Minimum**, **Default**, **Maximum** and **Increment**, in hours, days or weeks. Employees can have up to 100 choices. **Business justification** is on by default with the prompt "Why do you need this access?".
+    Choose **Access duration**: **Indefinite** (the default) or **Time-bound**, with a minimum, default, maximum and increment in hours, days or weeks. **Business justification** is on by default.
   </Step>
   <Step title="Add approvals">
-    Turn on **Require approval**. It is off by default, and a policy without it needs no approver. Step 1 is **Access approver**. To use the requester's manager or named people instead, change the route on that step (routes are in the table below).
+    Turn on **Require approval**. It is off by default, and a policy without it needs no approver. Step 1 is **Access approver**. To use the requester's manager or named people instead, change the route on that step (routes are listed below).
   </Step>
   <Step title="Choose grant and revoke">
-    Under **Grant & revoke**, pick a method for each side: **Manual task** (the default), an Okta or Google group, or a published custom tool. The table below says what each does.
+    Under **Grant & revoke**, pick a method for each side: **Manual task** (the default), an Okta or Google group, or a published custom tool. Each is described below.
   </Step>
   <Step title="Set the confirmation">
-    **Notify requester** is on by default. Edit the message, which defaults to `You now have access to [app]. If anything isn't working, let us know.`
-  </Step>
-  <Step title="Save">
-    Click **Save policy**.
+    **Notify requester** is on by default, with a message you can edit. Then save the policy.
   </Step>
 </Steps>
 
@@ -58,13 +55,11 @@ Editing creates a new version. Requests already under way keep the version they 
 
 ## Approval chains
 
-An approval chain has up to 6 steps, and a step can name up to 20 people. Drag steps to reorder.
+An approval chain has up to 6 steps, and a step can name up to 20 people. Each step uses one of three routes:
 
-| Route | Who approves |
-|---|---|
-| **Access approver** | The people assigned as access approvers for the app |
-| **Requester's manager** | The requester's manager when the step starts |
-| Named employees | Anyone you pick |
+- **Access approver:** the people assigned as access approvers for the app.
+- **Requester's manager:** the requester's manager when the step starts.
+- **Named employees:** anyone you pick.
 
 For **Access approver** or two or more named people, choose **Any approver** or **All approvers**. A manager step always needs the manager.
 
@@ -74,18 +69,21 @@ Each step has a **Nudge** (default 1 hour) that re-sends the request, and an **E
 
 **Who is skipped:** a requester is never their own approver, and inactive people are skipped.
 
-**How approvers are reached:** approval requests go to approvers as Slack DMs with **Approve** and **Reject**. Slack must be connected, each approver needs a Slack account linked to them in June, and everyone in a step must be in the same Slack workspace. A rejection requires a reason, which the requester sees. Microsoft Teams doesn't deliver approvals.
+**How approvers are reached:**
+
+- Approval requests go to approvers as Slack DMs with **Approve** and **Reject**.
+- Slack must be connected, each approver needs a Slack account linked to them in June, and everyone in a step must be in the same Slack workspace.
+- A rejection requires a reason, which the requester sees.
+- Microsoft Teams doesn't deliver approvals.
 
 ## Grant and revoke
 
 Pick one method for each side:
 
-| Method | What June does |
-|---|---|
-| **Manual task** (default) | Waits for IT to do it, then complete it in [Requests](/help-desk/requests) or choose **Confirm access granted**. For removal, June posts a Slack card with **Confirm revoked**. |
-| **Add user to Okta group** / **Remove user from Okta group** | Does it automatically. Adding needs an active Okta account linked to the employee in June. Removal works for any linked account, even a suspended one. |
-| **Add user to Google group** / **Remove user from Google group** | Does it automatically. Adding needs an active Google Workspace account linked to the employee in June. Removal works for any linked account, even a suspended one. |
-| A custom tool | Runs your published [custom tool](/agents/tools) marked for grant or revoke. |
+- **Manual task** (default): June waits for IT to do it, then complete it in [Requests](/help-desk/requests) or choose **Confirm access granted**. For removal, June posts a Slack card with **Confirm revoked**.
+- **Add user to Okta group** / **Remove user from Okta group**: June does it automatically. Adding needs an active Okta account linked to the employee in June. Removal works for any linked account, even a suspended one.
+- **Add user to Google group** / **Remove user from Google group**: June does it automatically. Adding needs an active Google Workspace account linked to the employee in June. Removal works for any linked account, even a suspended one.
+- **A custom tool:** June runs your published [custom tool](/agents/tools) marked for grant or revoke.
 
 For time-bound access, June starts removal automatically when the time is up. If a policy has indefinite access and no removal step, removal falls back to manual.
 
@@ -99,7 +97,7 @@ If the app isn't listed, the employee chooses **Not listed**, and the request go
 
 - **Disable** from **Policy actions** to stop new requests. Requests under way continue. **Enable** reverses it.
 - **Delete** works only if no request ever ran. Otherwise disable it.
-- The **Access requests** tab shows each request's status, an **Access journey** and an **Activity log**. See [Access requests](/help-desk/access-requests) for statuses and the actions you can take.
+- The **Access requests** tab shows each request's status, journey and activity log. See [Access requests](/help-desk/access-requests) for statuses and the actions you can take.
 
 ## If something looks wrong
 
