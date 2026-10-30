@@ -115,11 +115,12 @@ Before starting the integration, ensure you have:
   <Step title="Assign Admin Roles">
     1. Go to the **Admin roles** tab
     2. Click **Edit assignments**
-    3. Select **Read-only Administrator** role to assign to the application
-    4. Click **Save Changes**
+    3. Assign **Read-only Administrator**. This lets June sync your users, groups, apps and sign-in activity.
+    4. To use the user and group actions above, also assign **Organization Administrator**. Read-only Administrator can't make changes, and Organization Administrator can't read your apps, so June needs both.
+    5. Click **Save Changes**
     <img src="/images/admin_roles_okta.png" alt="Okta Admin Roles" />
     <Note>
-    Read-only Administrator lets June sync your directory. To use the user and group actions above, the application needs an admin role that can manage those users and groups.
+    To limit actions to certain groups, assign **Group Administrator** for those groups instead of Organization Administrator. June can then act only on users and groups in those groups. Only a Super Administrator can change the members of groups that hold admin roles.
     </Note>
   </Step>
 
