@@ -1,248 +1,91 @@
 ---
 sidebarTitle: 'Quick start'
-title: 'Quick Start Guide'
-description: 'Get up and running with June in minutes'
+title: 'Quick start'
+description: 'Sign in, connect your identity provider and device tool, and see your people and devices in June.'
 ---
 
-Welcome to June! This guide will help you connect your systems and start managing your device fleet in under 15 minutes.
+Connect the two systems that already know your people and devices, and June builds your roster and inventory from them. Everything below is done by an Owner or Admin.
 
-## What you'll accomplish
-- Connect your MDM system to import device data
-- Set up identity provider integration for user management
-- View your complete asset inventory
-- Understand your device health at a glance
+## 1. Sign in
 
-## Step 1: Initial Setup
+Go to the June login page, enter your work email and click **Continue**. Depending on your email, June asks for your password, or sends you straight to your company's single sign-on page. You can also choose **Google**.
 
-<Steps>
-  <Step title="Access June">
-    Navigate to your June instance and log in with your administrator credentials.
-  </Step>
-  
-  <Step title="Complete Profile Setup">
-    Fill out your profile information and set your preferences for notifications and time zones.
-  </Step>
-</Steps>
-
-## Step 2: Connect Your MDM System
-
-The first essential step is connecting your MDM system to import all your device data.
-
-<Steps>
-  <Step title="Navigate to Integrations">
-    Go to **Integrations > MDM Systems** from the main navigation.
-  </Step>
-  
-  <Step title="Choose Your MDM Provider">
-    Select your MDM system from the available options:
-    
-    <CardGroup cols={2}>
-      <Card href="/integrations/jamf-pro">
-        <div className="flex flex-row gap-2 mb-2"> 
-          <img src="/images/jamf_logo.png" alt="Jamf Pro" width={25} height={25} />
-          <span className="text-base font-bold text-white">Jamf Pro</span>
-        </div>
-        Complete integration guide for Mac device management with Jamf Pro
-      </Card>
-
-      <Card href="/integrations/microsoft-intune">
-        <div className="flex flex-row gap-2 mb-2"> 
-          <img src="/images/ms_entra_id_logo.png" alt="Microsoft Intune" width={25} height={25} />
-          <span className="text-base font-bold text-white">Microsoft Intune</span>
-        </div>
-        Cross-platform device management with Microsoft Intune
-      </Card>
-
-      <Card href="/integrations/kandji">
-        <div className="flex flex-row gap-2 mb-2">
-          <div className="bg-white rounded-md p-1">
-            <img src="/images/kandji_bee_dark.png" alt="Kandji" width={25} height={25} />
-          </div>
-          <div className="text-base font-bold text-white">Kandji</div>
-        </div>
-        Modern Mac management platform integration
-      </Card>
-    </CardGroup>
-  </Step>
-  
-  <Step title="Follow Integration Guide">
-    Click on your MDM provider and follow the detailed setup instructions. Each integration typically requires:
-    - API credentials or tokens from your MDM system
-    - Appropriate permissions for data access
-    - Testing the connection
-  </Step>
-  
-  <Step title="Verify Data Sync">
-    Once connected, June will begin importing your device data. This typically takes 5-15 minutes for the initial sync.
-    
-    <Check>
-    You'll see devices appearing in your dashboard as the sync progresses.
-    </Check>
-  </Step>
-</Steps>
-
-## Step 3: Set Up Identity Provider Integration
-
-Connect your identity provider for seamless user management and single sign-on.
-
-<Steps>
-  <Step title="Access Identity Integrations">
-    Navigate to **Integrations > Identity Providers** from the main menu.
-  </Step>
-  
-  <Step title="Select Your Identity Provider">
-    Choose your organization's identity provider:
-    
-    <CardGroup cols={2}>
-      <Card href="/integrations/okta">
-        <div className="flex flex-row gap-2 mb-2"> 
-          <div className="bg-white rounded-md">
-            <img src="/images/okta_logo.png" alt="Okta" width={25} height={25} />
-          </div>
-          <span className="text-base font-bold text-white">Okta</span>
-        </div>
-        Okta Enterprise identity management
-      </Card>
-
-      <Card href="/integrations/google-workspace">
-        <div className="flex flex-row gap-2 mb-2"> 
-          <img src="/images/google_logo.png" alt="Google Workspace" width={25} height={25} />
-          <span className="text-base font-bold text-white">Google Workspace</span>
-        </div>
-        Google's identity suite
-      </Card>
-
-      <Card href="/integrations/microsoft-entra">
-        <div className="flex flex-row gap-2 mb-2"> 
-          <img src="/images/ms_entra_id_logo.png" alt="Microsoft Entra ID" width={25} height={25} />
-          <span className="text-base font-bold text-white">Microsoft Entra ID</span>
-        </div>
-        Microsoft Entra ID
-      </Card>
-    </CardGroup>
-  </Step>
-  
-  <Step title="Configure SSO and Provisioning">
-    Follow the provider-specific guide to set up:
-    - SAML single sign-on configuration
-    - User provisioning (SCIM) if available
-    - Group and role mapping
-  </Step>
-  
-  <Step title="Test Authentication">
-    Test the integration with a pilot user to ensure:
-    - SSO login works correctly
-    - User attributes are mapped properly
-    - Role assignments are applied
-  </Step>
-</Steps>
-
-## Step 4: View Your Asset Inventory
-
-Now that your systems are connected, explore your complete device inventory.
-
-<Steps>
-  <Step title="Access Your Dashboard">
-    Return to the main dashboard to see your device overview with real data from your MDM system.
-  </Step>
-  
-  <Step title="Explore Asset Categories">
-    Review the different device categories automatically discovered:
-    - **Laptops**: MacBooks, Windows laptops, Chromebooks
-    - **Desktops**: iMacs, Windows PCs, workstations
-    - **Mobile Devices**: iPhones, iPads, Android devices
-    - **Specialized Equipment**: Monitors, accessories, and other IT assets
-  </Step>
-  
-  <Step title="Check Device Health">
-    June automatically analyzes your device fleet to show:
-    - **Health Status**: Overall device condition and performance
-    - **Compliance**: Policy adherence and security posture
-    - **Update Status**: Operating system and application updates
-    - **Usage Patterns**: Device utilization and performance metrics
-  </Step>
-  
-  <Step title="Try Smart Search">
-    Use June's natural language search to find specific devices:
-    - "Show me all MacBooks that need updates"
-    - "Find devices assigned to the Sales team"
-    - "List all Windows laptops with low battery health"
-    
-    <Tip>
-    Save frequently used searches as custom views for quick access later.
-    </Tip>
-  </Step>
-</Steps>
-
-## Step 5: Explore AI Insights
-
-June's AI analyzes your device data to provide actionable insights.
-
-<Steps>
-  <Step title="Review AI Recommendations">
-    Navigate to **AI Features > AI Insights** to see:
-    - Devices at risk of hardware failure
-    - Optimization opportunities for better performance
-    - Security recommendations and compliance gaps
-    - Cost-saving suggestions for device refresh cycles
-  </Step>
-  
-  <Step title="Set Up Automated Alerts">
-    Configure notifications for:
-    - Critical device health issues
-    - Compliance violations
-    - Upcoming refresh recommendations
-    - Security alerts requiring attention
-  </Step>
-</Steps>
-
-## Next Steps
-
-You're now ready to leverage June's full capabilities:
-
-<CardGroup cols={2}>
-  <Card title="Organization Setup" href="/getting-started/organization-setup">
-    Add team members, configure roles, and set up department structure
-  </Card>
-
-  <Card title="Assets" href="/assets/assets">
-    Find, filter and assign every device
-  </Card>
-
-  <Card title="Refresh and depreciation" href="/assets/refresh-and-depreciation">
-    Plan device refreshes and track depreciation
-  </Card>
-
-  <Card title="Agent" href="/agents/agent">
-    Ask June about your people, devices, software and spend
-  </Card>
-</CardGroup>
-
-## Need Help?
-
-<AccordionGroup>
-  <Accordion title="Integration Issues">
-    If you're having trouble connecting your MDM or identity provider:
-    - Verify your API credentials and permissions
-    - Check the setup steps on the integration's page
-    - Contact support with your specific error messages
-  </Accordion>
-  
-  <Accordion title="No Devices Showing">
-    If devices aren't appearing after MDM integration:
-    - Wait 15-30 minutes for initial sync to complete
-    - Verify your MDM system has devices enrolled
-    - Check the integration sync status in Settings
-  </Accordion>
-  
-  <Accordion title="User Access Issues">
-    If team members can't access June:
-    - Ensure SSO is properly configured
-    - Verify user groups are mapped to appropriate roles
-    - Check user provisioning settings in your identity provider
-  </Accordion>
-</AccordionGroup>
+If you are the first person from your company, June asks you to create your organization. Enter a name and pick an account type. You become the organization's **Owner**.
 
 <Note>
-Complete setup typically takes 15-30 minutes. Once your integrations are running, June will continuously sync data and provide real-time insights into your device fleet.
-</Note> 
+New organizations are reviewed before they open. Until then you see **Organization Pending**, and June notifies you when it is ready.
+</Note>
+
+After you sign in, June opens **Agent**, where you can ask questions in plain language once your systems are connected.
+
+## 2. Connect your identity provider
+
+Your identity provider creates your employees, along with their departments. Connect it first, so devices can be matched to their owners by email.
+
+<CardGroup cols={3}>
+  <Card title="Google Workspace" icon="/images/google_logo.png" href="/integrations/google-workspace">Sync employees and departments</Card>
+  <Card title="Microsoft Entra" icon="/images/ms_entra_id_logo.png" href="/integrations/microsoft-entra">Sync employees, plus Intune devices</Card>
+  <Card title="Okta" icon="/images/okta-dark-mode.svg" href="/integrations/okta">Sync employees and groups</Card>
+</CardGroup>
+
+In June, go to **Settings** > **Integrations**, select the tool under **Available Integrations**, and click **Connect**. Google Workspace, Microsoft Entra and Slack send you to the provider to approve access. Tools that use credentials ask for them on the same page. Each integration page above lists exactly what to enter.
+
+{/* screenshot: Settings > Integrations showing Available Integrations with the Identity Providers and Mobile Device Management categories */}
+
+## 3. Connect your device tool
+
+Your device tool brings in laptops, phones and tablets, and who each one is assigned to.
+
+<CardGroup cols={3}>
+  <Card title="Jamf Pro" icon="/images/jamf_logo.png" href="/integrations/jamf-pro">Sync managed Apple devices</Card>
+  <Card title="Kandji" icon="/images/kandji.svg" href="/integrations/kandji">Sync managed Apple devices</Card>
+  <Card title="Apple Business Manager" icon="/images/abm-dark-mode.svg" href="/integrations/apple-business-manager">Sync enrollment and purchase data</Card>
+</CardGroup>
+
+Connect these the same way: **Settings** > **Integrations**, select the tool, click **Connect**. Intune devices arrive through Microsoft Entra, so if you connected Entra in step 2 you are already covered. See [Microsoft Intune](/integrations/microsoft-intune).
+
+<Note>
+Device tools are available when your plan includes Assets.
+</Note>
+
+## 4. See your people and devices
+
+June starts the first sync as soon as a connection succeeds, then syncs once a day. To watch it, open the integration under **Settings** > **Integrations** and check its sync status. **Last sync** reads **Never** until the first sync finishes.
+
+When it completes:
+
+- Open **Assets** > **All Assets** for your devices. See [Assets](/assets/assets).
+- Open **Employees** > **All Employees** for your people. See [Employees](/people/employees).
+
+Need fresh data sooner? On the integration page, open the status menu at the top and click **Sync Now**.
+
+{/* screenshot: the integration page with the status menu open, showing Sync Now and the Last sync and Sync status fields */}
+
+## 5. Connect Slack (optional)
+
+Slack lets June post IT notifications and lets people get help from June in Slack. Connect it from **Settings** > **Integrations** under **Collaboration**. See [Slack](/integrations/slack).
+
+<Card title="Slack" icon="/images/slack.svg" href="/integrations/slack">Notifications, requests and help from June in Slack</Card>
+
+## 6. Invite your team
+
+Go to **Settings** > **Members**, click **Invite Member**, enter an email address and choose a role. Roles, single sign-on and email domains are covered in [Organization setup](/getting-started/organization-setup).
+
+## 7. Tell June about your company (optional)
+
+Under **Settings** > **Agent** > **Context**, write the standing knowledge you want June to follow, such as how your team handles requests. See [Context and memory](/agents/context-and-memory).
+
+## If something looks wrong
+
+| What you see | What to do |
+| --- | --- |
+| Devices or people are missing | Open the integration under **Settings** > **Integrations**. Check that it shows **Connected** and that sync status is not **Sync failed**. Then click **Sync Now**. |
+| The integration shows **Not Connected** | Open the status menu and click **Test Connection**. For Google Workspace, Microsoft Entra and Slack, use **Reconnect**. For credential-based tools, click **Edit** under **Connection Settings**, correct the credentials and click **Save changes**. |
+| You cannot see **Integrations** in Settings | Connecting integrations needs the Owner or Admin role. Ask one of them. |
+| A device has no owner | Connect your identity provider and run **Sync Now** on both tools. June matches people by email. |
+
+## Related
+
+- [Organization setup](/getting-started/organization-setup)
+- [Import assets](/device-management/asset-upload)
+- [Agent](/agents/agent)
