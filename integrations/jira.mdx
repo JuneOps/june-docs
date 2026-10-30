@@ -7,7 +7,7 @@ icon: '/images/jira_logo.png'
 Connect your Jira environment with June to enable an intelligent AI agent that can triage, respond to, and manage tickets on your behalf.
 
 <Info>
-June does **not** sync or import issues from your Jira instance. Instead, June acts as an intelligent agent that can be triggered to work on specific tickets.
+June does **not** import your Jira backlog. June works on tickets you assign to it or mention it in. In the projects you track, June also records new tickets so it can link them to the reporter and their devices.
 </Info>
 
 ## What you'll accomplish
@@ -24,7 +24,7 @@ Before starting the integration, ensure you have:
 
 - Atlassian organization admin access
 - Access to create service accounts in Atlassian Admin
-- June organization admin permissions
+- The Admin or Owner role in June
 - Understanding of which Jira projects you want to integrate
 
 ## How June Works with Jira
@@ -39,7 +39,7 @@ There are two ways to have June act on a Jira ticket:
   </Card>
   
   <Card title="Assign a Ticket to June" icon="user-check">
-    Assign any ticket to the June service account. June will pick it up and take action based on your configured workflows.
+    Assign any ticket to the June service account. June starts a request for it, comments on the ticket with a link to the request, and works on it.
   </Card>
 </CardGroup>
 
@@ -60,20 +60,20 @@ Once triggered, June can perform the following actions on Jira tickets:
 ### Example Use Cases
 
 <AccordionGroup>
-  <Accordion title="Triage incoming requests">
-    Assign tickets to June for automatic classification, priority assessment, and routing to the appropriate team or individual.
+  <Accordion title="Resolve incoming requests">
+    Assign tickets to June. June works on the request, replies to the reporter in public comments, and hands it to IT when it can't resolve it.
   </Accordion>
   
   <Accordion title="Answer common questions">
     Mention June in a comment to get AI-assisted responses based on your knowledge base and asset data.
   </Accordion>
   
-  <Accordion title="Update ticket status">
-    June can transition tickets through your workflow stages based on resolution criteria or time-based rules.
+  <Accordion title="Add reporter context">
+    In the projects you track, June adds an internal comment to each new ticket with the reporter's details and devices. See [Ticket context](/agents/ticket-context).
   </Accordion>
   
-  <Accordion title="Create follow-up tickets">
-    June can automatically create related tickets in other projects when specific conditions are met.
+  <Accordion title="Run a runbook on new tickets">
+    Start a [runbook](/agents/runbooks) when a ticket is created in a project and matches the conditions you choose.
   </Accordion>
 </AccordionGroup>
 
@@ -157,8 +157,8 @@ The service account needs access to each Jira project you want to integrate with
 <Steps>
   <Step title="Access June Integrations">
     1. Log into June
-    2. Navigate to **Settings** → **Integrations**
-    3. Select **Jira** from the available integrations
+    2. Go to **Settings** > **Integrations**
+    3. Select **Jira Service Management** under **Available Integrations** (in the **Service Management** group)
   </Step>
   
   <Step title="Enter Credentials">
@@ -169,18 +169,18 @@ The service account needs access to each Jira project you want to integrate with
   
   <Step title="Connect and Select Instance">
     1. Click **Connect**
-    2. Verify the connection status shows as **Active**
-    3. Once connected, you can set the default project key where June will create new tickets. This is optional and can be changed later.
+    2. Verify the integration shows **Connected**
+    3. Once connected, choose **Edit** under **Connection Settings** to set the **Default Project Key**, the project where June creates new tickets. June also tracks new tickets in this project. You can enter several project keys separated by commas. This is optional and can be changed later.
   </Step>
   
   <Step title="Test the Connection">
-    1. Click **Test Connection** to verify the setup
-    2. June will attempt to connect and retrieve sample data
+    1. Open the **Connected** menu at the top of the integration's page and select **Test Connection**
+    2. June signs in with the service account credentials and shows whether it succeeded
     3. Resolve any authentication issues before proceeding
   </Step>
 
   <Step title="Test ticket creation">
-    1. Click on the **Create test ticket** button to test the ticket creation.
+    1. Open the **Connected** menu and select **Create Test Ticket**.
     2. A ticket will be created in the default project you specified above.
     3. Once the ticket is created, you can validate the ticket was created by the service account user.
     4. Feel free to close or delete the ticket after testing.
@@ -189,13 +189,13 @@ The service account needs access to each Jira project you want to integrate with
 
 ## Webhook Configuration
 
-Webhooks notify June when tickets are created, updated, or commented on—allowing June to respond in real-time when triggered by mentions or assignments.
+Webhooks notify June when tickets are created, updated, or commented on, so June can respond in real time when triggered by mentions or assignments.
 
 ### Step 1: Get Your Webhook URL
 
 <Steps>
   <Step title="Access Webhook Settings">
-    1. In June, go to **Settings** → **Integrations** → **Jira**
+    1. In June, go to **Settings** > **Integrations** and select **Jira Service Management** under **Configured Integrations**
     2. Under the **Webhooks** section, click **Register**
     3. Copy the generated **Webhook URL**
   </Step>
@@ -207,7 +207,7 @@ Webhooks notify June when tickets are created, updated, or commented on—allowi
   <Step title="Access Jira System Settings">
     1. Go to your Jira instance
     2. Click the **Settings** gear icon at the top right corner of the page.
-    3. Navigate to **System** → **Webhooks**
+    3. Navigate to **System** > **Webhooks**
   </Step>
   
   <Step title="Create New Webhook">
@@ -242,10 +242,10 @@ Webhooks notify June when tickets are created, updated, or commented on—allowi
 
 <Steps>
   <Step title="Complete Webhook Setup">
-    1. Return to June's Jira integration settings
-    2. Enter the **Webhook Secret** you generated in Jira
+    1. Return to the **Webhooks** section of June's Jira integration
+    2. Enter the webhook secret you generated in Jira
     3. Click **Save**
-    4. Your webhook is now active and will receive real-time updates
+    4. The section shows **Webhook connected**, and June receives real-time updates
     
     <Check>
     Test by creating a ticket in Jira and mentioning the June service account in a comment. June should respond within a few moments.
@@ -275,11 +275,11 @@ Webhooks notify June when tickets are created, updated, or commented on—allowi
     - Ensure the service account has been granted access to at least one Jira site
     - Verify the OAuth scopes include `read:jira-work`
     - Check that the service account is active and not disabled
-    - Re-authenticate the integration in June
+    - Update the Client ID and Client Secret under **Connection Settings** in June, then select **Test Connection**
   </Accordion>
   
   <Accordion title="404 errors when fetching issues">
-    **Symptoms**: Issues not appearing or 404 errors in sync logs
+    **Symptoms**: Issues not appearing or 404 errors in the integration's **Activity** section
     
     **Solutions**:
     - The service account doesn't have access to the project
@@ -324,7 +324,7 @@ Webhooks notify June when tickets are created, updated, or commented on—allowi
     
     **Solutions**:
     - Review and remove duplicate webhook configurations
-    - June automatically deduplicates events based on issue ID and timestamp
+    - June starts at most one request per Jira issue and ignores events older than what it already has, so repeated deliveries don't create duplicate work
   </Accordion>
 </AccordionGroup>
 
@@ -386,7 +386,7 @@ Webhooks notify June when tickets are created, updated, or commented on—allowi
 
 ### Incident Response
 
-- If you suspect a webhook URL has been compromised, regenerate it immediately in June
+- If you suspect a webhook URL has been compromised, select **Unregister** in the **Webhooks** section in June, then **Register** again and update the URL in Jira
 - If credentials may be compromised, revoke them in Atlassian Admin and create new ones
 - Review Jira audit logs for any unauthorized access
 
@@ -420,6 +420,6 @@ Need help with your Jira integration?
 - **June Support**: Contact support for integration-specific assistance
 
 <Note>
-Jira integration typically establishes connection within minutes. Once webhooks are configured, June will respond to mentions and assignments in real-time.
+Once webhooks are configured, June responds to mentions and assignments as soon as Jira sends the events.
 </Note>
 

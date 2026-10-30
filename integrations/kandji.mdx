@@ -13,14 +13,14 @@ Connect your Kandji tenant with June for modern Mac device management and compre
 - Generate API access token in Kandji
 - Configure the June integration  
 - Understand Kandji data mapping
-- Set up automated sync preferences
+- Review what June syncs and when
 
 ## Prerequisites
 
 Before starting the integration, ensure you have:
 - Kandji tenant with API access
 - Admin or appropriate API permissions in Kandji
-- June organization admin permissions
+- The Admin or Owner role in June
 - Understanding of your Kandji device management setup
 
 ## Setup Process
@@ -60,62 +60,59 @@ Ensure your API token has the following permissions:
 - **Tag Management**: Read and write access to tags
 - **Tenant Details**: Read access to tenant license information. This is used to test the connection.
 - **Devices**: Access to device information, device actions, and device secrets (optional).
-- **Device Secrets**: Access to device secrets so that we can show them in the June UI. We don't store these credentials and they are fetched on demand.
+- **Device Secrets**: Access to device secrets so that June can show them when an admin asks. June doesn't store these secrets and fetches them on demand.
 
 <img src="/images/kandji_permissions.png" alt="Kandji Permissions" />
 
-### Step 3: Configure June Integration
+### Step 3: Connect Kandji in June
 
 <Steps>
   <Step title="Access June Integrations">
     1. Log into June
-    2. Navigate to **Integrations > MDM Systems**
-    3. Click **Add Integration**
+    2. Go to **Settings** > **Integrations**
   </Step>
   
   <Step title="Select Kandji">
-    1. Choose "Kandji" from the available integrations
-    2. Click **Configure** to start the setup wizard
+    1. Select **Kandji** under **Available Integrations** (in the **Mobile Device Management** group)
   </Step>
   
   <Step title="Enter Kandji Details">
     Provide the following information:
-    - **Kandji Organization API URL**: Your Kandji organization API URL (e.g., `https://yourcompany.api.kandji.io`).
-    - **API Token**: The token generated in Step 1
-    - **Sync Interval**: How often June should sync with Kandji. Default is daily.
+    - **Your Kandji API URL**: Your Kandji organization API URL (e.g., `https://yourcompany.api.kandji.io`).
+    - **API Access Token**: The token generated in Step 1
+    
+    Then click **Connect**.
   </Step>
   
   <Step title="Test Connection">
-    1. Click **Test Connection** to verify the setup
-    2. June will attempt to connect and retrieve sample data
-    3. Resolve any authentication issues before proceeding
+    1. When you click **Connect**, June tests the connection by reading your tenant's license details
+    2. If the test succeeds, the integration shows **Connected**
+    3. To test again later, open the **Connected** menu on the integration's page and select **Test Connection**
   </Step>
 </Steps>
 
-### Step 4: Configure Sync Preferences
+### Step 4: Review What June Syncs
 
 <Steps>
-  <Step title="Set Sync Frequency">
-    Choose how often June should sync with Kandji:
-    - **Every day**: Recommended for most environments
-    - **Every other day**: For larger environments or limited bandwidth
-    - **Weekly**: For environments with fewer changes
+  <Step title="Sync Schedule">
+    June syncs with Kandji once a day.
   </Step>
   
-  <Step title="Choose Data to Sync">
-    Select which device attributes to synchronize:
-    - Device Data (Always included)
-    - Employee Data
-    - Installed Software applications
-    - Device Actions (Restart, Lock, Wipe, etc.)
+  <Step title="Capabilities">
+    The **Capabilities** section on the integration's page lists what June syncs from Kandji:
+    - Sync all devices (always on)
+    - Sync all employees
+    - Sync Software Applications (installed apps)
+    
+    It also lists the device actions June can take in Kandji: delete a device, restart, shut down, force a check-in, and look up a device's unlock PIN, recovery password, FileVault key or Activation Lock bypass code.
   </Step>
 </Steps>
 
-### Step 5: Schedule your first sync
+### Step 5: Your first sync
 
 <Steps>
-  <Step title="Schedule your first sync">
-    Click on the "Sync Now" button to schedule your first sync.
+  <Step title="Your first sync">
+    The first sync starts automatically when you connect. To sync again at any time, open the **Connected** menu on the integration's page and select **Sync Now**.
   </Step>
 </Steps>
 
@@ -125,12 +122,12 @@ Ensure your API token has the following permissions:
 
 |Data Type | Kandji Source | June Destination | Notes |
 |-----------|----------------|------------------|--------|
-| **Device Identity** | Computer Name, Serial Number | Device Name, Asset Tag | Primary device identification |
+| **Device Identity** | Device Name, Serial Number, Asset Tag, Tags | Device Name, Serial Number, Asset Tags | Primary device identification |
 | **Hardware Info** | Model, Processor, Memory, Storage | Hardware Specifications | Complete hardware inventory |
 | **Software** | Operating System, Software Applications | System Info, App Inventory | OS version and installed apps |
 | **User Assignment** | User and Location fields | Employee Assignment | Links devices to users |
 | **Compliance** | Last Inventory, Check-in Status | Health Status | Device connectivity and compliance |
-| **Department Data** | Device assignment to departments | Department and Location | Organizational groupings |
+| **Department Data** | Department of the device's user | Department | Organizational groupings |
 
 ## Troubleshooting
 
@@ -138,14 +135,14 @@ Ensure your API token has the following permissions:
 
 <AccordionGroup>
   <Accordion title="Invalid API Token">
-    **Symptoms**: "Authentication failed" or "Invalid token" errors
+    **Symptoms**: "Failed to connect to Kandji" when you connect or test the connection
     
     **Solutions**:
     - Verify the API token was copied correctly
     - Ensure that the *Tenant Details* permission is enabled.
     - Check if the token has been revoked or expired
     - Ensure sufficient permissions were granted to the token
-    - Test the connection by clicking the "Test Connection" button.
+    - Select **Test Connection** from the **Connected** menu to test again.
   </Accordion>
   
   <Accordion title="Insufficient Permissions">
@@ -156,7 +153,7 @@ Ensure your API token has the following permissions:
     - Ensure all required permissions are enabled
     - Check if permissions were modified after token creation.
     - Edit the token permissions in Kandji and save.
-    - Test the connection by clicking the "Test Connection" button.
+    - Select **Test Connection** from the **Connected** menu to test again.
   </Accordion>
   
   <Accordion title="Subdomain Issues">
@@ -188,23 +185,21 @@ Ensure your API token has the following permissions:
   <Accordion title="Outdated Information">
     **Possible Causes**:
     - Devices not checking in regularly
-    - Sync frequency too low
+    - The last sync ran before the change
     - Network issues preventing updates
     
     **Solutions**:
-    - Increase sync frequency if needed
-    - Force inventory update on devices by clicking on the "Sync Now" button in the integration page.
+    - Select **Sync Now** from the **Connected** menu on the integration's page to pull the latest data from Kandji. Kandji only has new inventory after a device checks in.
     - Check device connectivity and management status
-    - Review sync logs for specific error messages
+    - Check the **Activity** section on the integration's page for specific error messages
   </Accordion>
   
   <Accordion title="Performance Problems">
-    **Symptoms**: Slow syncs, timeouts, high resource usage
+    **Symptoms**: Slow syncs or timeouts
     
     **Solutions**:
-    - Reduce sync frequency during peak hours
-    - Monitor Kandji server performance during sync windows
-    - You could be hitting the rate limit of the Kandji API. You could try to increase the sync frequency to reduce the number of devices that are synced.
+    - Large environments take longer to sync. Follow progress in **Sync Status** on the integration's page.
+    - If a sync fails, check the **Activity** section for the error and contact June support
   </Accordion>
 </AccordionGroup>
 
@@ -235,10 +230,8 @@ Once your Kandji integration is configured:
 Need help with your Kandji integration?
 
 - **Kandji Documentation**: Review Kandji API documentation and guides
-- **June Community**: Join discussions about Mac device management
 - **Integration Support**: Contact June support for integration-specific issues
-- **Best Practices**: Consult with June solutions engineers for optimization
 
 <Note>
-Kandji integration typically establishes connection within minutes. It can take up to 1 hour for the initial sync to complete depending on the number of devices in your organization.
+The first sync starts as soon as you connect Kandji. How long it takes depends on the number of devices in your organization.
 </Note>

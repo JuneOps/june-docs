@@ -13,10 +13,9 @@ Connect your Apple Business Manager account with June to automatically sync Appl
 
 ## What you'll accomplish
 - Set up API integration in Apple Business Manager
-- Configure JWT-based authentication with June
+- Connect Apple Business Manager to June
 - Sync Apple device inventory and purchase data
 - Understand data mapping and synchronization
-- Set up test mode for development environments
 
 ## Prerequisites
 
@@ -28,7 +27,7 @@ Before starting the integration, ensure you have:
 ## Key Features
 
 - **Device Synchronization**: Automatically sync all Apple devices from your ABM account especially devices that are not enrolled in your MDM.
-- **Purchase Data**: Import purchase dates, vendor details, and calculate warranty expiration dates.
+- **Purchase Data**: Import purchase dates, order numbers, and vendor details, and calculate warranty expiration dates.
 
 ## Setup Process
 
@@ -70,13 +69,13 @@ Before starting the integration, ensure you have:
   </Step>
 </Steps>
 
-### Step 2: Configure Integration in June
+### Step 2: Connect Apple Business Manager in June
 
 <Steps>
-  <Step title="Access Integrations">
+  <Step title="Open the Apple Business Manager integration">
     1. Log into June
-    2. Navigate to **Integrations > Add Integration**
-    3. Select **Apple Business Manager** from the MDM integrations
+    2. Go to **Settings** > **Integrations**
+    3. Select **Apple Business Manager** under **Available Integrations** (in the **Mobile Device Management** group)
   </Step>
   
   <Step title="Enter API Credentials">
@@ -84,7 +83,7 @@ Before starting the integration, ensure you have:
     - **Client ID**: Your ABM Client ID
     - **Key ID**: The Key ID associated with your private key
     - **Private Key**: Paste the contents of your `.p8` private key file
-    - **Default Warranty Years**: Default warranty years applicable to your devices. This will be used to calculate the warranty expiration date for devices based on the purchase date from Apple Business Manager.
+    - **Default Warranty Years**: The warranty length that applies to your devices. June adds it to the purchase date from Apple Business Manager to set the warranty expiration date when a device has none yet.
     
     <Warning>
     Ensure the private key is pasted in the correct PEM format, including the header and footer lines.
@@ -92,13 +91,13 @@ Before starting the integration, ensure you have:
   </Step>
 
   <Step title="Connect to Apple Business Manager">
-    1. Click **Connect** to verify your API credentials
-    2. June will validate the connection and retrieve sample device data
-    3. If successful, an integration sync will be scheduled automatically.
-    4. You can look at the sync events at the bottom of the page as well.
+    1. Click **Connect**
+    2. June tests the connection with your credentials
+    3. If the test succeeds, June starts the first sync automatically
+    4. Each sync appears in the **Activity** section at the bottom of the integration's page
     
     <Check>
-    A successful test will show device count and connection status from your ABM account.
+    The integration shows **Connected**, and the **Activity** section shows the result of each sync, including how many devices were processed.
     </Check>
   </Step>
 </Steps>
@@ -107,16 +106,16 @@ Before starting the integration, ensure you have:
 
 <Steps>
   <Step title="Run Initial Sync">
-    1. After successful connection setup, integration sync will be scheduled automatically.
-    2. June will begin importing all device data from your ABM account
-    3. Monitor the sync progress through the integration status page
+    1. After you connect, the first sync starts automatically.
+    2. June imports all device data from your ABM account
+    3. Check **Sync Status** and **Last Sync** on the integration's page in **Settings** > **Integrations**
     4. Initial sync time depends on the number of devices in your ABM account
-    5. You can also run a manual sync at any time by clicking the **Sync Now** button.
+    5. June syncs again once a day. To sync sooner, open the **Connected** menu at the top of the integration's page and select **Sync Now**.
   </Step>
   
   <Step title="Verify Imported Data">
     Once the sync completes:
-    - June will create new assets for any unique serial numbers that are not already in your asset inventory.
+    - June creates a new asset for each serial number that is not already in your asset inventory.
     - You can see the purchase details by clicking on an asset and looking at the "Purchase Details" in the **Overview** tab.
     <img src="/images/abm_data.png" alt="Apple Business Manager Purchase Details" />
   </Step>
@@ -136,8 +135,8 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
   <Accordion title="Security Features">
     - Private keys and tokens are encrypted at rest in June's database
     - All API communication uses TLS encryption
-    - Keys can be rotated in ABM portal without downtime.
-    - Only read only access to the ABM API is granted to June.
+    - If you rotate the key in Apple Business Manager, update the Client ID, Key ID and Private Key in June.
+    - June only reads data from Apple Business Manager. It never changes anything there.
   </Accordion>
 </AccordionGroup>
 
@@ -145,16 +144,17 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
 
 ### Device Data Mapping
 
-| ABM Field | June Field | Description |
+| ABM Field | In June | Description |
 |-----------|------------|-------------|
-| `serialNumber` | `serial_number` | Device serial number |
-| `deviceModel` | `model` | Device model (e.g., "MacBook Pro 13-inch") |
-| `productType` | `sku` | Device SKU (e.g., "iMac16,2") |
-| `color` | `color` | Device color |
-| `orderDateTime` | `purchase_date` | Date device was purchased |
-| `addedToOrgDateTime` | `abm_added_to_org_date` | Date device was added to your organization |
-| `os` | `operating_system` | Operating system (macOS, iOS, iPadOS, tvOS, watchOS) |
-| `purchaseSourceType` | `vendor` | Vendor name |
+| `serialNumber` | Serial number | Device serial number |
+| `deviceModel` | Product model | Device model (e.g., "MacBook Pro 13-inch") |
+| `productType` | Product SKU | Device SKU (e.g., "iMac16,2") |
+| `color` | Product color | Device color |
+| `orderDateTime` | Purchase Date | Date device was purchased |
+| `orderNumber` | Purchase Order | Order number for the purchase |
+| `addedToOrgDateTime` | Added to Organization via ABM | Date device was added to your organization |
+| `productFamily` | Operating system and device type | Operating system (macOS, iOS, iPadOS, tvOS, watchOS, visionOS) |
+| `purchaseSourceType` | Vendor | Vendor name |
 
 ### Sync Behavior
 
@@ -162,25 +162,24 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
   <Accordion title="Initial Sync">
     - **Complete Import**: All devices from ABM are imported on first sync
     - **Data Processing**: Purchase data, warranty info, and device specs are mapped
-    - **Duration**: Depends on device count, typically 5-15 minutes for most organizations
+    - **Duration**: Depends on device count
   </Accordion>
   
   <Accordion title="Incremental Updates">
-    - **Regular Sync**: Updates existing devices with latest data from ABM
+    - **Regular Sync**: June syncs once a day
     - **New Devices**: Automatically imports newly purchased devices
-    - **Data Changes**: Updates purchase dates, warranty dates, and vendor details.
+    - **Existing Devices**: Fills in purchase details that are still empty. June does not overwrite purchase details that are already set, including ones you entered.
   </Accordion>
   
   <Accordion title="Duplicate Handling">
-    - **Unique Identifier**: Uses serial number as primary key
-    - **Provider Identity**: Creates links between June assets and ABM devices
-    - **Conflict Resolution**: ABM data takes precedence for purchase information
+    - **Unique Identifier**: Matches devices by serial number
+    - **Linked Records**: Each ABM device is linked to the June asset with the same serial number
+    - **Conflict Resolution**: Purchase details already on the asset are kept. ABM only fills in empty fields.
   </Accordion>
   
   <Accordion title="Error Handling">
-    - **Failed Syncs**: Retried with exponential backoff
-    - **Rate Limiting**: Built-in handling for ABM API rate limits
-    - **Logging**: Detailed sync logs for troubleshooting
+    - **Failed Syncs**: The integration's page shows **Sync failed**
+    - **Details**: The **Activity** section shows the error for each failed sync
   </Accordion>
 </AccordionGroup>
 
@@ -189,8 +188,8 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
 ### Authentication Issues
 
 <AccordionGroup>
-  <Accordion title="Authentication Failed: Invalid Credentials">
-    **Symptoms**: "Authentication failed: Invalid credentials" errors
+  <Accordion title="Connection Test Fails">
+    **Symptoms**: Connecting or **Test Connection** shows an error
     
     **Solutions**:
     - Verify Client ID, Key ID, and Private Key are correct in June settings
@@ -199,39 +198,28 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
     - Confirm the API key has appropriate permissions for device data access.
   </Accordion>
   
-  <Accordion title="Failed to Generate Authentication Token">
-    **Symptoms**: "Failed to generate authentication token" errors
+  <Accordion title="Private Key Not Accepted">
+    **Symptoms**: The connection fails right after you paste the private key
     
     **Solutions**:
-    - Verify private key format (should start with `-----BEGIN EC PRIVATE KEY-----`)
+    - Paste the whole key file, including the `-----BEGIN` and `-----END` lines
     - Ensure no extra whitespace or formatting issues in the key
     - Check that Key ID matches the key in Apple Business Manager
     - Regenerate the API key if the current one is corrupted
   </Accordion>
   
-  <Accordion title="Network Connectivity Issues">
-    **Symptoms**: Connection timeouts or "Unable to reach server" errors
-    
-    **Solutions**:
-    - Check network connectivity to Apple's Business Manager APIs
-    - Verify firewall rules allow connections to *.apple.com domains
-    - Ensure corporate proxy settings don't interfere with API communication
-    - Test connectivity during different times to rule out temporary issues
-  </Accordion>
 </AccordionGroup>
 
 ### Sync Issues
 
 <AccordionGroup>
-  <Accordion title="Failed to Fetch Devices">
-    **Symptoms**: "Failed to fetch devices" or sync errors
+  <Accordion title="Sync Fails or Imports No Devices">
+    **Symptoms**: The integration shows **Sync failed**, or no devices appear
     
     **Solutions**:
-    - Check network connectivity to Apple's Business Manager APIs
     - Verify ABM account has devices assigned to your organization
-    - Check for rate limiting - ABM has API request limits
-    - Review sync logs in June for specific error details
-    - Try running a manual sync to isolate the issue
+    - Check the **Activity** section on the integration's page for the error
+    - Run **Sync Now** from the **Connected** menu to try again
   </Accordion>
   
   <Accordion title="Missing or Incorrect Data">
@@ -257,8 +245,8 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
 
 Need help with your Apple Business Manager integration?
 
-- **Integration Logs**: Check the integration logs in June's admin panel for detailed error information
-- **Connection Testing**: Use the built-in test tool to verify API connectivity
+- **Integration Activity**: Check the **Activity** section on the integration's page in **Settings** > **Integrations** for error details
+- **Connection Testing**: Select **Test Connection** from the **Connected** menu on the integration's page
 - **Apple Business Manager Support**: Contact Apple Business support for ABM portal issues
 - **June Support**: Contact June support with error messages and timestamps
 

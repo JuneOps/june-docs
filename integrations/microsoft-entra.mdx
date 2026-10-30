@@ -42,7 +42,7 @@ Intune has no locations, so assigning a device to a location in June clears its 
 Before starting, ensure you have:
 - A Microsoft Entra tenant
 - A **Global Administrator** role, to grant consent for the permissions listed in [Permissions](#permissions) below
-- June organization admin permissions
+- The Admin or Owner role in June
 
 ## Permissions
 
@@ -94,7 +94,7 @@ Requires a Microsoft Intune license.
 <Note>
 **When June asks for new permissions**
 
-When June adds a capability that needs a new Microsoft permission, June adds it to the app registration. Your existing approval covers only the permissions you already granted, so a Global Administrator approves again: open **Integrations > Microsoft Entra**, then choose **Reconnect** from the menu. Until then, that capability doesn't work for your organization, and everything else keeps working.
+When June adds a capability that needs a new Microsoft permission, June adds it to the app registration. Your existing approval covers only the permissions you already granted, so a Global Administrator approves again: go to **Settings** > **Integrations**, select **Microsoft Entra** under **Configured Integrations**, open the **Connected** menu, and choose **Reconnect**. Until then, that capability doesn't work for your organization, and everything else keeps working.
 </Note>
 
 ## Connect Microsoft Entra
@@ -102,16 +102,16 @@ When June adds a capability that needs a new Microsoft permission, June adds it 
 <Steps>
   <Step title="Open June Integrations">
     1. Log into June.
-    2. Navigate to the **Integrations** page.
-    3. Choose **Microsoft Entra**.
+    2. Go to **Settings** > **Integrations**.
+    3. Select **Microsoft Entra** under **Available Integrations**.
   </Step>
   <Step title="Authorize with Microsoft">
     1. Click **Connect** to start the sign-in.
     2. Sign in with your Microsoft Entra **Global Administrator** account.
-    3. Grant consent for the permissions listed in [Permissions](#permissions) below.
+    3. Grant consent for the permissions listed in [Permissions](#permissions) above.
     4. On success, you return to June with the integration active.
   </Step>
   <Step title="Wait for the first sync">
-    June syncs your directory and devices, then refreshes daily. You can also trigger a manual sync from the integration settings.
+    June syncs your directory and devices, then refreshes daily. To sync sooner, open the **Connected** menu on the integration's page and select **Sync Now**.
   </Step>
 </Steps>

@@ -11,12 +11,12 @@ icon: '/images/google_logo.png'
 
 Connect your Google Workspace environment with June to enable secure API-based access to users, groups, and organizational data for automated employee data synchronization.
 
-For permission-aware Knowledge sources from shared drives, connect [Google Drive](/integrations/google-drive) separately under **Integrations → Knowledge**.
+For permission-aware Knowledge sources from shared drives, connect [Google Drive](/integrations/google-drive) separately: go to **Settings** > **Integrations** and select **Google Drive** in the **Knowledge** group.
 
 ## What you'll accomplish
 - Authorize June to access your Google Workspace data
-- Enable automated identity and device data synchronization
-- Set up comprehensive asset tracking and compliance monitoring
+- Sync your employees, office locations, and the apps people sign in to with Google
+- Let June manage groups, calendar access, and user accounts when you ask
 
 ## Capabilities
 
@@ -42,6 +42,16 @@ Once connected, June provides the following capabilities for Google Workspace:
 | **Get Google group details** | Retrieve detailed information about a specific Google Group. |
 | **List employee's Google groups** | List all Google Groups that an employee is a member of. |
 
+### User Management
+
+| Capability | Description |
+|------------|-------------|
+| **Create Google Workspace user** | Create a new user account in Google Workspace. |
+| **Suspend Google Workspace user** | Suspend a user so they can't sign in. |
+| **Unsuspend Google Workspace user** | Restore sign-in for a suspended user. |
+| **Reset Google Workspace user password** | Reset a user's password. |
+| **Get Google Workspace user details** | Look up a user's account details. |
+
 ### Calendar Management
 
 | Capability | Description |
@@ -53,23 +63,23 @@ Once connected, June provides the following capabilities for Google Workspace:
 
 Before starting the integration, ensure you have:
 - Google Workspace Super Admin access
-- June organization admin permissions
+- The Admin or Owner role in June
 
 ## Permissions and Data Access
 
-June requests the following permissions to provide comprehensive asset management, security insights, and identity governance capabilities:
+June requests the following permissions when you connect Google Workspace:
 
 ### Read-Only Permissions
 
 | Scope | Purpose |
 |-------|---------|
-| `admin.directory.user.readonly` | Syncing user directory data: names, emails, status, org units, used for employee-device mapping and account visibility |
-| `admin.directory.group.readonly` | Fetching Google Groups and memberships to model teams, departments, and apply group-based policies |
-| `admin.directory.resource.calendar.readonly` | Accessing resource calendars, buildings, and equipment (e.g., meeting rooms) for inventory and usage insights |
-| `admin.directory.device.chromeos.readonly` | Syncing ChromeOS device inventory for asset tracking, device assignment, and compliance reporting |
-| `admin.directory.device.mobile.readonly` | Fetching managed mobile device data (iOS/Android) to track mobile assets and enforce security posture |
-| `admin.reports.audit.readonly` | Pulling audit logs (logins, admin actions, access attempts) for activity monitoring and anomaly detection |
-| `admin.reports.usage.readonly` | Retrieving user and service usage metrics (e.g., Gmail, Drive) to assess software adoption and identify inactive users |
+| `admin.directory.user.readonly` | Syncs your user directory: names, emails, status, org units, managers, and addresses, so June knows your employees |
+| `admin.directory.group.readonly` | Looks up Google Groups and their members when you ask June about a group |
+| `admin.directory.resource.calendar.readonly` | Reads your Workspace buildings to create office locations in June |
+| `admin.directory.device.chromeos.readonly` | Requested when you connect. June doesn't read ChromeOS devices today. |
+| `admin.directory.device.mobile.readonly` | Requested when you connect. June doesn't read mobile devices from Google Workspace today. |
+| `admin.reports.audit.readonly` | Reads sign-in and app authorization events, so June can show which apps people sign in to with Google, and searches email logs when you ask |
+| `admin.reports.usage.readonly` | Requested when you connect. June doesn't read usage reports today. |
 
 ### Write Permissions
 
@@ -78,12 +88,12 @@ June requests the following permissions to provide comprehensive asset managemen
 | `admin.directory.group` | Managing Google Groups: create, update, and delete groups for automated team management |
 | `admin.directory.group.member` | Managing group memberships: add or remove users from groups for access control automation |
 | `admin.directory.user` | User lifecycle management: create, suspend, restore, and update user accounts for automated provisioning |
-| `calendar.acls` | Calendar sharing management: add or remove a user's access to shared calendars during onboarding/offboarding. Scoped to access-control (ACL) changes only — June does not read, create, or modify calendar events. |
-| `gmail.settings.sharing` | Email forwarding configuration: set up email forwarding for departing employees |
-| `gmail.settings.basic` | Gmail settings management: configure basic Gmail settings for user accounts |
+| `calendar` | Calendar sharing management: add or remove a user's access to shared calendars during onboarding/offboarding. June uses it only to change who can access a calendar. June does not read, create, or modify calendar events. |
+| `gmail.settings.sharing` | Requested when you connect. June doesn't change Gmail settings today. |
+| `gmail.settings.basic` | Requested when you connect. June doesn't change Gmail settings today. |
 
 <Note>
-Write permissions enable June's automation capabilities for identity governance, onboarding/offboarding workflows, and access management. All actions are logged and can be reviewed in the activity history.
+Write permissions let June manage groups, calendar access, and user accounts for onboarding, offboarding, and access requests. You can see each action June took, and who approved it, in the chat or runbook run where it happened.
 </Note>
 
 ## Google Workspace OAuth Integration
@@ -91,9 +101,9 @@ Write permissions enable June's automation capabilities for identity governance,
 <Steps>
   <Step title="Access Integrations">
     1. Log into June
-    2. Navigate to Integrations page
-    3. Choose "Google Workspace" from the available integrations
-    4. Click **Connect with Google** to begin the OAuth authorization flow
+    2. Go to **Settings** > **Integrations**
+    3. Select **Google Workspace** under **Available Integrations** (in the **Identity Providers** group)
+    4. Click **Connect** to begin the Google sign-in
   </Step>
   
   <Step title="Authorize June Access">
@@ -106,21 +116,21 @@ Write permissions enable June's automation capabilities for identity governance,
   
   <Step title="Complete Integration Setup">
     1. After authorization, you'll be redirected back to June
-    2. If the integration is successful, you should see a message saying "Integration connected successfully" and you should see the integration as connected.
+    2. If the integration is successful, you see the message "Connection Successful" and the integration shows **Connected**.
   </Step>
   
   <Step title="Test the Integration">
     1. Click on the dropdown menu that has the status of the integration
-    2. Click **Test Integration**
-    3. If the integration is successful, you should see a message saying "Integration test successful".
-    4. If the integration is not successful, you should see a message saying "Integration test failed" and the **Status** should be **Inactive**.
+    2. Click **Test Connection**
+    3. If the test succeeds, you see "Test Successful".
+    4. If the test fails, you see "Test Failed" with the reason, and the integration shows **Not Connected**.
     5. Please follow the troubleshooting steps below to resolve the issue.
   </Step>
 
   <Step title="Sync data from Google Workspace">
-    1. An sync will be scheduled automatically.
-    2. If you don't see a sync, you can click on the dropdown menu that has the status of the integration. Click **Sync Now**.
-    3. You should see the employees from Google Workspace being synced to June under the **Employees** tab.
+    1. The first sync starts automatically when you connect. After that, June syncs once a day.
+    2. To sync sooner, click on the dropdown menu that has the status of the integration and click **Sync Now**.
+    3. You should see the employees from Google Workspace in June under **Employees** > **All Employees**.
   </Step>
 </Steps>
 
@@ -135,27 +145,27 @@ Write permissions enable June's automation capabilities for identity governance,
     **Solutions**:
     If your organization has strict third-party app policies, you'll need to explicitly trust June's OAuth application:
     
-    1. In June, go to the Integrations page and select **Google Workspace**
-    2. Click on the dropdown menu next to the integration status
-    3. Click **Copy Client ID** to copy June's OAuth Client ID
+    1. Get June's OAuth Client ID. If Google Workspace is already connected (for example, you're reconnecting), go to **Settings** > **Integrations**, select **Google Workspace** under **Configured Integrations**, open the menu next to the integration status, and click **Copy Client ID**. Otherwise, ask June support for the Client ID.
+    2. Keep the Client ID ready for step 8
+    3. Continue in Google Admin Console
     4. Go to [Google Admin Console](https://admin.google.com) and sign in as a Super Admin
     5. Navigate to **Security > Access and data control > API Controls**
     6. Under **API Controls**, click **Manage Third-Party App Access**
     7. Click **Add app > OAuth App Name or Client ID**
-    8. Paste the June OAuth Client ID you copied from step 3
+    8. Paste the June OAuth Client ID from step 1
     9. Select **Trusted** as the access level
     10. Click **Configure** and save changes
     11. Return to June and retry the OAuth authorization flow
   </Accordion>
   
   <Accordion title="Integration Test Failed">
-    **Symptoms**: Integration shows as "Inactive" after OAuth authorization
+    **Symptoms**: Integration shows **Not Connected** after Google sign-in
     
     **Solutions**:
     - Ensure you authorized with a Google Workspace Super Admin account
     - Verify your organization allows third-party app access
     - Check if you have any conditional access policies blocking API access
-    - Try disconnecting and reconnecting the integration
+    - Select **Reconnect** from the integration's menu to sign in again
     - Contact June support if the issue persists
   </Accordion>
   
@@ -167,7 +177,7 @@ Write permissions enable June's automation capabilities for identity governance,
     - Check if users are suspended or in organizational units with restricted access
     - Review Google Workspace audit logs for API access issues
     - Ensure users have the required attributes (email, name, etc.) populated
-    - Try a manual sync to see if specific error messages appear
+    - Run **Sync Now** and check the **Activity** section on the integration's page for error messages
   </Accordion>
 </AccordionGroup>
 
@@ -177,8 +187,7 @@ Need help with your Google Workspace integration?
 
 - **Google Documentation**: Review [Google Workspace Admin SDK documentation](https://developers.google.com/admin-sdk) for API reference
 - **June Support**: Contact support for integration-specific assistance
-- **Community Forum**: Join discussions about identity provider integrations
 
 <Note>
-Syncing data from Google Workspace to June may take up to 15 minutes based on the number of users in your Google Workspace environment.
+How long a sync from Google Workspace takes depends on the number of users in your Google Workspace environment.
 </Note> 
