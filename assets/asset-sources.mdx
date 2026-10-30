@@ -13,7 +13,7 @@ Anyone who can view assets sees the Sources section. Source icons elsewhere need
 |---|---|---|
 | Logistics provider | [Firstbase](/integrations/firstbase) | Status when it returns, holds, repairs, locks or retires a device. Warehouse and office stock. Condition grade. Orders and returns |
 | Device management | [Jamf Pro](/integrations/jamf-pro), [Kandji](/integrations/kandji), [Microsoft Intune](/integrations/microsoft-intune) | Who uses the device, lost mode, whether it is enrolled, building, OS and security facts, ownership type |
-| Apple Business Manager | [Apple Business Manager](/integrations/apple-business-manager) | That the device exists, whether it is assigned to an MDM server, purchase dates and a warranty estimate |
+| Apple Business | [Apple Business](/integrations/apple-business) | That the device exists, whether it is assigned to an MDM server, purchase dates and a warranty estimate |
 | Your team | Admins in June | Manual status, assignee, condition, ownership. A lock stops syncs changing status and assignee |
 
 A source you did not connect has no say, and a source you disconnected gives no opinion. June never sets a status from age or a missed check-in, see [Asset status](/assets/asset-status). If a source names a person June cannot match to an employee, the status and assignee stay as they are, unless a provider rule below or lost mode applies.
@@ -71,7 +71,7 @@ When no tool manages the device and the provider names a person June recognizes,
 
 If two tools list the same device, the one naming a user June knows wins, then the one that checked in last. Jamf devices marked unmanaged say nothing about who has the device. Intune's empty user means no user.
 
-## Apple Business Manager
+## Apple Business
 
 It applies only when no provider or device management record exists, and only to a device whose status is Other. A device assigned to an MDM server becomes Awaiting Enrollment. A device that is not assigned stays Other.
 

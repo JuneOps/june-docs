@@ -14,7 +14,7 @@ When connected systems disagree about a device, June goes down this list and use
 1. **The logistics provider** (such as Firstbase), while it returns the device, holds it in its warehouse, repairs or locks it, or retires it. It can change any status except the frozen ones below.
 2. **Your device management tool** (Jamf Pro, Kandji, Microsoft Intune), once it lists the device. Lost mode sets Lost. Otherwise it changes only blank, Other, Available, Deployed and Awaiting Enrollment. If it lists no user and the provider names someone June recognizes, the device is Deployed with that person.
 3. **The provider's named person**, when no device management tool manages the device. The device becomes Awaiting Enrollment with that person, from the same five statuses only.
-4. **Apple Business Manager**, only when no provider or device management tool lists the device, and only for a device that is Other. If it is assigned to an MDM server, the device becomes Awaiting Enrollment.
+4. **Apple Business**, only when no provider or device management tool lists the device, and only for a device that is Other. If it is assigned to an MDM server, the device becomes Awaiting Enrollment.
 
 A source you did not connect has no say, and June does not infer a status from silence, age or a missed check-in. The row-by-row rules are on [Asset sources](/assets/asset-sources).
 
@@ -27,14 +27,14 @@ A source you did not connect has no say, and June does not infer a status from s
 | Status | Meaning | June sets it when |
 |---|---|---|
 | Available | Ready to be deployed | The provider's warehouse restocks it, the provider reports it in stock at one of your offices, or the device management tool lists it with no user |
-| Awaiting Enrollment | Waiting to be enrolled in device management | The provider names a person and no tool manages the device, the device is gone from every tool, or Apple Business Manager shows it assigned to an MDM server |
+| Awaiting Enrollment | Waiting to be enrolled in device management | The provider names a person and no tool manages the device, the device is gone from every tool, or Apple Business shows it assigned to an MDM server |
 | Deployed | Assigned to a person | The device management tool lists a user June recognizes, or lists no user and the provider names a person June recognizes |
 | Decommissioned | Permanently out of service | The provider retires it as gifted or decommissioned, or with a reason June does not recognize |
 | In Repair | Being repaired or maintained | The provider reports a repair, in its warehouse or elsewhere |
 | Legal Hold | Held for legal reasons | Never. A person sets it (or a runbook you write) |
 | Locked | The device itself is locked, for example by PIN, MDM or Activation Lock | The provider reports it locked |
 | Lost | Reported lost, not in inventory | Lost mode is on, or the provider retires or locks it as lost or stolen |
-| Other | Fits no other status. New assets start here | Apple Business Manager is the only source and the device is not assigned to an MDM server |
+| Other | Fits no other status. New assets start here | Apple Business is the only source and the device is not assigned to an MDM server |
 | Pending Return | A return is scheduled or under way | The provider reports a return in progress, or its warehouse holds the device for another reason |
 | Recycled | Sent for recycling | The provider retires it as destroyed or donated, or its warehouse is recycling it |
 

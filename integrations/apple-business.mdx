@@ -1,60 +1,60 @@
 ---
-sidebarTitle: 'Apple Business Manager'
-title: 'Apple Business Manager Integration'
-description: 'Complete integration guide for connecting Apple Business Manager with June for device and purchase data synchronization'
+sidebarTitle: 'Apple Business'
+title: 'Apple Business Integration'
+description: 'Complete integration guide for connecting Apple Business with June for device and purchase data synchronization'
 icon: '/images/abm-dark-mode.svg'
 ---
 
 <Frame>
-  <img src="/images/integrations/abm-setup.png" alt="The Apple Business Manager setup page in June, with Client ID, Key ID, Private Key and Default Warranty Years fields and a Connect button" />
+  <img src="/images/integrations/abm-setup.png" alt="The Apple Business setup page in June, with Client ID, Key ID, Private Key and Default Warranty Years fields and a Connect button" />
 </Frame>
 
-Connect your Apple Business Manager account with June to automatically sync Apple device information, including purchase data and device enrollment details, directly from Apple's Business Manager portal.
+Connect your Apple Business account with June to automatically sync Apple device information, including purchase data and device enrollment details, directly from Apple's Business Manager portal.
 
 ## What you'll accomplish
-- Set up API integration in Apple Business Manager
-- Connect Apple Business Manager to June
+- Set up API integration in Apple Business
+- Connect Apple Business to June
 - Sync Apple device inventory and purchase data
 - Understand data mapping and synchronization
 
 ## Prerequisites
 
 Before starting the integration, ensure you have:
-- [Apple Business Manager](https://business.apple.com) account with administrator access
-- API access enabled in Apple Business Manager
-- Apple devices purchased through authorized channels and assigned to your ABM organization (see [Apple Business Manager](https://business.apple.com) for more information)
+- [Apple Business](https://business.apple.com) account with administrator access
+- API access enabled in Apple Business
+- Apple devices purchased through authorized channels and assigned to your Apple Business organization (see [Apple Business](https://business.apple.com) for more information)
 
 ## Key Features
 
-- **Device Synchronization**: Automatically sync all Apple devices from your ABM account especially devices that are not enrolled in your MDM.
+- **Device Synchronization**: Automatically sync all Apple devices from your Apple Business account especially devices that are not enrolled in your MDM.
 - **Purchase Data**: Import purchase dates, order numbers, and vendor details, and calculate warranty expiration dates.
 
 ## Setup Process
 
-### Step 1: Create API Integration in Apple Business Manager
+### Step 1: Create API Integration in Apple Business
 
 <Steps>
-  <Step title="Access Apple Business Manager">
-    1. Log into your Apple Business Manager account at [business.apple.com](https://business.apple.com)
+  <Step title="Access Apple Business">
+    1. Log into your Apple Business account at [business.apple.com](https://business.apple.com)
     2. Navigate to **Preferences**
-    <img src="/images/abm_manage_preferences.png" alt="Apple Business Manager Preferences" />
+    <img src="/images/abm_manage_preferences.png" alt="Apple Business Preferences" />
     3. Look for the **API** section.
   </Step>
   
   <Step title="Create New API Key">
     1. Click **+** to generate a new API integration
     2. Enter **June Integration** as the API account Label.
-    <img src="/images/abm_setup_manage_integration_label.png" alt="Apple Business Manager Create API Integration" />
+    <img src="/images/abm_setup_manage_integration_label.png" alt="Apple Business Create API Integration" />
     3. Click **Create** to generate a new API key.
     4. Click **Generate Private Key** to generate a new private key.
-    <img src="/images/abm_manage_generate_key.png" alt="Apple Business Manager Create API Integration" />
+    <img src="/images/abm_manage_generate_key.png" alt="Apple Business Create API Integration" />
     5. The private key will be downloaded to your computer and your integration will be created.
     6. Click **Manage** to manage the API integration.
     7. You should be able to see your Client ID and Key ID. 
-    <img src="/images/abm_setup_manage_details.png" alt="Apple Business Manager Create API Integration" />
+    <img src="/images/abm_setup_manage_details.png" alt="Apple Business Create API Integration" />
     
     <Note>
-    The API key will be used for JWT-based authentication between June and Apple Business Manager.
+    The API key will be used for JWT-based authentication between June and Apple Business.
     </Note>
   </Step>
   
@@ -69,10 +69,10 @@ Before starting the integration, ensure you have:
   </Step>
 </Steps>
 
-### Step 2: Connect Apple Business Manager in June
+### Step 2: Connect Apple Business in June
 
 <Steps>
-  <Step title="Open the Apple Business Manager integration">
+  <Step title="Open the Apple Business integration">
     1. Log into June
     2. Go to **Settings** > **Integrations**
     3. Select **Apple Business Manager** under **Available Integrations** (in the **Mobile Device Management** group)
@@ -80,17 +80,17 @@ Before starting the integration, ensure you have:
   
   <Step title="Enter API Credentials">
     Fill in the required authentication fields:
-    - **Client ID**: Your ABM Client ID
+    - **Client ID**: Your Apple Business Client ID
     - **Key ID**: The Key ID associated with your private key
     - **Private Key**: Paste the contents of your `.p8` private key file
-    - **Default Warranty Years**: The warranty length that applies to your devices. June adds it to the purchase date from Apple Business Manager to set the warranty expiration date when a device has none yet.
+    - **Default Warranty Years**: The warranty length that applies to your devices. June adds it to the purchase date from Apple Business to set the warranty expiration date when a device has none yet.
     
     <Warning>
     Ensure the private key is pasted in the correct PEM format, including the header and footer lines.
     </Warning>
   </Step>
 
-  <Step title="Connect to Apple Business Manager">
+  <Step title="Connect to Apple Business">
     1. Click **Connect**
     2. June tests the connection with your credentials
     3. If the test succeeds, June starts the first sync automatically
@@ -107,9 +107,9 @@ Before starting the integration, ensure you have:
 <Steps>
   <Step title="Run Initial Sync">
     1. After you connect, the first sync starts automatically.
-    2. June imports all device data from your ABM account
+    2. June imports all device data from your Apple Business account
     3. Check **Sync Status** and **Last Sync** on the integration's page in **Settings** > **Integrations**
-    4. Initial sync time depends on the number of devices in your ABM account
+    4. Initial sync time depends on the number of devices in your Apple Business account
     5. June syncs again once a day. To sync sooner, open the **Connected** menu at the top of the integration's page and select **Sync Now**.
   </Step>
   
@@ -122,7 +122,7 @@ Before starting the integration, ensure you have:
 
 ## API Authentication
 
-ABM integration uses JWT-based authentication with ECDSA P-256 certificates for secure API access:
+The Apple Business integration uses JWT-based authentication with ECDSA P-256 certificates for secure API access:
 
 <AccordionGroup>
   <Accordion title="Authentication Method">
@@ -134,8 +134,8 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
   <Accordion title="Security Features">
     - Private keys and tokens are encrypted at rest in June's database
     - All API communication uses TLS encryption
-    - If you rotate the key in Apple Business Manager, update the Client ID, Key ID and Private Key in June.
-    - June only reads data from Apple Business Manager. It never changes anything there.
+    - If you rotate the key in Apple Business, update the Client ID, Key ID and Private Key in June.
+    - June only reads data from Apple Business. It never changes anything there.
   </Accordion>
 </AccordionGroup>
 
@@ -143,7 +143,7 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
 
 ### Device Data Mapping
 
-| ABM Field | In June | Description |
+| Apple Business field | In June | Description |
 |-----------|------------|-------------|
 | `serialNumber` | Serial number | Device serial number |
 | `deviceModel` | Product model | Device model (e.g., "MacBook Pro 13-inch") |
@@ -159,7 +159,7 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
 
 <AccordionGroup>
   <Accordion title="Initial Sync">
-    - **Complete Import**: All devices from ABM are imported on first sync
+    - **Complete Import**: All devices from Apple Business are imported on first sync
     - **Data Processing**: Purchase data, warranty info, and device specs are mapped
     - **Duration**: Depends on device count
   </Accordion>
@@ -172,8 +172,8 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
   
   <Accordion title="Duplicate Handling">
     - **Unique Identifier**: Matches devices by serial number
-    - **Linked Records**: Each ABM device is linked to the June asset with the same serial number
-    - **Conflict Resolution**: Purchase details already on the asset are kept. ABM only fills in empty fields.
+    - **Linked Records**: Each Apple Business device is linked to the June asset with the same serial number
+    - **Conflict Resolution**: Purchase details already on the asset are kept. Apple Business only fills in empty fields.
   </Accordion>
   
   <Accordion title="Error Handling">
@@ -193,7 +193,7 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
     **Solutions**:
     - Verify Client ID, Key ID, and Private Key are correct in June settings
     - Ensure private key is in proper PEM format with headers and footers
-    - Check that the key hasn't been revoked or disabled in ABM portal
+    - Check that the key hasn't been revoked or disabled in Apple Business
     - Confirm the API key has appropriate permissions for device data access.
   </Accordion>
   
@@ -203,7 +203,7 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
     **Solutions**:
     - Paste the whole key file, including the `-----BEGIN` and `-----END` lines
     - Ensure no extra whitespace or formatting issues in the key
-    - Check that Key ID matches the key in Apple Business Manager
+    - Check that Key ID matches the key in Apple Business
     - Regenerate the API key if the current one is corrupted
   </Accordion>
   
@@ -216,7 +216,7 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
     **Symptoms**: The integration shows **Sync failed**, or no devices appear
     
     **Solutions**:
-    - Verify ABM account has devices assigned to your organization
+    - Verify your Apple Business account has devices assigned to your organization
     - Check the **Activity** section on the integration's page for the error
     - Run **Sync Now** from the **Connected** menu to try again
   </Accordion>
@@ -225,9 +225,9 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
     **Symptoms**: Devices sync but with incomplete purchase data
     
     **Solutions**:
-    - Verify purchase information is complete in Apple Business Manager
+    - Verify purchase information is complete in Apple Business
     - Check that warranty and pricing data is available from the vendor
-    - Update device information in ABM portal if editable
+    - Update device information in Apple Business if editable
     - Contact your Apple reseller about missing purchase data
   </Accordion>
 </AccordionGroup>
@@ -236,24 +236,24 @@ ABM integration uses JWT-based authentication with ECDSA P-256 certificates for 
 
 ### Security
 - **Key Management**: Regularly rotate API keys and store them in secure, encrypted storage
-- **Access Control**: Limit ABM administrator access to authorized personnel only
+- **Access Control**: Limit Apple Business administrator access to authorized personnel only
 - **Audit Logging**: Monitor API key usage and access patterns
 - **Regular Reviews**: Periodically audit device assignments and API permissions
 
 ## Support
 
-Need help with your Apple Business Manager integration?
+Need help with your Apple Business integration?
 
 - **Integration Activity**: Check the **Activity** section on the integration's page in **Settings** > **Integrations** for error details
 - **Connection Testing**: Select **Test Connection** from the **Connected** menu on the integration's page
-- **Apple Business Manager Support**: Contact Apple Business support for ABM portal issues
+- **Apple Business support**: Contact Apple for issues in Apple Business
 - **June Support**: Contact June support with error messages and timestamps
 
 <Note>
-Apple Business Manager integration syncs purchase and warranty data automatically. Device management capabilities require a separate MDM integration like Jamf Pro or Microsoft Intune.
+Apple Business integration syncs purchase and warranty data automatically. Device management capabilities require a separate MDM integration like Jamf Pro or Microsoft Intune.
 </Note>
 
 ## API Reference
 
-- [Apple Business Manager API Documentation](https://developer.apple.com/documentation/applebusinessmanagerapi)
+- [Apple Business API documentation](https://developer.apple.com/documentation/applebusinessmanagerapi)
 - [JWT Authentication Guide](https://developer.apple.com/documentation/apple-school-and-business-manager-api/implementing-oauth-for-the-apple-school-and-business-manager-api)
