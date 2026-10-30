@@ -25,10 +25,10 @@ If the app isn't in the list, the employee chooses **Not listed? Request access 
 |---|---|---|
 | Eligibility | June checks the employee against the policy. | June |
 | Approval | Approvers decide in Slack. A policy with no approval step skips this, so the request is auto-approved. | Approvers (skipped when the policy has no approval step) |
-| Grant | June adds the employee to an Okta or Google group, or grants with a tool. For manual grants, the manager, application owner or IT grants the access and IT confirms in June. | June, or a person |
+| Grant | June adds the employee to an Okta or Google group, or grants with a tool. For manual grants, IT, or whoever you've told to, grants the access and IT confirms in June. | June, or a person |
 | Revoke | June starts removal when the duration ends, or IT revokes it early. The request shows the exact end date. With **Manual task** removal (the default) or no revoke step, June asks IT to remove it by hand and confirm. | June, or IT |
 
-An approval step lists approvers such as the employee's manager, the application owner or named people, and needs All or Any of them. A policy can have up to six steps. An employee is never their own approver. June sends a reminder after the step's **Nudge** time and moves it on after its **Escalate** time (1 and 2 hours by default; see [Access policies](/agents/access-policies)).
+An approval step lists the app's **Access approver**s, the requester's manager, or named people, and needs All or Any of them. A policy can have up to six steps. An employee is never their own approver. June sends a reminder after the step's **Nudge** time and moves it on after its **Escalate** time (1 and 2 hours by default; see [Access policies](/agents/access-policies)).
 
 If June can't find an approver (for example, the employee has no manager) or an approver has no Slack account in your workspace, the request moves to **Needs review** and waits for IT. Approvals go out only in Slack, so Slack must be connected.
 

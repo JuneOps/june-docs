@@ -5,6 +5,15 @@ description: 'One inbox for every employee IT request, from June''s first answer
 
 A request is one employee's IT issue, kept as a single timeline: what they asked, what June answered, what IT replied, and IT's internal notes. Open **Requests** in the sidebar to see what needs you, reply, take over from June, or hand a request back.
 
+## Help desk at a glance
+
+| Page | Use it for |
+|---|---|
+| [Requests](/help-desk/requests) | Every employee IT issue from Slack or Jira, from June's first answer to IT's resolution. |
+| [Access requests](/help-desk/access-requests) | An employee asks for app access, and June runs it through approval, grant and removal. |
+| [AI limit requests](/help-desk/ai-limit-requests) | An employee asks for a higher monthly Claude or ChatGPT limit, and approvers or IT decide. |
+| [Knowledge Base](/help-desk/knowledge-base) | Connect Confluence or Google shared drives so June answers questions from your documents. |
+
 Requests needs [Slack](/integrations/slack) connected. Connect [Jira](/integrations/jira) with a default project to get a tracking ticket for each request June hands to IT. Employees reach Requests through Slack or Jira. Microsoft Teams conversations don't create requests.
 
 ## How requests arrive
@@ -18,7 +27,7 @@ Employees never create requests in the June web app. A request starts when:
 
 **June, on its own**
 
-- Answers from your [runbooks](/agents/runbooks), your [knowledge base](/help-desk/knowledge-base) and its tools, and closes the request as **Done** when it delivers an answer. Under the answer in Slack, the employee sees **Yes, this solved it** and **No, this didn't solve it**. Yes records that it worked. No reopens the request and June keeps working.
+- Answers from your [runbooks](/agents/runbooks), your [Knowledge Base](/help-desk/knowledge-base) and its tools, and closes the request as **Done** when it delivers an answer. Under the answer in Slack, the employee sees **Yes, this solved it** and **No, this didn't solve it**. Yes records that it worked. No reopens the request and June keeps working.
 - Hands the request to IT when it can't solve it, and tells the employee "I've passed this to IT with what we covered and what I tried. You can keep replying here." June then opens the Jira tracking ticket, investigates in the background and leaves its findings as internal notes, and opens a "Handed to IT" thread in your Slack notifications channel.
 - Reopens a request it closed if the employee writes again in the thread.
 
@@ -139,4 +148,4 @@ Changes flow from June to Jira. The one exception: closing a Jira ticket cancels
 
 - [Access requests](/help-desk/access-requests)
 - [AI limit requests](/help-desk/ai-limit-requests)
-- [Knowledge base](/help-desk/knowledge-base)
+- [Knowledge Base](/help-desk/knowledge-base)

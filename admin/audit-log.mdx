@@ -26,6 +26,12 @@ June records when something is created, updated or deleted. That covers the reco
 
 Changes that integrations make while syncing, and changes that SCIM makes, show **June AI** as the actor. Sign-ins and permission-denied attempts are not recorded.
 
+### Actions by the Agent and runbooks
+
+When the Agent or a runbook changes a record in June, such as an asset's status or an employee's details, the change is recorded here like any other. In a chat, the actor is the person whose message or approval led to the change. If no June user is tied to it, the actor is June AI. A runbook's changes show June AI or the person who started the run, and a scheduled run shows June AI or the person who saved that version of the runbook.
+
+Actions in your connected apps, such as adding someone to an Okta group or sending a Slack message, are not recorded in the audit log. Neither are Approve and Reject decisions. Find both in the chat or in **Runbooks > Run history**, where each approval card shows who decided and when. For an employee request, the request shows each approver's decision.
+
 ## Find an entry
 
 Go to **Settings > Audit Log**. Entries are listed newest first, 20 at a time, and more load as you scroll.

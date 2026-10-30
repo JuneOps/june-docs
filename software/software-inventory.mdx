@@ -5,7 +5,7 @@ description: 'Every application June has found in your organization, with who us
 
 The software inventory lists every application June has found, with its users, devices, contract, health status and owners. The list is called **All Applications**.
 
-**Who can do this:** every role except AI Usage can view the inventory. Software Procurement, Admin and Owner can edit stakeholders, categories, departments, vendor contacts and groups. Member, Software Procurement, Admin and Owner can export. See [Roles](/admin/roles).
+**Who can do this:** every role except AI Usage can view the inventory. Software Procurement, Admin and Owner can edit stakeholders, categories, departments, vendor contacts and groups. Member, Software Procurement, Admin and Owner can export. See [Members and roles](/admin/roles).
 
 ## The Software dashboard
 
@@ -39,7 +39,7 @@ Click **All Applications**, or **Total Applications** on the dashboard. Click a 
 
 If people reach an app through Okta, Okta records the sign-in instead of Google. "Added manually" and "Added via chat" show only while they are the app's only source.
 
-**What June does on its own:** it adds apps and updates them from your connected sources, removes a source when Okta, Microsoft Entra (including Intune devices), Jamf Pro or Kandji stop seeing the app on a full sync (Google, Zip, Coupa and the browser extension keep their history), recalculates health, and raises a daily **New apps detected** signal for apps found in the last 24 hours. It appears under **Signals** in the sidebar when Signals is turned on for your organization, and needs no action. June never changes your apps and never removes anyone's access.
+**What June does on its own:** it adds apps and updates them from your connected sources, removes a source when Okta, Microsoft Entra (including Intune devices), Jamf Pro or Kandji stop seeing the app on a full sync (Google, Zip, Coupa and the browser extension keep their history), recalculates health, and raises a daily **New apps detected** signal in Signals (June's alerts, under **Signals** in the sidebar when Signals is turned on) for apps found in the last 24 hours. The signal needs no action. June never changes your apps and never removes anyone's access.
 
 ### Managed and unmanaged
 
@@ -54,7 +54,7 @@ The list opens filtered to **Managed** the first time you visit. If you use Goog
 There is no add-app form. Use either path:
 
 1. [Create a contract](/software/contracts), type the app's name in **Software Application** and choose **Link to "name"**.
-2. Ask [Agent](/agents/agent) to add it.
+2. Ask June in the [Agent](/agents/agent) to add it.
 
 ## Find apps in the list
 
@@ -95,7 +95,7 @@ Each app has a health badge. June recalculates it when a contract changes and wh
 | **Healthy** | Healthy | Managed with 80% or more of users active, or Managed with a contract and significant installs |
 | **Needs review** | Missing Info | None of the above match |
 
-"Active" means last active in the last 30 days. "Significant installs" means 10 or more devices, or devices equal to at least 5% of employees. Click a badge on the app page to ask Agent why the app has that status and what you can do.
+"Active" means last active in the last 30 days. "Significant installs" means 10 or more devices, or devices equal to at least 5% of employees. Click a badge on the app page to ask June in the Agent why the app has that status and what you can do.
 
 ## The app page
 
@@ -145,4 +145,4 @@ Click the download icon (**Export CSV**) at the right end of the toolbar to get 
 - [Software renewals](/software/software-renewals)
 - [Unused licenses](/software/unused-licenses)
 - [Access policies](/agents/access-policies)
-- [Roles](/admin/roles)
+- [Members and roles](/admin/roles)

@@ -12,7 +12,7 @@ A spend limit is the monthly cap a provider enforces on one person's AI usage. J
 | See limits | **AI spending limits** | Owner, Admin, Member, AI Usage |
 | Change limits | **Change AI spending limits** | Owner, Admin |
 
-Changing a limit also needs **Employee AI usage** and **AI spending limits**. Owner and Admin have both. Without them, or if an Owner set the **Update AI limit** tool to **Block** on your role's **Tools** tab, the **Update** button doesn't appear. An Owner can adjust what each role includes under [Roles](/admin/roles).
+Changing a limit also needs **Employee AI usage** and **AI spending limits**. Owner and Admin have both. Without them, or if an Owner set the **Update AI limit** tool to **Block** on your role's **Tools** tab, the **Update** button doesn't appear. An Owner can adjust what each role includes under [Members and roles](/admin/roles).
 
 ## Which tools support changing limits
 
@@ -53,7 +53,7 @@ On an employee's page, the **AI usage** tab has a **Monthly Spend Limits** tile 
 
 | Shown | Meaning |
 |---|---|
-| **via June** | Changed in June, from the page or from chat |
+| **via June** | Changed in June, from the page or from the Agent |
 | **via console** or **via Slack** | A request decided there |
 | **Automatically via June** | An AI limit policy changed it |
 | **Automatic revert** | A temporary raise ended |
@@ -105,9 +105,9 @@ If the tool's connection isn't active, June can't put the limit back. Check that
 
 June also refuses negative amounts, a limit the person already has, a person with no account on that tool, a reset when it doesn't know the default, and a change when the provider's limit moved since you opened the panel ("This limit just changed, reopen to see it"). If June can't confirm a write, reopen the panel to see the current limit before you retry.
 
-## Change a limit from June chat
+## Change a limit from the Agent
 
-Ask June in chat, for example "raise Dana's Claude limit to \$600 until end of month". June reads the current limit and asks you to approve before it changes anything. Putting someone back on their default limit works the same way. Chat uses the same permissions as the page.
+Ask June in the [Agent](/agents/agent), for example "raise Dana's Claude limit to \$600 until end of month". June reads the current limit and asks you to approve before it changes anything. Putting someone back on their default limit works the same way. The Agent uses the same permissions as the page.
 
 ## FAQ
 

@@ -52,8 +52,17 @@ For example, for someone on a \$200 limit, tier 1 could need no approval and add
 | Tier needs approval | Approvers get a Slack card, then June raises the limit once they approve. |
 | Several approvers approve different amounts | June raises to the lowest amount approved. Later approvers can approve up to that amount, or reject. |
 | No policy covers the person, or two do | The ask goes to IT with a note. |
-| No manager, an inactive or unreachable approver, the rule doesn't give a higher limit, the new limit is above June's ceilings (see [Decide a request in June](#decide-a-request-in-june)), the policy changed or no longer covers the person while the ask waited, or another raise was approved meanwhile | The ask goes to IT with a note that says why and how to avoid it. |
+| One of the cases below | The ask goes to IT with a note that says why and how to avoid it. |
 | The provider doesn't confirm a raise | June retries up to four more times over about 15 minutes, then sends the ask to IT. |
+
+June sends the ask to IT, with a note, when:
+
+- There is no manager.
+- An approver is inactive or unreachable.
+- The rule doesn't give a higher limit.
+- The new limit is above June's ceilings (see [Decide a request in June](#decide-a-request-in-june)).
+- The policy changed, or no longer covers the person, while the ask waited.
+- Another raise was approved meanwhile.
 
 June changes a limit in three cases only: a person with permission approves or saves a change, a limit policy you set up runs, or a temporary raise ends and June puts back the earlier limit. It never raises above an approver's amount or a tier's maximum on its own, and never applies a raise twice: it checks the provider's current limit before each retry. IT deciding in June can go above a tier's maximum.
 

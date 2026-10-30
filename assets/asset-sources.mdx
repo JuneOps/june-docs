@@ -3,7 +3,7 @@ title: 'Asset sources'
 description: 'Which system June trusts for a device''s status and assignee, and how to see what each one reports.'
 ---
 
-June builds each device's status and assignee from the systems you connect, matched by serial number. When they disagree, a fixed order decides. The order is on [Asset status](/assets/asset-status).
+June builds each device's status and assignee from the systems you connect, matched by serial number. When they disagree, a fixed order decides. The order is on [How June sets a status](/assets/asset-status#how-june-sets-a-status).
 
 Anyone who can view assets sees the Sources section. Source icons elsewhere need permission to view integrations, so Members do not see them.
 
@@ -86,7 +86,7 @@ It applies only when no provider or device management record exists, and only to
 2. Under **Sources**, click a source to expand it.
 3. Compare its Status, Assignee, Location and Last check-in with June's.
 
-{/* screenshot: /assets/[id] | Overview, Sources with a Jamf row expanded | crop to Sources section | file: /images/assets/asset-sources-expanded.png */}
+<Frame caption="A source row expanded on the Overview tab"><img src="/images/assets/asset-sources-expanded.png" alt="Overview tab Sources section with the Firstbase row expanded, showing ID, Status DEPLOYED, Status reason RETURN_IN_PROGRESS, Assignee, Condition USED and Last reported, with Lifecycle Events below showing a status change from Deployed to Pending Return with the reason Firstbase: return in progress" /></Frame>
 
 Each row shows "Last reported" with a time. That is the last sync that saw the device, not the last change. Expanded, you see the source's own ID, Status, Status reason, Assignee, Location, Condition and Last check-in. Fields the source does not report are left out.
 

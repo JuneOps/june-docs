@@ -11,7 +11,7 @@ AI Impact puts engineering output (merged pull requests, review speed, review co
 
 - A [GitHub integration](/integrations/github). **AI Impact** appears in the sidebar once a GitHub integration has been added. June only reads pull request and review activity from GitHub. It doesn't read source code and writes nothing to GitHub.
 - One or more [AI tool integrations](/integrations/ai-tools) for the spend and token columns.
-- A role that includes **View AI Impact**. Owner, Admin and Member have it by default. AI Usage and Software Procurement don't. An Owner can change this under [Roles](/admin/roles).
+- A role that includes **View AI Impact**. Owner, Admin and Member have it by default. AI Usage and Software Procurement don't. An Owner can change this under [Members and roles](/admin/roles).
 
 Without **AI spend & costs**, the **AI spend** column and the **Spend** column in **Bots & AI tools** show a dash for everyone. Tokens still show. Employee names link to the employee page only with directory access.
 
@@ -62,7 +62,7 @@ The first GitHub sync backfills one year, then refreshes daily and re-reads the 
     If they have no active GitHub seat, they aren't included. If June can't match their GitHub account to an employee, their activity is in the **Unattributed** row.
   </Accordion>
   <Accordion title="How do I fix Unattributed activity?">
-    Usually the GitHub account uses a private commit email and has no SAML mapping. Ask June in chat to add the commit email to the person's employee record as an alternate email. June asks for your approval first. The next GitHub sync moves their history over.
+    Usually the GitHub account uses a private commit email and has no SAML mapping. Ask June in the [Agent](/agents/agent) to add the commit email to the person's employee record as an alternate email. June asks for your approval first. The next GitHub sync moves their history over.
   </Accordion>
   <Accordion title="Why don't I see AI Impact in the sidebar?">
     Either no GitHub integration has been added, or your role doesn't include **View AI Impact**. The AI Usage role doesn't include it by default.
@@ -76,4 +76,4 @@ The first GitHub sync backfills one year, then refreshes daily and re-reads the 
 
 - [AI usage](/ai-usage/ai-usage): spend, adoption and seats per tool
 - [GitHub integration](/integrations/github): connect GitHub
-- [Roles](/admin/roles): who can see AI Impact
+- [Members and roles](/admin/roles): who can see AI Impact

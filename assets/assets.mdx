@@ -9,7 +9,7 @@ Assets is June's inventory of devices and peripherals, with a detail page for ea
   <img src="/images/assets/assets-dashboard.png" alt="The Assets dashboard with tiles for Total assets, Average age, Total cost and Compliance, an Asset Discovery Over Time chart, and a Needs Attention card listing Lost Assets and Refresh due soon" />
 </Frame>
 
-Owners and Admins can view and edit. Members can view and export. Roles without asset access (Software Procurement, AI Usage) do not see Assets in the sidebar. See [Roles](/admin/roles).
+Owners and Admins can view and edit. Members can view and export. Roles without asset access (Software Procurement, AI Usage) do not see Assets in the sidebar. See [Members and roles](/admin/roles).
 
 ## How assets get into June
 
@@ -21,7 +21,7 @@ There is no Add button. Assets arrive from the systems you connect and from file
 | [Apple Business Manager](/integrations/apple-business-manager) | Devices bought through Apple, with purchase dates |
 | [Firstbase](/integrations/firstbase) | Managed devices only: computers, phones, tablets and Apple TVs. Accessories are skipped |
 | [CSV import](/device-management/asset-upload) | Devices and peripherals, including costs and dates |
-| Chat with June | Peripherals (monitors, keyboards, mice, docks, headsets, headphones) created from an existing catalog product, 1 to 50 at a time |
+| Ask June in the [Agent](/agents/agent) | Peripherals (monitors, keyboards, mice, docks, headsets, headphones) created from an existing catalog product, 1 to 50 at a time |
 
 Each serial number is unique in your organization. A peripheral with no serial gets a generated ID that starts with `JUNE-`. When these sources disagree about a device, see [Asset sources](/assets/asset-sources).
 
@@ -89,7 +89,7 @@ Go to **Assets > Product Catalog**. A product is a model, such as a laptop line,
   <img src="/images/assets/product-catalog.png" alt="The Product Catalog list with columns Name, SKU, Manufacturer, Assets, Price, Updated, Status and Actions" />
 </Frame>
 
-Products are created by your connected sources and by chat; there is no New product button. In a row's menu, **Add price** and **Edit price** open a dialog with Price, Effective From and an optional Effective To, then **Create Price**. **Archive product** and **Activate product** change its status.
+Products are created by your connected sources and by the Agent; there is no New product button. In a row's menu, **Add price** and **Edit price** open a dialog with Price, Effective From and an optional Effective To, then **Create Price**. **Archive product** and **Activate product** change its status.
 
 A price must be above zero, prices for one product cannot overlap, and only one can be open-ended. A price change updates the catalog price on every asset of that product. Where an asset's price label comes from is on [Refresh and depreciation](/assets/refresh-and-depreciation#purchase-details).
 
@@ -104,7 +104,7 @@ A price must be above zero, prices for one product cannot overlap, and only one 
 
 <AccordionGroup>
 <Accordion title="How do I add a monitor or dock?">
-Ask June in chat to create it from a catalog product, or import a CSV. The product must already exist in the Product Catalog.
+Ask June in the [Agent](/agents/agent) to create it from a catalog product, or import a CSV. The product must already exist in the Product Catalog.
 </Accordion>
 <Accordion title="When does a change take effect?">
 A status, assignee or condition you change in June applies immediately, and an assignment is written to the MDM at once. What your integrations report arrives with their next sync, see [Asset status](/assets/asset-status).

@@ -10,7 +10,7 @@ Refresh Planning lists the devices to replace and when, based on policies you se
 | Owners, Admins, Members | View Refresh Planning, Depreciation and purchase details |
 | Owners, Admins | Make refresh decisions, edit policies, update purchase details, change depreciation settings |
 
-Policy deletion needs **Delete assets & Refresh Policies**. See [Roles](/admin/roles).
+Policy deletion needs **Delete assets & Refresh Policies**. See [Members and roles](/admin/roles).
 
 ## Refresh Planning
 
@@ -36,9 +36,17 @@ Filter by Priority, Decision, Classification or Platform. **Export** downloads t
 
 ### How a device lands in each group
 
-June scores every device each day from 0 to 100. A device with no matching policy is Unknown.
+June scores every device each day from 0 to 100. A device with no matching policy is Unknown. Otherwise the score sets its group and priority:
 
-Otherwise the score comes mainly from the due date. It stays low until the device is within 3 months of it, rises from 40 to 70 as the date nears, and runs from 65 to 80 once it has passed.
+| Score | Refresh status | Priority |
+|---|---|---|
+| 80 to 100 | Refresh Now | P0 |
+| 50 to 79 | Refresh Now | P1 |
+| 30 to 49 | Plan Refresh | P2 |
+| 20 to 29 | OK to Keep | P2 |
+| Below 20 | OK to Keep | P3 |
+
+The score comes mainly from the due date. It stays low until the device is within 3 months of it, rises from 40 to 70 as the date nears, and runs from 65 to 80 once it has passed.
 
 Problems add a little more:
 
@@ -46,9 +54,7 @@ Problems add a little more:
 - A disk 85% full or more
 - An unsupported OS, an Intel Mac, or a Mac with 8 GB of RAM or less
 
-Once a device is near the end of its cycle, a hardware, battery or disk problem puts it straight into Refresh Now. A device 6 years or older with no due date scores at least 30.
-
-A score of 50 or more is **Refresh Now**, 30 to 49 is **Plan Refresh**, and below 30 is **OK to Keep**. A device that does not turn on or will not load its OS starts at 75. Priority follows the score: P0 from 80, P1 50 to 79, P2 20 to 49, P3 below 20.
+Once a device is near the end of its cycle, a hardware, battery or disk problem puts it straight into Refresh Now. A device that does not turn on or will not load its OS starts at 75. A device 6 years or older with no due date scores at least 30.
 
 ### Record a decision
 
@@ -105,7 +111,7 @@ On an asset, **Overview > Purchase Details > Update** edits Acquisition Type (Pu
 
 | Source | What it fills |
 |---|---|
-| Your team | Anything, by hand or in chat |
+| Your team | Anything, by hand or in the [Agent](/agents/agent) |
 | [CSV import](/device-management/asset-upload) | Cost, vendor, dates, PO, warranty, useful life |
 | [Jamf Pro](/integrations/jamf-pro) | Purchase date, price, vendor, lease dates, useful life, PO, warranty. Empty values never overwrite |
 | [Firstbase](/integrations/firstbase) | Price only, for devices it marks Purchased |
@@ -137,4 +143,4 @@ Create two Computer policies: one for the Engineering department at 3 years, one
 - [Assets](/assets/assets)
 - [Asset sources](/assets/asset-sources)
 - [Contracts](/software/contracts)
-- [Roles](/admin/roles)
+- [Members and roles](/admin/roles)

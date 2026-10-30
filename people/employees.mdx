@@ -7,7 +7,7 @@ Employees is your roster. Each person has one profile showing their status, devi
 
 ## Where people come from
 
-Your identity provider adds most people. Device tools, Slack, Microsoft Teams and AI tool seats add anyone they find who isn't there yet. A CSV import under **Settings > Import Data** adds the people in the file, and you can add or update someone from chat, approving each change.
+Your identity provider adds most people. Device tools, Slack, Microsoft Teams and AI tool seats add anyone they find who isn't there yet. A CSV import under **Settings > Import Data** adds the people in the file, and you can ask June in the [Agent](/agents/agent) to add or update someone, approving each change.
 
 June matches each report to a person by email, ignoring capitalization. Identity providers, device tools, Slack and imports match on the primary email only, so a personal address they see becomes a separate profile. AI tool seats and [Firstbase](/integrations/firstbase) also check alternate emails.
 
@@ -24,7 +24,7 @@ When Okta, Google Workspace and Entra ID disagree, the order is Okta, then Googl
 
 ## Statuses
 
-Your identity providers set status. Device tools, Slack and AI tools never do. A change you approve in chat can set it, and so can a CSV import's Status column. For people your identity provider covers, its value comes back on the next sync.
+Your identity providers set status. Device tools, Slack and AI tools never do. A change you approve in the Agent can set it, and so can a CSV import's Status column. For people your identity provider covers, its value comes back on the next sync.
 
 | Status | Meaning |
 |---|---|
@@ -95,7 +95,7 @@ Everything else is corrected in the source.
 | Software Procurement | Yes, without Location | No | No |
 | AI Usage | No | No | No |
 
-Custom roles use the role-editor labels **Edit employee details** (Type and Manager), **Employee employment details** (status, dates, manager, department, location), **Employee identities & groups** (Identities, Sources, Groups tab) and **Export employee data**. Without one, the column or card is hidden or shows "Access restricted". Roles are set in [Roles](/admin/roles).
+Custom roles use the role-editor labels **Edit employee details** (Type and Manager), **Employee employment details** (status, dates, manager, department, location), **Employee identities & groups** (Identities, Sources, Groups tab) and **Export employee data**. Without one, the column or card is hidden or shows "Access restricted". Roles are set under **Settings > Roles**. See [Members and roles](/admin/roles).
 
 ## If something looks wrong
 
@@ -117,7 +117,7 @@ Custom roles use the role-editor labels **Edit employee details** (Type and Mana
     Look at the status badge and Termination Date, then **Identities** for red dots. Open the **Assets** and **SaaS Subscriptions** tabs for anything still assigned.
   </Accordion>
   <Accordion title="Can I add or remove someone in June?">
-    There's no screen for it. Add or update someone from chat (you approve each change) or with a CSV import. To remove someone, close their account in your identity provider.
+    There's no screen for it. Ask June in the Agent to add or update someone (you approve each change) or with a CSV import. To remove someone, close their account in your identity provider.
   </Accordion>
 </AccordionGroup>
 
@@ -125,4 +125,4 @@ Custom roles use the role-editor labels **Edit employee details** (Type and Mana
 
 - [Groups](/people/groups), [Departments](/people/departments) and [Locations](/people/locations)
 - [Assets](/assets/assets) and [Software inventory](/software/software-inventory)
-- [Roles](/admin/roles)
+- [Members and roles](/admin/roles)

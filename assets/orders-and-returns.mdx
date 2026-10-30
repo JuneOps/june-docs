@@ -7,13 +7,13 @@ When you connect a logistics provider such as [Firstbase](/integrations/firstbas
 
 June does not place orders or start returns. It does not remove a device from your MDM when someone leaves: **Remove from MDM** on the asset is a manual action. Decisions such as legal hold or what to do with damaged devices stay with you, and you can automate your own policy with a [runbook](/agents/runbooks).
 
-Orders and returns show on the **Procurement** tab, which Owners, Admins and Members can open. Assigning a device from a signal's suggestion needs an Owner or Admin. See [Roles](/admin/roles).
+Orders and returns show on the **Procurement** tab, which Owners, Admins and Members can open. Assigning a device from a suggestion in Signals (June's alerts, under **Signals** in the sidebar when Signals is turned on) needs an Owner or Admin. See [Members and roles](/admin/roles).
 
 ## The Procurement tab
 
 Open an asset and click **Procurement**.
 
-{/* screenshot: /assets/[id] | Procurement tab of a device with an onboarding order and a return | crop to stat boxes and Order History | file: /images/assets/orders-and-returns-procurement.png */}
+<Frame caption="The Procurement tab during a return"><img src="/images/assets/orders-and-returns-procurement.png" alt="Procurement tab tiles for Deploy Status, Condition, Reported Assignee, Open Return and Source (Firstbase), with Order History showing a pending offboarding return" /></Frame>
 
 | Box | Shows |
 |---|---|
@@ -34,7 +34,7 @@ A return sent with no retrieval arranged has no tracking. An order line has no d
 3. Until the device enrolls in device management, June shows it as **Awaiting Enrollment** with the new hire as assignee, as long as the new hire is an employee in June.
 4. As soon as it enrolls, it becomes **Deployed** with the new hire. If your device management tool later names a different user, that user wins.
 
-When Signals is turned on for your organization, June also raises an **Onboarding scheduled** signal for the new hire, found under **Signals** in the sidebar. It lists their devices and access, and while they have no device it suggests assigning one in June and in your MDM.
+June also raises an **Onboarding scheduled** signal for the new hire in Signals. It lists their devices and access, and while they have no device it suggests assigning one in June and in your MDM.
 
 ## Get a laptop back from a leaver
 
@@ -42,7 +42,7 @@ When Signals is turned on for your organization, June also raises an **Onboardin
 2. June shows the return and its tracking. The device becomes **Pending Return** and keeps the leaver as assignee.
 3. When the provider's warehouse receives the device, June removes the leaver and assigns the device to the provider's warehouse. Restocked devices become **Available**, repairs **In Repair**, and anything else **Pending Return** until restocked. A device under a data hold keeps its status. The full list is on [Asset sources](/assets/asset-sources).
 
-With Signals on, June also raises an **Offboarding scheduled** signal for the leaver. It stays open past the last day until the person holds no devices and no managed app access, and it can suggest moving a returned device to the warehouse location.
+June also raises an **Offboarding scheduled** signal for the leaver in Signals. It stays open past the last day until the person holds no devices and no managed app access, and it can suggest moving a returned device to the warehouse location.
 
 ## When the signals appear
 
@@ -67,7 +67,7 @@ Before the start date, Onboarding scheduled stays open even if the person has a 
 
 <AccordionGroup>
 <Accordion title="What can I ask June about orders?">
-You can ask June in chat to list orders, returns and inventory by person or serial, and to flag orders that were declined or have a delivery exception, and returns that were not returned.
+You can ask June in the [Agent](/agents/agent) to list orders, returns and inventory by person or serial, and to flag orders that were declined or have a delivery exception, and returns that were not returned.
 </Accordion>
 <Accordion title="Why does Procurement show a different status from the header?">
 Procurement shows the provider's own stage for the device. The header shows June's status, which follows the order on [Asset status](/assets/asset-status).
