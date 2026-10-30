@@ -23,3 +23,9 @@
 #sidebar-content a.bg-primary\/10 {
   background-color: transparent;
 }
+
+/* Sidebar: hover changes the text color only, no filled background. */
+#sidebar-content a:hover,
+#sidebar-content button:hover {
+  background-color: transparent;
+}
