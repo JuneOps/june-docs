@@ -107,13 +107,8 @@
       {
         "group": "Integrations",
         "pages": [
-          "integrations/mdm-integrations",
-          "integrations/identity-providers",
-          "integrations/itsm-integrations",
-          "integrations/procurement-integrations",
-          "integrations/ai-tools",
           {
-            "group": "MDM Platforms",
+            "group": "Device management",
             "pages": [
               "integrations/apple-business-manager",
               "integrations/jamf-pro",
@@ -122,7 +117,7 @@
             ]
           },
           {
-            "group": "Identity Providers",
+            "group": "Identity providers",
             "pages": [
               "integrations/okta",
               "integrations/google-workspace",
@@ -137,14 +132,9 @@
             ]
           },
           {
-            "group": "Ticketing & Service Management",
+            "group": "Ticketing and chat",
             "pages": [
-              "integrations/jira"
-            ]
-          },
-          {
-            "group": "Communication",
-            "pages": [
+              "integrations/jira",
               "integrations/slack"
             ]
           },
@@ -157,7 +147,7 @@
             ]
           },
           {
-            "group": "AI Tools",
+            "group": "AI tools",
             "pages": [
               "integrations/claude-enterprise",
               "integrations/claude-platform",
@@ -244,6 +234,26 @@
     {
       "source": "/ai-features/ai-insights",
       "destination": "/assets/assets"
+    },
+    {
+      "source": "/integrations/mdm-integrations",
+      "destination": "/assets/asset-sources"
+    },
+    {
+      "source": "/integrations/identity-providers",
+      "destination": "/people/employees"
+    },
+    {
+      "source": "/integrations/itsm-integrations",
+      "destination": "/integrations/jira"
+    },
+    {
+      "source": "/integrations/procurement-integrations",
+      "destination": "/software/contracts"
+    },
+    {
+      "source": "/integrations/ai-tools",
+      "destination": "/ai-usage/ai-usage"
     }
   ]
 }
