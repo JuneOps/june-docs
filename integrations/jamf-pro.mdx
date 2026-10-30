@@ -33,28 +33,19 @@ Before starting the integration, ensure you have:
     2. Navigate to Settings > System > API roles and clients
     3. Go to the API roles tab and click the "+" button to create a new API role
     4. Set the API role name to "June Integration"
-    5. Assign the following permissions:
-      - `Read Computers`
-      - `Update Computers`
-      - `Delete Computers`
-      - `Read Mobile Devices`
-      - `Update Mobile Devices`
-      - `Delete Mobile Devices`
-      - `Assign Users to Mobile Devices`
-      - `Read Users`
-      - `Update Users`
-      - `Read Departments`
-      - `Read Buildings`
-      - `Read Mobile Device Applications`
-      - `Read Mac Applications`
-      - `View Computer Device Lock Pin`
-      - `View Disk Encryption Recovery Key`
-      - `View Recovery Lock`
-      - `Read Smart Computer Groups`: see every Smart Group and its criteria, including empty ones
-      - `Read Computer Extension Attributes`: what each Mac attribute means and its possible values
-      - `Read Smart Mobile Device Groups`: the same for iPhones and iPads
-      - `Read Mobile Device Extension Attributes`: the same for mobile devices
-      - `Read Computer PreStage Enrollments` (optional): shows Macs assigned to a PreStage enrollment that haven't enrolled yet
+    5. Assign these privileges:
+      - To sync devices, people and groups:
+        - `Read Computers`, `Read Mobile Devices`, `Read Users`, `Read Departments`, `Read Buildings`
+        - `Read Smart Computer Groups`, `Read Static Computer Groups`, `Read Smart Mobile Device Groups`, `Read Static Mobile Device Groups`
+        - `Read Computer Extension Attributes`, `Read Mobile Device Extension Attributes`
+        - `Read Computer PreStage Enrollments` (optional): shows Macs assigned to a PreStage enrollment that haven't enrolled yet
+      - To send assignee and location changes made in June back to Jamf Pro: `Update Computers`, `Update Mobile Devices`
+      - To look up device secrets when an admin asks: `View Computer Device Lock Pin`, `View Recovery Lock`, `View Disk Encryption Recovery Key`
+      - For device actions:
+        - `Delete Computers`, `Delete Mobile Devices`
+        - `View MDM command information in Jamf Pro API`, `Send Declarative Management Command`
+        - `Send Computer Remote Lock Command`, `Send Mobile Device Remote Lock Command`, `Send Computer Remote Desktop Command`
+        - `Send Mobile Device Restart Device Command`, `Send Mobile Device Shut Down Command`, and the restart and shut down command privileges for computers
     6. Click "Save"
   </Step>
   
@@ -62,7 +53,7 @@ Before starting the integration, ensure you have:
     1. Go to the API clients tab and click the "+" button to create a new API client
     2. Set the API client name to "June Integration API Client"
     3. Select the API role you created in the previous step
-    4. Set the access lifetime token to 60 (default value)
+    4. Leave **Access token lifetime** at its default
     5. Click on the "Enable API client" button
     6. Click "Save"
     7. Generate the API client secret by clicking on the "Generate" button
@@ -81,7 +72,7 @@ Before starting the integration, ensure you have:
   
   <Step title="Configure Jamf Pro">
     1. Provide the following information:
-    - **Your Jamf Pro API URL**: Your Jamf Pro server URL (e.g., `https://yourcompany.jamfcloud.com`), without `/api` at the end
+    - **Your Jamf Pro API URL**: Your Jamf Pro server URL (e.g., `https://yourcompany.jamfcloud.com`). Leave off `/api`, even though the example in the form ends with it.
     - **Client ID**: Client ID from the API client created in Step 1
     - **Client Secret**: Client Secret from the API client created in Step 1
     2. Click **Connect**
@@ -117,7 +108,7 @@ Before starting the integration, ensure you have:
     - Sync Software Applications (installed apps)
     - Sync purchase data
     
-    It also lists the device actions June can take in Jamf Pro: delete a device, restart, shut down, lock, turn Remote Desktop on or off, force a check-in, and look up a device lock PIN, recovery lock password or FileVault recovery key. To use device actions, the API role also needs Jamf Pro's privileges for sending those MDM commands.
+    It also lists the device actions June can take in Jamf Pro: delete a device, restart, shut down, lock, turn Remote Desktop on or off, force a check-in, and look up a device lock PIN, recovery lock password or FileVault recovery key. Device actions need the device action privileges from Step 1. June also sends assignee and location changes made in June back to Jamf Pro.
   </Step>
 </Steps>
 

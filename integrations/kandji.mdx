@@ -53,16 +53,14 @@ Before starting the integration, ensure you have:
 
 ### Step 2: Configure Token Permissions
 
-Ensure your API token has the following permissions:
+Give the token these permissions:
 
-#### Required Permissions
-- **Blueprints**: Read access to device blueprint configurations
-- **Users**: Read access to user assignments  
-- **Audit Logs**: Read access for fetching devices audit events
-- **Tag Management**: Read and write access to tags
-- **Tenant Details**: Read access to tenant license information. This is used to test the connection.
-- **Devices**: Access to device information, device actions, and device secrets (optional).
-- **Device Secrets**: Access to device secrets so that June can show them when an admin asks. June doesn't store these secrets and fetches them on demand.
+- **Tenant Details**: used to test the connection.
+- **Users**: matches devices to employees.
+- **Devices** > **Device Information**, including **Update Device**: syncs devices, their apps and activity, and sends the assignee set in June back to Kandji.
+- **Prism** > **Application Firewall**: reads each Mac's firewall status. Without it, device sync fails.
+- **Devices** > **Device Actions** (optional): delete, restart, shut down and update inventory.
+- **Devices** > **Device Secrets** (optional): shows a device's secrets when an admin asks. June doesn't store them and fetches them on demand.
 
 <img src="/images/kandji_permissions.png" alt="Kandji Permissions" />
 
