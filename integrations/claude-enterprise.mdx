@@ -33,7 +33,7 @@ Claude Enterprise uses **one key**. It reads your spend, usage, seats, and each 
 
 ## Capabilities
 
-June ingests usage, billing, and spend limit data from Anthropic. The only action it can take in your Claude account is updating a spend limit when an admin approves the change in June.
+June ingests usage, billing, and spend limit data from Anthropic. The only action it can take in your Claude account is updating a spend limit: when a person with permission saves or approves a change, when an AI limit policy you turned on runs, or when a temporary raise ends. See [Spend limits](/ai-usage/spend-limits).
 
 | Capability | Description |
 |------------|-------------|
@@ -55,7 +55,7 @@ All five scopes live on your one key.
 |-------|------------------------|
 | `read:analytics` | Reads your Claude spend and usage: the totals, per-person breakdowns, and engagement data behind every chart and table. |
 | `read:spend_limits` | Reads each person's configured spend limit, so June can show it beside what they actually spend. |
-| `write:spend_limits` | Lets admins update a person's spend limit from June, once an admin approves the change. |
+| `write:spend_limits` | Lets June update a person's spend limit when someone with permission saves or approves a change, when an AI limit policy you turned on runs, or when a temporary raise ends. |
 | `read:compliance_user_data` | Reads your member roster, so every seat shows, including people with no usage. |
 | `read:compliance_org_data` | Reads your organization's group structure, so June can attribute seats to the right team. |
 

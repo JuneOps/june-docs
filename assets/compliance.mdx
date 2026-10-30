@@ -1,0 +1,96 @@
+---
+title: 'Compliance'
+description: 'See every device as Compliant, Non-compliant or Not assessed against your own policy, with the evidence for each check.'
+---
+
+Compliance shows whether each device meets your security policy and why. June has no built-in list of required checks. You write the policy as a [runbook](/agents/runbooks), the runbook assesses your devices, and the results appear here with the evidence behind each one.
+
+Owners, Admins and Members can view Compliance. Setting it up needs an Owner or Admin.
+
+<Frame caption="Assets > Compliance: platform tabs, search, and one column per check your policy reports.">
+  <img src="/images/assets/compliance-list.png" alt="The Compliance list with tabs for All, iOS, macOS and Windows, a search box, and columns for Asset, Deployment status, Assignee and one column per check" />
+</Frame>
+
+## Set up compliance
+
+Until a compliance runbook runs, every device is Not assessed and the page reads "Compliance isn't set up".
+
+1. Go to **Assets > Compliance** and click **Set up compliance**. This opens a new runbook from the Device compliance quick start. Members see "Ask an admin to set up a compliance runbook."
+2. Edit the checks in plain language to match your policy.
+3. Publish.
+
+The runbook runs every Monday at 2:00 PM Eastern, and you can run it manually. Results update after each run.
+
+**What the runbook does.** It assesses your devices, records each result with its evidence, creates a finding for each non-compliant or unknown device, and posts to Slack if Slack is set up. Findings are critical only when disk encryption, firewall or Secure Boot is off, and unknown results are labeled "Needs verification". It reports. It makes no change to a device unless you add an action to the runbook for that.
+
+The quick start assesses deployed Mac and Windows devices:
+
+| Check | Mac | Windows |
+|---|---|---|
+| Disk encryption, firewall and Secure Boot on | Yes | Yes |
+| Exactly one admin account | Yes | Yes |
+| Remote Desktop off | Yes | Yes |
+| OS version | macOS 15.5 or later | Windows 11 or later |
+| Recovery Lock and Activation Lock on | Yes | Not checked |
+
+A runbook can also check Jamf Smart Group membership and extension attributes you choose. Device facts come from [Jamf Pro](/integrations/jamf-pro), [Kandji](/integrations/kandji) and [Microsoft Intune](/integrations/microsoft-intune).
+
+## Find failing devices
+
+The page opens on **All** platforms. Tabs split by platform. Search takes devices, serials or assignees.
+
+| Filter | Options |
+|---|---|
+| **Deployment status** | Any status, multi-select |
+| **Compliance** | Compliant, Non-compliant, Not assessed |
+| **Check** | Any check your policy reports |
+| **Result** | Pass, Fail, Unknown. Appears once you choose a Check |
+
+Set **Compliance** to Non-compliant, or pick a **Check**, such as disk encryption, and set **Result** to Fail. On Windows, some checks show "Not Available" or "Not Applicable".
+
+If no compliance runbook is active but results exist, a banner warns that "these results may be out of date".
+
+## See why a device failed
+
+Open the asset and look at **Compliance** on **Overview**. It shows the verdict, the reason, and each check as Pass, Fail or Unknown with its reason, plus device-reported details such as Disk Encryption Enabled, Firewall Enabled and Secure Boot Enabled. Click **View assessment history** for every earlier assessment, newest first, each with the reason recorded at the time.
+
+Peripherals are never assessed. Dashboard and All Assets also show a **Compliance** card, column and filter. Decommissioned and Recycled devices are left out of the counts by default.
+
+## Signals about devices
+
+Separate from Compliance, June raises signals, shown under **Signals** in the sidebar, from thresholds you set in **Settings > Organization Policies**.
+
+| Signal | Default |
+|---|---|
+| Devices not checked in | 14 days |
+| Devices running outdated OS | macOS 26.0, Windows 10.0.22000, iOS 18.0, Android 15.0, tvOS 18.0 |
+| Devices with boot drive full | 90% |
+| Devices with warranty expiring | 30 days |
+
+**Devices without disk encryption** is on by default and has no threshold. You can turn it off. Signals and Compliance are independent: each uses its own rules, and neither changes the other's result.
+
+## If something looks wrong
+
+| You see | Why |
+|---|---|
+| Every device is Not assessed | No compliance runbook has run. Click **Set up compliance**, publish, or run it manually |
+| Results look stale | The runbook is no longer active, or has not run since a change. Check the banner and the runbook |
+| The outdated OS signal and Compliance disagree | The signal uses Organization Policies. Compliance uses your runbook |
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Which checks does June run?">
+Only the ones your runbook defines. Edit the quick start to match your policy.
+</Accordion>
+<Accordion title="Can I base a check on my own Jamf groups?">
+Yes. Say in the runbook which Smart Group or extension attribute to check.
+</Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Runbooks](/agents/runbooks)
+- [Assets](/assets/assets)
+- [Asset status](/assets/asset-status)
+- [Roles](/admin/roles)

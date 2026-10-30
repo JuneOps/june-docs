@@ -1,0 +1,85 @@
+---
+title: 'Groups'
+description: 'See the groups synced from Okta and Claude Enterprise, who is in them and which apps they grant.'
+---
+
+Groups shows the groups your identity provider and Claude Enterprise manage: who is in each one, how membership changed, and which apps the group grants. Groups are also the audiences for [access policies](/agents/access-policies), [self-service runbooks](/agents/runbooks) and Claude [spend limits](/ai-usage/spend-limits).
+
+## Where groups come from
+
+| Source | Groups shown |
+|---|---|
+| [Okta](/integrations/okta) | Okta groups, their members and the apps assigned to them |
+| [Claude Enterprise](/integrations/claude-enterprise) | Claude groups and their members |
+
+Google Workspace and Microsoft Entra ID groups don't appear on this page. Groups pushed over SCIM to assign June roles are separate. See [SCIM](/admin/scim).
+
+You can't create or edit groups on this page. Access policies and approved chat requests can add or remove people in Okta and Google Workspace groups, and approved chat requests can create or delete Google Workspace groups. Google Workspace group changes don't appear here. Okta membership on this page updates with the daily sync, or when you select **Sync Now** on the integration's page.
+
+## The Groups list
+
+Columns are **Group Name** (with description), **Provider**, **Type**, **Members** (current members) and **Applications**. Search by name, and sort by Group Name, Type, Members or Applications.
+
+<Frame caption="Groups from Okta and Claude Enterprise.">
+  <img src="/images/people/groups-list.png" alt="The Groups list with Group Name and description, Provider icon, Type (OKTA_GROUP or CLAUDE_GROUP), Members and Applications columns" />
+</Frame>
+
+**Type** shows the provider's own value:
+
+| Type | Group |
+|---|---|
+| OKTA_GROUP | A group made in Okta |
+| APP_GROUP | A group Okta received from a connected app |
+| BUILT_IN | An Okta built-in group, such as Everyone |
+| CLAUDE_GROUP | A Claude Enterprise group |
+
+## Open a group
+
+The header shows the name, type, description and a **Data Source** icon with the last sync time.
+
+**Overview** has the **Members**, **Inactive Members** and **Applications** cards, then:
+
+- **Member Growth**: monthly total, added and removed. The first month is marked "Tracking started". Members already in the group at the first sync are the starting point, and only later joins count as additions.
+- **Members by Department**: click a bar to open the department.
+- **Recent Additions** and **Recent Removals**: the five most recent changes.
+- **Inactive Members**: members whose employee record is not Active (inactive, suspended, archived or unknown), up to 50. Click one to open the profile.
+
+**Members** has search and a **Display** filter for Status and Department. Columns are **Employee**, **Department**, **Added** and **Removed**, all sortable. People who leave a group stay in the list with a Removed date, and the **Members** count includes only current members.
+
+**Applications** lists the apps the group grants. Click one to open it in [Software inventory](/software/software-inventory).
+
+To see one person's groups, open their profile's **Groups** tab. See [Employees](/people/employees).
+
+## Who can do what
+
+| Role | Open Groups | Members tab | Data Source |
+|---|---|---|---|
+| Owner, Admin | Yes | Yes | Yes |
+| Member, Software Procurement | Yes | Yes | No |
+| AI Usage | No | No | No |
+
+Custom roles need **View Groups** to open Groups and **Employee identities & groups** for the Members tab. Roles are set in [Roles](/admin/roles).
+
+## If something looks wrong
+
+**A Google Workspace or Entra ID group is missing.** Only Okta and Claude Enterprise groups are shown.
+
+**A group can't be chosen as an audience.** Its integration is disconnected. The group still shows on this page. Reconnect the integration to pick it again.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Why is someone who left still a member?">
+    Your provider still lists them in the group. Check the **Inactive Members** card, then remove them in the provider.
+  </Accordion>
+  <Accordion title="Does removing someone in Okta remove them here?">
+    Yes, after the next sync. They stay in the Members tab with a Removed date.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Employees](/people/employees) and [Departments](/people/departments)
+- [Access policies](/agents/access-policies) and [Runbooks](/agents/runbooks)
+- [Spend limits](/ai-usage/spend-limits)
+- [SCIM](/admin/scim) and [Roles](/admin/roles)

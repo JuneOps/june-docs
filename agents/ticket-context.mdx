@@ -1,0 +1,90 @@
+---
+title: 'Ticket context'
+description: 'See who filed an IT ticket and which devices they have, without looking anything up, and see every ticket a person or device has filed.'
+---
+
+Ticket context is a comment June adds to your Jira tickets with the reporter's details and devices. It is separate from [Context and memory](/agents/context-and-memory), which is the knowledge June uses in chats.
+
+## Turn it on
+
+**Who can do this:** Admin and Owner, who can set up integrations.
+
+<Steps>
+  <Step title="Connect Jira">
+    Follow [Jira](/integrations/jira) to connect Jira and its webhooks.
+  </Step>
+  <Step title="Enter the project key">
+    Go to **Settings** > **Integrations** > **Jira** and enter your IT project's key in **Default Project Key** (the same field June uses when it creates tickets), for example `IT`. June tracks one project, so enter one key.
+  </Step>
+</Steps>
+
+June comments on each new ticket in that project. For tickets that already exist, it comments the first time each one changes after you set the key. With **Default Project Key** blank, June doesn't track tickets and posts nothing. June posts this comment on its own; see [When June acts without asking](/agents/agent#when-june-acts-without-asking).
+
+## Who can see the comment
+
+In a Jira Service Management project, June posts the comment as an internal note, so the requester doesn't see it in the portal.
+
+In other Jira project types, Jira has no internal comments. Anyone who can view the ticket, including the reporter, can see the comment. If that matters for your project, track a Service Management project.
+
+## What the comment contains
+
+The comment is titled **Reporter Details** and signed "Posted by June".
+
+| Section | Contents |
+|---|---|
+| **Reporter Details** | Name, email, department, location and title. Fields June doesn't have are left out. Email is always shown. |
+| **Assigned Devices** | A numbered list. Each device shows product, serial, operating system and version, and status, plus last check-in, purchase date and warranty expiry where June knows them. If no device is assigned: "No devices currently assigned." |
+
+June posts the comment once per ticket. It doesn't update when the ticket changes. If June can't post it because Jira is unreachable, it doesn't retry.
+
+## How June finds the reporter
+
+Matching the reporter uses fixed rules and no AI. June matches the Jira reporter to an employee in this order and stops at the first match:
+
+1. A link it already has for that reporter.
+2. The same email address, ignoring case. Only the employee's primary email counts.
+3. The exact same full name among active employees, ignoring case, accents and spacing.
+
+If several employees share that name, June picks one only when exactly one of them comes from your identity provider. Otherwise it leaves the reporter unmatched.
+
+When June can't match a new ticket, it posts this instead: "June couldn't confidently match this ticket's reporter to an employee record, so reporter details were skipped." To fix it, correct the employee's email or name in your directory so it matches the Jira account. See [Identity Providers](/integrations/identity-providers).
+
+## Devices and linking
+
+June links every tracked ticket to its reporter, so the ticket shows up on their pages in June. Whether a ticket is about a device is decided by June's ticket classification, which does use AI. If June classifies the ticket as a device problem or a device request, it also links the ticket to each device assigned to the reporter. If the reporter changes, June rebuilds the links.
+
+## See tickets on employee and asset pages
+
+**Who can do this:** Member, Admin and Owner (permission **Requests & linked tickets**). Software Procurement and AI Usage don't have it.
+
+Open an employee or an asset and select the **Tickets** tab. It lists each linked ticket with its source, key, title, status, reporter and age. Use **Search tickets...** to search by title, key, status or reporter. Click a row to open the ticket in Jira. When nothing is linked, the tab says **No tickets**.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="June didn't comment on a ticket">
+    Check that the ticket is in the project entered in **Default Project Key**, and that the Jira connection is active. If the reporter couldn't be matched, look for June's "couldn't confidently match" comment.
+  </Accordion>
+  <Accordion title="It says No devices currently assigned">
+    No asset in June is assigned to that employee. Assign one on the asset page.
+  </Accordion>
+  <Accordion title="The wrong person, or nobody, was matched">
+    Compare the reporter's Jira email and name with the employee record. Matching is exact, so a nickname or a different email won't match.
+  </Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Will June comment again when the ticket changes?">
+    No. It comments once, when the ticket is first recorded.
+  </Accordion>
+  <Accordion title="Is this the comment June posts when it can't start a request?">
+    No. That is a different comment, posted when you assign a ticket to June. See [Requests](/help-desk/requests).
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Jira](/integrations/jira) for setup
+- [Requests](/help-desk/requests) for requests June hands to IT

@@ -33,7 +33,7 @@ ChatGPT Enterprise uses **one Admin API key** plus two identifiers you copy from
 
 ## Capabilities
 
-June ingests seat, usage, and limit data. The only action it can take in ChatGPT is updating a spend limit when an admin approves it in June.
+June ingests seat, usage, and limit data. The only action it can take in ChatGPT is updating a spend limit: when a person with permission saves or approves a change, when an AI limit policy you turned on runs, or when a temporary raise ends. See [Spend limits](/ai-usage/spend-limits).
 
 | Capability | Description |
 |------------|-------------|
@@ -52,7 +52,7 @@ Before starting, ensure you have:
 
 ## What each permission is for
 
-The Admin key needs four grants. If a key is missing one, the connection fails at setup and names the missing grant.
+The Admin key needs four grants. If a key is missing a read grant, the connection fails at setup and names it. Without write on usage limits, the connection works but limit changes fail.
 
 | Permission | What June does with it |
 |------------|------------------------|

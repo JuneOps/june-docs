@@ -1,0 +1,72 @@
+---
+title: 'Audit log'
+description: 'See who changed what in your organization, when, and from which IP address.'
+---
+
+The audit log is a record of changes made in your organization. Use it to answer "who changed this, and when?" during a security review or an investigation.
+
+<Note>
+  The audit log is available on the Enterprise plan. Owner and Admin can open **Settings > Audit Log** by default, and any custom role can be given the **Audit Log** permission.
+</Note>
+
+<Frame caption="Settings > Audit Log. These rows are automated updates made by June AI.">
+  <img src="/images/admin/audit-log-list.png" alt="The Audit Log page with the Events for and Updates by filters and a table of events with Event, Actor, Date and IP Address columns. The visible rows are automated updates by June AI" />
+</Frame>
+
+## What is recorded
+
+June records when something is created, updated or deleted. That covers the records you manage in June, including:
+
+- Members, roles, role assignments and role permission changes
+- Employees, departments and locations
+- Assets, products, refresh policies and depreciation settings
+- Software contracts, subscriptions and access policies
+- Runbooks and custom tools
+- Integrations, SCIM users and groups, and organization settings
+
+Changes that integrations make while syncing, and changes that SCIM makes, show **June AI** as the actor. Sign-ins and permission-denied attempts are not recorded.
+
+## Find an entry
+
+Go to **Settings > Audit Log**. Entries are listed newest first, 20 at a time, and more load as you scroll.
+
+Filter by record type with **Events for**, or by person with **Updates by**. Use both together. They default to **Any type** and **Any user**. If nothing matches, the list says "No audit logs found" and names the filters you chose.
+
+To find who changed someone's role, set **Events for** to the role assignments record type and scan the Actor and Date columns. **Events for** takes one record type at a time. Role assignments made before people could hold several roles appear under **Organization Memberships**.
+
+To list what your integrations and SCIM changed, set **Updates by** to **June AI**. There is no date filter, so scroll to the day you need.
+
+You can't export the audit log from the app.
+
+## Read an entry
+
+| Column | Meaning |
+|---|---|
+| **Event** | The kind of record and what happened to it, such as "SoftwareSubscription update" |
+| **Actor** | Who made the change |
+| **Date** | When it happened, such as "Oct 29, 2026 3:42 PM" |
+| **IP Address** | Where the change came from. A dash means none was recorded |
+
+Click a row to open **Audit Details**. **Audit Information** shows the actor, event, date, entity type and entity ID. **Changes Made** shows the changed fields as raw data, each with its old and new value. A created record lists its starting values.
+
+<Frame caption="Audit Details for an automated update made by June AI">
+  <img src="/images/admin/audit-log-details.png" alt="The Audit Details dialog showing June AI as actor, a SoftwareSubscription update event, the date, entity type and ID, and Changes Made with a field's old and new values" />
+</Frame>
+
+## How long records are kept
+
+Audit records are available for 90 days in the app. For older audits, contact support@juneops.com.
+
+## If something looks wrong
+
+| What you see | Why | What to do |
+|---|---|---|
+| **Audit Log** is missing from Settings | Your plan is not Enterprise, or your role lacks the **Audit Log** permission | Ask your Owner. See [Members and roles](/admin/roles) |
+| Many rows show June AI as the actor | Integration syncs and SCIM changes run as June AI | Set **Updates by** to a person to see only that person's changes |
+| "No audit logs found" | Nothing matches the filters, or the change is older than 90 days | Clear a filter, or contact support for older audits |
+
+## Related
+
+- [Members and roles](/admin/roles): who holds the Audit Log permission
+- [SCIM](/admin/scim): provisioning changes appear here
+- [SSO](/admin/sso): sign-ins are not recorded in the audit log

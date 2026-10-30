@@ -1,0 +1,127 @@
+---
+title: 'Spend limits'
+description: 'See each person''s monthly AI limit beside their spend, and raise, lower or reset it from June'
+---
+
+A spend limit is the monthly cap a provider enforces on one person's AI usage. June shows each person's limit beside their actual spend, so you can see who is close to the cap and who has none. Owners and Admins can change a limit from June without opening the provider's console.
+
+## Who can do this
+
+| Task | Permission | Default roles |
+|---|---|---|
+| See limits | **AI spending limits** | Owner, Admin, Member, AI Usage |
+| Change limits | **Change AI spending limits** | Owner, Admin |
+
+Changing a limit also needs **Employee AI usage** and **AI spending limits**. Owner and Admin have both. Without them, or if an Owner set the **Update AI limit** tool to **Block** on your role's **Tools** tab, the **Update** button doesn't appear. An Owner can adjust what each role includes under [Roles](/admin/roles).
+
+## Which tools support changing limits
+
+| Tool | See limits | Change limits |
+|---|---|---|
+| Claude Enterprise | Yes | Yes |
+| ChatGPT Enterprise | Yes, in credits | Yes, in credits |
+| Cursor | Yes | Yes. See the [Cursor page](/integrations/cursor) for plan requirements. |
+| Claude Platform | No | No |
+| OpenAI Platform | No | No |
+
+Claude Enterprise needs a key that can write spend limits. See [Claude Enterprise](/integrations/claude-enterprise) for the scope. Limits show in the provider's own unit: dollars for Claude and Cursor, credits for ChatGPT. June never converts credits to dollars.
+
+## What June does on its own
+
+June reads limits from each provider in its daily sync. It changes a limit in three cases only: a person with permission saves or approves a change, an AI limit policy you turned on runs, or a temporary raise ends and June puts back the earlier limit. It writes nothing else to your providers. See [AI limit requests](/help-desk/ai-limit-requests) for limit policies.
+
+## See limits beside spend
+
+Open **AI usage**, choose **Claude**, **Cursor** or **OpenAI**, then open **Employee usage**. The **Monthly limit** column shows each person's limit and how much of it they have used. The column is titled **Limit** if any cap isn't monthly.
+
+<Frame caption="Spend follows your date range; the limit follows the provider's period"><img src="/images/ai-usage/spend-limits-column.png" alt="Employee usage rows with the Spend and Monthly limit columns: two people at 100% in red with a warning icon, and others below at 85%, 40% and 48% in plain text" /></Frame>
+
+| What you see | Meaning |
+|---|---|
+| **\$805 / \$2k** with a percentage | Used so far against the cap. Hover for the exact amounts. |
+| Amber | 90% or more used. Further use is blocked at 100%. |
+| Red with a warning icon | The limit is reached. Further use is blocked until the period resets or the limit is raised. |
+| **No limit** | The person has no cap. |
+
+The figure is the provider's count for the cap's current period. It doesn't follow the date range you chose, so it can differ from the **Spend** column.
+
+To group people by where their limit comes from, set **View** to **Group** in **Display**. People with no cap fall under **No limit**. For a list of top spenders without a cap, open **Insights** and read the **Spend caps** check.
+
+### A person's limit history
+
+On an employee's page, the **AI usage** tab has a **Monthly Spend Limits** tile and a **Limit history** card. The card lists date, change and status. It shows ten at a time, with **Show older**, and isn't tied to the date range. Hover a change to see who made it and where:
+
+| Shown | Meaning |
+|---|---|
+| **via June** | Changed in June, from the page or from chat |
+| **via console** or **via Slack** | A request decided there |
+| **Automatically via June** | An AI limit policy changed it |
+| **Automatic revert** | A temporary raise ended |
+
+## Change a limit
+
+<Steps>
+  <Step title="Find the person">
+    Open **AI usage**, choose the tool, and open **Employee usage**. Search for the person.
+  </Step>
+  <Step title="Open the panel">
+    Select **Update** under their limit, or **Set limit** if they have none. A panel opens beside the table. It shows their **Current** limit and the **Default** they would fall back to. If they have an open request, it shows the reason they gave.
+  </Step>
+  <Step title="Set the new limit">
+    Type the new total limit, not the increase, or choose **+25%**, **+50%** or **+100%**. Choose **Default** to put them back on the default limit (shown when they have a personal limit and June knows the default). Cursor takes whole dollars and ChatGPT takes whole credits.
+  </Step>
+  <Step title="Choose how long">
+    Choose **Indefinite** or **Until end of month**.
+  </Step>
+  <Step title="Add a reason">
+    **Reason (optional)** is prefilled, for example "Raised by 25% for this month". Edit it, up to 500 characters. It is saved in the limit history.
+  </Step>
+  <Step title="Save">
+    Select **Save**. The button reads **Approve**, **Lower and decline**, **Reset and decline** or **Reset to default** when the change does that. A "Limit updated" message confirms it. June writes the change to the provider when you save.
+  </Step>
+</Steps>
+
+<Frame caption="The Update panel"><img src="/images/ai-usage/spend-limits-update-panel.png" alt="Update panel showing Current and Default limits, New limit with +25%, +50% and +100%, Duration, Reason, Cancel and Save, and Recent history" /></Frame>
+
+**Recent history** at the bottom of the panel lists the person's last five changes and requests with the status of each: Pending, Approved, Declined, Canceled or Superseded. To undo a change, open the panel and set the earlier amount, or choose **Default**.
+
+### When the person has an open request
+
+If the person has an open request, a raise saved as **Approve** approves it, and a lowering or reset saved as **Lower and decline** or **Reset and decline** declines it. Otherwise it stays open, and the panel says so. Approving and declining use the same permission as changing a limit. Employee requests are covered in [AI limit requests](/help-desk/ai-limit-requests).
+
+### Temporary raises
+
+**Until end of month** raises the limit until the end of the month (UTC). Early on the 1st, June puts the earlier limit back and records "Temporary raise ended" in the history. June skips it if someone changed the limit since. If the person had a personal limit set to unlimited, they return to their default, because June can't set a personal unlimited limit. On ChatGPT, if the person was on the default, ChatGPT ends the raise itself and June records it.
+
+If the tool's connection isn't active, June can't put the limit back. Check that the tool shows **Connected** under Settings > Integrations, then open the person's panel. If it still shows the raise, set the earlier amount yourself.
+
+### Guardrails
+
+| Rule | Limit |
+|---|---|
+| Largest limit for anyone | \$50,000 a month, or 1,000,000 credits |
+| Largest increase in one change | 10 times the current limit |
+| When there is no current limit, or it is zero | \$5,000, or 100,000 credits |
+
+June also refuses negative amounts, a limit the person already has, a person with no account on that tool, a reset when it doesn't know the default, and a change when the provider's limit moved since you opened the panel ("This limit just changed, reopen to see it"). If June can't confirm a write, reopen the panel to see the current limit before you retry.
+
+## Change a limit from June chat
+
+Ask June in chat, for example "raise Dana's Claude limit to \$600 until end of month". June reads the current limit and asks you to approve before it changes anything. Putting someone back on their default limit works the same way. Chat uses the same permissions as the page.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Why can't I change a limit on the Claude page?">
+    You may lack **Change AI spending limits**, or an Owner may have blocked the **Update AI limit** tool for your role. The tool may be connected through Claude Platform, which doesn't support limits. Or June has no Claude account for that person.
+  </Accordion>
+  <Accordion title="Can I give someone more for one week only?">
+    No. A raise lasts until the end of the month or until someone changes it. For a shorter raise, choose **Indefinite** and lower it again when the week ends.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [AI usage](/ai-usage/ai-usage): spend, adoption and seats
+- [AI limit requests](/help-desk/ai-limit-requests): employee requests, approvals and limit policies
+- [Members and roles](/admin/roles): who can see and change limits

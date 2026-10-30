@@ -1,0 +1,133 @@
+---
+title: 'Software renewals'
+description: 'Track each contract''s renewal decision and notice deadline, and get reminders before it renews.'
+---
+
+Software renewals help you decide on each contract before it renews. June tracks the end date, the notice deadline and your decision, and reminds your team 90, 60 and 30 days ahead.
+
+You manage renewals from the **Contracts** list, an app's **Overview** and **Contracts** tabs, and the **Software** dashboard.
+
+**Who can do this:** Member, Software Procurement, Admin and Owner can see renewals. Software Procurement, Admin and Owner can change a renewal status and record notice terms. June never renews or cancels a contract and never contacts a vendor.
+
+## Renewal statuses
+
+Every contract linked to an app has a renewal status. New contracts start as **Pending**.
+
+| Status | Meaning |
+|---|---|
+| **Pending** | No decision yet |
+| **In review** | Your team is evaluating it |
+| **Approved** | You will renew |
+| **Rejected** | You will not renew as is. Optionally pick a reason: **Replace**, **Terminate** or **Consolidate** |
+
+On a rejected contract, **Renews On** reads **Ends On**. Moving a contract out of Rejected clears its reason.
+
+### Set a decision
+
+<Steps>
+  <Step title="Open the status">
+    Click the renewal status chip on a contract row, on the app's Overview, or on the app's Contracts tab.
+  </Step>
+  <Step title="Choose a status">
+    Pick the **Status**. For Rejected, pick a **Reason**. Add a **Note** if the team should know why. The note is saved on the contract.
+  </Step>
+  <Step title="Save">
+    June confirms with "Renewal status updated", or "Note added" if you only added a note.
+  </Step>
+</Steps>
+
+A change takes effect immediately, and you undo it by setting the previous status. A note-only save never overwrites a status someone else set. The app Overview's **Renewal Status** shows who set the status and when. You can also set the status from the contract form, or ask [Agent](/agents/agent).
+
+Contracts from Zip start with a status mapped from Zip, and Zip stops overwriting it once someone sets a status in June. Coupa contracts start as Approved and are not changed on later syncs.
+
+## Notice deadlines
+
+If a contract auto-renews unless you give notice, record the clause so June can compute your last day to act.
+
+<Steps>
+  <Step title="Open the contract">
+    Open the contract and click **Edit contract**.
+  </Step>
+  <Step title="Fill in the Renewal section">
+    Turn on **Auto-renews** and enter **Notice period, days**.
+  </Step>
+  <Step title="Save">
+    Click **Update Contract**. June shows **Notice deadline**: the end date minus the notice days.
+  </Step>
+</Steps>
+
+The deadline appears on the app Overview and the Contracts tab. It turns amber within 30 days and red once passed. It needs **Auto-renews** on, an end date and notice days. Turning Auto-renews off hides the field and keeps your number.
+
+Fixed-term contracts have a renewal date. Month-to-month contracts do not; their Overview shows Started On, Billing and the days' notice to cancel.
+
+## See what is coming up
+
+- **Contracts > Expiring Soon:** active contracts ending within 90 days. Sort by End Date.
+- **Contracts > display settings > Renewal:** pick Pending and In review to see undecided renewals.
+- **Software dashboard > Upcoming Renewals:** active contracts ending in the next 90 days, with their owner (Budget Owner, else Contract Owner, else "No owner"). Rows within 14 days are marked urgent. Rejected renewals, ignored contracts and unlinked contracts are not listed.
+- **Contract renewal approaching signal:** raised for each contract inside the window and cleared when it leaves. It shows under **Signals** in the sidebar.
+
+When an app has several active fixed-term contracts, the Overview shows the one ending soonest and lets you pick another.
+
+## Reminders
+
+June sends an **Upcoming Software Renewal** reminder 90, 60 and 30 days before a contract ends. It goes to everyone with the Owner, Admin or Software Procurement role, or to everyone if nobody holds those roles. Stakeholders get it only if they hold one of those roles. The message lists the app, vendor, contract value, license count, end date, time until renewal, usage and the app's stakeholders.
+
+June schedules the reminders when a contract is saved, as long as it is active, has a future end date and is not ignored. If you add a contract inside a window, the next reminder is sent right away. Changing the end date reschedules them.
+
+**To stop reminders for a contract, delete it.** Ignoring a contract or marking it Rejected later does not cancel reminders already scheduled.
+
+An Admin or Owner can change delivery in **Settings > Notification Settings**: find **Upcoming Software Renewal** and choose **Off**, **Email**, **Slack** or **Email and Slack**. The page needs the Enterprise plan, and a change applies to reminders scheduled after it. In-app notifications always arrive.
+
+An Admin or Owner can change the signal window, or turn the signal off, in **Settings > Organization Policies > Contract renewal approaching** (**Window days**, default 90). The Organization Policies page appears only when Signals is turned on for your organization.
+
+## Plan a renewal with Agent
+
+Agent opens with the contract's end date, license count and cost, and asks what to consider in the negotiation. There are two places to start:
+
+- **Contracts list:** **More actions > Plan renewal** appears for fixed-term contracts ending within 90 days.
+- **App's Contracts tab:** **Plan Renewal** appears on every active fixed-term contract.
+
+See [Agent](/agents/agent).
+
+## Renewal runbooks
+
+[Runbooks](/agents/runbooks) can check renewals on a schedule and report to you. Three Quick starts are available on the Runbooks page, under **Software contracts**, once your organization has contracts. See [Quick starts](/agents/runbooks#quick-starts).
+
+| Quick start | What it reports |
+|---|---|
+| **Expiring Soon** | Contracts ending within 60 days, critical within 14 |
+| **High Value Renewal** | Contracts over \$10,000 a year ending within 120 days, critical within 30 |
+| **No Designated Owner** | Contracts whose app has no Contract Owner or Budget Owner, or has no vendor contact |
+
+They report only. They run every Monday at 2:00 PM Eastern by default. Creating or running one needs an Admin or Owner role.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="There is no notice deadline on my contract">
+    **Auto-renews** is off, or the end date or notice days are empty.
+  </Accordion>
+  <Accordion title="A monthly contract has no renewal date">
+    Recurring contracts have no end date to renew on.
+  </Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Does June renew a contract if I do nothing?">
+    June takes no action on your contracts. A contract renews or ends according to its terms with the vendor, which is why the notice deadline matters.
+  </Accordion>
+  <Accordion title="Can I change the 90, 60 and 30 day schedule?">
+    No. The schedule is fixed. You can turn reminders off or change the channel in Notification Settings.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Contracts](/software/contracts)
+- [Unused licenses](/software/unused-licenses)
+- [Runbooks](/agents/runbooks)
+- [Software inventory](/software/software-inventory)
+- [Roles](/admin/roles)

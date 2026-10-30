@@ -36,15 +36,79 @@
             "group": "Initial Setup",
             "pages": [
               "getting-started/quick-start",
-              "getting-started/organization-setup"
+              "getting-started/organization-setup",
+              "device-management/asset-upload"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Product",
+        "groups": [
+          {
+            "group": "Agents and automation",
+            "pages": [
+              "agents/agent",
+              "agents/tools",
+              "agents/context-and-memory",
+              "agents/runbooks",
+              "agents/access-policies",
+              "agents/ticket-context"
             ]
           },
           {
-            "group": "Administration",
+            "group": "Help desk",
             "pages": [
-              "administration/role-based-access-control",
-              "administration/members",
-              "administration/custom-roles"
+              "help-desk/requests",
+              "help-desk/access-requests",
+              "help-desk/ai-limit-requests",
+              "help-desk/knowledge-base"
+            ]
+          },
+          {
+            "group": "Asset management",
+            "pages": [
+              "assets/assets",
+              "assets/asset-status",
+              "assets/asset-sources",
+              "assets/orders-and-returns",
+              "assets/compliance",
+              "assets/refresh-and-depreciation"
+            ]
+          },
+          {
+            "group": "Software spend management",
+            "pages": [
+              "software/software-inventory",
+              "software/contracts",
+              "software/software-renewals",
+              "software/unused-licenses"
+            ]
+          },
+          {
+            "group": "AI usage",
+            "pages": [
+              "ai-usage/ai-usage",
+              "ai-usage/spend-limits",
+              "ai-usage/ai-impact"
+            ]
+          },
+          {
+            "group": "People",
+            "pages": [
+              "people/employees",
+              "people/groups",
+              "people/departments",
+              "people/locations"
+            ]
+          },
+          {
+            "group": "Admin",
+            "pages": [
+              "admin/roles",
+              "admin/sso",
+              "admin/scim",
+              "admin/audit-log"
             ]
           }
         ]
@@ -126,37 +190,6 @@
         ]
       },
       {
-        "tab": "Core Features",
-        "groups": [
-          {
-            "group": "Device Management",
-            "pages": [
-              "device-management/asset-discovery",
-              "device-management/asset-upload"
-            ]
-          },
-          {
-            "group": "AI Features",
-            "pages": [
-              "ai-features/ai-insights"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Authentication & Security",
-        "groups": [
-          {
-            "group": "Single Sign-On",
-            "pages": [
-              "authentication/sso-overview",
-              "authentication/sso-setup",
-              "authentication/scim-okta"
-            ]
-          }
-        ]
-      },
-      {
         "tab": "Browser Extension",
         "groups": [
           {
@@ -204,7 +237,39 @@
   "redirects": [
     {
       "source": "/administration/user-management",
-      "destination": "/administration/members"
+      "destination": "/admin/roles"
+    },
+    {
+      "source": "/administration/members",
+      "destination": "/admin/roles"
+    },
+    {
+      "source": "/administration/custom-roles",
+      "destination": "/admin/roles"
+    },
+    {
+      "source": "/administration/role-based-access-control",
+      "destination": "/admin/roles"
+    },
+    {
+      "source": "/authentication/sso-overview",
+      "destination": "/admin/sso"
+    },
+    {
+      "source": "/authentication/sso-setup",
+      "destination": "/admin/sso"
+    },
+    {
+      "source": "/authentication/scim-okta",
+      "destination": "/admin/scim"
+    },
+    {
+      "source": "/device-management/asset-discovery",
+      "destination": "/assets/asset-sources"
+    },
+    {
+      "source": "/ai-features/ai-insights",
+      "destination": "/assets/assets"
     }
   ]
 }

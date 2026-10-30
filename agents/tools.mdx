@@ -1,0 +1,153 @@
+---
+title: 'Tools'
+description: 'See every action June can take in your connected systems, build your own, and control which roles can use them.'
+---
+
+Tools are the actions June can take in the Agent, in runbooks and in access policies. Each tool belongs to a provider, such as Okta or Jamf, and is either a **Read** tool that looks something up or a **Write** tool that changes something. You can also build custom tools for your own HTTP APIs. For when a tool needs approval, see [When June acts without asking](/agents/agent#when-june-acts-without-asking).
+
+Find them under **Settings** > **Agent** > **Tools**.
+
+**Who can do this:** Admin and Owner see the catalog, manage credentials and build custom tools (**Create & manage custom Tools**). Setting which roles can use a tool needs **Manage roles & permissions**, which Owner has by default.
+
+## Browse the catalog
+
+Tools are grouped by provider. Each group shows **Connected**, or a **Connect** button that opens its setup page. Each tool lists its name, a description and a **Read** or **Write** badge. Tools from a provider that isn't connected appear dimmed, and June skips them.
+
+<Frame caption="The Tools catalog, with the June group connected.">
+  <img src="/images/agents/tools-catalog.png" alt="The Tools page showing All tools, Standard and Custom tabs, a search box, the Create tool button, and the June provider group marked Connected with Read badges on each tool." />
+</Frame>
+
+Narrow the list with the filter: **Access** (Read or Write), **Connection**, **Providers**, or **Availability** > **Self-service**.
+
+| Provider | Read | Write |
+|---|---|---|
+| [Okta](/integrations/okta) | List and get groups, an employee's groups | Reset MFA, expire password, suspend, unsuspend, unlock, deactivate and restore users, add and remove group members |
+| [Google Workspace](/integrations/google-workspace) | Get users, list and get groups, list a user's groups and tokens, search email logs | Create, suspend and unsuspend users, reset passwords, sign users out, revoke tokens, create and delete groups, change group and calendar membership, transfer Drive ownership |
+| [Slack](/integrations/slack) | Search channels, list stale channels, list channel members | Message people and threads, notify IT, add and remove channel members, archive channels, update topics, deactivate users |
+| [Jamf Pro](/integrations/jamf-pro) | Get lock PIN, recovery lock password, FileVault key | Lock, restart, shut down, force check-in, turn remote desktop on and off, delete a device |
+| [Kandji](/integrations/kandji) | Get unlock PIN, recovery password, FileVault key, bypass code | Restart, shut down, force check-in, delete a device |
+| [Microsoft Entra](/integrations/microsoft-entra) | | Restart, shut down, force check-in, delete a device (Intune-managed devices) |
+| [Jira](/integrations/jira) | Get a ticket and its transitions | Create tickets, update ticket descriptions, transition, comment, assign to June and unassign |
+| Linear (set up in **Settings** > **Integrations**) | Get a ticket and workflow states | Create tickets, update title, description, priority and state, comment |
+| [Firstbase](/integrations/firstbase) | Orders, returns and inventory lookups | None |
+| June | Employee's assigned assets, documents, AI spend, engineering metrics, AI limits | Assets, employees, product catalog, software contracts and payments, notes, internal email, employee reachouts, AI limits |
+
+## Control which roles can use a tool
+
+There's no global switch for a tool. You allow or block each one for each role.
+
+**Who can do this:** Owner (**Manage roles & permissions**).
+
+<Steps>
+  <Step title="Open the role">
+    Go to **Settings** > **Roles**, open a role, and select the **Tools** tab.
+  </Step>
+  <Step title="Choose Allow or Block">
+    Find the tool with **Find a tool...**. Choose **Default** (shown as **Default: Allowed** or **Default: Not allowed**), **Allow** or **Block**. Each row says why: for example **Allowed by** a permission, **Manually allowed**, or **Blocked for this role**. A tool that returns recovery keys or PINs shows **Restricted** and can't be unlocked with **Allow** for someone who lacks permission to see that information.
+  </Step>
+  <Step title="Save the role">
+    Save to apply. Removed access applies even in open chats, and new access reaches new chats.
+  </Step>
+</Steps>
+
+Defaults: integration tools are on for Admin and Owner and off for other roles. June's own tools follow the role's permissions, for example assigning an asset needs permission to update assets. A custom tool with no permissions chosen is for Admin and Owner only.
+
+To turn a tool off for everyone, block it on every role, or disconnect the integration. See [Roles](/admin/roles).
+
+## Employee self-service
+
+A tool marked **Available for self-service** can run in a runbook an employee triggers with their own request, and it acts only on the requester. Filter for these with **Availability** > **Self-service**. Employee Request runbooks can use only these tools, up to 20 tools and 12 actions per request.
+
+## Credentials
+
+Credentials let custom tools authenticate to your APIs. Open **Settings** > **Agent** > **Credentials** and click **Add credential**. Owners and Admins can add, edit and delete anyone's credentials, including ones a teammate created.
+
+<Steps>
+  <Step title="Name it">
+    Enter a **Name** (shown when you pick authentication for a tool) and an optional **Description**.
+  </Step>
+  <Step title="Pick the auth method">
+    Choose **Bearer token**, **API key**, **Basic auth**, **OAuth 2.0** (client credentials) or **None (public API)**. Each asks for its own fields, such as header name, username, token URL, client ID and scopes.
+  </Step>
+  <Step title="Enter the secret">
+    Secrets are stored encrypted and never shown again. When editing, leave the field blank to keep the current one.
+  </Step>
+  <Step title="Add allowed hosts">
+    List every host the credential may call, up to 20. Requests go over https to those hosts only. Click **Create**.
+  </Step>
+</Steps>
+
+To delete a credential that a tool uses, first choose another authentication method for that tool.
+
+## Build a custom tool
+
+<Steps>
+  <Step title="Start">
+    Click **Create tool**. Enter a **Tool name** and **Tool description**.
+  </Step>
+  <Step title="Choose authentication">
+    Under **Setup** > **Authentication**, pick a connected June integration or a stored credential, or click **Add credential securely**.
+  </Step>
+  <Step title="Tell June when to use it">
+    Fill **Agent guidance** ("Use this tool when..."). It is required to publish.
+  </Step>
+  <Step title="Define inputs">
+    Click **Add an input** for each value the tool needs. Give each a name, type, description, and whether it takes any value or a fixed list.
+  </Step>
+  <Step title="Add API requests">
+    Set the method, an https URL, query parameters, headers, body and **Accepted statuses**. A tool can chain up to 10 requests, and later ones can use values captured from earlier ones. Secrets can only come from the credential, never from headers or inputs. A tool is a Write tool if any request uses a method other than GET.
+  </Step>
+  <Step title="Choose what is returned">
+    Under **Returned values**, rename values or hide ones only needed by later requests.
+  </Step>
+  <Step title="Set availability">
+    Under **Tool availability**, turn on **Self-service** if employee runbooks may use it. Set **Software access** to **Grant access** or **Revoke access** to use it as a step in an [access policy](/agents/access-policies).
+  </Step>
+  <Step title="Set team access">
+    Under **Team access**, choose the permissions people need. With none, only Admin and Owner can use it.
+  </Step>
+  <Step title="Test, save, publish">
+    Run **Test draft**. Each request can be **Live** or **Mock**, and a live request that writes asks you to confirm because June doesn't retry or roll back test requests. Click **Save Draft**, then **Publish**.
+  </Step>
+</Steps>
+
+| Status | Meaning |
+|---|---|
+| **Draft** | Saved, not available to June. |
+| **Published** | The version June uses. It may also have **Draft changes** not yet published. |
+| **Inactive** | June can't use it. Publish the saved draft to bring it back. |
+| **Archived** | Removed from pickers, and June can't run it. You can't archive a tool that a runbook or access policy still uses. |
+
+Open a tool, then **Tool actions** to **Deactivate** or **Archive** it.
+
+In a Personal Agent chat you can also ask June to draft a custom tool. When you ask, it publishes or deactivates one without an approval card, and it never live-tests from chat.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="A Member can't use an Okta tool">
+    Integration tools default to Admin and Owner. Allow the tool for the role under **Settings** > **Roles** > **Tools**.
+  </Accordion>
+  <Accordion title="A provider is greyed out">
+    The integration isn't connected. Click **Connect** and finish its setup.
+  </Accordion>
+  <Accordion title="I can't publish a custom tool">
+    It needs a description, **Agent guidance**, at least one request, and a label and description on every input.
+  </Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Is my API secret sent to the AI model?">
+    No. Credentials are never shared with the AI model. Secrets are stored encrypted, and requests go only to the hosts you list.
+  </Accordion>
+  <Accordion title="Can a custom tool grant app access?">
+    Yes. Set **Software access** and choose it as a grant or revoke step in an access policy.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Agent](/agents/agent), [Runbooks](/agents/runbooks) and [Access policies](/agents/access-policies)
+- [Roles](/admin/roles)

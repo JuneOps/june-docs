@@ -1,0 +1,135 @@
+---
+title: 'Contracts'
+description: 'Record what you pay for each application: terms, value, licenses, dates, payments and documents.'
+---
+
+A contract is the record of what your organization pays for an application. June uses contracts to calculate spend, cost per license, health status and renewal dates.
+
+Open **Resources > Software > Contracts**.
+
+<Frame caption="The Contracts list">
+  <img src="/images/software/contracts-list.png" alt="The Contracts list with cards for Total Spend, Active Contracts, Expiring Soon and Next Renewal, lifecycle tabs, and a Renewal column" />
+</Frame>
+
+**Who can do this:** Members can view contracts. Software Procurement, Admin and Owner can also create, edit and delete contracts and payments, and process documents. See [Roles](/admin/roles).
+
+## Where contracts come from
+
+| Source | How it works |
+|---|---|
+| You | Click **New Contract**, or ask [Agent](/agents/agent) to create one or record a payment |
+| [Zip](/integrations/zip) | Each agreement becomes a contract, with Zip's fields and attached documents. June does not extract from Zip documents |
+| [Coupa](/integrations/coupa) | Each requisition becomes a contract. June extracts the attached documents when the sync runs |
+
+If June recognizes the product in a Zip or Coupa contract, it adds the app to the [Software inventory](/software/software-inventory) when needed. Otherwise the contract arrives unlinked and appears on **Needs Attention** for you to link. Saving any contract recalculates the app's health status and reschedules its renewal reminders.
+
+## The contracts list
+
+The cards at the top are **Total Spend**, **Active Contracts**, **Expiring Soon** and **Next Renewal**. Click a card to filter the list, or click **Next Renewal** to open that contract. Tabs filter the list, each with a count.
+
+| Tab | Shows |
+|---|---|
+| **All** | Every contract that is not ignored |
+| **Active** | Linked to an app, started, and not past its end date. A contract with no end date stays active |
+| **Expiring Soon** | Active contracts ending within 90 days |
+| **Expired** | Linked contracts with an end date before today |
+| **Future** | Start date after today |
+| **Ignored** | Contracts you chose to ignore |
+| **Needs Attention** | Not linked to an app, or a document extraction needs review or failed |
+
+A contract that is not linked to an app, or has no start date, is never active, so it is left out of spend. Search with **Search contracts...**. Display settings add **Renewal** (Pending, In review, Approved, Rejected), **App Linking** and **Review Status**, plus view and sort options.
+
+## Add a contract
+
+Only **Software Application** is required. The button needs the **Add Contracts** permission (Software Procurement, Admin, Owner), and it is hidden on the Needs Attention and Ignored tabs.
+
+<Steps>
+  <Step title="Start the form">
+    Click **New Contract**. From an app's **Contracts** tab, **New Contract** pre-selects the app.
+  </Step>
+  <Step title="Choose the application">
+    In **Software Application**, search for the app. To add one June has not found, type its name and choose **Link to "name"**.
+  </Step>
+  <Step title="Set the terms">
+    Pick a **Contract Type** and **Term**, enter the value, and set **Contract Validity**. **From** and **To** default to today and 12 months from today. Add **Number of Licenses**, **Billing frequency** and **Payment Method** if you know them. For renewal details, see [Software renewals](/software/software-renewals).
+  </Step>
+  <Step title="Create it">
+    Click **Create Contract**. June opens the app's Contracts tab.
+  </Step>
+</Steps>
+
+The **Summary** panel shows Monthly Cost, Annual Cost and Cost Per license as you type.
+
+### Contract types and terms
+
+| If you pay for... | Contract Type | Term | Enter |
+|---|---|---|---|
+| A fixed period, such as 12 months | Software Subscription (default) | Fixed term | **Total contract value**, a **Billing frequency** and dates |
+| A rolling monthly fee with no end | Software Subscription | Recurring | **Price per month**. Leave the To date empty |
+| A committed minimum plus overage | Usage-Based / Pay-As-You-Go | Recurring (locked) | The committed monthly base, which can be \$0. Record payments for the real cost |
+| Unlimited seats | Site License | Fixed term | Value and dates. License count shows as Unlimited |
+| A one-time purchase | Perpetual License | Fixed term | Value. No To date |
+
+Other types are Add-On / Feature Module, Enterprise Agreement, Free / Open Source, Support Contract, Trial / Evaluation and True-Up Agreement.
+
+Fixed-term monthly cost is the total value divided by the contract length in months, and annual cost is monthly times 12. Recurring contracts bill monthly.
+
+### Record payments
+
+Open the contract, click **Edit contract**, and use **Payments > Add payment**. Enter **Paid on**, **Amount** and an optional note. The section shows **Recorded spend** and **By month**. Edit or delete a payment from its row.
+
+For a usage-based contract, monthly cost is the most recent month with a recorded payment, or the base if there are none. Spend to date counts recorded payments, and the base for months with no payment.
+
+## Fill a contract from a document
+
+Uploading a document stores it. It does not fill any fields until you process it. Save the contract first, then:
+
+<Steps>
+  <Step title="Upload the document">
+    In **Documents**, click **Upload document**. PDF, Word, Excel and image files up to 10 MB are accepted.
+  </Step>
+  <Step title="Process it">
+    Click the **Process document** icon on the file. The status shows Processing, and the form refreshes with "Contract updated from latest extraction". Extraction reads fields such as dates, value, licenses, billing frequency, auto-renew and notice period.
+  </Step>
+</Steps>
+
+<Warning>
+**Process document** and **Re-extract from documents** do not work on Zip contracts. Enter the values yourself, or use **Re-sync contract data** to pull Zip's fields again.
+</Warning>
+
+Coupa contracts do not need this step: **Document extraction history** on the contract shows what was read and any errors. On Coupa contracts, **More actions** has **Re-sync contract data** and **Re-extract from documents**. Use Re-extract for documents added in Coupa after the first import.
+
+## Fix a contract that needs attention
+
+Open the **Needs Attention** tab. The Review column explains each one.
+
+- **Unlinked:** click **Link to application** and pick the app.
+- **Needs review** or **Failed:** open the contract, click **Edit contract**, fill in the missing fields and click **Update Contract**. It clears once start date, end date, value, type and license count are filled in.
+
+## Ignore or delete
+
+| Action | Where | What happens | Undo |
+|---|---|---|---|
+| **Ignore** | Row **More actions**, or the contract's **More actions** | Hides the contract from every tab except Ignored. It stops counting toward spend, health status and the renewal signal | **Restore** on the Ignored tab |
+| **Delete** | Contract's **More actions** | Removes the contract and cancels its renewal reminders | None |
+
+Use Ignore for duplicates or imports you may want back. Reminders already scheduled for an ignored contract still send, so delete the contract to cancel them.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="A contract is missing from Total Spend">
+    It is unlinked, has no start date, starts in the future, has expired, or is ignored.
+  </Accordion>
+  <Accordion title="An uploaded document did not fill in the contract">
+    Upload stores the file. Save the contract, then click **Process document**.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Software renewals](/software/software-renewals)
+- [Software inventory](/software/software-inventory)
+- [Unused licenses](/software/unused-licenses)
+- [Zip](/integrations/zip) and [Coupa](/integrations/coupa)
+- [Roles](/admin/roles)

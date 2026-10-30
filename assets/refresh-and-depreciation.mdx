@@ -1,0 +1,135 @@
+---
+title: 'Refresh and depreciation'
+description: 'Plan when devices should be replaced, see what they are worth, and correct the purchase data behind both.'
+---
+
+Refresh Planning lists the devices to replace and when, based on policies you set. Depreciation shows what each device is worth now. Both read a device's [purchase details](#purchase-details).
+
+| Who | Can do |
+|---|---|
+| Owners, Admins, Members | View Refresh Planning, Depreciation and purchase details |
+| Owners, Admins | Make refresh decisions, edit policies, update purchase details, change depreciation settings |
+
+Policy deletion needs **Delete assets & Refresh Policies**. See [Roles](/admin/roles).
+
+## Refresh Planning
+
+Go to **Assets > Refresh Planning**.
+
+<Frame caption="Refresh Planning: devices grouped by refresh status, each with a due date, reason, priority and decision menu.">
+  <img src="/images/assets/refresh-planning-list.png" alt="The Refresh Planning list with a Refresh Now group; each row shows the device, model, status, age and last seen, the assignee, a due date, the main reason, a priority badge and a decision menu" />
+</Frame>
+
+Devices are grouped and collapsible: **Refresh Now**, **Plan Refresh**, **OK to Keep**, **Not Applicable**, **Unknown**. The default **Refresh Status** filter shows only Refresh Now and Plan Refresh, sorted by **Target Date**, soonest first. Each row shows the device with its model, status, age and last seen, the assignee, a due date, the main reason with a count of others, a priority from P0 (Critical) to P3 (Low), and a decision menu. Other filters: Priority, Decision, Classification, Platform. **Export** downloads the current view.
+
+| Status | Meaning |
+|---|---|
+| Refresh Now | Replace immediately |
+| Plan Refresh | Start budgeting and ordering |
+| OK to Keep | No rotation needed |
+| Not Applicable | Personal devices, and devices that are Lost, Decommissioned or Recycled |
+| Unknown | No refresh policy matches the device |
+
+### How a device lands in each group
+
+June scores every device each day from 0 to 100. A device with no matching policy is Unknown, whatever else is true. Otherwise, each of these adds to the score:
+
+- Age at or past the policy's cycle (with a month of grace), or within 3 months of it
+- Warranty expired or expiring within a month, on warranty-based policies
+- Condition problems: it does not turn on, the OS fails to load, ports or keys fail, a damaged screen or enclosure, a battery that holds no charge
+- A disk 85% full or more
+- An unsupported OS, an Intel Mac, or a Mac with 8 GB of RAM or less
+
+A score of 50 or more is **Refresh Now**, 30 to 49 is **Plan Refresh**, and below 30 is **OK to Keep**. A device that does not turn on or will not load its OS starts at 75. Priority follows the score: P0 from 80, P1 50 to 79, P2 20 to 49, P3 below 20.
+
+### Record a decision
+
+Use a row's decision menu, or tick several rows and use the bulk buttons.
+
+| Decision | Effect |
+|---|---|
+| **Approved** | Recorded. Filter by **Decision** to see approved devices |
+| **Defer 3 months** / **Defer 6 months** | Recorded with a date that far ahead. When it passes, the device has no decision again |
+| **Ignored** | Recorded |
+
+A decision is a note for your team. It does not change the device's refresh status, and June orders nothing.
+
+## Refresh Policies
+
+A policy says how long a type of device lasts. Go to **Settings > Refresh Policies > Create policy**.
+
+<Frame caption="Settings > Refresh Policies: each policy with its device type, scope, cycle and whether it is warranty based.">
+  <img src="/images/assets/refresh-policies.png" alt="The Refresh Policies list with columns Policy Name, Device Type, Applies To, Refresh Cycle in months and Warranty Based, and a Create policy button" />
+</Frame>
+
+| Field | Notes |
+|---|---|
+| **Policy Name** | For example "Standard 3-year refresh" |
+| **Device Type** | Computer, Mobile Device, Tablet, Apple TV or Other. Fixed after creation. Peripherals have no policies |
+| **Department** | Organization-wide, or one department |
+| **Refresh Cycle** | 1 to 6 years. The list shows it in months |
+| **Refresh when warranty expires** | Uses warranty expiry as the due date when the device has one |
+
+There is one policy per device type per department. A department policy beats the organization-wide one for the same type. The due date is the warranty expiry (warranty-based policies), else purchase date plus the cycle. Editing a policy saves automatically. Delete from the row menu.
+
+## Depreciation
+
+Open an asset's **Depreciation** tab for its **Current Asset Value**: purchase price with its source, and the latest value under each method.
+
+| Method | How it works |
+|---|---|
+| Straight Line | Cost spread evenly over the useful life |
+| Double Declining Balance | Larger drops early, by year |
+| MACRS (IRS Preferred Method) | 5-year schedule: 20%, 32%, 19.2%, 11.52%, 11.52%, 5.76% |
+
+A chart and table show book value over time under each method. Values recalculate when cost, purchase date or useful life change, and at the end of each month. A device needs a cost (or catalog price) and a purchase date, else the tab says "No depreciation data". Peripherals are excluded.
+
+**Useful life** is the asset's own value if it has one (from Jamf or an import), else the value for its device type in **Settings > Depreciation**, else 36 months.
+
+<Frame caption="Settings > Depreciation: the Enable Asset Depreciation switch and a life span for each device type.">
+  <img src="/images/assets/depreciation-settings.png" alt="The Depreciation settings page with an Enable Asset Depreciation toggle and a 36 month life span dropdown for Apple TV, Computers, Mobile Devices, Other and Tablets" />
+</Frame>
+
+To change the defaults, go to **Settings > Depreciation**, turn on **Enable Asset Depreciation** and choose 12, 24, 36, 48, 60 or 72 months per device type. Turning it off returns every type to 36 months, after you confirm.
+
+## Purchase details
+
+On an asset, **Overview > Purchase Details > Update** edits Acquisition Type (Purchased or Leased), date, cost, Vendor, Purchase Order Number and Date, and Warranty Expiration. A cost you enter is labeled "Manual" with your name, and **no sync overwrites a manual cost**. Jamf can still overwrite a date, vendor, purchase order or warranty you enter by hand when it reports a value for that field.
+
+| Source | What it fills |
+|---|---|
+| Your team | Anything, by hand or in chat |
+| [CSV import](/device-management/asset-upload) | Cost, vendor, dates, PO, warranty, useful life |
+| [Jamf Pro](/integrations/jamf-pro) | Purchase date, price, vendor, lease dates, useful life, PO, warranty. Empty values never overwrite |
+| [Firstbase](/integrations/firstbase) | Price only, for devices it marks Purchased |
+| [Apple Business Manager](/integrations/apple-business-manager) | Purchase date, vendor, PO, and a warranty estimate, only where blank. The estimate is purchase date plus Default Warranty Years from its settings (1 by default) |
+| Catalog | A fallback price when no cost exists, labeled "Catalog price" |
+
+Kandji and Intune bring no purchase data. Zip and Coupa bring software contracts only, not device purchases (see [Contracts](/software/contracts)), so a laptop's cost comes from one of the sources above.
+
+## If something looks wrong
+
+| You see | Why |
+|---|---|
+| A device is Unknown | No policy matches its device type and department, for example no Tablet policy. Create one. The default filter hides Unknown |
+| A device is Not Applicable | It is personal, or Lost, Decommissioned or Recycled |
+| No depreciation data | The device lacks a cost or purchase date. Update Purchase Details |
+| A wrong price keeps returning | It is not manual. Enter the cost with **Update** and it stays |
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Make engineering laptops refresh every 3 years and everything else every 4. How?">
+Create two Computer policies: one for the Engineering department at 3 years, one Organization-wide at 4. The department policy wins for its devices.
+</Accordion>
+<Accordion title="Where does a price's label come from?">
+The label beside Purchase Cost names its source: an integration logo, Manual, Imported, Catalog price, or Catalog price · June AI estimate.
+</Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Assets](/assets/assets)
+- [Asset sources](/assets/asset-sources)
+- [Contracts](/software/contracts)
+- [Roles](/admin/roles)

@@ -1,0 +1,142 @@
+---
+title: 'Requests'
+description: 'One inbox for every employee IT request, from June''s first answer to IT''s resolution.'
+---
+
+A request is one employee's IT issue, kept as a single timeline: what they asked, what June answered, what IT replied, and IT's internal notes. Open **Requests** in the sidebar to see what needs you, reply, take over from June, or hand a request back.
+
+Requests needs [Slack](/integrations/slack) connected. Connect [Jira](/integrations/jira) with a default project to get a tracking ticket for each request June hands to IT. Employees reach Requests through Slack or Jira. Microsoft Teams conversations don't create requests.
+
+## How requests arrive
+
+Employees never create requests in the June web app. A request starts when:
+
+- **An employee messages June in Slack.** They DM June or tag @June in a channel June is in. One Slack thread is one request. If the employee asks about something else, June suggests starting a new chat.
+- **A Jira ticket is assigned to June.** If the reporter doesn't match an employee in June, June adds a comment on the ticket saying it couldn't start the request (internal in Jira Service Management projects; visible to anyone who can open the ticket elsewhere). See [Ticket context](/agents/ticket-context).
+
+## What June does and what needs IT
+
+**June, on its own**
+
+- Answers from your [runbooks](/agents/runbooks), your [knowledge base](/help-desk/knowledge-base) and its tools, and closes the request as **Done** when it delivers an answer. Under the answer in Slack, the employee sees **Yes, this solved it** and **No, this didn't solve it**. Yes records that it worked. No reopens the request and June keeps working.
+- Hands the request to IT when it can't solve it, and tells the employee "I've passed this to IT with what we covered and what I tried. You can keep replying here." June then opens the Jira tracking ticket, investigates in the background and leaves its findings as internal notes, and opens a "Handed to IT" thread in your Slack notifications channel.
+- Reopens a request it closed if the employee writes again in the thread.
+
+**Needs IT:** replies, status changes and hand backs.
+
+**June never:** shows internal notes to the employee in Slack. For Jira, see [Internal notes](#internal-notes).
+
+## Find what needs you
+
+Open **Requests**. The list opens on **Needs attention**: requests IT owns that are Open or Waiting for IT. The same condition puts a dot on **Requests** in the sidebar. Requests June is still handling never light it.
+
+Search by request ID, title, or requester name or email. Use **Filter requests** to narrow by **Status** and **Type**.
+
+| Filter | Options |
+|---|---|
+| Status | **Needs attention**, **Active** (Open, In progress, Waiting for employee, Waiting for IT), **Closed** (Done, Canceled), **All** |
+| Type | **All**, **IT**, **Self-service** (June is still handling it) |
+
+To see only what June is still handling, set Type to **Self-service** and Status to **Active** or **All**.
+
+Switch views with the **Board** / **List** toggle. The board opens on **All**. On the board, drag a card to another column, press Space and use the arrow keys, or open **...** on the card and choose **Change status**.
+
+| List column | What it shows |
+|---|---|
+| Source | Slack or Jira. A request with a Jira tracking ticket shows the key as a link. |
+| Status | The status. A Done request also shows who closed it: **IT resolved**, **June · answered** or **June · verified action**, and **Confirmed** or **Unconfirmed** for June's. |
+| Agent | **Working**, **Needs input**, **New result** or **Idle**. |
+
+## Statuses
+
+| Status | What sets it |
+|---|---|
+| Open | A new request, IT handed it back to June, or the employee wrote again after June closed it. |
+| In progress | IT took over, an access request is running, or the employee answered a question from June. |
+| Waiting for employee | IT's reply was delivered, or the employee said June's answer didn't help. |
+| Waiting for IT | June handed the request to IT, or an access or AI limit request needs IT. |
+| Done | IT closed it, June delivered its answer, or its access request was granted or rejected. |
+| Canceled | IT canceled it, the employee canceled it through June, or its Jira ticket was closed while an AI limit ask was waiting. |
+
+Changing a status sends the employee no message of its own, with two exceptions. If the request started in a channel thread and your change takes it over, the thread gets "IT is taking this from here. They'll follow up with you soon." Canceling a request with a waiting AI limit ask tells the employee it was canceled.
+
+While an access request is running, it owns the request's status. The picker is hidden and board cards show a lock. Work it from its **Access** tab. See [Access requests](/help-desk/access-requests).
+
+## Work a request
+
+Open a request to see the **Employee conversation** timeline, the composer, and a **Details** panel with the requester, source, Jira ticket, who is handling it (**With June** or **IT**), the resolution, and whether the employee confirmed.
+
+**Who can do this:** Owners and Admins, and custom roles created from Admin, can reply and change status. Members see requests read-only, with no composer.
+
+The composer tabs are **Approval** (a runbook action waiting for your approval, the default tab when there is one), **Access**, **Internal note**, **Reply** and **Ask June**. See [Runbooks](/agents/runbooks) for approvals.
+
+### Reply to the employee
+
+<Steps>
+  <Step title="Open the Reply tab">
+    It appears when the request came from Slack or Jira.
+  </Step>
+  <Step title="Choose where it goes">
+    If the request started in a channel thread, pick **Thread** or **DM**. June opens a DM if there isn't one. The line under the picker says who can see it, for example "Only Sam can see this."
+  </Step>
+  <Step title="Send">
+    Type your reply (up to 8,000 characters) and click **Send reply**, or press Cmd/Ctrl+Enter.
+  </Step>
+</Steps>
+
+To reply and close in one step, click **Send & mark done**. A closed request can't take a reply: change its status to reopen it first.
+
+### Take over from June
+
+When you reply to or change the status of a request June is handling, IT takes it over. The status becomes In progress and the timeline records "IT took over this request." Your reply is the message the employee sees. Once it is delivered, the request moves to Waiting for employee.
+
+### Hand back to June
+
+On an IT-owned, active request, click **Hand back to June**, add an optional note, choose Thread or DM if offered, and click **Hand back**. The request returns to Open with June handling it.
+
+If you add a note, the employee sees it with "Tag @June here and I'll keep helping." in a thread, or "Reply here and I'll keep helping." in a DM. Without a note, nothing is posted.
+
+Hand back is unavailable when the request is closed, has an access or AI limit request attached, has no employee conversation (a Jira-only request), or while June is still investigating for IT.
+
+### Internal notes
+
+Choose **Internal note** and click **Add internal note**. The employee never sees notes in Slack. June also posts each note to the thread in your notifications channel, and to the Jira tracking ticket as an internal comment.
+
+Jira hides internal comments from the reporter only in Jira Service Management projects. In other project types, anyone who can open the ticket can read your notes. This includes the reporter of a Jira-started request.
+
+### Ask June
+
+The **Ask June** tab is a private chat with June about this request, visible only to IT. It is read-only on a closed request, and hidden while an access request, AI limit request or approval is attached.
+
+## Jira sync
+
+When a request has a Jira tracking ticket, June moves the ticket's status to match the request. Replies and notes are copied to the ticket as comments.
+
+| Request status | Jira ticket moves to |
+|---|---|
+| Open | To Do |
+| In progress, Waiting for employee, Waiting for IT | A status in Jira's In Progress category, using a matching "waiting" status when your workflow has one |
+| Done | A done status (not Won't Do, Duplicate or Canceled) |
+| Canceled | Canceled, Won't Do or Declined |
+
+Changes flow from June to Jira. The one exception: closing a Jira ticket cancels its June request when an AI limit ask is waiting on it. For any other request, closing the ticket changes nothing in June.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="The status picker is missing">
+    Your role can only view requests, or an access request owns the status. Open the **Access** tab and work it there.
+  </Accordion>
+  <Accordion title="There is no Reply tab">
+    The request has no Slack or Jira conversation to reply to. Use an internal note, or change the status.
+  </Accordion>
+  <Accordion title="I can't cancel a request">
+    A request with granted access can't be canceled until the access is revoked.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Access requests](/help-desk/access-requests)
+- [AI limit requests](/help-desk/ai-limit-requests)
+- [Knowledge base](/help-desk/knowledge-base)

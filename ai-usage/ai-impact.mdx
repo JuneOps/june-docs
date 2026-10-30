@@ -1,0 +1,79 @@
+---
+title: 'AI Impact'
+description: 'See engineering output from GitHub beside AI tool spend and tokens, per person and per team'
+---
+
+AI Impact puts engineering output (merged pull requests, review speed, review coverage) next to AI spend and token use, for each person and team.
+
+<Frame caption="AI Impact tiles and chart, This month"><img src="/images/ai-usage/ai-impact-overview.png" alt="AI Impact page for This month with the metric tiles and the chart" /></Frame>
+
+## Requirements
+
+- A [GitHub integration](/integrations/github). **AI Impact** appears in the sidebar once a GitHub integration has been added. June only reads pull request and review activity from GitHub. It doesn't read source code and writes nothing to GitHub.
+- One or more [AI tool integrations](/integrations/ai-tools) for the spend and token columns.
+- A role that includes **View AI Impact**. Owner, Admin and Member have it by default. AI Usage and Software Procurement don't. An Owner can change this under [Roles](/admin/roles).
+
+Without **AI spend & costs**, the **AI spend** column and the **Spend** column in **Bots & AI tools** show a dash for everyone. Tokens still show. Employee names link to the employee page only with directory access.
+
+## What it measures
+
+Pick a period at the top right (**7d**, **30d**, **This month**, **Last month**, or a custom range). The tiles show **Merged PRs**, **Time to merge (p50)** and **(p90)**, **First review (p50)** and **Merged without review**. The chart and table add the rest.
+
+| Metric | Table column | Definition |
+|---|---|---|
+| **Merged PRs** | Merged | Pull requests merged in the period. |
+| **Time to merge (p50)**, **(p90)** | TTM p50 (p90: tile only) | Time from ready for review (or from opening, if never a draft) to merge. p50 is the median, p90 is the slower end. |
+| **First review (p50)** | First review p50 | Median time to the first submitted review from someone other than the author. Bot and self reviews don't count. |
+| **Merged without review** | No review | The share of merged pull requests with no such review. |
+| **Avg PR size** | Avg size | Average lines added plus deleted per merged pull request. |
+| **Reviews given** | Reviews given | Reviews a person left on other people's pull requests. |
+| **Human comments/PR** | Human comments/PR | Review comments from people per merged pull request. Bot comments are tracked separately. |
+| **AI spend** | AI spend | Net AI tool spend across all providers in the period. |
+| **Tokens** | Tokens | Input plus output tokens across providers. |
+
+The chart plots one metric at a time. Use the **Metric** menu to switch. It groups by day for ranges up to 35 days, by week up to 185 days, and by month beyond that. AI spend and Tokens appear in the table only.
+
+## Output and AI adoption
+
+The table lists everyone with an active GitHub seat, including people with no activity in the period. Search by name, sort any column, and switch between **People** and **Teams**. A team is a [department](/people/departments). It shows 50 rows per page.
+
+<Frame caption="Output and AI adoption, Teams view"><img src="/images/ai-usage/ai-impact-table.png" alt="Output and AI adoption table in the Teams view, one row per team with merged pull requests, review times, AI spend and tokens" /></Frame>
+
+**AI spend** covers all AI-assisted work, not only coding, so June shows it beside output and does not divide one by the other. There is no cost-per-PR figure on this page. **Cost / PR** appears on the **Employee usage** tab of [AI usage](/ai-usage/ai-usage). It has values only for Claude Code users, because other tools don't report pull requests, and only for roles with **AI spend & costs**.
+
+### Who is included
+
+June matches GitHub accounts to employees by GitHub ID, then by SAML identity or commit author email. Activity it can't match appears in an **Unattributed** row at the bottom. GitHub never adds employees to June. People with AI spend but no GitHub account don't appear here. They remain on [AI usage](/ai-usage/ai-usage).
+
+Pull requests written by bots, such as dependency updaters, are excluded from the people and team metrics. They appear in **Bots & AI tools**.
+
+## Bots and AI tools
+
+The **Bots & AI tools** card lists AI review and coding tools alongside other automation, with each tool's reviews, review comments, pull requests authored, merged pull requests and spend for the period. Spend counts usage-based AI spend attributed to that tool. Subscription and contract spend isn't included, so a dash means no attributable spend, not zero. Without **AI spend & costs**, every row shows a dash. If spend can't be loaded, a note above the table says so.
+
+## Data and refresh
+
+The first GitHub sync backfills one year, then refreshes daily and re-reads the latest 7 days. AI spend history starts on January 1, 2026. Fixing a person's GitHub match applies to all their pull request history after the next sync.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Why isn't someone listed?">
+    If they have no active GitHub seat, they aren't included. If June can't match their GitHub account to an employee, their activity is in the **Unattributed** row.
+  </Accordion>
+  <Accordion title="How do I fix Unattributed activity?">
+    Usually the GitHub account uses a private commit email and has no SAML mapping. Ask June in chat to add the commit email to the person's employee record as an alternate email. June asks for your approval first. The next GitHub sync moves their history over.
+  </Accordion>
+  <Accordion title="Why don't I see AI Impact in the sidebar?">
+    Either no GitHub integration has been added, or your role doesn't include **View AI Impact**. The AI Usage role doesn't include it by default.
+  </Accordion>
+  <Accordion title="Why is the AI spend column all dashes?">
+    Usually your role doesn't include **AI spend & costs**. Tokens still show. If tokens are dashes too, no AI tool usage is matched to these people for the period.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [AI usage](/ai-usage/ai-usage): spend, adoption and seats per tool
+- [GitHub integration](/integrations/github): connect GitHub
+- [Roles](/admin/roles): who can see AI Impact

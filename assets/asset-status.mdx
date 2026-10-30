@@ -1,0 +1,110 @@
+---
+title: 'Asset status'
+description: 'How June sets a device''s status and assignee, what each status means, and how to change or lock one.'
+---
+
+Every asset has a status and, usually, an assignee: an employee or a location. June sets both from your connected systems, and your team can override them.
+
+Owners and Admins can change status, assignee and ownership. Members can see them and the reason behind them.
+
+## How June sets a status
+
+When connected systems disagree about a device, June goes down this list and uses the first that applies.
+
+1. **The logistics provider** (such as Firstbase), while it returns the device, holds it in its warehouse, repairs or locks it, or retires it. It can change any status except the frozen ones below.
+2. **Your device management tool** (Jamf Pro, Kandji, Microsoft Intune), once it lists the device. Lost mode sets Lost. Otherwise it changes only blank, Other, Available, Deployed and Awaiting Enrollment.
+3. **The provider's named person**, when no device management tool manages the device. The device becomes Awaiting Enrollment with that person, from the same five statuses only.
+4. **Apple Business Manager** fills in Other, and only for a device whose status is Other.
+
+A source you did not connect has no say, and June does not infer a status from silence, age or a missed check-in. The row-by-row rules are on [Asset sources](/assets/asset-sources).
+
+**Frozen devices.** Syncs change neither the status nor the assignee of a device that is Legal Hold, Lost, Decommissioned or Recycled, or whose status someone locked. Only a person moves it on, so a Lost or Decommissioned device keeps its last assignee.
+
+**Timing.** Integrations sync once a day. Owners and Admins can also click **Sync Now** on an integration's page.
+
+## The statuses
+
+| Status | Meaning | June sets it when |
+|---|---|---|
+| Available | Ready to be deployed | The provider's warehouse restocks it, or the device management tool lists it with no user |
+| Awaiting Enrollment | Waiting to be enrolled in device management | The provider names a person and no tool manages the device, the device is gone from every tool, or Apple Business Manager shows it assigned to an MDM server |
+| Deployed | Assigned to a person | The device management tool lists a user June recognizes, or lists no user and the provider names a person June recognizes |
+| Decommissioned | Permanently out of service | The provider retires it as gifted or decommissioned, or with a reason June does not recognize |
+| In Repair | Being repaired or maintained | The provider reports a repair, in its warehouse or elsewhere |
+| Legal Hold | Held for legal reasons | Never. A person sets it (or a runbook you write) |
+| Locked | The device itself is locked, for example by PIN, MDM or Activation Lock | The provider reports it locked |
+| Lost | Reported lost, not in inventory | Lost mode is on, or the provider retires or locks it as lost or stolen |
+| Other | Fits no other status. New assets start here | Apple Business Manager is the only source and the device is not assigned to an MDM server |
+| Pending Return | A return is scheduled or under way | The provider reports a return in progress, or its warehouse holds the device for another reason |
+| Recycled | Sent for recycling | The provider retires it as destroyed or donated, or its warehouse is recycling it |
+
+## See why a device has a status
+
+Hover the status to see its reason, for example "Jamf: in use by its user" or "Firstbase: return in progress". Every automatic status change records a reason, and a reason you type is kept as you typed it. The Overview tab lists every status, assignee and ownership change with who made it and, for status changes, why.
+
+A plain padlock beside a status means a person locked it. A shield-lock icon on the **Locked** status means the device itself is locked. They are unrelated.
+
+## Find hidden devices
+
+On **Assets > All Assets**, the default **Status** filter hides Lost, Decommissioned, Locked and Recycled. Click **Display**, add them under **Status**, and they appear. A device whose status someone locked is not hidden. Only the **Locked** status is.
+
+## Change a status
+
+1. Click the status in the list or in the detail header.
+2. Choose a **Status**.
+3. Optionally enter a **Reason** ("Why this status?").
+4. Click **Save**.
+
+<Frame caption="The status popover with Lock this status on"><img src="/images/assets/asset-status-popover.png" alt="Status popover showing the Status picker, the Lock this status switch turned on, a required Reason field with a typed reason, and Cancel and Save buttons" /></Frame>
+
+Your change applies immediately. Without a lock, the next sync can replace it when a source reports otherwise. For example, you set Available, the device management tool reports a user, and the device becomes Deployed. To keep a status, lock it.
+
+The picker adapts to the assignee. **Deployed** is not offered when the device has no person or sits at a location. **Available** is not offered while an employee has it. Assigning a device can change its status too, see [Assets](/assets/assets).
+
+To change many at once, tick rows on All Assets and use **Update Status**, then **Apply**.
+
+## Lock a status
+
+A lock stops syncs from changing the device's status and assignee. Condition, OS, security and purchase data keep syncing.
+
+1. Click the status and turn on **Lock this status**.
+2. Enter a **Reason**. It is required.
+3. Click **Save**.
+
+People can still change a locked device. To hand control back, open the popover, turn the lock off and click **Save**.
+
+## Assignee and ownership
+
+When a source reports that no one has the device, June removes the employee. A location assignment stays. When the device management tool reports a different user June recognizes, that user replaces the employee. Reassign from the **Assignee** cell, as described on [Assets](/assets/assets). Employees and locations are managed on [Employees](/people/employees) and [Locations](/people/locations).
+
+Ownership is Corporate, Personal, Other or Unknown. It comes from the device management tool until you set it on **Overview** under Device Details. After that, syncs never change it.
+
+## If something looks wrong
+
+| You see | Why and what to do |
+|---|---|
+| A device is Available but someone uses it daily | The device management tool reports no user, common for shared or Intune devices. Set a user there or assign it in June |
+| A device is Awaiting Enrollment but the person has it | The provider names that person and no tool manages the device yet, or it was removed. Enroll it, or lock the status |
+| You set In Repair and it changed | The device management tool leaves In Repair alone, but the provider can change it, for example once restocked. Lock it |
+| A status did not change after a sync | The device is frozen (see above), or its status is In Repair, Pending Return or Locked and only the device management tool reports, or the user it reports does not match an employee |
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Why is this laptop Lost?">
+Hover the status for the reason. Usual causes: lost mode is on, the logistics provider retired it as lost, stolen or never returned, or its warehouse locked it as lost or stolen. A device that becomes Lost also raises a "Device marked lost" signal under Signals. Lost is frozen, so correcting the source later does not bring the status back. Set the right status yourself, and lock it if you need it to hold.
+</Accordion>
+<Accordion title="Why is a former employee still the assignee?">
+June removes the person when a source says no one has the device: the device management tool lists no user, it is gone from every tool, or the provider's warehouse holds it. During a return the person stays until the warehouse receives the device. A frozen device keeps its assignee. Otherwise, reassign or unassign it yourself.
+</Accordion>
+<Accordion title="Why did June not change a device after I fixed the source?">
+Wait for the next sync, or click Sync Now. If the device is frozen, change it by hand.
+</Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Asset sources](/assets/asset-sources)
+- [Orders and returns](/assets/orders-and-returns)
+- [Assets](/assets/assets)
+- [Roles](/admin/roles)

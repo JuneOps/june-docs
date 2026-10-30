@@ -1,0 +1,158 @@
+---
+title: 'AI usage'
+description: 'See what your company spends on Claude, Cursor and OpenAI, who uses each tool, and where seats and spend go to waste'
+---
+
+AI usage is one view of spend, adoption and efficiency across your AI tools, with a page per tool that goes down to each person.
+
+Open **AI usage** in the **Resources** section of the sidebar. The page needs at least one [AI tool integration](/integrations/ai-tools). June reads from these tools. The one thing it can change is a person's spend limit: see [Spend limits](/ai-usage/spend-limits).
+
+<Note>Owner, Admin, Member and AI Usage roles see this page by default. Software Procurement doesn't. What each permission unlocks is under [Permissions](#permissions).</Note>
+
+<Frame caption="AI usage overview: headline totals and cumulative spend grouped by model"><img src="/images/ai-usage/ai-usage-overview.png" alt="AI usage overview with the headline strip from Total spend to Models and the Cumulative spend chart grouped by model" /></Frame>
+
+## The overview
+
+Choose a period at the top right: **7d**, **30d**, **This month**, **Last month**, or a custom range. The default is **This month**, and June remembers your choice on each page in your browser.
+
+The top strip shows total spend, tokens, active tools, people with usage, departments and models. The **Cumulative spend** chart groups by Total, Provider, Department or Model. Below it:
+
+- **Spend by provider**: select a row to open that tool's page.
+- **Organization-level spend by provider**: spend that isn't tied to a person, such as service accounts, workspaces and API keys.
+- **Top 10 users**: the heaviest users, ranked by tokens, with their spend.
+- **Spend by department**: departments against providers, with totals.
+
+## Each tool's page
+
+**Claude**, **Cursor** and **OpenAI** each have a page under **AI usage**, with a **Connected** or **Disconnected** badge. A disconnected tool keeps its history. OpenAI combines OpenAI Platform and ChatGPT Enterprise.
+
+<Frame caption="Claude Overview: header, spend stats and the Contract card"><img src="/images/ai-usage/ai-usage-provider-overview.png" alt="Claude page header with the Connected badge, the spend stats row and the Contract card" /></Frame>
+
+The top row of a tool's **Overview** shows **Employee spend**, **API spend** (spend not tied to a person), the total, and the **Contract** card. Select **Employee spend** to open **Employee usage**, or **API spend** to open **Organization usage**. ChatGPT also shows **Credits used**. Cursor shows the total and the Contract card. Each spend stat carries a trend arrow against the period of equal length just before. Rising spend reads red.
+
+| Tab | What it answers |
+|---|---|
+| **Overview** | How much did this tool cost, how is that changing, and will we stay inside the contract? |
+| **Insights** | What should we fix? Checks on caching, model choice, seats, spend caps and tool overlap, sorted by impact. |
+| **Adoption** | Who is using it? Users with activity, daily active users against seats, and usage by product. The seat count is today's, so the trend shows the number of people, not a percentage. |
+| **Efficiency** | Are we using it well? Cost per user, cost per million tokens, cache hit rate and spend on large contexts. |
+| **Skills** | Which skills do people use, and what do they cost? Cursor shows no cost columns. |
+| **Employee usage** | What did each person use and spend? |
+| **Organization usage** | Which workspaces and API keys drive spend that isn't tied to a person? |
+| **Limit requests** | Who asked for more, and what happened? Claude and OpenAI only. See [AI limit requests](/help-desk/ai-limit-requests). |
+
+### Contract card
+
+The **Contract** card shows the contract's value and term, how much billed spend has gone against it, and a projection. The card needs the **AI spend & costs** permission. The projection needs a contract on file under [Contracts](/software/contracts).
+
+| Projection | Meaning |
+|---|---|
+| **Forecast building** | The contract has less than 7 days of data. |
+| **On track** | Spend is on pace to stay inside the contract. |
+| **Could reach** or **Reaches** (with a date) | Recent pace is high enough to hit the limit on that date, before the contract ends. |
+| **No limit risk at recent pace** | There is no recent billed spend. |
+| **Limit reached** or **\$X over limit** | Billed spend has met or passed the contract. |
+
+With no matching contract the card reads **No active contract**. With two, it reads **Multiple active contracts** and does not pick one. OpenAI combines the API and ChatGPT contracts into one limit.
+
+## What the spend labels mean
+
+The total on each tool's page carries a label that tells you how much to trust the number as a bill.
+
+| Label | Meaning |
+|---|---|
+| **Billed spend** | The usage the provider bills for the period, including API and service-key usage that isn't tied to a person. |
+| **Estimated spend** | The provider's own dollar estimate of usage. It is not your invoice: what you pay is set by your contract. |
+| **Spend** | A mix: billed products plus the provider's estimate for products it doesn't bill per use, such as ChatGPT Enterprise credits. |
+
+Spend is net of credits and refunds, which appear under the total as a negative amount. For Claude, **Employee spend** plus **API spend** minus credits equals **Billed spend**. Estimated figures are never added on top of billed ones.
+
+Which label you see depends on the connection. Claude Enterprise, Cursor and OpenAI Platform give billed per-person figures. [Claude Platform](/integrations/claude-platform) gives a billed organization total with estimated per-person figures for Claude Code only. ChatGPT Enterprise reports credits with estimated dollars, and June never converts a credit limit into dollars.
+
+## Where the numbers come from
+
+June syncs each connected tool once a day. Providers revise recent figures, so each sync re-reads the latest days: 30 for Claude, 7 for Cursor, 5 for OpenAI Platform and 3 for ChatGPT Enterprise. AI usage data starts on January 1, 2026.
+
+## People June can't match
+
+June matches each person in a tool to an employee by the provider's ID, then by email, including alternate emails. If someone on a tool's member list isn't in your directory, June adds a basic employee record for them so their usage is counted.
+
+Usage from an account June can't match appears as organization-level spend, and in department views as **No attribution**. To fix it, ask June in chat to add the person's other email to their employee record, for example "add dana@example.com as an alternate email for Dana". June asks for your approval first, and you need permission to edit employees. The change applies to usage June reads afterward. Earlier unmatched spend can stay at the organization level.
+
+## Find a person's usage
+
+On a tool's **Employee usage** tab, search by name, then use **Display** to choose the view, filters and sort. People are sorted by spend, highest first. Hover a column header for its exact definition.
+
+<Frame caption="Employee usage: search, the count line, the Display button and the first rows with the Monthly limit column"><img src="/images/ai-usage/ai-usage-employee-usage.png" alt="Claude Employee usage tab with the search box, the Display button at top right, and rows with model, sessions, output, cost per PR, spend and monthly limit" /></Frame>
+
+| Display option | Choices |
+|---|---|
+| **View** | List, Department, Group (by where the limit comes from) |
+| **Employment** | All, Active, Inactive |
+| **Seat** | Any, Seat, Removed, Never had a seat |
+| **Last used** | Any, Within 7 days, Within 30 days, Never used, Custom |
+| **Sort by** | Spend, Cost / PR, Cost / M tokens, Sessions, Tokens, Name, Last active |
+
+**Cost / PR** has values only for Claude Code users, because other tools don't report pull requests. Each [employee](/people/employees) and [department](/people/departments) also has its own **AI usage** tab.
+
+## Seats
+
+Seats have no screen of their own. Use the **Seat**, **Last used** and **Employment** filters on **Employee usage**, and the checks on **Insights**. Seat data comes from the tool's member list.
+
+| Seat state | Meaning |
+|---|---|
+| **Seat** | The person is on the tool's member list now. |
+| **Removed** | On the member list before, not now. June knows only that the seat was gone at the last check, so the spend shown may cover time on either side. |
+| **Never had a seat** | June has no member-list record for them. This includes people who left before you connected the tool. |
+
+| To find | Do this |
+|---|---|
+| Idle seats | **Display**: **Seat** set to **Seat**, **Last used** set to **Never used** |
+| People who left but still hold a seat | **Display**: **Employment** set to **Inactive** and **Seat** set to **Seat**. The **Employment** filter needs a role that can see employment details, which the AI Usage role can't. |
+| Seats over the contract | **Insights** > **Seats vs contract**. It shows how many contracted seats are used, or how many people hold seats beyond the contract. Needs a contract with a seat count. |
+| Cursor seats unused by people active in Claude Code | **Insights** > **Tool overlap**. A dollar figure appears when the Cursor contract has a license count. |
+
+June puts a dollar figure on an idle seat only when the contract on file prices seats.
+
+## Permissions
+
+Owners can change what each role includes under [Roles](/admin/roles). Four permissions control this page:
+
+| Permission | What it unlocks |
+|---|---|
+| **AI usage overview & totals** | Organization totals on the Overview pages. Required for everything else. |
+| **Employee AI usage** | Per-person rows, seats and the **Employee usage** tab. |
+| **AI spend & costs** | Dollar figures. Without it, pages show tokens and requests instead of spend. |
+| **AI spending limits** | The **Monthly limit** column. |
+
+The AI Usage role sees spend and per-person usage but not employment details. It doesn't get the **Employment** filter or the **Department** view and filter, and names don't link to the employee page without directory access. For those, ask an Owner for a role that includes employee and department access.
+
+A tab your role can't read stays visible and is marked restricted. **Insights** needs **AI spend & costs** and **Employee AI usage**. **Efficiency** and **Organization usage** need **AI spend & costs**. **Limit requests** needs **Employee AI usage** and **AI spending limits**.
+
+## If the numbers look wrong
+
+**The total doesn't match my invoice.** Check in order:
+
+1. **Dates.** The page sums the period you selected, not your billing period. Choose a custom range that matches the invoice dates.
+2. **Recent days.** Providers revise recent figures, so re-check after the latest days have settled.
+3. **Label.** **Estimated spend** and **Spend** include provider estimates, which aren't invoices.
+4. **Credits.** Totals are net of credits and refunds. Look for the negative credits line under the total.
+
+**A person's spend is under organization-level or "No attribution".** June couldn't match the account to an employee. See [People June can't match](#people-june-cant-match).
+
+**I see an empty state.** On the Overview, **No AI usage yet** means no AI tool has been set up. On a tool's page, **[Tool name] isn't connected** means that tool has never been set up. Choose **Connect** if you have access to integrations.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Why does a department total differ from the billed total?">
+    Department figures are gross per-person usage. Credits and unattributed spend aren't in them, so they can differ from the billed total.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Spend limits](/ai-usage/spend-limits): see and change each person's limit
+- [AI Impact](/ai-usage/ai-impact): engineering output beside AI spend
+- [AI tool integrations](/integrations/ai-tools): connect Claude, Cursor and OpenAI
+- [Contracts](/software/contracts): the contracts behind the Contract card

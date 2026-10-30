@@ -1,0 +1,149 @@
+---
+title: 'SCIM'
+description: 'Make Okta the one place that decides who is in June and what role they have.'
+---
+
+SCIM provisioning connects June to Okta so Okta decides who has access and what role they hold. Assign someone in Okta and they join June. Unassign or deactivate them and they leave. Put them in a group and they get that group's role. Okta is the only supported provider.
+
+<Warning>
+  Turning on SCIM can demote your existing Admins. When Okta first sends someone who already has a June account, their roles come only from their Okta groups. If their role group has not been pushed yet, they become **Member** and lose Admin access until it is. Push every role group, such as `june-admin`, before you assign `june-members`. The Owner is never changed.
+</Warning>
+
+## Requirements
+
+| Requirement | Detail |
+|---|---|
+| Plan | Enterprise |
+| SSO | [Okta SSO](/admin/sso) is set up and active |
+| Turn SCIM on or off, generate a token | Owner only |
+| See the section, copy the URL, set a group's role | Owner, Admin, or a role with **Manage Members** |
+| Okta | You are an Okta admin and can create app integrations |
+| Email domains | People's emails are on a domain under **Settings > Email Domains**. June adds only people on those domains |
+
+## What changes in June when SCIM is on
+
+- Okta is the only way people join. SSO sign-in and invitations add nobody. **Invite Member** on **Settings > Members** is replaced by a **Managed via SCIM** badge.
+- People Okta adds show a **SCIM provisioned** badge. You change their roles by changing their Okta groups, and you remove them in Okta. Their names and emails come from Okta, and their name is read-only in **Settings > Personal Information**.
+- A person's roles are the roles of their groups. They are **Member** only when none of their groups gives a role.
+- Okta never changes or removes the Owner or June AI.
+
+## Plan your Okta groups
+
+`june-members` is the assignment group: everyone who should have access to June. An existing group such as "All Employees" works instead.
+
+Each role group gives its members a role. Name it `june-` plus the role name in lowercase, with hyphens for spaces.
+
+| Okta group | June role |
+|---|---|
+| `june-admin` | Admin |
+| `june-software-procurement` | Software Procurement |
+| `june-ai-usage` | AI Usage |
+| `june-member` | Member |
+| `june-` plus a custom role's name, for example `june-finance-reviewer` | That custom role |
+
+- Singular or plural both match, so `june-admins` also maps to Admin.
+- June applies the name match once, when the group first arrives. Renaming the group later does not change its role.
+- You can change a group's role under **Settings > Authentication > Okta > Groups**. **No role** removes that role from the group's members. You can only choose roles within your own access.
+- A person in two role groups holds both roles. Owner cannot come from a group.
+- Being in a role group does not add someone to June. They also need to be in `june-members`.
+
+Keep role groups separate from `june-members`, because Okta does not support one group for both assigning and pushing. To manage one group instead of two, add an Okta group rule that puts the members of your role groups into `june-members`.
+
+## Set up SCIM
+
+<Steps>
+  <Step title="Turn SCIM on in June">
+    As Owner, go to **Settings > Authentication > Okta**, scroll to **SCIM provisioning**, and turn on the switch. June creates a token and copies it to your clipboard. Copy the **URL** as well.
+
+    June shows the token once. If you lose it, click **Generate new token**.
+  </Step>
+  <Step title="Create the June SCIM app in Okta">
+    Okta cannot add provisioning to your OIDC sign-in app, so you create a second app. People keep signing in through the June SSO app.
+
+    1. Go to **Applications > Applications**, click **Create App Integration**, and choose **SWA - Secure Web Authentication**.
+    2. **App name**: `June SCIM`. **App's login page URL**: `https://app.juneops.com`.
+    3. Check **Do not display application icon to users**.
+    4. **Application username**: **Email**. **Update application username on**: **Create and update**. Click **Finish**.
+    5. On **General**, under **App Settings**, click **Edit**, set **Provisioning** to **SCIM**, and click **Save**.
+  </Step>
+  <Step title="Connect the app to June">
+    1. On **Provisioning > Integration**, click **Edit**. Set **SCIM connector base URL** to June's URL, **Unique identifier field for users** to `userName`, and check **Push New Users**, **Push Profile Updates** and **Push Groups**.
+    2. Set **Authentication Mode** to **HTTP Header** and paste the June token into **Authorization**. June accepts it with or without `Bearer ` in front. Click **Test Connector Configuration**, then **Save**.
+    3. On **Provisioning > To App**, click **Edit**, enable **Create Users**, **Update User Attributes** and **Deactivate Users**, and click **Save**.
+  </Step>
+  <Step title="Create your groups in Okta">
+    Create `june-members` and one group per role, named as in the table above.
+  </Step>
+  <Step title="Push the role groups">
+    In the June SCIM app, open **Push Groups**, click **Push Groups > Find groups by name**, pick a role group such as `june-admin`, and click **Save**. Repeat for every role group.
+  </Step>
+  <Step title="Check each group's role in June">
+    Go to **Settings > Authentication > Okta**. Under **Groups**, each pushed group appears with its number of people. If you used the recommended names, the role is already chosen. Otherwise pick one, or leave **No role**.
+  </Step>
+  <Step title="Assign june-members last">
+    With every role group pushed, assign `june-members`. On the app's **Assignments** tab, click **Assign > Assign to Groups**, click **Assign** next to `june-members`, then **Save and Go Back** and **Done**. Everyone in the group joins June.
+  </Step>
+</Steps>
+
+## What each Okta action does in June
+
+| In Okta | In June |
+|---|---|
+| Assign a person, or add them to `june-members` | They join June. Their roles are their role groups' roles, or Member if none. Someone who already has a June account is matched by email and keeps their history |
+| Unassign a person, or remove them from `june-members` | They are removed from your organization. Their account and history are kept |
+| Deactivate a person | Same as unassign |
+| Assign or reactivate them again | They return with the same account and their role groups' roles, or Member if none |
+| Suspend a person | Nothing. They keep their membership and roles but cannot sign in through Okta. To remove access, deactivate or unassign |
+| Add a person to a role group | They gain that role, if they are also in `june-members` |
+| Remove a person from a role group | They lose that role. With no other role group, they are Member |
+| Delete a role group | The group disappears from June and its members lose that role |
+| Change a person's name or email | June updates it, unless their June account is also in another organization or the new email is off your domains |
+
+While a person is unassigned, signing in with SSO does not bring them back. Only assigning them in Okta does.
+
+People already in June whom Okta never sends stay as they are, and you manage them in June.
+
+## Generate a new token
+
+**Who can do this:** Owner.
+
+On the **Token** row, click **Generate new token** and confirm. The current token stops working right away, so Okta stops updating June until you paste the new token into the Okta app's **Authorization** field. June shows when the token was last used.
+
+## Turn SCIM off
+
+**Who can do this:** Owner.
+
+Turn off the **SCIM provisioning** switch and click **Turn off**. Okta stops adding and removing people. Everyone keeps their access and roles, and you manage people and roles in June again. Invitations and SSO sign-in add people again. Also turn off provisioning on the Okta app's **Provisioning** tab.
+
+To undo, turn the switch back on. That creates a new token to paste into Okta. Okta does not resend changes it could not send while SCIM was off. Retry them from Okta's **Dashboard > Tasks**, or click **Force Sync** under **Provisioning > To App**.
+
+Deleting SSO also turns SCIM off.
+
+## If something looks wrong
+
+| What you see | What to check |
+|---|---|
+| Someone you added in Okta is not in June | They are in `june-members`, because a role group alone does not add them. Their email is on one of your email domains. SCIM is on and the Okta app has the current token. **Create Users** is enabled under **Provisioning > To App** |
+| Someone has Member instead of their group's role | They are in both `june-members` and the role group. Then click **Push Now** for that group on Okta's **Push Groups** tab |
+| A group you created in Okta does not appear in June | Groups appear only after you push them from Okta's **Push Groups** tab |
+| Okta says the connection failed | The SCIM URL is right and **Authorization** holds the current token |
+| You cannot change someone's roles in June | They show **SCIM provisioned**. Change their Okta groups |
+| Your Admins became Members | Push their role group from Okta. Their role returns once it syncs |
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How do I add a contractor?">
+    Add them in Okta with an email on one of your domains and assign them to the June SCIM app. Invitations are off while SCIM is on.
+  </Accordion>
+  <Accordion title="Can I use Microsoft Entra?">
+    No. Okta is the only supported provider.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [SSO](/admin/sso): required before SCIM
+- [Members and roles](/admin/roles): what each role allows
+- [Okta integration](/integrations/okta): sync employees and applications from Okta
+- [Audit log](/admin/audit-log): SCIM changes appear with June AI as the actor

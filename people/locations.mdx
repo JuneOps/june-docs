@@ -1,0 +1,89 @@
+---
+title: 'Locations'
+description: 'Add and manage the offices and warehouses your people and assets belong to.'
+---
+
+Locations lists your offices and warehouses, the people at each, and the assets held there. Admins and Owners can add locations that no integration manages.
+
+## Where locations come from
+
+| Source | Locations |
+|---|---|
+| [Okta](/integrations/okta) | Each person's work location, as an Office. Without a mapped **Work location source field**, Okta locations are built from city and state |
+| [Google Workspace](/integrations/google-workspace) | Workspace buildings, and employee addresses named from the address, such as "Austin, TX" |
+| [Microsoft Entra ID](/integrations/microsoft-entra) | Each user's office location, as an Office |
+| [Jamf Pro](/integrations/jamf-pro) | Buildings, as Offices |
+| [Firstbase](/integrations/firstbase) | Offices as Offices, and warehouses as Warehouses |
+| CSV import | Office or Warehouse, as set in the file |
+| You | Locations you create here |
+
+Directory sources sync once a day. After you change a location in a source, it shows here at the next sync, or when you select **Sync Now** on the integration's page.
+
+A sync reuses a location whose name matches exactly, including capitalization. "NYC" and "nyc" become two locations. Google Workspace names locations from employee addresses, so they may not match names from other sources.
+
+**If you created a location by hand and a sync later reports the same name, it becomes a synced location.** It then comes from the source and can't be edited or deleted in June. A Google Workspace building with the same name also sets it to Office.
+
+A person's location comes from your identity provider. To change it, change it there. For people your identity provider doesn't cover, a device tool or a CSV employee import can set it.
+
+## The Locations list
+
+Columns are **Location** (name and address), **Type**, **Employees**, **Assets** and **Source**. Search by name, and sort by Location, Type, Employees or Assets. **Create Location** is at the top of the page.
+
+<Frame caption="Offices and a Firstbase warehouse.">
+  <img src="/images/people/locations-list.png" alt="Locations list with a Create Location button, showing Denver Office and a Firstbase Warehouse, with Location, Type (OFFICE or WAREHOUSE), Employees, Assets and Source columns" />
+</Frame>
+
+## Create a location
+
+<Steps>
+  <Step title="Open the form">
+    Go to **Locations** and select **Create Location**.
+  </Step>
+  <Step title="Fill in the details">
+    Enter a **Name** and choose a **Location Type**: Office (the default) or Warehouse. Add the address if you have it: **Address Line 1**, **Address Line 2**, **Country**, **State / Province**, **City** and **ZIP / Postal Code**. For state and city, pick from a list with **Dropdown**, or type them with **Manual** if yours isn't listed.
+  </Step>
+  <Step title="Save">
+    Select **Create Location**. The location appears in the list right away.
+  </Step>
+</Steps>
+
+Names are unique, ignoring capitalization. "Location with the same name already exists" means another location already uses it.
+
+## Edit or delete a location
+
+Open the actions menu next to the location name, in the list or on the location's page, then choose **Edit** or **Delete**. Locations from a source show no menu.
+
+- **Edit** opens the same form. Select **Update Location** to save.
+- **Delete** asks you to confirm and cannot be undone. It is unavailable while people or assets are assigned. The menu item says why, for example "Cannot delete: has 2 employees and 1 asset".
+
+To empty a location before deleting it, move its assets: open the assignee popover in the Assets list or on the asset's page, choose **Location**, then **Assign to Location**. For people, change their location in your identity provider.
+
+## Open a location
+
+The header shows the address and sources. **Employees** lists the people at the location, with their assets. **Assets** lists assets assigned to the location itself, such as spare stock in a warehouse. It does not include the devices of people who work there. For those, open the person in [Employees](/people/employees).
+
+## Who can do what
+
+| Role | Open Locations | Add, Edit, Delete Locations |
+|---|---|---|
+| Owner, Admin | Yes | Yes |
+| Member | Yes | No |
+| Software Procurement, AI Usage | No | No |
+
+Custom roles use **View Locations**, **Add Locations**, **Edit Locations** and **Delete Locations**, and a role can hold any one of them. Moving an asset needs permission to update assets, which Owner and Admin have. Roles are set in [Roles](/admin/roles).
+
+## If something looks wrong
+
+**Edit and Delete are missing.** The location comes from a source, or you created it and a sync later matched its name. Change it in the source.
+
+**Delete is greyed out.** People or assets are still assigned. Move them as described above.
+
+**The same office appears twice.** Sources spelled the name differently (capitalization counts), or Google Workspace created it from an employee address. Fix the name in the source.
+
+**An office shows 0 assets while people there have laptops.** Location assets are assigned to the location, not to people.
+
+## Related
+
+- [Employees](/people/employees), [Groups](/people/groups) and [Departments](/people/departments)
+- [Assets](/assets/assets)
+- [Roles](/admin/roles)

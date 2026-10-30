@@ -1,0 +1,123 @@
+---
+title: 'Access policies'
+description: 'Set who can request access to an app, who approves it, how June grants and removes it, and for how long.'
+---
+
+An access policy is a set of rules for one level of access to one app: who is eligible, whether an approver must sign off, how June grants and removes the access, and how long it lasts. Employees ask in Slack or Jira, and June runs the request from approval through to removal.
+
+Find policies under **Access** > **Policies**. Only standalone apps can have policies, not apps bundled with an operating system. AI usage limit policies sit on the same app page and are covered in [AI limit requests](/help-desk/ai-limit-requests).
+
+<Frame caption="Access > Policies: each app with its policies and status.">
+  <img src="/images/agents/access-policies-list.png" alt="The Access Policies list with a search box and columns for Application, Policies, Status (Configured or Not configured) and Last updated." />
+</Frame>
+
+**When a person is involved:** a policy with no approval step approves requests on its own, an automated grant (an Okta or Google group, or a custom tool) gives access on its own, and time-bound access is removed on its own when it ends. The first two are choices you make below. See [When June acts without asking](/agents/agent#when-june-acts-without-asking).
+
+## Who can do what
+
+| Task | Permission shown in Roles | Built-in roles |
+|---|---|---|
+| View policies and history | View Access Policies | Member, Admin, Owner |
+| Create, edit, restore versions | Create & edit Access Policies | Admin, Owner |
+| Enable or disable | Enable / disable Access Policies | Admin, Owner |
+| Delete | Delete Access Policies | Admin, Owner |
+| Approve & continue, confirm, retry or revoke on the **Access requests** tab | Create & edit Access Policies and Manage Requests & linked tickets (both) | Admin, Owner |
+
+Software Procurement has none of these. Approvers need no June role: they decide in Slack. If you create a policy without **Enable / disable Access Policies**, it saves as **Disabled**, and someone with that permission enables it.
+
+## Create a policy
+
+<Steps>
+  <Step title="Choose the app">
+    Open **Access** > **Policies**, open the app, and click **Add access policy**. If the app isn't listed, set **Management** to **All**: the list shows managed apps by default.
+  </Step>
+  <Step title="Name it">
+    The name is the access level employees see, such as "Standard access". Names are up to 80 characters, and each app can have one policy per name.
+  </Step>
+  <Step title="Choose eligible requesters">
+    Under **Eligible requesters**, leave it as all employees or add conditions on **Employee type** (Employee or Contractor), **Department**, **Group** or **Location**, each **Is** or **Is not**, matching all or any.
+  </Step>
+  <Step title="Set the request rules">
+    Under **Request settings**, choose **Access duration**: **Indefinite** (the default) or **Time-bound** with **Minimum**, **Default**, **Maximum** and **Increment**, in hours, days or weeks. Employees can have up to 100 choices. **Business justification** is on by default with the prompt "Why do you need this access?".
+  </Step>
+  <Step title="Add approvals">
+    Turn on **Require approval**. It is off by default, and a policy without it needs no approver. Step 1 is **Access approver**. To use the requester's manager or named people instead, change the route on that step (routes are in the table below).
+  </Step>
+  <Step title="Choose grant and revoke">
+    Under **Grant & revoke**, pick a method for each side: **Manual task** (the default), an Okta or Google group, or a published custom tool. The table below says what each does.
+  </Step>
+  <Step title="Set the confirmation">
+    **Notify requester** is on by default. Edit the message, which defaults to `You now have access to [app]. If anything isn't working, let us know.`
+  </Step>
+  <Step title="Save">
+    Click **Save policy**.
+  </Step>
+</Steps>
+
+Editing creates a new version. Requests already under way keep the version they started with. Open an older version, then click **Restore** to bring it back.
+
+## Approval chains
+
+An approval chain has up to 6 steps, and a step can name up to 20 people. Drag steps to reorder.
+
+| Route | Who approves |
+|---|---|
+| **Access approver** | The people assigned as access approvers for the app |
+| **Requester's manager** | The requester's manager when the step starts |
+| Named employees | Anyone you pick |
+
+For **Access approver** or two or more named people, choose **Any approver** or **All approvers**. A manager step always needs the manager.
+
+Each step has a **Nudge** (default 1 hour) that re-sends the request, and an **Escalate** (default 2 hours) that moves it to another approver. Both count from when the step starts, and escalation must come after every nudge.
+
+**Assign access approvers:** open **Software** > the app > **Overview** > **Stakeholders**, add a person and choose the role **Access Approver**. If the app uses Manual provisioning, you can also add them under **Access** > **Access Approvers**. The builder warns you if the chosen route has no approver.
+
+**Who is skipped:** a requester is never their own approver, and inactive people are skipped.
+
+**How approvers are reached:** approval requests go to approvers as Slack DMs with **Approve** and **Reject**. Slack must be connected, each approver needs a Slack account linked to them in June, and everyone in a step must be in the same Slack workspace. A rejection requires a reason, which the requester sees. Microsoft Teams doesn't deliver approvals.
+
+## Grant and revoke
+
+Pick one method for each side:
+
+| Method | What June does |
+|---|---|
+| **Manual task** (default) | Waits for IT to do it, then complete it in [Requests](/help-desk/requests) or choose **Confirm access granted**. For removal, June posts a Slack card with **Confirm revoked**. |
+| **Add user to Okta group** / **Remove user from Okta group** | Does it automatically. The user needs an active Okta account. |
+| **Add user to Google group** / **Remove user from Google group** | Does it automatically. The user needs an active Google account. |
+| A custom tool | Runs your published [custom tool](/agents/tools) marked for grant or revoke. |
+
+For time-bound access, June starts removal automatically when the time is up. If a policy has indefinite access and no removal step, removal falls back to manual.
+
+## How employees request access
+
+Employees ask in Slack by running `/june access` in a DM with June, or by asking June in a DM or thread. They can also raise a Jira ticket. June shows only policies that are active, that the employee is eligible for, and that they don't already have or have open (one open request per employee per policy). It submits a request only when exactly one policy matches, using the employee's own reason and duration.
+
+If the app isn't listed, the employee chooses **Not listed**, and the request goes to IT. IT can also start access from a [request](/help-desk/requests), for 1 to 10 policies at once.
+
+## Manage a policy
+
+- **Disable** from **Policy actions** to stop new requests. Requests under way continue. **Enable** reverses it.
+- **Delete** works only if no request ever ran. Otherwise disable it.
+- The **Access requests** tab shows each request's status, an **Access journey** and an **Activity log**. See [Access requests](/help-desk/access-requests) for statuses and the actions you can take.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="A request is in Needs review">
+    Typical causes: an approver isn't in Slack, the requester has no manager for a manager step, or a grant step failed or its outcome is unknown. June doesn't retry an unknown outcome. Open the request, check the Activity log, then **Retry step** or complete it by hand.
+  </Accordion>
+  <Accordion title="An approver is away">
+    Use **Approve & continue** on the request, or set **Escalate** on the step for next time.
+  </Accordion>
+  <Accordion title="Employees don't see the app in Slack">
+    The policy must be enabled, the employee eligible, and no request already open or access already held.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Access requests](/help-desk/access-requests), [Requests](/help-desk/requests), [AI limit requests](/help-desk/ai-limit-requests)
+- [Tools](/agents/tools) and [Agent](/agents/agent)
+- [Slack](/integrations/slack), [Okta](/integrations/okta), [Google Workspace](/integrations/google-workspace)
+- [Roles](/admin/roles)

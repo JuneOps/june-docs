@@ -1,0 +1,143 @@
+---
+title: 'Runbooks'
+description: 'Write a repeatable process in plain language and let June run it on demand, on a schedule, in chats, for employee requests, or when a Jira ticket is created.'
+---
+
+A runbook is a repeatable process you describe in plain language, with the actions June may take along the way. June follows it on demand, on a schedule, or when a chat, employee request or Jira ticket matches. See [Triggers](#triggers).
+
+Runbooks live in the sidebar under **Intelligence** > **Runbooks**. A dot appears next to the item when a draft needs attention.
+
+<Frame caption="The Runbooks page: drafts with their status, and your saved runbooks.">
+  <img src="/images/agents/runbooks-overview.png" alt="The Runbooks page showing Drafts with status chips such as Validated draft, Couldn't finish and Needs review, and Your runbooks with trigger, tool count, search and a plus button." />
+</Frame>
+
+## Triggers
+
+A trigger decides when June can use the runbook. A runbook has 1 to 10 triggers. Click **Add trigger** and choose one.
+
+| Trigger | When it runs | Notes |
+|---|---|---|
+| **Manual** | When someone clicks **Run now** | One per runbook |
+| **Schedule** | Daily, weekly, monthly, or a custom schedule | At most once per day. Pick a time zone. The editor shows the next run time. For weekdays, use a custom schedule such as "Every weekday at 9:00 AM" |
+| **Agent task** | When an IT user asks June in the Agent or works an IT request. June offers the runbook with a **Start** button | Describe in **Use this Runbook when** (8 to 2,000 characters) |
+| **Employee Request** | When an eligible employee's request matches | Choose **All employees** or **Choose conditions** (type, department, group, location, with exclusions). Each action can have an approval chain, off by default: the requester's manager or named people, with **Any approver** or **All approvers**, nudges and escalation |
+| **Jira** | When a Jira ticket matching your conditions is created | Choose **Jira site** and **Project**, then add conditions. All must match |
+
+**Manual** and **Schedule** can be combined. **Agent task**, **Employee Request** and **Jira** each stand alone. Jira must be connected and synced, or the condition choices don't load. If a scheduled run is still unfinished when the next is due, June skips the new one.
+
+Switching a runbook to **Employee Request** clears its instructions, tools and other triggers. June asks you to confirm with **Clear and switch**.
+
+## Create a runbook
+
+<Steps>
+  <Step title="Start">
+    Go to **Runbooks** and click **New Runbook**, or pick a Quick start. Give it a name of 1 to 120 characters.
+  </Step>
+  <Step title="Add triggers">
+    Under **Triggers**, click **Add trigger** and choose from the table above.
+  </Step>
+  <Step title="Write instructions">
+    Under **Instructions**, describe what June should do, which constraints matter, and what the result should contain. Instructions need at least 12 characters.
+  </Step>
+  <Step title="Add actions">
+    Type `/` to insert a tool that changes something and set its inputs, or leave an input to be worked out when the runbook runs. A new action runs without asking. Turn off **Autonomous** to require approval each time. If June needs a write action you didn't place, it asks for approval each time. Looking things up needs no setup. See [Tools](/agents/tools) and [When June acts without asking](/agents/agent#when-june-acts-without-asking).
+  </Step>
+  <Step title="Check and publish">
+    **Save Draft** saves without checks. **Validate** checks only. **Publish** checks, then publishes and activates if every check passes. If a check fails, the runbook stays a draft.
+  </Step>
+</Steps>
+
+### Quick starts
+
+Quick starts are ready-made runbooks on the Runbooks page, shown when you have matching data. Most run every Monday at 2:00 PM Eastern, and you can also run them manually. When Slack has a notifications channel, they add a summary to IT. On a software app's **Runbooks** tab, **New runbook** > **Start with a template** offers two more, **Software Usage Report** and **Software Usage Employee Survey** (needs Slack).
+
+### Example: find devices that stopped checking in
+
+1. On **Runbooks**, find **Devices Missing Check-In** under Quick starts and click it. The editor opens with a Manual trigger, a weekly schedule and instructions already filled in.
+2. Change the schedule or time zone if you need to. Click **Validate**.
+3. Click **Test** and run it in the playground. Nothing real changes: actions are mocked.
+4. Click **Publish**. The runbook is now **Active**.
+5. Click **Run now** to try it at once. Each Monday after that, June runs it. If Slack has a notifications channel, IT gets a summary there.
+
+## Who can do what
+
+| Task | Permission shown in Roles | Built-in roles |
+|---|---|---|
+| View runbooks, drafts and run history | Runbooks, drafts & revisions; Runbook run history & results | Member, Software Procurement, Admin, Owner |
+| Create a runbook | Create runbooks | Admin, Owner |
+| Edit, restore versions | Edit runbooks | Admin, Owner |
+| Delete | Delete runbooks & drafts | Admin, Owner |
+| Run now, test in the playground | Run runbooks | Admin, Owner |
+| Publish, activate, deactivate | Publish & activate runbooks | Admin, Owner |
+| Approve actions | Approve Agent & Runbook tool actions | Admin, Owner |
+
+**Create runbooks** lets someone edit their own unpublished new drafts. Editing someone else's draft, or a draft of an existing runbook, needs **Edit runbooks**. To let a teammate edit but not publish, give a custom role those two permissions without **Publish & activate runbooks**. See [Roles](/admin/roles).
+
+## Test before you publish
+
+Click **Test** on a runbook to open the playground. Choose how to simulate a start, such as a test employee request, a scheduled run, an agent task or a Jira ticket (**Test a Jira webhook**, with an issue key and summary).
+
+- Actions that change something show **Review mock output**. Choose **Use mock result**, **Run real action...** then **Confirm real action**, or **Reject**.
+- Approvals are simulated, and no approval request is sent.
+- Click **Stop test** to end it.
+
+A runbook that has never run shows **Try it in the playground first**.
+
+## Statuses and lifecycle
+
+| Runbook status | Meaning |
+|---|---|
+| **Active** | Triggers are live. |
+| **Inactive** | Triggers are off. New runbooks start inactive until published. Restored runbooks stay inactive until you activate them. |
+| **Deleted** | Triggers stopped. Run history is kept, and you can **Restore**. |
+
+| Draft status | Meaning |
+|---|---|
+| **Needs review** | An action needs to be placed in the instructions or confirmed. |
+| **Needs a change** | A check found a problem. |
+| **Couldn't finish** | The check didn't complete. Validate again. |
+
+- **Stop runbook** ends a run. The run records who stopped it.
+- **Edit** opens a draft of the published runbook. The published version doesn't change until you publish. **Discard this draft?** drops your changes.
+- **...** > **Deactivate** stops the triggers. **Delete** is blocked while any run is unfinished.
+- **Revision history** lists versions. **Restore v[N]** opens that version in the editor, and you save to apply it. This needs **Edit runbooks**.
+
+## What runbooks produce
+
+**What June learned** on a runbook's page holds notes June keeps from each test and real run. Your instructions always come first, and you can add notes or restore an earlier version.
+
+A runbook can save what it finds as findings, which you can filter by Status (**New**, **Recurring**, **Resolved**) and Severity (**Info**, **Warning**, **Critical**). It can also send employees a reachout by Slack or email.
+
+When a manual, scheduled or Jira run fails, June posts the runbook name with **Open in June** in your Slack notifications channel. See [Slack](/integrations/slack).
+
+## Run history
+
+**Runbooks** > **Run history** lists every run with its runbook, status, trigger, who started it, start time and duration. Switch views: **Operations** (manual and scheduled runs), **Webhooks** (runs started by Jira tickets), **Requests & chats**, or **All**. Scheduled runs show **Automatic**. A lock marks a **Private run**, visible only to the person who started it. A run from an employee request opens the request in [Requests](/help-desk/requests).
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="Publish didn't work">
+    Open the validation panel. **Changes needed** must be fixed, and **Review** items need a look. If the runbook changed after validation, or the available tools changed, validate again. A tool from an unconnected integration blocks validation until you connect it.
+  </Accordion>
+  <Accordion title="Run now is greyed out">
+    The runbook is inactive, it has no Manual trigger, or another manual or scheduled run is queued, running or waiting. Finish or stop that run first.
+  </Accordion>
+  <Accordion title="Employees' requests don't use my runbook">
+    It must be active, with an **Employee Request** trigger, and the employee must match the eligible employees. Every action must be marked **Available for self-service**. See [Tools](/agents/tools#employee-self-service).
+  </Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Which tools can a runbook use?">
+    Any tool from a connected integration, and your custom tools. Employee Request runbooks can use only self-service tools. Published runbooks use their own configured tools, not the viewer's role.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Agent](/agents/agent), [Tools](/agents/tools), [Context and memory](/agents/context-and-memory)
+- [Jira](/integrations/jira) and [Requests](/help-desk/requests)
+- [Roles](/admin/roles)
