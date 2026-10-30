@@ -40,7 +40,7 @@ Switching a runbook to **Employee Request** clears its instructions, tools and o
     Under **Instructions**, describe what June should do, which constraints matter, and what the result should contain. Instructions need at least 12 characters.
   </Step>
   <Step title="Add actions">
-    Type `/` to insert a tool that changes something and set its inputs, or leave an input to be worked out when the runbook runs. A new action runs without asking. Turn off **Autonomous** to require approval each time. If June needs a write action you didn't place, it asks for approval each time. Looking things up needs no setup. See [Tools](/agents/tools) and [When June acts without asking](/agents/agent#when-june-acts-without-asking).
+    Type `/` to insert a tool that changes something and set its inputs, or leave an input to be worked out when the runbook runs. A new action usually runs without asking. Turn off **Autonomous** to require approval each time. If June needs a write action you didn't place, it asks for approval each time. Looking things up needs no setup. See [Tools](/agents/tools) and [When June acts without asking](/agents/agent#when-june-acts-without-asking).
   </Step>
   <Step title="Check and publish">
     **Save Draft** saves without checks. **Validate** checks only. **Publish** checks, then publishes and activates if every check passes. If a check fails, the runbook stays a draft.
@@ -55,7 +55,7 @@ Quick starts are ready-made runbooks on the Runbooks page, shown when you have m
 
 1. On **Runbooks**, find **Devices Missing Check-In** under Quick starts and click it. The editor opens with a Manual trigger, a weekly schedule and instructions already filled in.
 2. Change the schedule or time zone if you need to. Click **Validate**.
-3. Click **Test** and run it in the playground. Nothing real changes: actions are mocked.
+3. Click **Test** and run it in the playground. Choose **Use mock result** for the Slack summary so nothing real is sent.
 4. Click **Publish**. The runbook is now **Active**.
 5. Click **Run now** to try it at once. Each Monday after that, June runs it. If Slack has a notifications channel, IT gets a summary there.
 

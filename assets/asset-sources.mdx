@@ -3,7 +3,7 @@ title: 'Asset sources'
 description: 'Which system June trusts for a device''s status and assignee, and how to see what each one reports.'
 ---
 
-June builds each device's status and assignee from the systems you connect, matched by serial number. When they disagree, a fixed order decides. The order is on [Asset status](/assets/asset-status). This page has the rules for each source.
+June builds each device's status and assignee from the systems you connect, matched by serial number. When they disagree, a fixed order decides. The order is on [Asset status](/assets/asset-status).
 
 Anyone who can view assets sees the Sources section. Source icons elsewhere need permission to view integrations, so Members do not see them.
 
@@ -16,13 +16,13 @@ Anyone who can view assets sees the Sources section. Source icons elsewhere need
 | Apple Business Manager | [Apple Business Manager](/integrations/apple-business-manager) | That the device exists, whether it is assigned to an MDM server, purchase dates and a warranty estimate |
 | Your team | Admins in June | Manual status, assignee, condition, ownership. A lock stops syncs changing status and assignee |
 
-A source you did not connect has no say, and a source you disconnected gives no opinion. If a source names a person June cannot match to an employee, the status and assignee stay as they are, unless a provider rule below or lost mode applies.
+A source you did not connect has no say, and a source you disconnected gives no opinion. June never sets a status from age or a missed check-in, see [Asset status](/assets/asset-status). If a source names a person June cannot match to an employee, the status and assignee stay as they are, unless a provider rule below or lost mode applies.
 
 ## The logistics provider
 
 These rules apply first. The provider moves a device out of any status except the frozen ones described on [Asset status](/assets/asset-status).
 
-**It retires the device**
+### It retires the device
 
 | Reason | Status | Assignee |
 |---|---|---|
@@ -30,7 +30,9 @@ These rules apply first. The provider moves a device out of any status except th
 | Destroyed, donated, out for destruction | Recycled | Unchanged |
 | Lost by the employee, in transit or by the provider; stolen; never received; never returned; employee stopped responding | Lost | Unchanged |
 
-**Its warehouse holds the device.** The person comes off. The device is assigned to the warehouse if you have that warehouse as a location in June.
+### Its warehouse holds the device
+
+The person comes off and the device is assigned to that warehouse. June adds each provider warehouse and office to [Locations](/people/locations) when it syncs.
 
 | Reason | Status |
 |---|---|
@@ -42,19 +44,19 @@ These rules apply first. The provider moves a device out of any status except th
 | Data hold | No change. Legal Hold is yours to set |
 | Any other reason | Pending Return until restocked |
 
-**Elsewhere**
+### While it is elsewhere
 
 | Situation | Status | Assignee |
 |---|---|---|
 | A return is under way | Pending Return | Person kept until the device arrives |
 | A repair, lock or recycle reason outside its warehouse | In Repair, Locked or Recycled | Person kept |
-| Stock at one of your offices, and the device management tool lists no user | Available | That office, if it is a location in June |
+| Stock at one of your offices, and the device management tool lists no user | Available | That office |
 
 A warehouse counts only when the provider says its own warehouse holds the device. A customer office counts as yours.
 
 ## Device management
 
-These rules apply once a tool lists the device. They change only blank, Other, Available, Deployed and Awaiting Enrollment. Lost mode is the exception, and sets Lost from any status that is not frozen. An In Repair or Pending Return that you set by hand survives these syncs.
+These rules apply once a tool lists the device. They change only blank, Other, Available, Deployed and Awaiting Enrollment. Lost mode is the exception, and sets Lost from any status that is not frozen. An In Repair, Pending Return or Locked status survives these syncs.
 
 | The tool reports | Status | Assignee |
 |---|---|---|

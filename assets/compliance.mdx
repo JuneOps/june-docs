@@ -19,9 +19,9 @@ Until a compliance runbook runs, every device is Not assessed and the page reads
 2. Edit the checks in plain language to match your policy.
 3. Publish.
 
-The runbook runs every Monday at 2:00 PM Eastern, and you can run it manually. Results update after each run.
+The runbook runs every Monday at 2:00 PM Eastern, and you can run it manually. Results update after each run. Change the schedule in the runbook.
 
-**What the runbook does.** It assesses your devices, records each result with its evidence, creates a finding for each non-compliant or unknown device, and posts to Slack if Slack is set up. Findings are critical only when disk encryption, firewall or Secure Boot is off, and unknown results are labeled "Needs verification". It reports. It makes no change to a device unless you add an action to the runbook for that.
+**What the runbook does.** It assesses your devices, records each result with its evidence, and sets devices that are no longer deployed back to Not assessed. It creates a runbook finding for each non-compliant or unknown deployed device, shown on the run's **Findings** tab, and posts to Slack if Slack is set up. Findings are critical only when disk encryption, firewall or Secure Boot is off, and unknown results are labeled "Needs verification". It reports, and makes no change to a device unless you add an action to the runbook for that.
 
 The quick start assesses deployed Mac and Windows devices:
 
@@ -41,12 +41,12 @@ The page opens on **All** platforms. Tabs split by platform. Search takes device
 
 | Filter | Options |
 |---|---|
-| **Deployment status** | Any status, multi-select |
+| **Deployment status** | The device's status in June, multi-select |
 | **Compliance** | Compliant, Non-compliant, Not assessed |
 | **Check** | Any check your policy reports |
 | **Result** | Pass, Fail, Unknown. Appears once you choose a Check |
 
-Set **Compliance** to Non-compliant, or pick a **Check**, such as disk encryption, and set **Result** to Fail. On Windows, some checks show "Not Available" or "Not Applicable".
+To find Macs failing FileVault, open the **macOS** tab, pick the disk encryption **Check**, and set **Result** to Fail. Or set **Compliance** to Non-compliant. On Windows, some checks show "Not Available" or "Not Applicable".
 
 If no compliance runbook is active but results exist, a banner warns that "these results may be out of date".
 
@@ -54,20 +54,7 @@ If no compliance runbook is active but results exist, a banner warns that "these
 
 Open the asset and look at **Compliance** on **Overview**. It shows the verdict, the reason, and each check as Pass, Fail or Unknown with its reason, plus device-reported details such as Disk Encryption Enabled, Firewall Enabled and Secure Boot Enabled. Click **View assessment history** for every earlier assessment, newest first, each with the reason recorded at the time.
 
-Peripherals are never assessed. Dashboard and All Assets also show a **Compliance** card, column and filter. Decommissioned and Recycled devices are left out of the counts by default.
-
-## Signals about devices
-
-Separate from Compliance, June raises signals, shown under **Signals** in the sidebar, from thresholds you set in **Settings > Organization Policies**.
-
-| Signal | Default |
-|---|---|
-| Devices not checked in | 14 days |
-| Devices running outdated OS | macOS 26.0, Windows 10.0.22000, iOS 18.0, Android 15.0, tvOS 18.0 |
-| Devices with boot drive full | 90% |
-| Devices with warranty expiring | 30 days |
-
-**Devices without disk encryption** is on by default and has no threshold. You can turn it off. Signals and Compliance are independent: each uses its own rules, and neither changes the other's result.
+Peripherals are never assessed. Decommissioned and Recycled devices are left out of the counts by default. The Assets dashboard and All Assets also show a **Compliance** card, column and filter.
 
 ## If something looks wrong
 
@@ -75,7 +62,23 @@ Separate from Compliance, June raises signals, shown under **Signals** in the si
 |---|---|
 | Every device is Not assessed | No compliance runbook has run. Click **Set up compliance**, publish, or run it manually |
 | Results look stale | The runbook is no longer active, or has not run since a change. Check the banner and the runbook |
+| A device went back to Not assessed | The quick start resets devices that are no longer deployed |
 | The outdated OS signal and Compliance disagree | The signal uses Organization Policies. Compliance uses your runbook |
+| You cannot find the runbook's findings | They are on the run's **Findings** tab, not under Signals |
+
+## Signals about devices
+
+Separate from Compliance, when Signals is turned on for your organization, June raises signals, shown under **Signals** in the sidebar, from thresholds you set in **Settings > Organization Policies**.
+
+| Signal | Default |
+|---|---|
+| Devices not checked in | 14 days |
+| Devices running outdated OS | macOS 26.0, Windows 10.0.22000, iOS 18.0, Android 15.0, tvOS 18.0 |
+| Devices with boot drive full | 90% |
+| Devices with warranty expiring | 30 days |
+| Devices due for refresh | 36 months since purchase |
+
+**Devices without disk encryption** is on by default and has no threshold. You can turn it off. **Battery service recommended** is also available. Signals and Compliance are independent: each uses its own rules, and neither changes the other's result.
 
 ## FAQ
 

@@ -73,7 +73,7 @@ When an app has several active fixed-term contracts, the Overview shows the one 
 
 June sends an **Upcoming Software Renewal** reminder 90, 60 and 30 days before a contract ends. It goes to everyone with the Owner, Admin or Software Procurement role, or to everyone if nobody holds those roles. Stakeholders get it only if they hold one of those roles. The message lists the app, vendor, contract value, license count, end date, time until renewal, usage and the app's stakeholders.
 
-June schedules the reminders when a contract is saved, as long as it is active, has a future end date and is not ignored. If you add a contract inside a window, the next reminder is sent right away. Changing the end date reschedules them.
+June schedules the reminders when a contract is created or its end date changes, as long as it has started, has a future end date and is not ignored. If you add a contract between 30 and 90 days before it ends, June sends the next reminder with the next day's reminders. A contract added less than 30 days before it ends gets no reminder.
 
 **To stop reminders for a contract, delete it.** Ignoring a contract or marking it Rejected later does not cancel reminders already scheduled.
 

@@ -159,8 +159,7 @@
           {
             "group": "Communication",
             "pages": [
-              "integrations/slack",
-              "integrations/microsoft-teams"
+              "integrations/slack"
             ]
           },
           {

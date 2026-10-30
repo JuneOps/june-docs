@@ -24,7 +24,7 @@ When Okta, Google Workspace and Entra ID disagree, the order is Okta, then Googl
 
 ## Statuses
 
-Your identity providers set status. Device tools, Slack and AI tools never do. A CSV import or a change you approve in chat can set it, but for people your identity provider covers, its value comes back on the next sync.
+Your identity providers set status. Device tools, Slack and AI tools never do. A change you approve in chat can set it, and so can a CSV import's Status column. For people your identity provider covers, its value comes back on the next sync.
 
 | Status | Meaning |
 |---|---|
@@ -32,9 +32,9 @@ Your identity providers set status. Device tools, Slack and AI tools never do. A
 | Inactive | Deprovisioned or disabled, or not started yet. In Okta, staged and provisioned accounts are Inactive until activated. |
 | Suspended | Paused but still employed. Not counted in **Total active**. |
 | Archived | The provider reports the account as archived, or a status other than active, suspended or deactivated. |
-| Unknown | None of your connected identity providers lists the person, or no identity provider is connected. |
+| Unknown | None of your connected identity providers lists the person, or no identity provider is connected. Without a connected identity provider, these people still count in **Total active**. |
 
-A termination date alone never changes status. If a sync would change the status of more than 25 people, or 10% of your active people, whichever is larger, June skips the change and everyone keeps their current status.
+A termination date alone never changes status. If one sync finds more than 25 people, or 10% of your active people (whichever is larger), missing from your identity provider, June ignores the missing people for that sync and their status stays as it is. Status changes the provider reports, such as deprovisioning, always apply.
 
 ## The dashboard and the list
 

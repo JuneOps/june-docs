@@ -21,7 +21,8 @@ June learns when someone was last active from these sources:
 | [Google Workspace](/integrations/google-workspace) | Sign in with Google events |
 | [Microsoft Entra](/integrations/microsoft-entra) | Sign-ins |
 | [Browser extension](/agents-extensions/browser-extension) | Active time in apps you set it to track |
-| [Jamf Pro](/integrations/jamf-pro) | App usage on devices (shown on the **Installations** tab) |
+
+Jamf Pro also reports how long each app is used on each Mac, shown as **Daily Usage** and **Last Used** on the app's **Installations** tab. Device usage does not count toward Active Users, idle seats or health status.
 
 An assignment alone gives no activity. On the app Overview and in health status, anyone not active in the last 30 days counts as inactive, including people June has no activity for. The Software Usage Report and Agent treat missing activity as unknown instead, and list those people separately.
 
@@ -72,7 +73,7 @@ June does not remove a seat on its own initiative.
 | Way | How it works |
 |---|---|
 | **Approved June action** | Ask Agent to remove someone from the Okta or Google group that grants the app. Only an Admin or Owner can ask, and Agent asks for approval before it runs, unless your organization has changed that tool's approval setting |
-| **Access policy** | A policy with a revoke step removes access in Okta, Google or manually. See [Access policies](/agents/access-policies) for when a policy runs |
+| **Access policy** | When time-bound access ends, June starts removal: an Okta or Google group or a custom tool removes the seat, and with **Manual task** (the default) IT removes it and confirms. See [Access policies](/agents/access-policies) for when a policy runs |
 | **A runbook your team built** | A runbook action that removes access runs without asking each time when its actions are **Autonomous**. See [when June acts without asking](/agents/agent#when-june-acts-without-asking) |
 | **Your identity provider** | Remove the assignment in Okta, Google Workspace or Microsoft Entra directly |
 

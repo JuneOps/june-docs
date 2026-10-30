@@ -11,7 +11,7 @@ Find policies under **Access** > **Policies**. Only standalone apps can have pol
   <img src="/images/agents/access-policies-list.png" alt="The Access Policies list with a search box and columns for Application, Policies, Status (Configured or Not configured) and Last updated." />
 </Frame>
 
-**When a person is involved:** a policy with no approval step approves requests on its own, an automated grant (an Okta or Google group, or a custom tool) gives access on its own, and time-bound access is removed on its own when it ends. The first two are choices you make below. See [When June acts without asking](/agents/agent#when-june-acts-without-asking).
+**When a person is involved:** a policy with no approval step approves requests on its own, and an automated grant or revoke (an Okta or Google group, or a custom tool) runs on its own. When time-bound access ends, June starts removal automatically. With **Manual task** removal, IT still confirms it. These are choices you make below. See [When June acts without asking](/agents/agent#when-june-acts-without-asking).
 
 ## Who can do what
 
@@ -83,8 +83,8 @@ Pick one method for each side:
 | Method | What June does |
 |---|---|
 | **Manual task** (default) | Waits for IT to do it, then complete it in [Requests](/help-desk/requests) or choose **Confirm access granted**. For removal, June posts a Slack card with **Confirm revoked**. |
-| **Add user to Okta group** / **Remove user from Okta group** | Does it automatically. The user needs an active Okta account. |
-| **Add user to Google group** / **Remove user from Google group** | Does it automatically. The user needs an active Google account. |
+| **Add user to Okta group** / **Remove user from Okta group** | Does it automatically. Adding needs an active Okta account linked to the employee in June. Removal works for any linked account, even a suspended one. |
+| **Add user to Google group** / **Remove user from Google group** | Does it automatically. Adding needs an active Google Workspace account linked to the employee in June. Removal works for any linked account, even a suspended one. |
 | A custom tool | Runs your published [custom tool](/agents/tools) marked for grant or revoke. |
 
 For time-bound access, June starts removal automatically when the time is up. If a policy has indefinite access and no removal step, removal falls back to manual.

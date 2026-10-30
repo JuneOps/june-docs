@@ -24,10 +24,10 @@ A limit policy decides what happens to Slack and Jira asks: who approves, how mu
     Go to **Access** > **Policies** and open the app for the tool. Limit policies sit on the same page as its access policies.
   </Step>
   <Step title="Choose who it covers">
-    June uses the one limit policy that covers the employee for that tool. If none covers them, or two do, the ask goes to IT.
+    If a policy with eligibility rules covers the employee, June uses it ahead of a policy for everyone. If no policy covers them, or two of the same kind do, the ask goes to IT.
   </Step>
   <Step title="Set the reason prompt and duration">
-    Optionally require a business reason. The default prompt is "Why do you need more usage?". Choose a duration of **Permanent** or **Until end of month**.
+    **Business justification** is on by default, with the prompt "Why do you need more usage?". Turn it off if you don't need a reason. Set **Limit duration** to **Permanent** or **Until end of month**.
   </Step>
   <Step title="Add tiers">
     A policy has 1 to 5 tiers, chosen by how many raises the person has had approved this month. Tier 1 covers the first raise, tier 2 the second, and the last tier applies to every later raise.
@@ -36,11 +36,13 @@ A limit policy decides what happens to Slack and Jira asks: who approves, how mu
 
 Each tier sets:
 
-- **Approval:** none, or a chain of the employee's manager and named people.
+- **Approval:** none, or up to six steps. Each step is **Access approver** (the app's current approvers), the requester's manager, or named people. Turning on **Require approval** adds an **Access approver** step first.
 - **Amount:** increase by a percentage, increase by a fixed amount, set to an amount, or approver decides.
-- **A maximum** for the new limit.
+- **Maximum limit:** the highest the new limit can reach. June caps the rule's result at it. A "Set to an amount" tier has no maximum: the amount is its maximum.
 
-For example, tier 1 could need no approval and add 25% up to \$500, while tier 2 needs the manager and sets the limit to an amount they choose, up to \$2,000.
+For example, for someone on a \$200 limit, tier 1 could need no approval and add 25%, up to \$500, which takes them to \$250. Tier 2 could need the manager, who picks a new limit up to \$2,000.
+
+**Who can do this:** Owner and Admin manage limit policies. Members can view them. Only policies that are turned on handle asks.
 
 ## How June decides
 
@@ -50,7 +52,7 @@ For example, tier 1 could need no approval and add 25% up to \$500, while tier 2
 | Tier needs approval | Approvers get a Slack card, then June raises the limit once they approve. |
 | Several approvers approve different amounts | June raises to the lowest amount approved. Later approvers can approve up to that amount, or reject. |
 | No policy covers the person, or two do | The ask goes to IT with a note. |
-| No manager, an inactive or unreachable approver, or the rule doesn't give a higher limit | The ask goes to IT with a note that says why and how to avoid it. |
+| No manager, an inactive or unreachable approver, the rule doesn't give a higher limit, the new limit is above June's ceilings (see [Decide a request in June](#decide-a-request-in-june)), the policy changed or no longer covers the person while the ask waited, or another raise was approved meanwhile | The ask goes to IT with a note that says why and how to avoid it. |
 | The provider doesn't confirm a raise | June retries up to four more times over about 15 minutes, then sends the ask to IT. |
 
 June changes a limit in three cases only: a person with permission approves or saves a change, a limit policy you set up runs, or a temporary raise ends and June puts back the earlier limit. It never raises above an approver's amount or a tier's maximum on its own, and never applies a raise twice: it checks the provider's current limit before each retry. IT deciding in June can go above a tier's maximum.
@@ -93,13 +95,13 @@ The **Actor** column shows who decided and where: a name with "via June", "via c
   </Step>
 </Steps>
 
-June refuses a limit more than 10 times the current one (\$1,000 for a \$100 limit). A decision takes effect right away. To undo it, change the limit from **Employee usage** ([Spend limits](/ai-usage/spend-limits)).
+June refuses a new limit more than 10 times the current one (\$1,000 for a \$100 limit), above \$5,000 when the person has no limit, or above \$50,000 in any case (ChatGPT: 100,000 and 1,000,000 credits). This applies to policy raises too. If an approver picks an amount above these ceilings, the raise goes to IT instead. A decision takes effect right away. To undo it, change the limit from **Employee usage** ([Spend limits](/ai-usage/spend-limits)).
 
 To cancel a Slack or Jira ask, open the matching request in [Requests](/help-desk/requests) and set it to **Canceled**. That is the only status change available there for a limit ask. Closing the ask's Jira ticket does the same. The employee is told their request was canceled. Asks from inside Claude or ChatGPT have no request in June; decline them instead.
 
 ## Decide in Slack
 
-Approvers named in a policy tier get a DM card showing who is asking, their usage this month (for example "\$150 of \$200 used this month (75%)"), raises already approved this month, the amount and duration the policy gives, and the reason.
+The approvers on the tier's current step get a DM card showing who is asking, their usage this month (for example "\$150 of \$200 used this month (75%)"), raises already approved this month, the amount and duration the policy gives, and the reason.
 
 They click **Approve** or **Reject**. On an "approver decides" tier, Approve opens a form to pick the new limit: the employee's ask, 25%, 50% or 100% more, or another amount, within the tier's maximum. Reject asks for a reason the employee will see (up to 500 characters). Approvers don't need a June role.
 
@@ -139,7 +141,7 @@ A raise set to **Until end of month** ends at the end of the calendar month, UTC
 
 <AccordionGroup>
   <Accordion title="Can employees ask for more Cursor?">
-    No. Cursor has no Limit requests tab and June doesn't take Cursor asks. IT can still change a Cursor limit from **Employee usage**.
+    No. Cursor has no Limit requests tab and June doesn't take Cursor asks. IT can still change a Cursor limit from **Employee usage**. A Cursor app page shows **Limit policies**, but a Cursor limit policy doesn't handle any asks.
   </Accordion>
   <Accordion title="What if I lower someone's limit while they have an open ask?">
     The button reads **Lower and decline**, and the ask is declined with the change. Otherwise the ask stays open.

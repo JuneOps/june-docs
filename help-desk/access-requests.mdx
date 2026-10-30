@@ -3,7 +3,7 @@ title: 'Access requests'
 description: 'How employees ask June for app access, how approvers decide in Slack, and what IT does when a request needs a person.'
 ---
 
-An access request is an employee asking for access to an app. June checks the employee against the app's access policy, collects approvals in Slack, grants the access or asks a person to, and removes it when the time is up. You set the rules in [Access policies](/agents/access-policies).
+An access request is an employee asking for access to an app. June checks the employee against the app's access policy, collects approvals in Slack, grants the access or asks a person to, and starts removal when the time is up. You set the rules in [Access policies](/agents/access-policies).
 
 ## How employees ask
 
@@ -26,7 +26,7 @@ If the app isn't in the list, the employee chooses **Not listed? Request access 
 | Eligibility | June checks the employee against the policy. | June |
 | Approval | Approvers decide in Slack. A policy with no approval step skips this, so the request is auto-approved. | Approvers (skipped when the policy has no approval step) |
 | Grant | June adds the employee to an Okta or Google group, or grants with a tool. For manual grants, the manager, application owner or IT grants the access and IT confirms in June. | June, or a person |
-| Revoke | June removes the access when the duration ends, or IT revokes it early. The request shows the exact end date. If the policy has no revoke step, June asks IT to remove it by hand and confirm. | June, or IT |
+| Revoke | June starts removal when the duration ends, or IT revokes it early. The request shows the exact end date. With **Manual task** removal (the default) or no revoke step, June asks IT to remove it by hand and confirm. | June, or IT |
 
 An approval step lists approvers such as the employee's manager, the application owner or named people, and needs All or Any of them. A policy can have up to six steps. An employee is never their own approver. June sends a reminder after the step's **Nudge** time and moves it on after its **Escalate** time (1 and 2 hours by default; see [Access policies](/agents/access-policies)).
 

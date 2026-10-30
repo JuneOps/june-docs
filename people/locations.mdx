@@ -23,7 +23,7 @@ A sync reuses a location whose name matches exactly, including capitalization. "
 
 **If you created a location by hand and a sync later reports the same name, it becomes a synced location.** It then comes from the source and can't be edited or deleted in June. A Google Workspace building with the same name also sets it to Office.
 
-A person's location comes from your identity provider. To change it, change it there. For people your identity provider doesn't cover, a device tool or a CSV employee import can set it.
+A person's location comes from your identity provider. To change it, change it there. If your identity provider doesn't report a location for someone, Jamf Pro sets it from the device's building. A CSV employee import can also set it, but your identity provider's value comes back on the next sync.
 
 ## The Locations list
 
@@ -70,7 +70,7 @@ The header shows the address and sources. **Employees** lists the people at the 
 | Member | Yes | No |
 | Software Procurement, AI Usage | No | No |
 
-Custom roles use **View Locations**, **Add Locations**, **Edit Locations** and **Delete Locations**, and a role can hold any one of them. Moving an asset needs permission to update assets, which Owner and Admin have. Roles are set in [Roles](/admin/roles).
+Custom roles use **View Locations**, **Add Locations**, **Edit Locations** and **Delete Locations**, and a role can hold any one of them. The Source column and the sources in a location's header need **Employee identities & groups** and **Integrations**, which only Admin and Owner have among built-in roles. Moving an asset needs permission to update assets, which Owner and Admin have. Roles are set in [Roles](/admin/roles).
 
 ## If something looks wrong
 

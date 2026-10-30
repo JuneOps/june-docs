@@ -39,14 +39,14 @@ Click **All Applications**, or **Total Applications** on the dashboard. Click a 
 
 If people reach an app through Okta, Okta records the sign-in instead of Google. "Added manually" and "Added via chat" show only while they are the app's only source.
 
-**What June does on its own:** it adds apps and updates them from your connected sources, removes a source when Okta, Microsoft Entra, Jamf Pro, Kandji, Zip or Coupa stop seeing the app on a full sync (Google and the browser extension keep their history), recalculates health, and raises a daily **New apps detected** signal for apps found in the last 24 hours. It appears under **Signals** in the sidebar and needs no action. June never changes your apps and never removes anyone's access.
+**What June does on its own:** it adds apps and updates them from your connected sources, removes a source when Okta, Microsoft Entra (including Intune devices), Jamf Pro or Kandji stop seeing the app on a full sync (Google, Zip, Coupa and the browser extension keep their history), recalculates health, and raises a daily **New apps detected** signal for apps found in the last 24 hours. It appears under **Signals** in the sidebar when Signals is turned on for your organization, and needs no action. June never changes your apps and never removes anyone's access.
 
 ### Managed and unmanaged
 
 An app is **Managed** when it comes from Okta: it is an active app in your Okta org, or June sees people sign in to it through Okta. Apps found any other way are **Unmanaged**, including those from Google or Microsoft Entra sign-ins, device scans, contracts and the browser extension.
 
 <Warning>
-The list opens filtered to **Managed** the first time you visit. If you use Google Workspace or Microsoft Entra for sign-in and have not connected Okta, it can look empty. Open the display settings (the filter icon beside the search box) and set **Managed** to **All**. June remembers your settings in this browser, and the toolbar shows **Showing X of Y** when the list is shorter than the catalog.
+The list opens filtered to **Managed** the first time you visit. If you use Google Workspace or Microsoft Entra for sign-in and have not connected Okta, it can look empty. Open the display settings (the filter icon at the right end of the toolbar) and set **Managed** to **All**. June remembers your settings in this browser, and the toolbar shows **Showing X of Y** when the list is shorter than the catalog.
 </Warning>
 
 ## Add an app June has not found
@@ -78,7 +78,7 @@ Type in **Search software...** or open the display settings.
 
 **An app with no users and no contract:** set **Managed** to **All** and **Unused apps** to **Include**.
 
-**Apps with an active contract:** set **Contract** to **Active Contract**, then click the download icon in the toolbar (**Export**).
+**Apps with an active contract:** set **Contract** to **Active Contract**, then click the download icon (**Export CSV**) at the right end of the toolbar.
 
 ## Health status
 
@@ -126,7 +126,7 @@ A **Budget Owner** or **Contract Owner** is what counts as an owner. It sets **A
 
 ## Export
 
-Click the download icon (**Export**) to get a CSV of the apps in the current filters and sort. It has every list column plus contract, compliance and vendor contact fields. Exporting needs the Export software data permission.
+Click the download icon (**Export CSV**) at the right end of the toolbar to get a CSV of the apps in the current filters and sort. The icon is hidden when the list is empty. It has every list column plus contract, compliance and vendor contact fields. Exporting needs the Export software data permission.
 
 ## FAQ
 

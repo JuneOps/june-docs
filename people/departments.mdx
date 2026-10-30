@@ -49,7 +49,7 @@ Tabs are **Overview**, **Employees**, **Assets**, **Software** and **AI usage**.
 ## How the numbers roll up
 
 - **Employees:** people whose department is this one. The list counts everyone. **Total Employees** leaves out people past their termination date.
-- **Assets:** assets with this department recorded on them, not the department of whoever holds the asset today. **Total Value** adds the current prices of those assets.
+- **Assets:** assets with this department recorded on them, not the department of whoever holds the asset today. **Total Value** adds the current price of each asset's model.
 - **Software:** apps tagged with this department in [Software inventory](/software/software-inventory) or from [Zip](/integrations/zip). It is not the apps people use. An app's spend is split evenly across every department tagged on it.
 
 ## Who can do what
@@ -59,7 +59,7 @@ Tabs are **Overview**, **Employees**, **Assets**, **Software** and **AI usage**.
 | Owner, Admin, Member, Software Procurement | Yes |
 | AI Usage | No |
 
-Custom roles need **View Departments** to open Departments, **All Employees** for the Employees tab, and **Employee identities & groups** for the Source column. Roles are set in [Roles](/admin/roles).
+Custom roles need **View Departments** to open Departments and **All Employees** for the Employees tab. The Source column needs **Employee identities & groups** and **Integrations**, so among built-in roles only Admin and Owner see it. Roles are set in [Roles](/admin/roles).
 
 ## If something looks wrong
 
