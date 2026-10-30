@@ -27,7 +27,7 @@
         "group": "Getting started",
         "pages": [
           "getting-started/quick-start",
-          "getting-started/organization-setup"
+          "getting-started/setup"
         ]
       },
       {
@@ -262,6 +262,10 @@
     {
       "source": "/getting-started/import-data",
       "destination": "/admin/import-data"
+    },
+    {
+      "source": "/getting-started/organization-setup",
+      "destination": "/getting-started/setup"
     }
   ]
 }
