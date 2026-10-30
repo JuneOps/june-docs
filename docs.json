@@ -41,6 +41,8 @@
               "agents/tools",
               "agents/context-and-memory",
               "agents/runbooks",
+              "agents/reachouts",
+              "agents/signals",
               "agents/access-policies",
               "agents/ticket-context"
             ]

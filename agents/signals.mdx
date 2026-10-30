@@ -1,0 +1,99 @@
+---
+title: 'Signals'
+description: 'June checks your devices, people, apps and contracts, and raises a signal when something needs your attention.'
+---
+
+A signal is an alert from June about something in your data that may need IT's attention: a laptop that stopped checking in, a leaver who hasn't returned a device, a contract about to renew. You review each one, fix the underlying problem, and set its status.
+
+Find them in the sidebar under **Signals**. A count shows how many are waiting for action.
+
+<Note>
+Signals are not runbook findings. Runbook findings are results a runbook saves from a run, and they appear with that run, not on the Signals page.
+</Note>
+
+## What June checks
+
+**Devices** (deployed devices only, apart from lost devices):
+
+- Not checked in for 14 days
+- Running an outdated operating system
+- Warranty expiring within 30 days
+- Due for refresh
+- Battery service recommended
+- Boot drive nearly full
+- Disk encryption off
+- A device marked lost
+
+**People:**
+
+- Onboarding scheduled: a new hire starting within 90 days. It stays open until they start with a device.
+- Offboarding scheduled: a leaver within 90 days. It stays open after their last day until devices are returned and app access is removed.
+- Employee missing device: an active employee with no device assigned.
+
+**Apps and contracts:**
+
+- New apps detected in the last day
+- Contract renewal approaching, within 90 days of the end date
+
+Device checks need the Assets product. App and contract checks need the Software product. The day limits are defaults: an Admin can change them, or turn a check off, under **Settings** > **Organization Policies**.
+
+Most device checks raise one signal for the whole organization that lists every affected device. Lost devices, new hires, leavers and contracts get one signal each.
+
+## When June checks
+
+- **Daily:** June runs every check once a day, except the lost-device check.
+- **When something changes:** June checks again straight away when a device is marked lost or assigned, or when an employee's start or end date changes.
+
+When the problem goes away, June resolves the signal itself. For example, a device checks in again, or a new hire gets a device. While a signal is open, June keeps its details up to date and keeps the status you set.
+
+## The Signals list
+
+The list opens on **Action needed**, newest first. Click a signal to see what happened, the people, devices, apps or contracts affected, and a link to each record. Onboarding and offboarding signals also show that person's devices and access, and their orders if you use Firstbase. Use search and filters for status, category and urgency. **Overdue** and **Due soon** come from the signal's deadline.
+
+Click **Investigate** to start an Agent chat that already has the signal's details. See [Agent](/agents/agent).
+
+{/* screenshot: the Signals page with the list filtered to Action needed and one signal open */}
+
+Each signal has a status:
+
+- **Action needed:** new, and counted in the sidebar.
+- **Acknowledged:** you've seen it, and it stays open. It leaves the default view and the count.
+- **Resolved:** closed because the problem is fixed, by a person or by June.
+- **Dismissed:** closed because you aren't acting on it.
+
+A few signals, such as new apps, are informational and need no action.
+
+To change a status, open the signal and click **Mark as...**. To undo a closed signal, click **Reopen**, and it returns to **Action needed**.
+
+## Who can do what
+
+- **View signals and use Investigate:** Member, Admin, Owner.
+- **Change status, including Reopen:** Admin, Owner.
+- **Software Procurement and AI Usage:** no Signals page.
+
+Someone without access to assets doesn't see device and people signals. See [Members and roles](/admin/roles).
+
+## Notifications
+
+When a new signal is created, June shows a **New signal** message in the app, with a link to it. Signals aren't sent to Slack or email.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="I resolved a signal and it came back">
+    If the problem is still there at the next daily check, June raises a new signal. Fix the cause, such as the device or the contract. The onboarding and offboarding signals raised ahead of a start or last day don't come back once dismissed.
+  </Accordion>
+  <Accordion title="I can't see device signals">
+    Device signals need access to assets. Ask an admin to check your role.
+  </Accordion>
+  <Accordion title="I don't see Mark as...">
+    Only Admins and Owners can change a signal's status.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Agent](/agents/agent) and [Runbooks](/agents/runbooks)
+- [Reachouts and forms](/agents/reachouts)
+- [Assets](/assets/assets) and [Contracts](/software/contracts)
+- [Members and roles](/admin/roles)

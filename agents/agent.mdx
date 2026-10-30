@@ -11,6 +11,8 @@ The Agent is June's assistant. You ask in plain language, in the web app or in S
 - [Tools](/agents/tools): the actions June can take, and which roles can use each one.
 - [Context and memory](/agents/context-and-memory): what June knows about your company: rules you write, and facts June saves.
 - [Runbooks](/agents/runbooks): end-to-end workflows June runs on its own, on demand, on a schedule, or when a request or ticket arrives.
+- [Reachouts and forms](/agents/reachouts): June messages employees by Slack or email and collects their answers.
+- [Signals](/agents/signals): June's alerts about devices, people, apps and contracts that need attention.
 - [Access policies](/agents/access-policies): the rules for who can get an app, who approves, and how access is granted and removed.
 - [Ticket context](/agents/ticket-context): a comment on your Jira tickets with the reporter's details and devices. Separate from Context and memory.
 
@@ -40,7 +42,7 @@ Runbook actions still ask for approval when:
 
 - June would use a value other than one the author fixed.
 - June would run a write action that isn't placed.
-- June would send a reachout (a message that collects replies) with follow-up actions or a summary the author didn't set up in the runbook.
+- June would send a [reachout](/agents/reachouts) whose follow-up actions the runbook doesn't allow, or whose summary goes somewhere the author marked as needing approval.
 
 A typed "yes" in conversation is never approval. Approval comes only from the card.
 
