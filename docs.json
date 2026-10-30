@@ -27,8 +27,7 @@
         "group": "Getting started",
         "pages": [
           "getting-started/quick-start",
-          "getting-started/organization-setup",
-          "getting-started/import-data"
+          "getting-started/organization-setup"
         ]
       },
       {
@@ -100,7 +99,8 @@
               "admin/roles",
               "admin/sso",
               "admin/scim",
-              "admin/audit-log"
+              "admin/audit-log",
+              "admin/import-data"
             ]
           }
         ]
@@ -249,15 +249,19 @@
     },
     {
       "source": "/device-management/asset-upload",
-      "destination": "/getting-started/import-data"
+      "destination": "/admin/import-data"
     },
     {
       "source": "/getting-started/import-assets",
-      "destination": "/getting-started/import-data"
+      "destination": "/admin/import-data"
     },
     {
       "source": "/integrations/apple-business-manager",
       "destination": "/integrations/apple-business"
+    },
+    {
+      "source": "/getting-started/import-data",
+      "destination": "/admin/import-data"
     }
   ]
 }
