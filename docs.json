@@ -28,7 +28,7 @@
         "pages": [
           "getting-started/quick-start",
           "getting-started/organization-setup",
-          "getting-started/import-assets"
+          "getting-started/import-data"
         ]
       },
       {
@@ -247,7 +247,11 @@
     },
     {
       "source": "/device-management/asset-upload",
-      "destination": "/getting-started/import-assets"
+      "destination": "/getting-started/import-data"
+    },
+    {
+      "source": "/getting-started/import-assets",
+      "destination": "/getting-started/import-data"
     }
   ]
 }
