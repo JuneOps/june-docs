@@ -29,3 +29,22 @@
 #sidebar-content button:hover {
   background-color: transparent;
 }
+
+/* Callouts (Note, Info, Tip, Warning, Check): neutral grey, no colored tints. */
+.callout {
+  background-color: rgb(0 0 0 / 0.03) !important;
+  border-color: rgb(0 0 0 / 0.1) !important;
+}
+
+.dark .callout {
+  background-color: rgb(255 255 255 / 0.04) !important;
+  border-color: rgb(255 255 255 / 0.1) !important;
+}
+
+.callout [data-component-part='callout-icon'] svg {
+  color: rgb(115 115 115) !important;
+}
+
+.callout [data-component-part='callout-content'] {
+  color: inherit !important;
+}
