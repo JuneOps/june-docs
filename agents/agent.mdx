@@ -7,14 +7,12 @@ The Agent is June's assistant. You ask in plain language, in the web app or in S
 
 ## How the pieces fit
 
-| Page | What it is for |
-|---|---|
-| [Agent](/agents/agent) | Where you and your employees talk to June, and where approvals happen. |
-| [Tools](/agents/tools) | The actions June can take, and which roles can use each one. |
-| [Context and memory](/agents/context-and-memory) | What June knows about your company: rules you write, and facts June saves. |
-| [Runbooks](/agents/runbooks) | Repeatable processes June follows on demand, on a schedule, or when a request or ticket arrives. |
-| [Access policies](/agents/access-policies) | The rules for who can get an app, who approves, and how access is granted and removed. |
-| [Ticket context](/agents/ticket-context) | A comment on your Jira tickets with the reporter's details and devices. Separate from Context and memory. |
+- [Agent](/agents/agent): where you and your employees talk to June, and where approvals happen.
+- [Tools](/agents/tools): the actions June can take, and which roles can use each one.
+- [Context and memory](/agents/context-and-memory): what June knows about your company: rules you write, and facts June saves.
+- [Runbooks](/agents/runbooks): end-to-end workflows June runs on its own, on demand, on a schedule, or when a request or ticket arrives.
+- [Access policies](/agents/access-policies): the rules for who can get an app, who approves, and how access is granted and removed.
+- [Ticket context](/agents/ticket-context): a comment on your Jira tickets with the reporter's details and devices. Separate from Context and memory.
 
 ### Set up June's agent
 
@@ -31,8 +29,8 @@ The Agent is June's assistant. You ask in plain language, in the web app or in S
 |---|---|
 | Looking things up | Read tools never need approval. June answers, builds reports, and waits for employee replies on its own. |
 | Chats | Actions in your connected systems always need approval. June shows each one on a card and runs it only after an approver chooses **Approve**. A runbook you start from a chat follows the Runbooks row. When you ask in a Personal chat, June publishes or deactivates a custom tool without a card. |
-| Runbooks | In Manual, Schedule, Agent task and Jira runbooks, each action the author places runs on its own (**Autonomous**, the default), except in the cases below. |
-| Employee Request runbooks | Each action can have an approval chain. It is off by default, so actions run without approval until the author adds one. |
+| Runbooks | Runbooks are end-to-end workflows that run on their own. Each action you add runs without approval unless you require it, apart from the cases below. |
+| Employee Request runbooks | Approval for an action is an approval chain, such as the requester's manager. It is off until you add one. |
 | Access policies | A policy with no approval step approves requests without a person, and an automated grant or revoke (an Okta or Google group, or a custom tool) runs without one. When time-bound access ends, June starts removal on its own, and with the default **Manual task** revoke method IT confirms it. |
 | AI limit policies | A policy tier with no approval raises a limit on its own. Tiers with approvers wait for them. See [AI limit requests](/help-desk/ai-limit-requests). |
 | Notes and notifications | June writes to Jira and Slack on its own, for example: the [Reporter Details comment](/agents/ticket-context); when it hands a request to IT, a Jira tracking ticket (kept in sync with the request) and a thread in your Slack notifications channel; access notices to requesters and IT; and runbook failure alerts. |
