@@ -1,0 +1,80 @@
+---
+title: 'Context and memory'
+description: 'Write the standing knowledge June follows in every chat and request, and see what June has learned on its own.'
+---
+
+Context is a document you write once with your company's rules, such as how you handle laptop refreshes or who owns which app. June applies it in every chat, request and runbook. Memory is what June learns along the way and saves for the whole organization. Both are separate from [Ticket context](/agents/ticket-context), which is a comment June adds to Jira tickets.
+
+You find both under **Settings** > **Agent**: **Context** and **Memory**.
+
+## Write your context
+
+**Who can do this:** Admin and Owner edit. Member, Software Procurement, Admin and Owner can read it. The AI Usage role cannot.
+
+<Frame caption="The Context editor, with a Search box and a + Section button above one section of text.">
+  <img src="/images/agents/context-editor.png" alt="The Context editor under Settings, Agent, showing the Context header and description, a Search box, a + Section button, and one section of text." />
+</Frame>
+
+Start each topic with a `## ` heading, or click **+ Section**. Text before the first heading becomes an **Overview** section. A new section needs a name before you can save, and the whole document is capped at 65,536 characters. Click **Save changes** when you are done.
+
+Good context is policy and facts: approval rules, naming conventions, who to contact, what never to do. Context can't skip an approval step. See [When June acts without asking](/agents/agent#when-june-acts-without-asking).
+
+## How June uses it
+
+- **16,000 characters or fewer:** June loads the whole document for every chat, request and runbook.
+- **More than 16,000 characters:** June loads a list of section titles with short excerpts, and reads the full section before acting on anything it covers.
+
+For long documents, give each section a title that says what it covers and put the key rule first.
+
+## Version history and restore
+
+Every save creates a version, shown in **History** with the author and time. You can compare any version with the current one and restore it. A restored version takes effect when you click **Save changes**.
+
+## Memory
+
+**Who can do this:** Member, Software Procurement, Admin and Owner can view it.
+
+**Settings** > **Agent** > **Memory** lists what June has learned across requests, chats and runbooks. It is searchable and read-only.
+
+| June saves | June never saves |
+|---|---|
+| Durable facts that apply across the organization and are well supported, for example how your team names devices | Secrets or credentials |
+| Things you ask it to remember, when they are safe for every member to see | Personal details about a person |
+| | One-off requests or live inventory state |
+| | Anything used to decide who is allowed to do something |
+
+Memory is shared with the whole organization, so June declines to remember anything private or specific to one person, even if you ask. June treats memory as a hint. Your current policies and live data win when they disagree, and memory never counts as permission to act.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="June ignores a rule I wrote">
+    Check that the rule is in the saved version, under a `## ` heading whose title says what it covers, and phrased as a rule. For documents over 16,000 characters, June finds sections by title.
+  </Accordion>
+  <Accordion title="June remembered something wrong">
+    Ask June in a chat to forget or correct it. June updates its memory, unless the change would store something private. To make the right answer stick, also write the rule in your context, where current policy wins over memory.
+  </Accordion>
+  <Accordion title="I can't save">
+    A section without a name blocks saving. The document is also capped at 65,536 characters.
+  </Accordion>
+  <Accordion title="The page says Read only">
+    Your role can view context but not edit it. Ask an Admin or Owner, or use a custom role with **Edit Organization Context** in [Members and roles](/admin/roles).
+  </Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How do I undo a bad edit?">
+    Open **History**, pick the earlier version, click **Restore v[N]**, then **Save changes**.
+  </Accordion>
+  <Accordion title="What is the difference between context and the Knowledge Base?">
+    Context is short standing rules that June applies everywhere. The Knowledge Base is your longer reference documents, which June searches when a question needs them.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Agent](/agents/agent) and [Runbooks](/agents/runbooks)
+- [Knowledge Base](/help-desk/knowledge-base)
+- [Members and roles](/admin/roles)

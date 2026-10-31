@@ -1,8 +1,13 @@
 ---
+sidebarTitle: 'ChatGPT Enterprise'
 title: 'ChatGPT Enterprise Integration'
 description: 'Connect ChatGPT Enterprise with June to track seats, per-person spend across ChatGPT and Codex, engagement, and spend limits'
 icon: '/images/openai-dark-mode.svg'
 ---
+
+<Frame>
+  <img src="/images/integrations/chatgpt-enterprise-setup.png" alt="The ChatGPT Enterprise setup page in June, with Workspace Admin API Key, Workspace ID and API Platform Organization ID fields and a Connect button" />
+</Frame>
 
 Connect your ChatGPT Enterprise workspace to see who holds a seat, who is actually using ChatGPT and Codex, what each person consumes, and the spend limits you have configured.
 
@@ -24,6 +29,7 @@ From your ChatGPT Enterprise workspace, June syncs:
 - **Per-person Codex usage**: how often each person uses Codex, how deeply, and the code contribution behind it (lines written and committed, commits Codex contributed to)
 - **Per-person spend limits**, including who has an explicit override and who is uncapped, next to what they've consumed this month
 - **Per-person spend by product**: what each person consumed on ChatGPT and on Codex, in credits, with an estimated dollar figure
+- **Usage limit requests** people send from ChatGPT, checked every few minutes, so you can approve or decline them in June
 
 Usage history is available from January 2026 onward and refreshes daily.
 
@@ -33,7 +39,7 @@ ChatGPT Enterprise uses **one Admin API key** plus two identifiers you copy from
 
 ## Capabilities
 
-June ingests seat, usage, and limit data. The only action it can take in ChatGPT is updating a spend limit when an admin approves it in June.
+June ingests seat, usage, and limit data. The only changes it makes in ChatGPT are to spend limits: setting or removing a person's limit, and approving or declining a usage limit request. It makes them when a person with permission saves, approves, or declines a change, when an AI limit policy you turned on runs, or when a temporary raise ends. See [Spend limits](/ai-usage/spend-limits) and [AI limit requests](/help-desk/ai-limit-requests).
 
 | Capability | Description |
 |------------|-------------|
@@ -52,13 +58,13 @@ Before starting, ensure you have:
 
 ## What each permission is for
 
-The Admin key needs four grants. If a key is missing one, the connection fails at setup and names the missing grant.
+The Admin key needs four grants. If a key is missing a read grant, the connection fails at setup and names it. Without write on usage limits, the connection works but limit changes fail.
 
 | Permission | What June does with it |
 |------------|------------------------|
 | **Workspace users** (read) | The member roster, so every seat shows - including unused ones and people who left. |
 | **Codex Enterprise analytics** (read) | Per-person Codex activity: sessions, conversation depth, code contribution, and which surface each person works in. |
-| **Usage limits** (read and write) | Each person's spend limit and how much they've used (OpenAI's console calls these usage limits). Write lets admins update a limit from June; a read-only key shows limits but can't update them. |
+| **Usage limits** (read and write) | Each person's spend limit and how much they've used, plus the usage limit requests people send (OpenAI's console calls these usage limits). Write lets June update a limit or decide a request; a read-only key shows limits but can't change them. |
 | **Cost logs** (read) | Per-person spend, split by product (ChatGPT and Codex), in credits and estimated dollars. |
 
 <Note>
@@ -70,7 +76,7 @@ The cost logs grant reads **billing rows only**: who consumed what, in credits a
 <Steps>
   <Step title="Generate a workspace Admin API key">
     1. Sign in to the OpenAI Admin Console as a **Workspace Owner** or **Workspace Admin**.
-    2. Go to [**Credentials → Admin keys**](https://admin.openai.com/credentials?tab=admin-keys) and select **Create new admin key**.
+    2. Go to [**Credentials > Admin keys**](https://admin.openai.com/credentials?tab=admin-keys) and select **Create new admin key**.
     3. Choose the workspace this key belongs to.
     4. Under **Custom permissions**, grant read access to **workspace users**, **Codex Enterprise analytics**, and **cost logs**, and **read and write** on **usage limits**. If your account doesn't offer one of these, a Workspace Owner needs to create the key instead.
     5. Copy the secret and store it somewhere safe. OpenAI shows it once; if you close the dialog first, you'll need to create a new key.
@@ -81,12 +87,10 @@ The cost logs grant reads **billing rows only**: who consumed what, in credits a
   <Step title="Copy your API Platform Organization ID">
     Your Organization ID (it starts with `org-`) is how June reads the cost logs behind per-person spend.
   </Step>
-  <Step title="Add the integration in June">
-    1. In June, open the **Integrations** page.
-    2. Choose **ChatGPT Enterprise**.
-    3. Paste your **Admin API key**, **Workspace ID**, and **Organization ID**, then save.
+  <Step title="Connect ChatGPT Enterprise in June">
+    In June, go to **Settings** > **Integrations**, select **ChatGPT Enterprise** under **Available Integrations**, fill in **Workspace Admin API Key**, **Workspace ID**, and **API Platform Organization ID**, and click **Connect**.
   </Step>
   <Step title="Wait for the first sync">
-    June backfills your history and refreshes daily. Seats, activity, limits, and spend appear under **AI usage → OpenAI** once the first sync completes.
+    June backfills your history and refreshes daily. Seats, activity, limits, and spend appear under **AI usage** > **OpenAI** once the first sync completes.
   </Step>
 </Steps>

@@ -1,20 +1,20 @@
 ---
+sidebarTitle: 'Microsoft Teams'
 title: 'Microsoft Teams Integration'
 icon: '/images/ms-teams.svg'
 ---
 
-Connect Microsoft Teams with June to receive notifications as Adaptive Cards, mirror agent request activity into a Teams channel, and let employees chat with June from Teams.
+Connect Microsoft Teams with June to receive notifications as Adaptive Cards in a Teams channel.
 
 <Info>
-Microsoft Teams is a **communication channel**. June uses it to send notifications, post live-progress cards for agent requests, and (optionally) respond to employees who message June. It does not manage devices or import tickets.
+Microsoft Teams is a **notification channel**. June uses it to post notifications to the channel you choose. Employees can't chat with June or send requests in Teams; use [Slack](/integrations/slack) for that. It does not manage devices or import tickets.
 </Info>
 
 ## What you'll accomplish
 
 - Grant admin consent for the June app in your Microsoft tenant
-- Install the June bot in the team you want to use
+- Install the June app in the team you want to use
 - Choose the team and channel June posts notifications to
-- Decide whether to mirror agent request activity and enable employee chat
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ Before starting the integration, ensure you have:
 - June organization admin permissions
 
 <Note>
-Microsoft Teams relies on your Microsoft tenant. If you have already connected **Microsoft Entra** in June, your Tenant ID is filled in automatically; otherwise it is captured during admin consent.
+June records your Microsoft Tenant ID when the admin grants consent. There is nothing to copy or paste.
 </Note>
 
 ## How June Works with Teams
@@ -33,9 +33,8 @@ Microsoft Teams relies on your Microsoft tenant. If you have already connected *
 When you connect Teams, an administrator grants consent for the June app in your tenant. June then:
 
 - **Reads the list of teams and channels** so you can pick where notifications go
-- **Maps employees to Teams users** from your directory, so notifications and chat reach the right person
-- **Posts notifications and live-progress Adaptive Cards** to the channel you select
-- **Optionally answers employees** who message or @mention June
+- **Matches Teams users to your employees** by reading the users in your directory
+- **Posts notifications as Adaptive Cards** to the channel you select
 
 ### Capabilities
 
@@ -43,30 +42,18 @@ When you connect Teams, an administrator grants consent for the June app in your
 |------------|-------------|
 | **Notifications** | June posts alerts and updates as Adaptive Cards to your chosen Teams channel |
 
-### Channel options
-
-After connecting, you control two behaviors:
-
-| Setting | Default | What it does |
-|---------|---------|--------------|
-| **Mirror request executions into the Teams channel** | On | Every agent request execution posts a live-progress Adaptive Card in the configured notifications channel |
-| **Allow employees to chat with June via @mention** | Off | When enabled, June responds to messages and @mentions from employees in Teams |
-
 ## Setup Process
 
 ### Step 1: Grant Admin Consent
 
 <Steps>
   <Step title="Start the connection from June">
-    1. Log into June
-    2. Navigate to **Settings** → **Integrations**
-    3. Select **Microsoft Teams** from the available integrations
-    4. Click **Connect** to begin the Microsoft consent flow
+    In June, go to **Settings** > **Integrations**, select **Microsoft Teams** under **Available Integrations**, and click **Connect** to begin the Microsoft consent flow.
   </Step>
 
   <Step title="Approve the June app">
     1. Sign in with a Microsoft account that can grant **admin consent** for your tenant
-    2. Review the permissions June requests—listing teams and users, and posting messages to channels
+    2. Review the permissions June requests: listing teams, channels and users, and posting messages to channels
     3. Click **Accept** to grant consent for your organization
 
     <Warning>
@@ -79,14 +66,14 @@ After connecting, you control two behaviors:
   </Step>
 </Steps>
 
-### Step 2: Install the June Bot in Your Team
+### Step 2: Install the June App in Your Team
 
 The June app must be present in the specific team you want notifications in, so it has permission to post there.
 
 <Steps>
   <Step title="Add June to the team">
     1. In Microsoft Teams, open the team you want to use
-    2. Go to **Manage team** → **Apps** → **More apps**
+    2. Go to **Manage team** > **Apps** > **More apps**
     3. Find the **June** app and add it to the team
   </Step>
 </Steps>
@@ -95,41 +82,21 @@ The June app must be present in the specific team you want notifications in, so 
 
 <Steps>
   <Step title="Select where notifications go">
-    1. In June's Teams integration settings, choose the **Team** from the dropdown
-    2. Choose the **Channel** within that team for notifications
-    3. Save your selection
+    1. In June, open **Microsoft Teams** under **Configured Integrations**
+    2. Under **Microsoft Teams notifications** > **Notifications channel**, choose the **Team**
+    3. Choose the **Channel** within that team
 
     <Check>
-    Confirm a test notification card appears in the channel you selected.
+    June saves your choice as soon as you pick a channel and shows "Notifications channel saved".
     </Check>
-  </Step>
-</Steps>
-
-### Step 4: Configure Behavior
-
-<Steps>
-  <Step title="Request mirroring">
-    Leave **Mirror request executions into the Teams channel** on for a live feed of agent activity, or turn it off so the channel only receives notifications.
-  </Step>
-
-  <Step title="Employee chat (optional)">
-    Turn on **Allow employees to chat with June via @mention** to let employees message or @mention June for help directly in Teams. Leave it off to keep June admin-only.
   </Step>
 </Steps>
 
 ## Example Use Cases
 
 <AccordionGroup>
-  <Accordion title="Watch agent activity in Teams">
-    Keep request mirroring on so your IT channel sees an Adaptive Card for every request June works on, updated live as it progresses.
-  </Accordion>
-
   <Accordion title="Centralize IT alerts">
     Point notifications at a dedicated channel so the right team sees June's updates in the tools they already use.
-  </Accordion>
-
-  <Accordion title="Self-service help for employees">
-    Enable employee chat so staff can ask June questions about their devices, requests, or policies without leaving Teams.
   </Accordion>
 </AccordionGroup>
 
@@ -139,56 +106,41 @@ The June app must be present in the specific team you want notifications in, so 
   <Accordion title="No teams or channels appear in the dropdown">
     **Solutions**:
     - Confirm admin consent was granted for your tenant during connection
-    - Verify the connection status shows **Active**; reconnect if it doesn't
-    - If you connected Microsoft Entra separately, confirm it is still connected so the Tenant ID stays valid
+    - Verify the integration shows as **Connected**; if it doesn't, choose **Reconnect** from its menu
+    - If one team is missing, install the June app in that team first
   </Accordion>
 
   <Accordion title="Notifications fail with a permissions error (403)">
     **Symptoms**: June can list teams but posting fails
 
     **Solutions**:
-    - The June bot must be installed in the specific team you selected—add it via **Manage team → Apps**
+    - The June app must be installed in the specific team you selected. Add it via **Manage team** > **Apps**.
     - Re-select the team and channel after installing the app
-  </Accordion>
-
-  <Accordion title="June isn't responding to messages">
-    **Solutions**:
-    - Confirm **Allow employees to chat with June via @mention** is turned on
-    - Make sure the June bot is installed in the team or chat where the message was sent
-    - Check that the employee's directory account uses the work email June has on file
   </Accordion>
 
   <Accordion title="Connection shows disconnected">
     **Solutions**:
-    - Tenant consent may have been revoked in Microsoft Entra—reconnect from June's Teams settings
+    - Tenant consent may have been revoked in Microsoft Entra. Choose **Reconnect** from the integration's menu in June.
     - Confirm the June app hasn't been removed from your tenant or team
   </Accordion>
 </AccordionGroup>
 
 ## Security Best Practices
 
-- **Tenant-scoped consent**: June operates only within the tenant that granted consent, and inbound activity is allowlisted to that tenant
-- **Least privilege**: June requests only the permissions needed to list teams/users and post notifications
-- **Public vs. secret values**: Your Tenant ID is a public routing identifier; no long-lived secret tokens are stored—access tokens are minted on demand per tenant
+- **Tenant-scoped consent**: June operates only within the tenant that granted consent
+- **Least privilege**: June lists teams, channels and users, and posts only to the channel you choose
+- **Public vs. secret values**: June stores your Tenant ID, which is a public identifier, and no secret from your tenant. June requests short-lived access tokens when it needs them.
 - **Revoke anytime**: Remove the June app from a team, or revoke consent in Microsoft Entra, to cut off access immediately
 
 ## Next Steps
 
 <CardGroup cols={2}>
-  <Card title="Microsoft Entra Integration" href="/integrations/identity-providers">
-    Connect Entra so your Tenant ID and employee directory sync automatically
+  <Card title="Microsoft Entra Integration" href="/integrations/microsoft-entra">
+    Connect Entra to sync your employee directory
   </Card>
 
   <Card title="Slack Integration" href="/integrations/slack">
-    Prefer Slack? Connect it as an alternative communication channel
-  </Card>
-
-  <Card title="Asset Discovery" href="/device-management/asset-discovery">
-    Connect your asset inventory so June has context for the requests it mirrors
-  </Card>
-
-  <Card title="AI Insights" href="/ai-features/ai-insights">
-    See how June reasons about the requests it reports on
+    Use Slack for notifications and for employees to chat with June
   </Card>
 </CardGroup>
 
@@ -200,5 +152,5 @@ Need help with your Microsoft Teams integration?
 - **June Support**: Contact support for integration-specific assistance
 
 <Note>
-Once admin consent is granted and the June bot is installed in your team, notifications begin as soon as a channel is selected.
+Once admin consent is granted and the June app is installed in your team, notifications go to the channel you select.
 </Note>

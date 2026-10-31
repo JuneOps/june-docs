@@ -1,0 +1,111 @@
+---
+title: 'Asset sources'
+description: 'Which system June trusts for a device''s status and assignee, and how to see what each one reports.'
+---
+
+June builds each device's status and assignee from the systems you connect, matched by serial number. When they disagree, a fixed order decides. The order is on [How June sets a status](/assets/asset-status#how-june-sets-a-status).
+
+Anyone who can view assets sees the Sources section. Source icons elsewhere need permission to view integrations, so Members do not see them.
+
+## Who reports what
+
+| Role | Examples | Trusted for |
+|---|---|---|
+| Logistics provider | [Firstbase](/integrations/firstbase) | Status when it returns, holds, repairs, locks or retires a device. Warehouse and office stock. Condition grade. Orders and returns |
+| Device management | [Jamf Pro](/integrations/jamf-pro), [Kandji](/integrations/kandji), [Microsoft Intune](/integrations/microsoft-intune) | Who uses the device, lost mode, whether it is enrolled, building, OS and security facts, ownership type |
+| Apple Business | [Apple Business](/integrations/apple-business) | That the device exists, whether it is assigned to an MDM server, purchase dates and a warranty estimate |
+| Your team | Admins in June | Manual status, assignee, condition, ownership. A lock stops syncs changing status and assignee |
+
+A source you did not connect has no say, and a source you disconnected gives no opinion. June never sets a status from age or a missed check-in, see [Asset status](/assets/asset-status). If a source names a person June cannot match to an employee, the status and assignee stay as they are, unless a provider rule below or lost mode applies.
+
+## The logistics provider
+
+These rules apply first. The provider moves a device out of any status except the frozen ones described on [Asset status](/assets/asset-status).
+
+### It retires the device
+
+| Reason | Status | Assignee |
+|---|---|---|
+| Gifted or decommissioned, or any reason June does not recognize, or none | Decommissioned | Unchanged |
+| Destroyed, donated, out for destruction | Recycled | Unchanged |
+| Lost by the employee, in transit or by the provider; stolen; never received; never returned; employee stopped responding | Lost | Unchanged |
+
+### Its warehouse holds the device
+
+The person comes off and the device is assigned to that warehouse. June adds each provider warehouse and office to [Locations](/people/locations) when it syncs.
+
+| Reason | Status |
+|---|---|
+| Restocked | Available |
+| Repair | In Repair |
+| Locked (PIN, MDM, Activation Lock) | Locked |
+| Recycling | Recycled |
+| Locked as lost or stolen | Lost |
+| Data hold | No change. Legal Hold is yours to set |
+| Any other reason | Pending Return until restocked |
+
+### While it is elsewhere
+
+| Situation | Status | Assignee |
+|---|---|---|
+| A return is under way | Pending Return | Person kept until the device arrives |
+| A repair, lock or recycle reason outside its warehouse | In Repair, Locked or Recycled | Person kept |
+| Stock at one of your offices, and the device management tool lists no user | Available | That office |
+
+A warehouse counts only when the provider says its own warehouse holds the device. A customer office counts as yours.
+
+## Device management
+
+These rules apply once a tool lists the device. They change only blank, Other, Available, Deployed and Awaiting Enrollment. Lost mode is the exception, and sets Lost from any status that is not frozen. An In Repair, Pending Return or Locked status survives these syncs.
+
+| The tool reports | Status | Assignee |
+|---|---|---|
+| Lost mode on | Lost | As usual |
+| A user June recognizes | Deployed | That user |
+| No user, and the provider names a person June recognizes | Deployed | The provider's person |
+| No user, and the provider names no one | Available | The tool's building if June knows it. A person comes off, a location stays |
+| A user June cannot match | No change | No change |
+| The device is gone from every tool | Awaiting Enrollment | Person removed |
+
+When no tool manages the device and the provider names a person June recognizes, the device becomes Awaiting Enrollment with that person. From a status outside the five above, the status stays but the person is still set.
+
+If two tools list the same device, the one naming a user June knows wins, then the one that checked in last. Jamf devices marked unmanaged say nothing about who has the device. Intune's empty user means no user.
+
+## Apple Business
+
+It applies only when no provider or device management record exists, and only to a device whose status is Other. A device assigned to an MDM server becomes Awaiting Enrollment. A device that is not assigned stays Other.
+
+## Check what a source says
+
+Open the asset, stay on **Overview**, and click a source under **Sources** to expand it. Compare its status, assignee, location and last check-in with June's.
+
+<Frame caption="A source row expanded on the Overview tab"><img src="/images/assets/asset-sources-expanded.png" alt="Overview tab Sources section with the Firstbase row expanded, showing ID, Status DEPLOYED, Status reason RETURN_IN_PROGRESS, Assignee, Condition USED and Last reported, with Lifecycle Events below showing a status change from Deployed to Pending Return with the reason Firstbase: return in progress" /></Frame>
+
+Each row shows "Last reported" with a time. That is the last sync that saw the device, not the last change. Fields the source does not report are left out.
+
+## If something looks wrong
+
+- **A source row with a red dot and "No longer reported".** That source stopped listing the device. Check the device in that system.
+- **A device has no assignee though a source names someone.** June could not match the person by email (by Entra user for Intune). Add or correct the employee, see [Employees](/people/employees).
+- **June is wrong because a source is wrong.** Fix it in the source, such as returning the device in Firstbase or removing a stale record in Jamf. To stop June changing it meanwhile, [lock the status](/assets/asset-status).
+- **Many devices vanished from a tool at once.** June treats a large drop as a bad listing and changes nothing until someone checks.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Firstbase says the laptop is with one person and Jamf shows another. Who wins?">
+Jamf, while it lists the device with a user June recognizes. The provider decides while it returns, holds, repairs, locks or retires the device. If Jamf reports no user, the person the provider shipped to is used.
+</Accordion>
+<Accordion title="Does June write the assignee from Firstbase into Jamf?">
+No. June changes its own record from what sources report. An assignment you make in June does write to the MDM, see [Assets](/assets/assets).
+</Accordion>
+<Accordion title="Why didn't June assign this device to anyone?">
+The source named a person June could not match to an employee. June leaves the assignee as it is. Fix the employee record and the next sync picks it up.
+</Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Asset status](/assets/asset-status)
+- [Orders and returns](/assets/orders-and-returns)
+- [Assets](/assets/assets)

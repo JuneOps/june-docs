@@ -1,0 +1,110 @@
+---
+title: 'Reachouts and forms'
+sidebarTitle: 'Reachouts and forms'
+description: 'Ask a group of employees a question in Slack or email, collect their answers, and follow along on the Reachouts page.'
+---
+
+A reachout is June messaging a group of employees with one or more questions, then collecting each person's answer. June sends reminders, applies a default for people who don't answer, and can send you a summary when it closes. Employees answer in Slack or from an emailed link. They don't need a June account.
+
+Find reachouts in the sidebar under **Reachouts**.
+
+## Who can do what
+
+- **View** every reachout in your organization and its answers: Member, Admin, Owner. Everyone with access sees all reachouts, not only their own.
+- **Send and cancel:** Admin, Owner.
+- **Software Procurement and AI Usage:** no access.
+
+See [Members and roles](/admin/roles).
+
+## Send a reachout
+
+You can send one from a chat or as a step in a runbook.
+
+**From a chat:** start a **Shared** chat with [Agent](/agents/agent), and ask June to ask a group something. For example: "Ask everyone in Engineering whether they still use Figma. Close in 3 days and remind them after 1 day." Reachouts aren't available in Personal chats. June shows an approval card, and the reachout goes out when you approve.
+
+**In a runbook:** type `/` in the runbook editor, choose **Send employee reachout**, and set the options below. See [Runbooks](/agents/runbooks).
+
+For each reachout, you choose:
+
+- **Audience:** all active employees, or people you pick. A reachout goes to at least two people. To ask one person, ask June directly.
+- **Questions:** write your own, or use a saved form. Email always uses a saved form. Your own questions can be choose one, choose multiple, or a written answer.
+- **Timing:**
+  - **Close after:** how long each person has to answer. The reachout closes early if everyone answers.
+  - **Reminders:** June reminds only the people still waiting.
+  - **If someone does not respond:** leave them unanswered, or apply a default answer. A default is available when there is a single choose-one question.
+- **Summary:** optional. When the reachout closes, June sends totals and a link to the results to a Slack DM, the IT Slack channel, or an email address of a June user. It doesn't include individual or written answers.
+
+In a chat, June asks you for the close time, the default and the reminders. It doesn't pick them for you.
+
+A reachout can't be edited after it starts. People June can't reach, such as someone with no work email or no connected Slack account, are marked with a delivery problem, and everyone else still gets it.
+
+{/* screenshot: the approval card for a reachout in a Shared chat, showing audience, delivery, timing and summary */}
+
+## What employees see
+
+- **Slack:** a direct message from June with the question and buttons, or a short form. After they answer, the message shows that the response was received. Reminders appear under the original message.
+- **Email:** a message with a button that opens the form in a browser, with no sign-in. Reminders resend the email.
+
+Defaults are always labelled as defaults, never as the employee's answer.
+
+## Follow a reachout
+
+Open **Reachouts** to see each reachout with its response count. Search by title, question or person, and filter by state, channel or creator.
+
+- **Active:** someone is still being reached or hasn't answered.
+- **Completed:** it closed and everyone responded.
+- **Partial:** it closed with some defaults, expiries or delivery problems.
+- **Failed:** it closed and nobody received it.
+- **Cancelled:** it was cancelled before everyone answered.
+
+Open a reachout to see the response rate, each question's answers, and a row for every person. Click an answer to see who gave it. Each row shows whether the person answered, is waiting, got a default, or had a delivery problem.
+
+**Cancel** a reachout from its page while anyone is still outstanding. June stops reminders and closes the open Slack messages and email links. Answers already received are kept. Cancelling can't be undone, and the summary isn't sent.
+
+{/* screenshot: a reachout's detail page with question cards and the recipient list */}
+
+## Approval
+
+- **From a chat:** every reachout waits for your approval on a card.
+- **In a runbook:** the reachout runs on its own when the runbook author has placed the step and left **Run automatically** on. It still asks for approval if June would change a value the author set, if a follow-up would use actions the runbook doesn't allow, or if the summary goes to a destination the author marked as needing approval. See [When June acts without asking](/agents/agent#when-june-acts-without-asking).
+
+## Forms
+
+A form is a saved set of questions that reachouts can send. Find them under **Settings** > **Forms**. A form has no send button: you send it through a reachout.
+
+**Create a form:**
+
+<Steps>
+  <Step title="Start">
+    Click **Create Form**, then add a name and an optional description.
+  </Step>
+  <Step title="Add fields">
+    Add fields yourself, or describe the form in the AI box and click the arrow to get a draft you can edit. Field types include text, long text, dropdown, radio buttons, checkboxes, number, rating scale and date.
+  </Step>
+  <Step title="Preview and save">
+    Click **Preview** to see the form as it looks on the web and in Slack. Preview answers aren't saved. Click **Save**.
+  </Step>
+</Steps>
+
+Admins and Owners can view, create, edit and delete forms. When you edit a form, reachouts already sent keep the version they were sent with.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="The send failed with missing variables">
+    Every variable in a form needs a value when it is sent. June fills in `{{full_name}}`, `{{first_name}}`, `{{last_name}}`, `{{email}}`, `{{position}}`, `{{department}}`, `{{location}}` and `{{manager}}` on its own. The suggested `{{employee_name}}` is not filled in: use `{{full_name}}`, or set a value for it in the runbook step.
+  </Accordion>
+  <Accordion title="Someone didn't get the reachout">
+    Open the reachout and check that person's row. The usual causes are no work email or no connected Slack account. Send by email instead, or fix the record and send a new reachout.
+  </Accordion>
+  <Accordion title="Reachouts isn't available in my chat">
+    Reachouts work only in Shared chats, not Personal chats.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Agent](/agents/agent) and [Runbooks](/agents/runbooks)
+- [Signals](/agents/signals)
+- [Slack](/integrations/slack)
+- [Members and roles](/admin/roles)

@@ -1,12 +1,17 @@
 ---
+sidebarTitle: 'Coupa'
 title: 'Coupa Integration'
 icon: '/images/coupa.svg'
 ---
 
+<Frame>
+  <img src="/images/integrations/coupa-setup.png" alt="The Coupa setup page in June, with Coupa Instance URL, OAuth2 Client ID, OAuth2 Client Secret and Source fields and a Connect button" />
+</Frame>
+
 Connect Coupa with June to sync procurement requisitions, extract data from attached contract documents, and build a complete software contract inventory.
 
 <Info>
-The Coupa integration is **read-only**. June imports your requisitions and their attached documents to build a contract inventory—it does not create or modify records in Coupa.
+The Coupa integration is **read-only**. June imports your requisitions and their attached documents to build a contract inventory. It does not create or modify records in Coupa.
 </Info>
 
 ## What you'll accomplish
@@ -61,7 +66,7 @@ Coupa stores contract dates in custom fields that vary by organization. You can 
 <Steps>
   <Step title="Access Coupa OIDC settings">
     1. Log in to Coupa as an administrator
-    2. Navigate to **Setup** → **Integrations** → **OAuth2 / OIDC Clients**
+    2. Navigate to **Setup** > **Integrations** > **OAuth2 / OIDC Clients**
     3. Create a new client for June
   </Step>
 
@@ -88,23 +93,18 @@ Coupa stores contract dates in custom fields that vary by organization. You can 
 ### Step 2: Connect in June
 
 <Steps>
-  <Step title="Access June Integrations">
-    1. Log into June
-    2. Navigate to **Settings** → **Integrations**
-    3. Select **Coupa** from the available integrations
-  </Step>
-
-  <Step title="Enter credentials">
-    Provide the following:
+  <Step title="Connect Coupa in June">
+    In June, go to **Settings** > **Integrations** and select **Coupa** under **Available Integrations**. Fill in:
     - **Coupa Instance URL**: e.g., `https://customer.coupahost.com`
     - **OAuth2 Client ID**: from your OIDC client
     - **OAuth2 Client Secret**: from your OIDC client
+    - **Source**: **Requisitions**
   </Step>
 
   <Step title="Connect">
     1. Click **Connect**
-    2. June requests an access token and verifies API access
-    3. The connection status shows **Active**
+    2. June requests an access token, verifies API access, and loads your spend categories from Coupa
+    3. The integration shows as **Connected**
 
     <Check>
     A successful connection confirms June can both authenticate and read requisitions from your instance.
@@ -116,8 +116,10 @@ Coupa stores contract dates in custom fields that vary by organization. You can 
 
 <Steps>
   <Step title="Choose statuses and categories">
+    Open **Coupa** under **Configured Integrations** and click **Edit** next to **Connection Settings**.
     1. Set **Requisition Statuses** to the statuses you want imported (default: Ordered)
-    2. Select the **Spend Categories** (commodities) to sync—these load from your Coupa instance
+    2. Select the **Spend Categories** (commodities) to sync. These load from your Coupa instance.
+    3. Click **Save Changes**
   </Step>
 
   <Step title="Map date fields (optional)">
@@ -125,7 +127,7 @@ Coupa stores contract dates in custom fields that vary by organization. You can 
   </Step>
 
   <Step title="Run a sync">
-    Coupa does not sync automatically on connect—start a **Sync** from the integration settings once your options are set.
+    Coupa does not sync on connect, so you can set your options first. Then open the **Connected** menu and choose **Sync Now**. After that, June syncs Coupa once a day.
 
     <Check>
     After the sync completes, open your contracts in June to confirm requisitions were imported.
@@ -135,7 +137,7 @@ Coupa stores contract dates in custom fields that vary by organization. You can 
 
 ## How the Sync Works
 
-- **Manual sync**: Coupa syncs run when you trigger them (it does not auto-sync on connect), so you can configure filters first.
+- **First sync is manual**: Coupa does not sync on connect, so you can configure filters first. After you run the first sync, June syncs Coupa once a day, and you can choose **Sync Now** at any time.
 - **Requisitions become contracts**: Each requisition maps to one software contract, linked by its requisition ID so re-syncs update the same record. Multi-line requisitions are combined into a single contract; per-line detail is retained for reference.
 - **Document extraction**: June pulls attached documents, classifies which ones are contracts, downloads them securely, and extracts contract terms (value, dates, license counts, renewal terms). Contracts move through processing states until extraction completes or is flagged for review.
 - **Vendor matching**: June matches each contract to a known software product using requisition and supplier names, refined by names extracted from documents. Unmatched contracts are imported and flagged so you can assign the right product.
@@ -183,7 +185,7 @@ Coupa stores contract dates in custom fields that vary by organization. You can 
     **Solutions**:
     - Broaden **Requisition Statuses** (e.g., include Approved and Pending Approval)
     - Confirm the selected **Spend Categories** match where your software requisitions live
-    - Remember Coupa requires a manual sync—trigger one after changing filters
+    - Choose **Sync Now** after changing filters, or wait for the daily sync
   </Accordion>
 
   <Accordion title="Contracts missing start/end dates">
@@ -198,7 +200,7 @@ Coupa stores contract dates in custom fields that vary by organization. You can 
 
 ## Security Best Practices
 
-- **Read-only scopes**: Grant only the read scopes June needs—it never writes to Coupa
+- **Read-only scopes**: Grant only the read scopes June needs. June never writes to Coupa.
 - **Secure storage**: Client credentials and access tokens are encrypted at rest in June's secure storage
 - **Token rotation**: June refreshes its access token automatically; rotate the client secret in Coupa periodically
 - **Scope by filter**: Use status and category filters to limit which requisitions June imports
@@ -214,11 +216,11 @@ Coupa stores contract dates in custom fields that vary by organization. You can 
     Track equipment orders and returns alongside your contracts
   </Card>
 
-  <Card title="AI Insights" href="/ai-features/ai-insights">
-    Use AI to analyze contract spend, renewals, and extracted terms
+  <Card title="Contracts" href="/software/contracts">
+    See every contract with its spend, terms and renewal date
   </Card>
 
-  <Card title="Identity Providers" href="/integrations/identity-providers">
+  <Card title="Employees" href="/people/employees">
     Sync employees so requisition owners map to the right people
   </Card>
 </CardGroup>

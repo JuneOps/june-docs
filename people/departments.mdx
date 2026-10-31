@@ -1,0 +1,80 @@
+---
+title: 'Departments'
+description: 'See each department''s people, assets, software and AI usage in one place.'
+---
+
+Departments gives every team one page: its people, the assets recorded to it, the software tagged to it and its AI usage, with headcount over time. Use it for per-team inventory and spend.
+
+## Where departments come from
+
+You don't create, rename, merge or delete departments in June. June creates one from each name your sources report:
+
+- [Okta](/integrations/okta), [Google Workspace](/integrations/google-workspace) and [Microsoft Entra ID](/integrations/microsoft-entra), from each person's department. See [Employees](/people/employees) for which provider wins.
+- [Jamf Pro](/integrations/jamf-pro) and [Kandji](/integrations/kandji), from their departments.
+- CSV imports.
+
+Names match exactly, including capitalization. "Sales" and "sales" are two departments, and so are "Eng" and "Engineering". To combine them, use one spelling in all your sources.
+
+Directory sources sync once a day. After you change a department in your identity provider, the person moves at the next sync, or when you select **Sync Now** on the integration's page.
+
+**Renaming at the source creates a new department.** The old one stays in the list, and June has no way to delete it. Assets follow the person or stay behind depending on their source:
+
+- [Kandji](/integrations/kandji) and [Microsoft Intune](/integrations/microsoft-intune): the asset takes the assigned person's current department at the next sync.
+- Jamf Pro: the asset keeps the old department until you change it in Jamf.
+- CSV import: the asset keeps the old department until you re-import.
+
+## The Departments list
+
+The list shows each department's employees (everyone in it, any status), assets, software (apps tagged with the department) and source. Search by name, and sort by name, employees or assets. If the list is empty, connect an identity provider or import a CSV. Departments appear from the names they report.
+
+<Frame caption="The Departments list. Source shows which systems reported each department.">
+  <img src="/images/people/departments-list.png" alt="Departments list showing Product, Finance and Sales, with Department Name, Employees, Assets, Software and Source columns" />
+</Frame>
+
+## Open a department
+
+A department has tabs for its employees, assets, software and AI usage, plus an **Overview**. Click a row in any tab to open it.
+
+**Overview** has charts for headcount over time, asset discovery, app discovery and AI spend, then cards:
+
+- **Employees:** total (active and inactive), recent hires and departures (last 90 days), upcoming hires and departures (next 90 days).
+- **Assets:** total assets, total value, deployed, and refresh due (overdue or due in the next 90 days).
+- **Software:** total applications, total spend, managed and unmanaged.
+- **AI:** AI spend, tokens, requests and employees using AI (last 30 days).
+
+## How the numbers roll up
+
+- **Employees:** people whose department is this one. The list counts everyone. **Total Employees** leaves out people past their termination date.
+- **Assets:** assets with this department recorded on them, not the department of whoever holds the asset today. **Total Value** adds the current price of each asset's model.
+- **Software:** apps tagged with this department in [Software inventory](/software/software-inventory) or from [Zip](/integrations/zip). It is not the apps people use. An app's spend is split evenly across every department tagged on it.
+
+## Who can do what
+
+Owner, Admin, Member and Software Procurement can open Departments. AI Usage cannot.
+
+Custom roles need **View Departments** to open Departments and **All Employees** for the Employees tab. The Source column needs **Employee identities & groups** and **Integrations**, so among built-in roles only Admin and Owner see it. Roles are set under **Settings > Roles**. See [Members and roles](/admin/roles).
+
+## If something looks wrong
+
+**Two departments for one team.** Your sources spell the name differently, or a rename left the old one behind. Use one spelling in the source.
+
+**The list and Total Employees disagree.** Total Employees leaves out people whose termination date has passed. The list counts everyone.
+
+**A department shows no software.** Software appears only when the app is tagged with the department.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Why does a laptop count under Marketing when its user moved to Sales?">
+    The asset still has Marketing recorded. See [what happens to assets after a rename](#where-departments-come-from).
+  </Accordion>
+  <Accordion title="How do I see inactive people in one department?">
+    Go to **Employees > All Employees**, select **Display**, and set Department and Status.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Employees](/people/employees), [Groups](/people/groups) and [Locations](/people/locations)
+- [Assets](/assets/assets)
+- [AI usage](/ai-usage/ai-usage)

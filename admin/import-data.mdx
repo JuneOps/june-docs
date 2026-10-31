@@ -1,0 +1,172 @@
+---
+sidebarTitle: 'Import data'
+title: 'Import data'
+description: 'Add or update assets, products, departments and locations in bulk from a CSV file.'
+---
+
+Use an import for records that no connected tool knows about, such as a spreadsheet of older laptops or a list of offices. Devices from tools like Jamf Pro and Kandji sync on their own.
+
+You can import four things: assets, products, departments and locations. In June, go to **Settings** > **Import Data**, click **New Import**, and choose the importer. Owners, Admins and any custom role with **Manage organization settings** can do this. Files must be CSV with a header row, up to 10 MB.
+
+## How an import works
+
+All four importers use the same steps.
+
+<Steps>
+  <Step title="Upload File">
+    Click **Click to upload a CSV file**, or drag the file onto the page.
+  </Step>
+  <Step title="Map Columns">
+    June lists each column from your file with a sample value. Check that each one points to the right field, and untick any you do not want. Click **Review Data**.
+  </Step>
+  <Step title="Review Data">
+    June checks every row. If all rows are valid, you see how many are ready. Click **Import**.
+  </Step>
+  <Step title="Import">
+    You see **Total Processed**, **Successfully Saved** and **Failed**.
+  </Step>
+</Steps>
+
+{/* screenshot: the Map Columns step with File Column, Sample Data, Destination Column and Include, one required field not yet mapped */}
+
+Things to plan around:
+
+- **Nothing is saved until you click Import.** **Cancel Import** discards the upload at any step before that.
+- **Auto-mapping needs exact headers.** June maps a column on its own only when the header matches the field name exactly, including capitals. Any other header still imports, but you map it by hand. There is no template to download, so the header rows below are the ones to copy.
+- **Map every required field.** If a required field is missing, the rows fail in Review Data.
+- **One invalid row blocks the whole file.** The Invalid Records table shows each problem row's data and the error. Find the row by its data, not by the Row number, which counts only the invalid rows. Fix the CSV and click **Upload New File**.
+- **A blank cell leaves the current value alone** on a record that already exists.
+- **Check the Failed count.** **Import Successful** appears even when some rows failed, and June does not show why. The other rows are saved.
+- **Rows match on exact, case-sensitive names** (or serial number for assets), so importing the same file twice updates records instead of adding copies. Department imports are the exception, see [Departments](#departments).
+
+## Assets
+
+Header row for the smallest file that works:
+
+```csv
+Serial Number,Asset Product Name
+```
+
+| Column | Required | Notes |
+| --- | --- | --- |
+| Serial Number | No | Identifies the asset. A row without one adds no asset. A serial number June already has updates that asset, including devices synced from your device tool. |
+| Asset Product Name | Yes | Adds the product to your catalog if the name is new. |
+| Email | No | Assigns the asset to that person, and creates them if they are new. Must be a valid address. |
+| Department Name | No | Sets the department. Creates it if it is new. |
+| Location Name | No | Sets the location. The location must already exist, with the same name. |
+
+Optional columns include Manufacturer, Model and SKU for the product, and Asset Condition, Asset Category, Asset Status and Ownership Type for the device. For purchase details, use Asset Purchase Date, Asset Cost, Vendor, PO Number and Asset Warranty Expiration. The Map Columns step lists every field you can use.
+
+Values to plan around:
+
+- **Asset Category:** computer, mobile_device, tablet, apple_tv, monitor, keyboard, mouse, dock, headset, headphones, peripheral_other or other. Capitals do not matter, and a value June does not recognize becomes other.
+- **Asset Condition:** new, good, needs_repair, broken or unknown.
+- **Asset Cost:** a plain number such as 2499.00. Leave out currency symbols and commas.
+- **Dates:** use YYYY-MM-DD.
+
+Rows match as follows:
+
+- Asset by Serial Number
+- Product by Asset Product Name
+- Person by Email
+- Department by Department Name
+- Location by Location Name
+
+To clear a value on an existing asset, put the word NULL in the cell.
+
+### Assignment and status
+
+When a row has an email, June assigns the asset to that person. When it has a location and no email, June assigns it to the location. June then sets the asset's status to match, as described in [Asset status](/assets/asset-status). A status you import, such as IN_REPAIR, is kept.
+
+If a connected device tool manages the device, June sends the new assignment to that tool first. If the tool does not know the device, the asset becomes **Awaiting Enrollment**.
+
+Results appear in [Assets](/assets/assets). Click **View Assets** to open the inventory.
+
+## Products
+
+Header row:
+
+```csv
+Asset Product Name,Asset Product Description,SKU,Manufacturer,Model
+```
+
+| Column | Required | Notes |
+| --- | --- | --- |
+| Asset Product Name | Yes | Matches an existing product by exact name. A new name creates a product. |
+| Asset Product Description | No | |
+| SKU | No | |
+| Manufacturer | No | |
+| Model | No | |
+
+A product with an existing name is updated with the non-blank cells. Nothing is deleted. Leave a cell blank to keep its current value; NULL does not clear product fields.
+
+New products appear in **Assets** > **Product Catalog**, with no assets until an asset import or a sync adds devices.
+
+Jamf Pro, Kandji, Apple Business and Microsoft Entra overwrite a product's name, description, model, manufacturer and SKU with the device data when they sync a product of the same name.
+
+## Departments
+
+Header row:
+
+```csv
+Department Name
+```
+
+- **Department Name** is the only column, and it is required.
+
+A department import only creates new departments. If a name already exists in June, whether you added it by hand, a sync created it or an earlier import did, the whole file fails. Remove existing names before you upload. Names are case-sensitive, so "sales" next to an existing "Sales" creates a second department.
+
+New departments appear in **Resources** > **Departments** with no people assigned. Connected tools such as Okta, Google Workspace, Jamf Pro and Kandji reuse a department with the same name instead of creating a duplicate. See [Departments](/people/departments).
+
+## Locations
+
+Header row:
+
+```csv
+Location Name,Location Type,Address Line 1,Address Line 2,City,State Province,ZIP Postal Code,Country
+```
+
+| Column | Required | Notes |
+| --- | --- | --- |
+| Location Name | Yes | Matches an existing location by exact name. A new name creates a location. |
+| Location Type | No | Office or warehouse. A new location is an office if you leave it out. |
+| Address Line 1, Address Line 2, City, State Province, Country | No | |
+| ZIP Postal Code | No | Leading zeros are kept. |
+
+A location with an existing name is updated with the non-blank cells. To clear a value, put the word NULL in the cell.
+
+New locations appear in **Resources** > **Locations**. Import locations before the assets that use them, because an asset import never creates a location. See [Locations](/people/locations).
+
+Google Workspace and Jamf Pro overwrite an imported location's address fields when they sync a location of the same name. Google Workspace also sets its type to office.
+
+## If something goes wrong
+
+| What you see | What to do |
+| --- | --- |
+| **Validation Failed** with an Invalid Records table | One bad row blocks the whole file. Fix the CSV and click **Upload New File**. |
+| **Asset: Product is required but not provided** | Add an Asset Product Name to every row. |
+| **Product: Name can't be blank** | Fill in Asset Product Name on every row, and make sure that column is mapped. |
+| **Department: Department name has already been taken** | The department already exists. Remove that row. |
+| **Department: Department name can't be blank** or **Location: Name can't be blank** | Fill in the name on every row, remove empty lines, and make sure the name column is mapped. |
+| An email error | The Email value is not a valid address. |
+| **Failed** is above zero after Import | For assets, usually a Location Name that does not match an existing location. Create it first, then import those rows again. |
+| Columns were not mapped automatically | The headers differ from the field names. Pick the field in Map Columns, or rename the headers and upload again. |
+| Costs import as zero or the wrong amount | The cost contains a currency symbol or a comma. Use a plain number. |
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I upload an Excel file?">
+    No. Save the sheet as CSV first.
+  </Accordion>
+  <Accordion title="Can I import the same file twice?">
+    Yes for assets, products and locations: rows match existing records, so a second import updates them. No for departments: the names now exist, so the file fails.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Assets](/assets/assets)
+- [Departments](/people/departments)
+- [Locations](/people/locations)
+- [Quick start](/getting-started/quick-start)

@@ -22,57 +22,103 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Getting Started",
-        "groups": [
+        "group": "Getting started",
+        "pages": [
+          "getting-started/quick-start",
+          "getting-started/setup"
+        ]
+      },
+      {
+        "group": "Product",
+        "pages": [
           {
-            "group": "Welcome",
+            "group": "Agents and automation",
             "pages": [
-              "index"
+              "agents/agent",
+              "agents/tools",
+              "agents/context-and-memory",
+              "agents/runbooks",
+              "agents/reachouts",
+              "agents/signals",
+              "agents/access-policies",
+              "agents/ticket-context"
             ]
           },
           {
-            "group": "Initial Setup",
+            "group": "Help desk",
             "pages": [
-              "getting-started/quick-start",
-              "getting-started/organization-setup"
+              "help-desk/requests",
+              "help-desk/access-requests",
+              "help-desk/ai-limit-requests",
+              "help-desk/knowledge-base"
             ]
           },
           {
-            "group": "Administration",
+            "group": "Asset management",
             "pages": [
-              "administration/role-based-access-control",
-              "administration/members",
-              "administration/custom-roles"
+              "assets/assets",
+              "assets/asset-status",
+              "assets/asset-sources",
+              "assets/orders-and-returns",
+              "assets/compliance",
+              "assets/refresh-and-depreciation"
+            ]
+          },
+          {
+            "group": "Software spend management",
+            "pages": [
+              "software/software-inventory",
+              "software/contracts",
+              "software/software-renewals",
+              "software/unused-licenses",
+              "agents-extensions/browser-extension"
+            ]
+          },
+          {
+            "group": "AI usage",
+            "pages": [
+              "ai-usage/ai-usage",
+              "ai-usage/spend-limits",
+              "ai-usage/ai-impact"
+            ]
+          },
+          {
+            "group": "People",
+            "pages": [
+              "people/employees",
+              "people/groups",
+              "people/departments",
+              "people/locations"
+            ]
+          },
+          {
+            "group": "Admin",
+            "pages": [
+              "admin/roles",
+              "admin/sso",
+              "admin/scim",
+              "admin/audit-log",
+              "admin/import-data"
             ]
           }
         ]
       },
       {
-        "tab": "Integrations",
-        "groups": [
+        "group": "Integrations",
+        "pages": [
           {
-            "group": "Overview",
+            "group": "Device management",
             "pages": [
-              "integrations/mdm-integrations",
-              "integrations/identity-providers",
-              "integrations/itsm-integrations",
-              "integrations/procurement-integrations",
-              "integrations/ai-tools"
-            ]
-          },
-          {
-            "group": "MDM Platforms",
-            "pages": [
-              "integrations/apple-business-manager",
+              "integrations/apple-business",
               "integrations/jamf-pro",
               "integrations/microsoft-intune",
               "integrations/kandji"
             ]
           },
           {
-            "group": "Identity Providers",
+            "group": "Identity providers",
             "pages": [
               "integrations/okta",
               "integrations/google-workspace",
@@ -87,16 +133,10 @@
             ]
           },
           {
-            "group": "Ticketing & Service Management",
+            "group": "Ticketing and chat",
             "pages": [
-              "integrations/jira"
-            ]
-          },
-          {
-            "group": "Communication",
-            "pages": [
-              "integrations/slack",
-              "integrations/microsoft-teams"
+              "integrations/jira",
+              "integrations/slack"
             ]
           },
           {
@@ -108,7 +148,7 @@
             ]
           },
           {
-            "group": "AI Tools",
+            "group": "AI tools",
             "pages": [
               "integrations/claude-enterprise",
               "integrations/claude-platform",
@@ -124,59 +164,8 @@
             ]
           }
         ]
-      },
-      {
-        "tab": "Core Features",
-        "groups": [
-          {
-            "group": "Device Management",
-            "pages": [
-              "device-management/asset-discovery",
-              "device-management/asset-upload"
-            ]
-          },
-          {
-            "group": "AI Features",
-            "pages": [
-              "ai-features/ai-insights"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Authentication & Security",
-        "groups": [
-          {
-            "group": "Single Sign-On",
-            "pages": [
-              "authentication/sso-overview",
-              "authentication/sso-setup",
-              "authentication/scim-okta"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Browser Extension",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": [
-              "agents-extensions/browser-extension"
-            ]
-          }
-        ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://docs.juneops.com",
-          "icon": "book-open-cover"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/logo.svg",
@@ -204,7 +193,79 @@
   "redirects": [
     {
       "source": "/administration/user-management",
-      "destination": "/administration/members"
+      "destination": "/admin/roles"
+    },
+    {
+      "source": "/administration/members",
+      "destination": "/admin/roles"
+    },
+    {
+      "source": "/administration/custom-roles",
+      "destination": "/admin/roles"
+    },
+    {
+      "source": "/administration/role-based-access-control",
+      "destination": "/admin/roles"
+    },
+    {
+      "source": "/authentication/sso-overview",
+      "destination": "/admin/sso"
+    },
+    {
+      "source": "/authentication/sso-setup",
+      "destination": "/admin/sso"
+    },
+    {
+      "source": "/authentication/scim-okta",
+      "destination": "/admin/scim"
+    },
+    {
+      "source": "/device-management/asset-discovery",
+      "destination": "/assets/asset-sources"
+    },
+    {
+      "source": "/ai-features/ai-insights",
+      "destination": "/assets/assets"
+    },
+    {
+      "source": "/integrations/mdm-integrations",
+      "destination": "/assets/asset-sources"
+    },
+    {
+      "source": "/integrations/identity-providers",
+      "destination": "/people/employees"
+    },
+    {
+      "source": "/integrations/itsm-integrations",
+      "destination": "/integrations/jira"
+    },
+    {
+      "source": "/integrations/procurement-integrations",
+      "destination": "/software/contracts"
+    },
+    {
+      "source": "/integrations/ai-tools",
+      "destination": "/ai-usage/ai-usage"
+    },
+    {
+      "source": "/device-management/asset-upload",
+      "destination": "/admin/import-data"
+    },
+    {
+      "source": "/getting-started/import-assets",
+      "destination": "/admin/import-data"
+    },
+    {
+      "source": "/integrations/apple-business-manager",
+      "destination": "/integrations/apple-business"
+    },
+    {
+      "source": "/getting-started/import-data",
+      "destination": "/admin/import-data"
+    },
+    {
+      "source": "/getting-started/organization-setup",
+      "destination": "/getting-started/setup"
     }
   ]
 }

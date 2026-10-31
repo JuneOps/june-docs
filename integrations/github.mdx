@@ -1,10 +1,11 @@
 ---
+sidebarTitle: 'GitHub'
 title: 'GitHub Integration'
 description: 'Connect GitHub with June to measure engineering activity and the impact of AI tools on your codebase'
 icon: '/images/github-dark-mode.svg'
 ---
 
-Connect your GitHub organization to power June's **AI Impact** view: how much of your engineering output involves AI tools, what those tools contribute, and what they cost per unit of work.
+Connect your GitHub organization to power June's **AI Impact** view: how much of your engineering output involves AI tools and what those tools contribute, with AI spend shown beside engineering output.
 
 ## What you'll accomplish
 - Install the **June GitHub App** on your organization in a couple of clicks, with no keys to manage
@@ -17,11 +18,11 @@ Connect your GitHub organization to power June's **AI Impact** view: how much of
 From your GitHub organization, June syncs:
 
 - **Your organization's members**, matched to employees in June
-- **Pull request activity**: who opened, merged, and reviewed, and when
+- **Pull request activity**: who opened and reviewed each pull request, and when it was opened and merged
 - **Review conversations**: comments on pull requests, split between people and bots
 - **AI tools and bots active in your organization**, so their output can be measured separately from your team's
 
-June reads activity metadata only. It does **not** read your source code, and it never writes anything to GitHub. Data refreshes daily.
+June reads activity metadata only, such as line counts and commit author emails. It does **not** read your source code, and it never writes anything to GitHub. Archived repositories are skipped. Data refreshes daily.
 
 ## Capabilities
 
@@ -45,16 +46,19 @@ Before starting, ensure you have:
 
 <Steps>
   <Step title="Start the install from June">
-    1. In June, open the **Integrations** page.
-    2. Choose **GitHub** and click **Install GitHub App**.
+    In June, go to **Settings** > **Integrations**, select **GitHub** under **Available Integrations**, and click **Install GitHub App**.
   </Step>
   <Step title="Approve the app on GitHub">
     1. GitHub shows the June App's install page. Pick your organization.
     2. Choose which repositories June can see. **All repositories** gives the most complete picture, but you can start with a subset.
-    3. Review the requested read-only permissions and approve.
+    3. Review the requested permissions and approve. All are read-only:
+       - **Repository permissions** > **Metadata** and **Pull requests**: the repositories and their pull requests, reviews and comments.
+       - **Repository permissions** > **Contents**: requested by the app. June doesn't read your code.
+       - **Organization permissions** > **Members**: your members, to match them to employees.
+       - **Organization permissions** > **Administration**: the other GitHub Apps installed in your organization, so June can identify AI tools such as Greptile or Devin.
   </Step>
   <Step title="You're done">
-    GitHub sends you back to June and the connection is created automatically; there are no keys or IDs to copy. The first sync backfills your recent activity; results appear under **AI Impact** once it completes.
+    GitHub sends you back to June and the connection is created automatically; there are no keys or IDs to copy. The first sync backfills up to a year of activity; results appear under **AI Impact** once it completes.
   </Step>
 </Steps>
 

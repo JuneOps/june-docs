@@ -1,0 +1,111 @@
+---
+title: 'SSO'
+description: 'Have people sign in to June with Okta, and require it for everyone on your email domains. Set it up under Settings > Authentication.'
+---
+
+Single sign-on (SSO) lets people sign in to June through Okta instead of a June password or Google. Once it is on, everyone whose email is on one of your domains must use it.
+
+SSO is for signing in. To have Okta also add and remove people and set their roles, add [SCIM](/admin/scim) after SSO works.
+
+## Requirements
+
+- **Plan:** Enterprise.
+- **Who can set it up:** Owner or Admin.
+- **Email domain:** at least one, added under **Settings > Email Domains**.
+- **Identity provider:** Okta, using OpenID Connect (OIDC). One provider per organization.
+- **Okta access:** you can create app integrations and edit an authorization server.
+
+This is the Okta sign-in app. It is separate from the [Okta integration](/integrations/okta), which syncs your employees and applications into June.
+
+## Set up Okta SSO
+
+<Steps>
+  <Step title="Add your email domain in June">
+    Go to **Settings > Email Domains** and add the domain your people sign in with. Until you do, the Okta card on **Settings > Authentication** is disabled.
+  </Step>
+  <Step title="Create the app in Okta">
+    In the Okta admin console, go to **Applications > Applications**, click **Create App Integration**, choose **OIDC - OpenID Connect**, then **Web Application**, and click **Next**. Name it, for example, `June SSO`.
+  </Step>
+  <Step title="Set the redirect URI and assignments">
+    Set **Sign-in redirect URI** to `https://auth.juneops.com/oauth2/idpresponse`. Under **Assignments**, choose who can use the app: everyone, selected groups, or skip for now. Assigned people can sign in to June through Okta. If [SCIM](/admin/scim) is off, they join June as a Member the first time they do. With SCIM on, the SCIM app adds people instead. Click **Save**.
+  </Step>
+  <Step title="Copy the client credentials">
+    On the app's **General** tab, under **Client Credentials**, copy the **Client ID** and **Client Secret**.
+  </Step>
+  <Step title="Add an access rule to your authorization server">
+    Go to **Security > API > Authorization Servers** and open the default server or a custom one. Under **Access Policies**, add a policy, then **Add Rule** with the **Authorization Code** grant type. June requests the `openid`, `profile` and `email` scopes.
+  </Step>
+  <Step title="Copy the Issuer URI">
+    On the authorization server's page, copy the **Issuer URI** exactly as shown, including its full path. It must be an okta.com address, such as `https://TENANT.okta.com/oauth2/default`. Custom Okta domains are not accepted.
+  </Step>
+  <Step title="Enter the details in June">
+    Go to **Settings > Authentication** and click the **Okta** card.
+
+    <Frame caption="Settings > Authentication, with the Okta card">
+      <img src="/images/admin/sso-providers.png" alt="The Authentication page with the heading Available SSO Providers and an Okta card" />
+    </Frame>
+
+    Enter the issuer URL, client ID and client secret, then click **Save**.
+
+    <Frame caption="The Okta configuration form">
+      <img src="/images/admin/sso-okta-form.png" alt="The Okta SSO form with Issuer URL, Client ID and Client Secret fields and Cancel and Save buttons" />
+    </Frame>
+  </Step>
+  <Step title="Confirm">
+    <Warning>
+      Once SSO is on, everyone on your email domains, including you, signs in through Okta. If a mistake in the Okta app locks people out, contact support@juneops.com.
+    </Warning>
+
+    June asks you to confirm and warns that all existing users will need to sign back in. That means each person's next sign-in goes through Okta. Nobody is signed out when you click **Configure**.
+
+    Setup can take a few minutes, during which June may be briefly unavailable. Choose a quiet time, then click **Configure**.
+  </Step>
+</Steps>
+
+When it works, **Settings > Authentication > Okta** shows a green **Active SSO Provider** box and your configuration, with the secret masked.
+
+## What changes for people
+
+- **Signing in** works from the June sign-in page: enter the work email, click **Continue**, and Okta takes them the rest of the way. If someone tries a password or Google instead, June sends them to Okta, or asks them to continue with their work email.
+- **New people** get a June account the first time they sign in, with their name and email from Okta. They join as **Member**. Change their role under **Settings > Members**. See [Members and roles](/admin/roles).
+- **Existing accounts** are matched by email, so people keep their history.
+- **With SCIM on**, signing in through Okta no longer adds anyone. Okta assigns people.
+
+## Update or rotate credentials
+
+**Who can do this:** Owner, Admin.
+
+Go to **Settings > Authentication > Okta** and click **Edit**. Change the fields you need, leaving **Client Secret** blank to keep the current secret, then click **Update** and confirm.
+
+## Remove SSO
+
+**Who can do this:** Owner, Admin.
+
+Click **Delete** on **Settings > Authentication > Okta**, then confirm. People keep their access to June and sign in with email and password or Google again. If SCIM was on, it turns off too.
+
+## If something looks wrong
+
+| What you see | Cause | Fix |
+|---|---|---|
+| The Okta card is disabled | No email domain yet | Add one under **Settings > Email Domains** |
+| "Invalid Okta Issuer URL" | The Issuer URL is not an okta.com address in the form `https://TENANT.okta.com` | Copy the Issuer URI again from your authorization server. It must be on okta.com, because custom Okta domains are not supported |
+| "Client Secret is required when configuring a new SSO provider." | The secret field is empty on first setup | Paste the Client Secret from Okta |
+| Sign-in fails right after you save | June is still applying SSO, which can take a few minutes | Wait and try again |
+| "Your organization requires SSO. Please continue with your work email." | The person tried a password or Google on your domain | Enter the work email and continue to Okta |
+| "SSO is disabled for your organization. Please use another method to sign in." | SSO was removed | Sign in with email and password or Google |
+| "Your account is inactive. Please contact your administrator." | The person's account is deactivated | Ask your Owner or an Admin |
+| "Cannot remove email domain" | An organization always needs at least one email domain | Add the new domain first, then remove the old one |
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can we use Microsoft Entra or Google Workspace as the SSO provider?">
+    No. Okta is the only SSO provider.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [SCIM](/admin/scim): Okta adds, updates and removes people
+- [Members and roles](/admin/roles): change a new person's role
+- [Okta integration](/integrations/okta): sync employees and applications from Okta

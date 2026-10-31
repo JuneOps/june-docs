@@ -1,0 +1,163 @@
+---
+title: 'AI limit requests'
+description: 'How employees ask for a higher monthly AI tool limit, how to set up the policy that decides, and how IT decides in June.'
+---
+
+An AI limit request is an employee asking for a higher monthly limit on Claude or ChatGPT. Approvers or IT decide, June raises the limit, and every ask and change is kept in a history. The limit itself, and changing it directly, is covered in [Spend limits](/ai-usage/spend-limits).
+
+## How employees ask
+
+| Where | How | What happens |
+|---|---|---|
+| Inside Claude Enterprise or ChatGPT Enterprise | The employee uses the tool's own "request more usage" button. | June picks the ask up within a few minutes and lists it as Pending. IT decides it in June or in the provider's console. It doesn't go through limit policies. |
+| Slack | The employee messages June. | June files the ask, then follows the limit policy that covers them. |
+| Jira | The employee opens a ticket assigned to June. | Same as Slack. |
+
+For Slack and Jira, the employee needs an active seat on the tool. Naming an amount is optional. If the policy requires a reason, June asks for it before filing. If the person asks again while an ask is waiting, June adds it to the waiting ask. A Jira ticket replaces a waiting Slack ask.
+
+## Set up a limit policy
+
+A limit policy decides what happens to Slack and Jira asks: who approves, how much the limit goes up, and for how long.
+
+<Steps>
+  <Step title="Open the app">
+    Go to **Access** > **Policies** and open the app for the tool. Limit policies sit on the same page as its access policies.
+  </Step>
+  <Step title="Choose who it covers">
+    If a policy with eligibility rules covers the employee, June uses it ahead of a policy for everyone. If no policy covers them, or two of the same kind do, the ask goes to IT.
+  </Step>
+  <Step title="Set the reason prompt and duration">
+    **Business justification** is on by default. Turn it off if you don't need a reason. Set **Limit duration** to **Permanent** or **Until end of month**.
+  </Step>
+  <Step title="Add tiers">
+    A policy has 1 to 5 tiers, chosen by how many raises the person has had approved this month. Tier 1 covers the first raise, tier 2 the second, and the last tier applies to every later raise.
+  </Step>
+</Steps>
+
+Each tier sets:
+
+- **Approval:** none, or up to six steps. Each step is **Access approver** (the app's current approvers), the requester's manager, or named people. Turning on **Require approval** adds an **Access approver** step first.
+- **Amount:** increase by a percentage, increase by a fixed amount, set to an amount, or approver decides.
+- **Maximum limit:** the highest the new limit can reach. June caps the rule's result at it. A "Set to an amount" tier has no maximum: the amount is its maximum.
+
+For example, for someone on a \$200 limit, tier 1 could need no approval and add 25%, up to \$500, which takes them to \$250. Tier 2 could need the manager, who picks a new limit up to \$2,000.
+
+**Who can do this:** Owner and Admin manage limit policies. Members can view them. Only policies that are turned on handle asks.
+
+## How June decides
+
+| Situation | What happens |
+|---|---|
+| Tier needs no approval | June raises the limit automatically. The Actor column shows "Automatically via June". |
+| Tier needs approval | Approvers get a Slack card, then June raises the limit once they approve. |
+| Several approvers approve different amounts | June raises to the lowest amount approved. Later approvers can approve up to that amount, or reject. |
+| No policy covers the person, or two do | The ask goes to IT with a note. |
+| One of the cases below | The ask goes to IT with a note that says why and how to avoid it. |
+| The provider doesn't confirm a raise | June retries up to four more times over about 15 minutes, then sends the ask to IT. |
+
+June sends the ask to IT, with a note, when:
+
+- There is no manager.
+- An approver is inactive or unreachable.
+- The rule doesn't give a higher limit.
+- The new limit is above June's ceilings (see [Decide a request in June](#decide-a-request-in-june)).
+- The policy changed, or no longer covers the person, while the ask waited.
+- Another raise was approved meanwhile.
+
+June changes a limit in three cases only: a person with permission approves or saves a change, a limit policy you set up runs, or a temporary raise ends and June puts back the earlier limit. It never raises above an approver's amount or a tier's maximum on its own, and never applies a raise twice: it checks the provider's current limit before each retry. IT deciding in June can go above a tier's maximum.
+
+## Decide a request in June
+
+Open **AI usage**, choose **Claude** or **OpenAI** (ChatGPT), then the **Limit requests** tab. When an ask goes to IT, June's note links straight to it.
+
+<Frame caption="The Limit requests tab for Claude: one pending ask and decided asks from the provider's button">
+  <img src="/images/help-desk/ai-limit-requests-list.png" alt="Limit requests table with a search box and a count of 9 requests. Columns are Employee, Source, Monthly limit, Status and Actor. Every row has Source Claude. The first row is Pending with usage at 100% of its limit and a dash as Actor; the rows below are Approved or Declined, with Actor values such as 'Maya Patel · via console' and 'API · via console'." />
+</Frame>
+
+Search by employee, and sort or filter by status.
+
+| Status | Meaning |
+|---|---|
+| Pending | Waiting for a decision. |
+| Approved | The limit was raised. |
+| Declined | The ask was declined. |
+| Canceled | The request was closed before a decision, or the provider canceled it. |
+| Superseded | ChatGPT replaced the ask with a later one. |
+| Unknown | The provider reported a status June doesn't recognize. June treats the ask as open. |
+
+The **Actor** column shows who decided and where, or "Automatically via June" when no approval was needed. Hover for the decision reason. Asks nobody has decided yet show "-", as do Canceled and Superseded asks.
+
+**Who can do this:** Owner and Admin (the **Change AI spending limits** permission). Members and the AI Usage role can view the list but not decide.
+
+<Steps>
+  <Step title="Open the ask">
+    Click the row. The panel shows the person's current limit, their default, what they asked for, and their reason. A warning icon beside a name means June couldn't match the requester; see below.
+  </Step>
+  <Step title="Set the limit">
+    **New limit** is prefilled with the amount they asked for. Quick chips add 25%, 50% or 100% to the current limit. If a policy sets the amount, leave it empty to raise by the policy's rule.
+  </Step>
+  <Step title="Choose how long">
+    **Duration** is **Indefinite** (shown as Permanent in Slack) or **Until end of month**. When a policy handles the ask, its duration applies.
+  </Step>
+  <Step title="Approve or decline">
+    Approve, with an optional reason, or decline with a reason. For Slack and Jira asks, the employee sees the reason.
+  </Step>
+</Steps>
+
+June refuses a new limit more than 10 times the current one (\$1,000 for a \$100 limit), above \$5,000 when the person has no limit, or above \$50,000 in any case (ChatGPT: 100,000 and 1,000,000 credits). This applies to policy raises too. If an approver picks an amount above these ceilings, the raise goes to IT instead. A decision takes effect right away. To undo it, change the limit from **Employee usage** ([Spend limits](/ai-usage/spend-limits)).
+
+To cancel a Slack or Jira ask, open the matching request in [Requests](/help-desk/requests) and set it to **Canceled**. That is the only status change available there for a limit ask. Closing the ask's Jira ticket does the same. The employee is told their request was canceled. Asks from inside Claude or ChatGPT have no request in June; decline them instead.
+
+## Decide in Slack
+
+The approvers on the tier's current step get a DM card showing who is asking, their usage this month (for example "\$150 of \$200 used this month (75%)"), raises already approved this month, the amount and duration the policy gives, and the reason.
+
+They click **Approve** or **Reject**. On an "approver decides" tier, Approve opens a form to pick the new limit: the employee's ask, 25%, 50% or 100% more, or another amount, within the tier's maximum. Reject asks for a reason the employee will see. Approvers don't need a June role.
+
+## What the employee sees
+
+For Slack and Jira asks, June answers where the employee asked. Asks from inside Claude or ChatGPT get no message from June.
+
+- **Approved:** June says it is raising the limit and will confirm when it's done. Sent only when the tier had approvers.
+- **Raised:** June gives the new monthly limit, and says it lasts until the end of the month when temporary. For ChatGPT the amount is in credits.
+- **Declined:** June says who declined, with the reason if there is one.
+- **Canceled:** June says the request for more usage was canceled.
+
+## Temporary raises and history
+
+A raise set to **Until end of month** ends at the end of the calendar month, UTC, and June puts back the earlier limit. See [Spend limits](/ai-usage/spend-limits#temporary-raises) for the revert rules. Every ask and change stays in the **Limit requests** list, and the employee's profile shows a **Limit history** card on its AI usage tab.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="A warning icon sits beside a name">
+    June couldn't match the requester to anyone in your directory. Check the account before approving.
+  </Accordion>
+  <Accordion title="Approve or Decline is missing">
+    Your role can only view limit requests, or an Owner has blocked the action for your role.
+  </Accordion>
+  <Accordion title="Approve says to lower a limit, or that it is already their limit">
+    Approve needs a limit above the current one. To keep or lower it, use **Decline**.
+  </Accordion>
+  <Accordion title="June couldn't confirm the raise">
+    The note to IT says the provider didn't respond. Approve again to have June try again, or decline to close the ask. Approving again is safe.
+  </Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can employees ask for more Cursor?">
+    No. Cursor has no Limit requests tab and June doesn't take Cursor asks. IT can still change a Cursor limit from **Employee usage**. A Cursor app page shows **Limit policies**, but a Cursor limit policy doesn't handle any asks.
+  </Accordion>
+  <Accordion title="What if I lower someone's limit while they have an open ask?">
+    The button reads **Lower and decline**, and the ask is declined with the change. Otherwise the ask stays open.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Spend limits](/ai-usage/spend-limits)
+- [Access policies](/agents/access-policies)
+- [Requests](/help-desk/requests)
+- [Claude Enterprise](/integrations/claude-enterprise), [ChatGPT Enterprise](/integrations/chatgpt-enterprise)

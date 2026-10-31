@@ -9,3 +9,42 @@
 .mdx-content a.link:focus-visible {
   text-decoration-thickness: 2px;
 }
+
+/* Sidebar: no visible scrollbar; it still scrolls. */
+#sidebar-content {
+  scrollbar-width: none;
+}
+
+#sidebar-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sidebar: mark the current page with color only, no filled background. */
+#sidebar-content a.bg-primary\/10 {
+  background-color: transparent;
+}
+
+/* Sidebar: hover changes the text color only, no filled background. */
+#sidebar-content a:hover,
+#sidebar-content button:hover {
+  background-color: transparent;
+}
+
+/* Callouts (Note, Info, Tip, Warning, Check): neutral grey, no colored tints. */
+.callout {
+  background-color: rgb(0 0 0 / 0.03) !important;
+  border-color: rgb(0 0 0 / 0.1) !important;
+}
+
+.dark .callout {
+  background-color: rgb(255 255 255 / 0.04) !important;
+  border-color: rgb(255 255 255 / 0.1) !important;
+}
+
+.callout [data-component-part='callout-icon'] svg {
+  color: rgb(115 115 115) !important;
+}
+
+.callout [data-component-part='callout-content'] {
+  color: inherit !important;
+}

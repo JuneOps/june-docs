@@ -1,0 +1,91 @@
+---
+sidebarTitle: 'Setup'
+title: 'Setup'
+description: 'Invite your team with the right roles, set up sign-in, and know where departments and locations come from.'
+---
+
+Decide who can do what in June, how people sign in, and how your departments and locations get there. You need the Owner or Admin role for this page.
+
+## Invite your team
+
+<Steps>
+  <Step title="Open Members">
+    In June, go to **Settings** > **Members**. You can also open the organization menu at the top of the sidebar and click **Organization Members**.
+  </Step>
+  <Step title="Invite">
+    Click **Invite Member**, enter the person's **Email address**, and choose a **Role**. The role defaults to **Member**.
+  </Step>
+  <Step title="Send">
+    Click **Send Invitation**. The person gets an email.
+  </Step>
+</Steps>
+
+The invitation expires after one week, and the person must accept it with the email address you invited. Role changes apply immediately.
+
+You can only give a role that has no more access than you do. Roles you cannot give are greyed out.
+
+### Roles
+
+| Role | What it is for |
+| --- | --- |
+| Owner | Full access to everything. One per organization, the person who created it. |
+| Admin | Manages product data, organization settings and members other than the Owner. |
+| Member | Views product data, exports Employees, Assets, Software and Groups, and uses Agent. |
+| Software Procurement | Manages software contracts, renewals and payments, views Employees and Runbooks, and uses Agent. |
+| AI Usage | Views AI usage totals, employee activity, costs and spending limits. |
+
+Only the Owner can create custom roles, under **Settings** > **Roles**. See [Members and roles](/admin/roles) for the full list of what each role can do.
+
+## Single sign-on and SCIM
+
+On the Enterprise plan, people can sign in with Okta, and Okta can add and remove people for you.
+
+- Set up sign-in at **Settings** > **Authentication**. See [SSO](/admin/sso).
+- Turn on provisioning from Okta on the same page. See [SCIM](/admin/scim).
+
+When SCIM is on, Okta decides who is in June, and **Invite Member** is replaced by **Managed via SCIM**.
+
+The Okta integration under **Settings** > **Integrations** is separate. It syncs your employees and groups, and does not set up sign-in. See [Okta](/integrations/okta).
+
+## Email domains
+
+Go to **Settings** > **Email Domains** to see the domains your organization uses. June adds the work email domain of the person who created the organization. Click **Add domain** to add others.
+
+With single sign-on set up, anyone who signs in with an address at one of these domains goes through your identity provider. You need at least one domain before you can set up single sign-on, and you cannot remove the last one while it is on.
+
+An email domain on its own does not add anyone. Invite people with **Invite Member**. With single sign-on set up, people at these domains join as **Member** the first time they sign in, unless SCIM is on.
+
+## Departments
+
+You do not create departments in June. They appear on their own, under **Departments** in the sidebar, from the department names your identity provider, Jamf Pro, Kandji and CSV imports report. Two sources that spell a name the same way share one department.
+
+To get an Engineering department, make sure your identity provider has one. See [Departments](/people/departments).
+
+## Locations
+
+Locations come from your integrations, and you can also add them yourself.
+
+1. Go to **Locations** in the sidebar and click **Create Location**.
+2. Enter the details and save.
+
+Locations that an integration manages cannot be edited or deleted in June. Create the locations you plan to use before you [import assets](/admin/import-data), because an asset import matches locations by name and does not create them. See [Locations](/people/locations).
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I change someone's role later?">
+    Yes. Owners and Admins can change a member's role from **Settings** > **Members**. It applies immediately.
+  </Accordion>
+  <Accordion title="Why is Authentication missing from my Settings?">
+    Single sign-on and SCIM are on the Enterprise plan, and the page is only shown to Owners and Admins.
+  </Accordion>
+  <Accordion title="A teammate signed up but cannot see our data.">
+    Signing up does not add someone to your organization. Send them an invitation with **Invite Member**, and have them accept it with the invited email address.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Quick start](/getting-started/quick-start)
+- [Audit log](/admin/audit-log)
+- [Employees](/people/employees)

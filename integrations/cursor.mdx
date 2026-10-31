@@ -1,8 +1,13 @@
 ---
+sidebarTitle: 'Cursor'
 title: 'Cursor Integration'
 description: 'Connect Cursor with June to track billed per-person spend, day-by-day engagement, spend limits, and skill usage'
 icon: '/images/cursor-dark-mode.svg'
 ---
+
+<Frame>
+  <img src="/images/integrations/cursor-setup.png" alt="The Cursor setup page in June, with a Team Admin API Key field and a Connect button" />
+</Frame>
 
 Connect your Cursor team to track billed Cursor spend, attributed to each person, with no estimates.
 
@@ -30,11 +35,11 @@ Every figure is billed and attributed to a person, so your per-person and per-de
 
 ## Capabilities
 
-June ingests usage and billing data from Cursor. The only action it can take is updating a spend limit when an admin approves the change in June.
+June ingests usage and billing data from Cursor. The only action it can take is updating a spend limit: when a person with permission saves or approves a change, when an AI limit policy you turned on runs, or when a temporary raise ends. See [Spend limits](/ai-usage/spend-limits).
 
 | Capability | Description |
 |------------|-------------|
-| **Billed spend** | The amount Cursor charges over the selected period. Seat-covered (included) usage shows at $0 but still counts as activity. |
+| **Billed spend** | The amount Cursor charges over the selected period. Seat-covered (included) usage shows at \$0 but still counts as activity. |
 | **Spend over time** | Cumulative spend and token usage by model or department across the period. |
 | **Per-person spend (billed)** | Billed spend and tokens attributed to each employee. Searchable, sortable, and groupable by department. |
 | **Seat coverage** | Every Cursor seat in one view, including unused (idle) seats. Surfaces who has access but no usage, and people who left but still hold a seat. |
@@ -46,7 +51,7 @@ June ingests usage and billing data from Cursor. The only action it can take is 
 ## Prerequisites
 
 Before starting, ensure you have:
-- A Cursor team on a plan with **Admin API** access (Business or Enterprise)
+- A Cursor **Teams** or **Enterprise** plan. Updating spend limits from June and skill usage need Enterprise.
 - **Admin** access to create a Team Admin API key
 
 ## Connect Cursor
@@ -58,12 +63,10 @@ Before starting, ensure you have:
     3. Give the key the **`admin:*`** scope. June reads team members, usage, and spend through Cursor's Admin API, which requires it.
     4. Copy the key.
   </Step>
-  <Step title="Add the integration in June">
-    1. In June, open the **Integrations** page.
-    2. Choose **Cursor**.
-    3. Paste your **Team Admin API key** and save.
+  <Step title="Connect Cursor in June">
+    In June, go to **Settings** > **Integrations**, select **Cursor** under **Available Integrations**, paste your key into **Team Admin API Key**, and click **Connect**.
   </Step>
   <Step title="Wait for the first sync">
-    June backfills your historical usage and refreshes daily. Spend, per-person data, and seats appear under **AI usage → Cursor** once the first sync completes.
+    June backfills your historical usage and refreshes daily. Spend, per-person data, and seats appear under **AI usage** > **Cursor** once the first sync completes.
   </Step>
 </Steps>

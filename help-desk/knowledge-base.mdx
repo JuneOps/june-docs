@@ -1,0 +1,93 @@
+---
+title: 'Knowledge Base'
+description: 'Connect Confluence or Google shared drives so June answers questions from your company docs, with sources cited.'
+---
+
+The Knowledge Base lets June answer employees' how-to and policy questions from your own documents. June uses only documents the asker can already open in Confluence or Google Drive, and lists the documents it used under each answer. Open **Intelligence** > **Knowledge Base** in the sidebar.
+
+**Who can do what:** Owners and Admins add, edit, sync and delete sources and open citation history. Members can view sources, documents and citation counts. The AI Usage and Software Procurement roles can't see the Knowledge Base.
+
+## How June uses it
+
+- **In Slack,** an employee asks a question in a DM or a channel thread. While June is handling the request, it searches the Knowledge Base, answers from what it finds, and ends with a **Sources** list of linked document titles. June searches before it tells an employee it has no answer or offers to involve IT. Once IT owns the request, June no longer searches.
+- **In the [Agent](/agents/agent),** Owners, Admins and Members can turn on **Knowledge Base** in a Personal chat. Answers show the documents they cite. The setting is saved for that chat. It isn't available in shared chats or in a request's **Ask June** tab.
+
+Requests that come from Jira don't use the Knowledge Base.
+
+Documents inform answers only. They never change a runbook's steps or approvals, and June ignores instructions written inside a document.
+
+## Who sees what
+
+June follows your provider's sharing. When June searches for an employee, it returns only documents that person can open in Confluence or Drive. June matches people by email: in Slack, the email on their June employee record, and in the Agent, the email they sign in with. It must exactly match their provider email. Aliases aren't matched, and when access can't be verified June leaves the document out.
+
+June searches only sources whose status is **Synced**. To restrict content, change sharing in Confluence or Drive. June has no separate audience setting. To refresh a source after a change, click **Sync now**.
+
+## Add a source
+
+A source is a set of Confluence spaces, pages or folders, or whole Google shared drives. Connect the app first under **Settings** > **Integrations**. Setup is on [Confluence](/integrations/confluence) and [Google Drive](/integrations/google-drive). Connecting imports nothing.
+
+<Steps>
+  <Step title="Start">
+    Open **Knowledge Base**, click **Add source**, and pick a connected app.
+  </Step>
+  <Step title="Name it and choose content">
+    Name the source, then pick up to 100 items.
+    - **Confluence:** search for spaces, pages or folders and tick them. Descendants are included, including pages added later.
+    - **Google Drive:** tick whole shared drives. Content added later is included. My Drive, "Shared with me" and shortcuts aren't available.
+  </Step>
+  <Step title="Review and add">
+    Review the selection and add the source. The first sync starts automatically.
+  </Step>
+</Steps>
+
+The same content can't belong to two sources on one connection. The review step names the source that already has it. Once setup starts, you can rename a source but not change its content. To change content, delete the source and add it again. To add a drive to an existing Drive source, delete it and add a new one with both drives, or add a separate source if the new drive doesn't overlap. Wait for the deletion to finish before re-adding overlapping content.
+
+## Sync
+
+June syncs every source daily at 3 a.m. US Eastern. To pick up a change sooner, open the source's **...** menu and click **Sync now**. It is unavailable while a sync is running, while the source is deleting, when the connection is inactive, or when your organization is over its storage allowance.
+
+An amber **Source needs attention** icon opens **Source details**, with the last attempt and counts of documents scanned, indexed, modified, deleted, skipped and failed. The document list shows what's in your selection, not what June can answer from. The counts are totals for the last sync; they don't show whether a particular document was indexed.
+
+If a source isn't **Synced**, June doesn't search it:
+
+| Status | What to do |
+|---|---|
+| Partially synced | Open **Source details**, then click **Sync now**. |
+| Sync failed | Open **Source details** for the message. Usually the connection's credentials need rechecking, or the selected content moved. |
+| Storage allowance exceeded | Delete a source to free space, or contact June support to raise the allowance. |
+| Disconnected | The connection is inactive. Reconnect on the integration page. |
+| Deletion needs attention | Open **...** and click **Retry deletion**. |
+
+Setting up, Waiting to sync and Syncing are in-progress states and need nothing from you.
+
+## Storage
+
+Each organization has a 1 GB default allowance, shown as **Storage usage** at the bottom of the sources list. Usage can take a few hours to update. When you go over, **Add source** and **Sync now** are unavailable, and a source whose sync hits the allowance shows **Storage allowance exceeded** and isn't searched.
+
+## See which answers cited a document
+
+Open a source and click the number in the **Citations** column. You see the request or Agent chat, the person, the date, and **Issue Solved**, the employee's optional Slack feedback. The count is answers delivered with a link to that document. It doesn't prove the document caused the answer. June stores no question or answer text with citations. You can open a Slack request from a row, but not another person's Agent chat.
+
+## Delete a source
+
+Open the source's **...** menu, click **Delete source**, and confirm. June stops syncing and removes the indexed content. The source stays listed until cleanup finishes. Original documents stay in Confluence or Drive.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="June can't find a page we just published">
+    Click **Sync now**, or wait for the daily sync. Check the page sits inside the selected content, the source shows **Synced**, and the employee can open the page in Confluence or Drive.
+  </Accordion>
+  <Accordion title="An employee gets no answers from a document they can open">
+    Their email in June may differ from their provider email. Fix the mismatch, then sync.
+  </Accordion>
+  <Accordion title="Knowledge Base is greyed out in the Agent">
+    The Knowledge Base is syncing or temporarily unavailable. Try again shortly.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Confluence](/integrations/confluence)
+- [Google Drive](/integrations/google-drive)
+- [Requests](/help-desk/requests)

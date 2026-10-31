@@ -1,0 +1,114 @@
+---
+title: 'Employees'
+description: 'Your roster: one profile per person, with their status, devices, apps and where each value comes from.'
+---
+
+Employees is your roster. Each person has one profile showing their status, devices, apps, groups, AI usage, requests and notes, and which of your systems reported them.
+
+## Where people come from
+
+Your identity provider adds most people. Device tools, Slack, Microsoft Teams and AI tool seats add anyone they find who isn't there yet. A CSV import under **Settings > Import Data** adds the people in the file, and you can ask June in the [Agent](/agents/agent) to add or update someone, approving each change.
+
+June matches each report to a person by email, ignoring capitalization. Identity providers, device tools, Slack and imports match on the primary email only, so a personal address they see becomes a separate profile. AI tool seats and [Firstbase](/integrations/firstbase) also check alternate emails.
+
+| Source | What it does |
+|---|---|
+| [Okta](/integrations/okta), [Google Workspace](/integrations/google-workspace), [Microsoft Entra ID](/integrations/microsoft-entra) | Create people and set status, title, department, location, dates and manager |
+| [Jamf Pro](/integrations/jamf-pro), [Kandji](/integrations/kandji), Slack, Microsoft Teams, AI tool seats | Create people they find. Jamf Pro, Kandji and Slack fill a field only when no identity provider reports it |
+| CSV import | Creates people and writes every field you map. For people your identity provider covers, its values come back on the next sync |
+| Firstbase | Never creates people. Adds a person's other addresses as alternate emails |
+
+Directory sources sync once a day. To pull a change sooner, open the integration's page and select **Sync Now**.
+
+When Okta, Google Workspace and Entra ID disagree, the order is Okta, then Google Workspace, then Entra ID, field by field. If a provider hasn't reported someone for 7 days, the next one decides. A disconnected provider never counts. A blank text value or department clears the field. Blank dates, location and manager never clear anything.
+
+## Statuses
+
+Your identity providers set status. Device tools, Slack and AI tools never do. A change you approve in the Agent can set it, and so can a CSV import's Status column. For people your identity provider covers, its value comes back on the next sync.
+
+- **Active:** the provider reports the account as active. Counted in **Total active**.
+- **Inactive:** deprovisioned or disabled, or not started yet. In Okta, staged and provisioned accounts are Inactive until activated.
+- **Suspended:** paused but still employed. Not counted in **Total active**.
+- **Archived:** the provider reports the account as archived, or a status other than active, suspended or deactivated.
+- **Unknown:** none of your connected identity providers lists the person, or no identity provider is connected. Without a connected identity provider, these people still count in **Total active**.
+
+A termination date alone never changes status. If one sync finds more than 25 people, or 10% of your active people (whichever is larger), missing from your identity provider, June ignores the missing people for that sync and their status stays as it is. Status changes the provider reports, such as deprovisioning, always apply.
+
+## The dashboard and the list
+
+**Employees** opens the dashboard: total active (split into employees and contractors), new hires and upcoming offboardings for the next 30 days, average cost per employee, and a monthly chart. Below them are breakdowns by department, location and status. Service accounts are not counted in **Total active**.
+
+<Frame caption="The Employees dashboard.">
+  <img src="/images/people/employees-dashboard.png" alt="Tiles for Total active, New hires, Upcoming offboardings and Avg cost, and a monthly Employees chart split into employees and contractors, with a range menu" />
+</Frame>
+
+**Employees > All Employees** lists everyone.
+
+- **Search** matches name, email and any column. **Smart Search** takes plain language, such as "employees without a device".
+- **Display** filters by status, department, location and type. June remembers your filters in your browser.
+- **Export CSV** downloads the rows matching your search and filters.
+
+## Open a profile
+
+A profile has an **Overview** (cost cards, employee details, identities, lifecycle events, actions and sync history) and tabs for the person's assets and installed applications, SaaS subscriptions (with cost and last active), AI usage (see [AI usage](/ai-usage/ai-usage)), groups (and the apps they grant), linked tickets and [requests](/help-desk/requests), and notes and documents (up to 10MB each).
+
+### Identities
+
+**Identities** lists one row per account June knows for the person. Click a row to see what that source reports: status, dates, title, department, manager and last login.
+
+{/* screenshot placeholder: /employees/:id?tab=overview | person with Okta, Jamf and Firstbase identities, one row expanded | crop to Identities | file: /images/people/employees-identities.png */}
+
+- **Green dot:** active in the source, or the source lists the account and has no status of its own.
+- **Red dot:** the account ended (for example deprovisioned), or the source no longer lists it. Okta keeps deprovisioned accounts listed, with a red dot.
+- **Grey dot:** not started yet, suspended or archived.
+
+## Edit a person
+
+| Edit | Where | Notes |
+|---|---|---|
+| **Type** (Employee, Contractor, Service Account) | The Type cell in the list, or Type on the profile | June sets Type from the email domain, the provider's type and name patterns. Once you change it, June keeps your choice and stops reclassifying that person. |
+| **Manager** on a service account | Profile > Overview > **Manager** | Set Type to Service Account first. Pick a person, or choose "No manager". For employees and contractors the manager comes from the identity provider. |
+| Documents | Profile > **Notes & Docs** | Admins can upload or delete documents. Anyone who can read notes can add notes. |
+
+Everything else is corrected in the source.
+
+## Who can do what
+
+| Role | Open Employees | Export CSV | Edit Type and Manager, manage documents |
+|---|---|---|---|
+| Owner, Admin | Yes | Yes | Yes |
+| Member | Yes | Yes | No |
+| Software Procurement | Yes, without Location | No | No |
+| AI Usage | No | No | No |
+
+Custom roles use the role-editor labels **Edit employee details** (Type and Manager), **Employee employment details** (status, dates, manager, department, location), **Employee identities & groups** (Identities, Sources, Groups tab) and **Export employee data**. Without one, the column or card is hidden or shows "Access restricted". Roles are set under **Settings > Roles**. See [Members and roles](/admin/roles).
+
+## If something looks wrong
+
+**A person shows Unknown.** None of your connected identity providers lists them, or no identity provider is connected. Check the provider.
+
+**A title, department or location differs from your device tool.** The identity provider wins. Change it there.
+
+**No start or termination date for an Okta user.** Dates come from custom Okta fields, only when mapped in the Okta integration settings. Map **Hire date source field** and **Leave date source field**. The same settings exist for work location (**Work location source field**), secondary email (**Secondary email source field**) and employee type (**Employee type source field**).
+
+**Two profiles for one person.** A device tool or Slack saw a different primary email, such as a personal address. Use the same email in both sources.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Why is someone who left still Active?">
+    Status follows your identity providers. The account may not be deprovisioned yet, or a higher-ranked provider still reports it as active. Open **Identities** to see each source's status.
+  </Accordion>
+  <Accordion title="Someone left. What should I check?">
+    Look at the status badge and Termination Date, then **Identities** for red dots. Open the **Assets** and **SaaS Subscriptions** tabs for anything still assigned.
+  </Accordion>
+  <Accordion title="Can I add or remove someone in June?">
+    There's no screen for it. Ask June in the Agent to add or update someone (you approve each change) or with a CSV import. To remove someone, close their account in your identity provider.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Groups](/people/groups), [Departments](/people/departments) and [Locations](/people/locations)
+- [Assets](/assets/assets) and [Software inventory](/software/software-inventory)
+- [Members and roles](/admin/roles)

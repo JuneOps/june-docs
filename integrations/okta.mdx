@@ -1,10 +1,13 @@
 ---
+sidebarTitle: 'Okta'
 title: 'Okta Integration'
 description: 'Complete integration guide for connecting Okta with June for SSO and user provisioning'
 icon: '/images/okta-dark-mode.svg'
 ---
 
-<img src="/images/okta_integrations_page.png" alt="Okta Integration" />
+<Frame>
+  <img src="/images/integrations/okta-setup.png" alt="The Okta setup page in June, with Okta Tenant URL, Okta Client ID and the Okta public key URL to copy, and a Connect button" />
+</Frame>
 
 Connect your Okta environment with June to enable secure API-based access to users, groups, and application assignments.
 
@@ -32,6 +35,11 @@ Once connected, June provides the following capabilities for Okta:
 |------------|-------------|
 | **Expire user password in Okta** | Expire a user's password in Okta, forcing them to change it on next login. This is a security action used for compromised accounts or password policy enforcement. |
 | **Reset user MFA in Okta** | Reset all MFA factors for a locked out user in Okta. This removes all enrolled MFA factors and allows the user to enroll new ones. |
+| **Unlock user in Okta** | Unlock a locked-out user so they can sign in with their current password. |
+| **Suspend user in Okta** | Suspend a user so they can't sign in. Group and app assignments are kept, and you can unsuspend them later. |
+| **Unsuspend user in Okta** | Return a suspended user to active so they can sign in again. |
+| **Deactivate user in Okta** | Deactivate a user, which removes their app assignments and ends their sessions. Used for offboarding and security response. |
+| **Restore user access in Okta** | Activate a staged or deactivated user so they can sign in. Okta emails the activation link directly to the user. |
 
 ### Group Management
 
@@ -41,6 +49,7 @@ Once connected, June provides the following capabilities for Okta:
 | **Remove user from Okta group** | Remove an employee from an Okta group to revoke their group-based access and permissions. |
 | **List Okta groups** | Retrieve a list of all groups in Okta. Optionally filter by search query to find specific groups by name. |
 | **Get Okta group details** | Retrieve detailed information about a specific Okta group including its members. |
+| **Get employee's Okta groups** | Retrieve all Okta groups that an employee belongs to. |
 
 ## Prerequisites
 
@@ -55,8 +64,8 @@ Before starting the integration, ensure you have:
 <Steps>
   <Step title="Access Integrations">
     1. Log into June
-    2. Navigate to Integrations page
-    3. Choose "Okta" from the available integrations
+    2. Go to **Settings** > **Integrations**
+    3. Select **Okta** under **Available Integrations** (in the **Identity Providers** group)
     4. Before you enter any details, you will need to create an Okta OAuth 2.0 application.
     5. Copy the **Okta public key URL**. You will need this for configuring client credentials using **PUBLIC KEYS** in Okta.
   </Step>
@@ -99,7 +108,6 @@ Before starting the integration, ensure you have:
       - `okta.groups.read`
       - `okta.apps.read`
       - `okta.logs.read`
-      - `okta.apps.manage`
       - `okta.groups.manage`
       - `okta.users.manage`
   </Step>
@@ -107,9 +115,13 @@ Before starting the integration, ensure you have:
   <Step title="Assign Admin Roles">
     1. Go to the **Admin roles** tab
     2. Click **Edit assignments**
-    3. Select **Read-only Administrator** role to assign to the application
-    4. Click **Save Changes**
+    3. Assign **Read-only Administrator**. This lets June sync your users, groups, apps and sign-in activity.
+    4. To use the user and group actions above, also assign **Organization Administrator**. Read-only Administrator can't make changes, and Organization Administrator can't read your apps, so June needs both.
+    5. Click **Save Changes**
     <img src="/images/admin_roles_okta.png" alt="Okta Admin Roles" />
+    <Note>
+    To limit actions to certain groups, assign **Group Administrator** for those groups instead of Organization Administrator. June can then act only on users and groups in those groups. Only a Super Administrator can change the members of groups that hold admin roles.
+    </Note>
   </Step>
 
 </Steps>
@@ -118,24 +130,32 @@ Before starting the integration, ensure you have:
 
 <Steps>
   <Step title="Complete Integration Setup">
-    1. Go back to June integrations page and select **Okta**
-    2. Copy the **Client ID** from the **Client Credentials** section in Okta and paste it in the **Client ID** field
-    3. Copy your Okta tenant URL and paste it in the **Tenant URL** field
-    4. Click **Save**
-    5. If the integration is successful, you should see a message saying "Integration setup complete" and the **Status** should be **Active**.
+    1. Go back to the Okta setup page in June (**Settings** > **Integrations** > **Okta**)
+    2. Copy the **Client ID** from the **Client Credentials** section in Okta and paste it in the **Your Okta Client ID** field
+    3. Copy your Okta tenant URL (for example `https://yourcompany.okta.com`) and paste it in the **Your Okta Tenant URL** field
+    4. Click **Connect**
+    5. If the integration is successful, you see the message "Integration setup completed." The integration shows **Connected**, its status is **ACTIVE**, and the first sync starts.
   </Step>
   
   <Step title="Test the Integration">
     1. Click on the dropdown menu that has the status of the integration
-    2. Click **Test Integration**
-    3. If the integration is successful, you should see a message saying "Integration test successful" and the **Status** should be **Active**.
-    4. If the integration is not successful, you should see a message saying "Integration test failed" and the **Status** should be **Inactive**.
+    2. Click **Test Connection**
+    3. If the test succeeds, you see "Test Successful" and the integration shows **Connected**.
+    4. If the test fails, you see "Test Failed" with the reason, and the integration shows **Not Connected**.
+  </Step>
+
+  <Step title="Map Okta profile fields (optional)">
+    After you connect, the integration's **Connection Settings** let you choose which Okta profile fields June reads:
+    - **Hire date source field** and **Leave date source field**: the custom fields that hold start and leave dates. When empty, June doesn't sync these dates.
+    - **Work location source field**: the custom field for work location. When empty, June uses the city and state from the profile.
+    - **Secondary email source field** and **Employee type source field**: when empty, June uses Okta's standard fields.
+    - **Additional profile fields to sync**: extra Okta profile fields to bring into June.
   </Step>
 
   <Step title="Sync data from Okta">
     1. Click on the dropdown menu that has the status of the integration
     2. Click **Sync Now**
-    3. You should see the employees from Okta being synced to June under the **Employees** tab.
+    3. You should see the employees from Okta in June under **Employees** > **All Employees**. June syncs again once a day.
   </Step>
 </Steps>
 
@@ -145,8 +165,7 @@ Need help with your Okta integration?
 
 - **Okta Documentation**: Review this [article](https://support.okta.com/help/s/article/403-error-with-org2org-provisioning-with-oauth?language=en_US) about why June needs admin roles assigned.
 - **June Support**: Contact support for integration-specific assistance
-- **Community Forum**: Join discussions about identity provider integrations
 
 <Note>
-Syncing data from Okta to June may take up to 15 minutes based on the number of users in your Okta environment.
+How long a sync from Okta takes depends on the number of users in your Okta environment.
 </Note> 

@@ -1,0 +1,133 @@
+---
+title: 'Refresh and depreciation'
+description: 'Plan when devices should be replaced, see what they are worth, and correct the purchase data behind both.'
+---
+
+Refresh Planning lists the devices to replace and when, based on policies you set. Depreciation shows what each device is worth now. Both read a device's [purchase details](#purchase-details).
+
+- **Owners, Admins and Members** can view Refresh Planning, Depreciation and purchase details.
+- **Owners and Admins** can also make refresh decisions, edit policies, update purchase details and change depreciation settings.
+
+Policy deletion needs **Delete assets & Refresh Policies**. See [Members and roles](/admin/roles).
+
+## Refresh Planning
+
+Go to **Assets > Refresh Planning**.
+
+<Frame caption="Refresh Planning: devices grouped by refresh status, each with a due date, reason, priority and decision menu.">
+  <img src="/images/assets/refresh-planning-list.png" alt="The Refresh Planning list with a Refresh Now group; each row shows the device, model, status, age and last seen, the assignee, a due date, the main reason, a priority badge and a decision menu" />
+</Frame>
+
+Devices are grouped by refresh status. The default filter shows Refresh Now and Plan Refresh, soonest target date first. Each device shows a due date, its main reason, a priority from P0 (Critical) to P3 (Low), and a decision menu. **Export** downloads the current view and needs the same access as exporting All Assets, see [Assets](/assets/assets).
+
+| Status | Meaning |
+|---|---|
+| Refresh Now | Replace immediately |
+| Plan Refresh | Start budgeting and ordering |
+| OK to Keep | No rotation needed |
+| Not Applicable | Personal devices, and devices that are Lost, Decommissioned or Recycled |
+| Unknown | No refresh policy matches the device |
+
+### How a device lands in each group
+
+June scores every device each day from 0 to 100. A device with no matching policy is Unknown. Otherwise the score sets its group and priority:
+
+| Score | Refresh status | Priority |
+|---|---|---|
+| 80 to 100 | Refresh Now | P0 |
+| 50 to 79 | Refresh Now | P1 |
+| 30 to 49 | Plan Refresh | P2 |
+| 20 to 29 | OK to Keep | P2 |
+| Below 20 | OK to Keep | P3 |
+
+The score comes mainly from the due date. It stays low until the device is within 3 months of it, rises from 40 to 70 as the date nears, and runs from 65 to 80 once it has passed.
+
+Problems add a little more:
+
+- A device that will not turn on or load its OS, a damaged screen or enclosure, failing ports or keys, a weak or critical battery
+- A disk 85% full or more
+- An unsupported OS, an Intel Mac, or a Mac with 8 GB of RAM or less
+
+Once a device is near the end of its cycle, a hardware, battery or disk problem puts it straight into Refresh Now. A device that does not turn on or will not load its OS starts at 75. A device 6 years or older with no due date scores at least 30.
+
+### Record a decision
+
+Use a row's decision menu, or tick several rows and use the bulk buttons.
+
+- **Approved** and **Ignored** are recorded. Filter by decision to see approved devices.
+- **Defer 3 months** and **Defer 6 months** are recorded with a date that far ahead. When it passes, the device has no decision again.
+
+A decision is a note for your team. It does not change the device's refresh status, and June orders nothing.
+
+## Refresh Policies
+
+A policy says how long a type of device lasts. Create and edit policies under **Settings > Refresh Policies**. Edits save automatically.
+
+<Frame caption="Settings > Refresh Policies: each policy with its device type, scope, cycle and whether it is warranty based.">
+  <img src="/images/assets/refresh-policies.png" alt="The Refresh Policies list with a search box, a Create policy button and columns Policy Name, Device Type, Applies To, Refresh Cycle and Warranty Based, showing three example policies" />
+</Frame>
+
+- **Device Type:** Computer, Mobile Device, Tablet, Apple TV or Other. Fixed after creation. Peripherals have no policies.
+- **Department:** organization-wide, or one department.
+- **Refresh Cycle:** 1 to 6 years. The list shows it in months.
+- **Refresh when warranty expires:** uses warranty expiry as the due date when the device has one.
+
+There is one policy per device type per department. A department policy beats the organization-wide one for the same type. The due date is the warranty expiry (warranty-based policies), else purchase date plus the cycle.
+
+## Depreciation
+
+Open an asset's **Depreciation** tab for its **Current Asset Value**: purchase price with its source, and the latest value under each method, with a chart and table of book value over time.
+
+- **Straight Line:** cost spread evenly over the useful life.
+- **Double Declining Balance:** larger drops early, by year.
+- **MACRS (IRS Preferred Method):** 5-year schedule of 20%, 32%, 19.2%, 11.52%, 11.52% and 5.76%.
+
+Values recalculate when cost, purchase date or useful life change, and at the end of each month. A device needs a cost (or catalog price) and a purchase date, else the tab says "No depreciation data". Peripherals are excluded.
+
+**Useful life** is the asset's own value if it has one (from Jamf or an import), else the value for its device type in **Settings > Depreciation**, else 36 months.
+
+<Frame caption="Settings > Depreciation: the Enable Asset Depreciation switch and a 36 month life span for each device type.">
+  <img src="/images/assets/depreciation-settings.png" alt="The Depreciation settings page with the Enable Asset Depreciation toggle, the Set device life span heading, and a 36 months dropdown for Apple TV, Computers, Mobile Devices, Other and Tablets" />
+</Frame>
+
+To change the defaults, go to **Settings > Depreciation**, turn on **Enable Asset Depreciation** and choose a life span of 12, 24, 36, 48, 60 or 72 months per device type. Turning it off returns every type to 36 months, after you confirm.
+
+## Purchase details
+
+On an asset, **Overview > Purchase Details > Update** edits the acquisition type, dates, cost, vendor, purchase order and warranty expiration. A cost you enter is labeled "Manual" with your name, and **no sync overwrites a manual cost**. Jamf can still overwrite a date, vendor, purchase order or warranty you enter by hand when it reports a value for that field.
+
+| Source | What it fills |
+|---|---|
+| Your team | Anything, by hand or in the [Agent](/agents/agent) |
+| [CSV import](/admin/import-data) | Cost, vendor, dates, PO, warranty, useful life |
+| [Jamf Pro](/integrations/jamf-pro) | Purchase date, price, vendor, lease dates, useful life, PO, warranty. Empty values never overwrite |
+| [Firstbase](/integrations/firstbase) | Price only, for devices it marks Purchased |
+| [Apple Business](/integrations/apple-business) | Purchase date, vendor, PO, and a warranty estimate, only where blank. The estimate is purchase date plus Default Warranty Years from its settings (1 by default) |
+| Catalog | A fallback price when no cost exists |
+
+The label beside Purchase Cost names where the price came from: an integration logo, Manual, Imported, "Catalog price", or "Catalog price · June AI estimate" for an Apple product with no price.
+
+Kandji and Intune bring no purchase data. Zip and Coupa bring software contracts only, not device purchases (see [Contracts](/software/contracts)), so a laptop's cost comes from one of the sources above.
+
+## If something looks wrong
+
+**A device is Unknown.** No policy matches its device type and department, for example no Tablet policy. Create one. The default filter hides Unknown.
+
+**No depreciation data.** The device lacks a cost or purchase date. Update Purchase Details.
+
+**A wrong price keeps returning.** It is not manual. Enter the cost with **Update** and it stays.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Make engineering laptops refresh every 3 years and everything else every 4. How?">
+Create two Computer policies: one for the Engineering department at 3 years, one Organization-wide at 4. The department policy wins for its devices.
+</Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Assets](/assets/assets)
+- [Asset sources](/assets/asset-sources)
+- [Contracts](/software/contracts)
+- [Members and roles](/admin/roles)

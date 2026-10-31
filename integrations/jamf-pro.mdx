@@ -1,9 +1,12 @@
 ---
+sidebarTitle: 'Jamf Pro'
 title: 'Jamf Pro Integration'
 icon: '/images/jamf_logo.png'
 ---
 
-<img src="/images/jamf_integration_page.png" alt="Jamf Pro Integration" />
+<Frame>
+  <img src="/images/integrations/jamf-setup.png" alt="The Jamf Pro setup page in June, with Jamf Pro API URL, Client ID and Client Secret fields and a Connect button" />
+</Frame>
 Connect your Jamf Pro environment with June for comprehensive Mac device management and asset tracking.
 
 ## What you'll accomplish
@@ -18,7 +21,7 @@ Before starting the integration, ensure you have:
 - Jamf Pro administrator access
 - API access enabled in Jamf Pro
 - Network connectivity between June and Jamf Pro server
-- June organization admin permissions
+- The Admin or Owner role in June
 
 ## Setup Process
 
@@ -30,27 +33,20 @@ Before starting the integration, ensure you have:
     2. Navigate to Settings > System > API roles and clients
     3. Go to the API roles tab and click the "+" button to create a new API role
     4. Set the API role name to "June Integration"
-    5. Assign the following permissions:
-      - `Read Computers`
-      - `Update Computers`
-      - `Delete Computers`
-      - `Read Mobile Devices`
-      - `Update Mobile Devices`
-      - `Delete Mobile Devices`
-      - `Assign Users to Mobile Devices`
-      - `Read Users`
-      - `Update Users`
-      - `Read Departments`
-      - `Read Buildings`
-      - `Read Mobile Device Applications`
-      - `Read Mac Applications`
-      - `View Computer Device Lock Pin`
-      - `View Disk Encryption Recovery Key`
-      - `View Recovery Lock`
-      - `Read Smart Computer Groups`: see every Smart Group and its criteria, including empty ones
-      - `Read Computer Extension Attributes`: what each Mac attribute means and its possible values
-      - `Read Smart Mobile Device Groups`: the same for iPhones and iPads
-      - `Read Mobile Device Extension Attributes`: the same for mobile devices
+    5. Assign these privileges:
+      - To sync devices, people and groups:
+        - `Read Computers`, `Read Mobile Devices`, `Read Users`, `Read Departments`, `Read Buildings`
+        - `Read Mac Applications`, `Read Mobile Device Applications`
+        - `Read Smart Computer Groups`, `Read Static Computer Groups`, `Read Smart Mobile Device Groups`, `Read Static Mobile Device Groups`
+        - `Read Computer Extension Attributes`, `Read Mobile Device Extension Attributes`
+        - `Read Computer PreStage Enrollments` (optional): shows Macs assigned to a PreStage enrollment that haven't enrolled yet
+      - To send assignee and location changes made in June back to Jamf Pro: `Update Computers`, `Update Mobile Devices`, `Assign Users to Mobile Devices`, `Update Users`
+      - To look up device secrets when an admin asks: `View Computer Device Lock Pin`, `View Recovery Lock`, `View Disk Encryption Recovery Key`
+      - For device actions:
+        - `Delete Computers`, `Delete Mobile Devices`
+        - `View MDM command information in Jamf Pro API`, `Send Declarative Management Command`
+        - `Send Computer Remote Lock Command`, `Send Mobile Device Remote Lock Command`, `Send Computer Remote Desktop Command`
+        - `Send Mobile Device Restart Device Command`, `Send Mobile Device Shut Down Command`, `Send Computer Restart Command`, `Send Computer Shut Down Command`
     6. Click "Save"
   </Step>
   
@@ -58,7 +54,7 @@ Before starting the integration, ensure you have:
     1. Go to the API clients tab and click the "+" button to create a new API client
     2. Set the API client name to "June Integration API Client"
     3. Select the API role you created in the previous step
-    4. Set the access lifetime token to 60 (default value)
+    4. Leave **Access token lifetime** at its default
     5. Click on the "Enable API client" button
     6. Click "Save"
     7. Generate the API client secret by clicking on the "Generate" button
@@ -66,59 +62,54 @@ Before starting the integration, ensure you have:
   </Step>
 </Steps>
 
-### Step 2: Add Integration in June
+### Step 2: Connect Jamf Pro in June
 
 <Steps>
-  <Step title="Access Integrations">
+  <Step title="Open the Jamf Pro integration">
     1. Log into June
-    2. Navigate to Integrations page
-    3. Choose "Jamf Pro" from the available integrations
+    2. Go to **Settings** > **Integrations**
+    3. Select **Jamf Pro** under **Available Integrations**
   </Step>
   
   <Step title="Configure Jamf Pro">
-    1. Enter the Jamf Pro server URL
-    2. Provide the following information:
-    - **Jamf Pro Server URL**: Your Jamf Pro server URL (e.g., `https://yourcompany.jamfcloud.com`)
-    - **Client ID**: Client ID from the API account created in Step 1
-    - **Client Secret**: Client Secret from the API account created in Step 1
-    - **Sync Frequency**: How often June should sync with Jamf Pro. Default is daily.
-    3. Click "Save"
-    4. You should see whether you are successfully connected to Jamf Pro.
+    1. Provide the following information:
+    - **Your Jamf Pro API URL**: Your Jamf Pro server URL (e.g., `https://yourcompany.jamfcloud.com`). Leave off `/api`, even though the example in the form ends with it.
+    - **Client ID**: Client ID from the API client created in Step 1
+    - **Client Secret**: Client Secret from the API client created in Step 1
+    2. Click **Connect**
+    3. June tests the connection. If it succeeds, the integration shows **Connected** and the first sync starts automatically.
   </Step>
   
   <Step title="Test Connection">
-    1. Click "Test Connection" to verify the setup from the dropdown option.
-    2. June will attempt to connect and retrieve a sample of data
+    1. To check the connection later, open the **Connected** menu at the top of the integration's page and select **Test Connection**.
+    2. June signs in to Jamf Pro with your API client and shows whether it succeeded
     3. Resolve any connection issues before proceeding
   </Step>
 
-  <Step title="Kick off the sync">
-    1. Click "Sync Now" option from the dropdown to sync your data.
-    2. June will start syncing your data. 
-    3. You should see the sync progress in the "Sync Status" column.
-    4. You should start to see assets getting populated in June in a few minutes.
+  <Step title="Follow the sync">
+    1. The first sync starts when you connect. To sync again at any time, select **Sync Now** from the **Connected** menu.
+    2. You can follow progress in **Sync Status** and **Last Sync** on the integration's page.
+    3. Assets appear in June as the sync runs.
   </Step>
   
 </Steps>
 
-### Step 4: Configure Sync Settings
+### Step 3: Review Capabilities
 
 <Steps>
-  <Step title="Set Sync Frequency">
-    Choose how often June should sync with Jamf Pro:
-    - **Every day**: Recommended for most environments
-    - **Every other day**: For larger environments or limited bandwidth
-    - **Weekly**: For environments with fewer changes
+  <Step title="Sync Schedule">
+    June syncs with Jamf Pro once a day. Use **Sync Now** whenever you need fresher data.
   </Step>
   
-  <Step title="Choose Data to Sync">
-    Select which device attributes to synchronize:
-    - Device Data (Always included)
-    - Employee Data
-    - Location Data (office location data)
-    - Installed Software applications
-    - Purchase Data
-    - Device Actions (Restart, Lock, Wipe, etc.)
+  <Step title="What June Syncs">
+    The **Capabilities** section on the integration's page lists what June syncs from Jamf Pro:
+    - Sync all devices (always on)
+    - Sync all employees
+    - Sync locations (Jamf Pro buildings)
+    - Sync Software Applications (installed apps)
+    - Sync purchase data
+    
+    It also lists the device actions June can take in Jamf Pro: delete a device, restart, shut down, lock, turn Remote Desktop on or off, force a check-in, and look up a device lock PIN, recovery lock password or FileVault recovery key. Device actions need the device action privileges from Step 1. June also sends assignee and location changes made in June back to Jamf Pro.
   </Step>
 </Steps>
 
@@ -128,23 +119,23 @@ Before starting the integration, ensure you have:
 
 |Data Type | Jamf Pro Source | June Destination | Notes |
 |-----------|----------------|------------------|--------|
-| **Device Identity** | Computer Name, Serial Number | Device Name, Asset Tag | Primary device identification |
+| **Device Identity** | Computer Name, Serial Number, Asset Tag | Device Name, Serial Number, Asset Tag | Primary device identification |
 | **Hardware Info** | Model, Processor, Memory, Storage | Hardware Specifications | Complete hardware inventory |
 | **Software** | Operating System, Software Applications | System Info, App Inventory | OS version and installed apps |
 | **User Assignment** | User and Location fields | Employee Assignment | Links devices to users |
-| **Compliance** | Last Inventory, Check-in Status | Health Status | Device connectivity and compliance |
+| **Compliance** | Last check-in, security settings (FileVault, firewall, SIP, Gatekeeper, Secure Boot, Activation Lock) | Compliance and security details | Device connectivity and compliance |
 | **Smart Groups** | Smart Groups and their criteria | Device Groups | Which groups each device belongs to |
 | **Extension Attributes** | Extension attribute definitions and values | Device Attributes | Your custom device fields and what they mean |
 | **Department Data** | Device assignment to departments | Department and Location | Organizational groupings |
-| **Purchase Data** | Purchase Date, Warranty Info, Cost Center, Asset Tag | Asset Purchase Date, Warranty Expiration, Department Cost Center, Physical Asset Tag | Purchase data for assets |
+| **Purchase Data** | PO Date, PO Number, Purchase Price, Vendor, Warranty Date, Lease dates, Life Expectancy | Purchase Details | Purchase data for assets |
 
 ### Sync Process
 
 1. **Initial Sync**: Complete inventory sync on first connection
-2. **Incremental Updates**: We pull the latest data from Jamf Pro every day and also sync the data for individual devices that have been updated in the last 24 hours.
-3. **Conflict Resolution**: June handles data conflicts automatically
-4. **Error Handling**: Failed syncs are retried with exponential backoff
-5. **Integration Health**: We monitor the health of the integration and alert you if there are any issues.
+2. **Daily Updates**: June pulls the latest data from Jamf Pro once a day. App usage data syncs once a week.
+3. **Conflict Resolution**: When your identity provider and Jamf Pro disagree about a person's details, the identity provider wins. See [Asset status](/assets/asset-status) for how Jamf Pro sets a device's status and assignee.
+4. **Removed Devices**: Each night, June checks for devices that are no longer in Jamf Pro and stops counting them as managed by Jamf Pro.
+5. **Failed Syncs**: The integration's page shows **Sync failed**, and the **Activity** section shows the error.
 
 ## Troubleshooting
 
@@ -152,25 +143,23 @@ Before starting the integration, ensure you have:
 
 <AccordionGroup>
   <Accordion title="Authentication Failures">
-    **Symptoms**: "Invalid credentials" or "Authentication failed" errors
+    **Symptoms**: "Failed to connect to Jamf Pro" when you connect or test the connection
     
     **Solutions**:
-    - Verify API account username and password
-    - Ensure the account hasn't been disabled
-    - Check if password has expired
-    - Confirm API access is enabled for the account
-    - Click on the "Test Connection" button to verify the connection.
+    - Verify the Client ID and Client Secret
+    - Ensure the API client is enabled in Jamf Pro
+    - Check whether the client secret was regenerated or has expired
+    - Confirm the API client is assigned the June API role
+    - Select **Test Connection** from the **Connected** menu to verify the connection.
   </Accordion>
   
   <Accordion title="Network Connectivity">
     **Symptoms**: Connection timeouts or "Unable to reach server" errors
     
     **Solutions**:
-    - Verify Jamf Pro server URL is correct and accessible
-    - Check firewall rules allow June's IP addresses
+    - Verify the Jamf Pro server URL is correct and reachable from the internet
     - Ensure SSL certificate is valid (for HTTPS connections)
-    - Test connectivity from June's network to Jamf Pro
-    - Click on the "Test Connection" button to verify the connection.
+    - Select **Test Connection** from the **Connected** menu to verify the connection.
   </Accordion>
   
   <Accordion title="Permission Errors">
@@ -180,8 +169,8 @@ Before starting the integration, ensure you have:
     - Review API account permissions in Jamf Pro
     - Ensure all required object permissions are granted
     - Check if permissions apply to the right scope (All Objects vs. specific categories)
-    - Verify the account has API access enabled
-    - Click on the "Test Connection" button to verify the connection.
+    - Verify the API client is enabled
+    - Select **Test Connection** from the **Connected** menu to verify the connection.
   </Accordion>
 </AccordionGroup>
 
@@ -203,23 +192,22 @@ Before starting the integration, ensure you have:
   <Accordion title="Outdated Information">
     **Possible Causes**:
     - Devices not checking in regularly
-    - Sync frequency too low
+    - The last sync ran before the change
     - Network issues preventing updates
     
     **Solutions**:
-    - Increase sync frequency if needed
-    - Force inventory update on devices by clicking on the "Sync Now" button in the integration page.
+    - Select **Sync Now** from the **Connected** menu on the integration's page to pull the latest data from Jamf Pro. Jamf Pro only has new inventory after a device checks in.
     - Check device connectivity and management status
-    - Review sync logs for specific error messages
+    - Check the **Activity** section on the integration's page for specific error messages
   </Accordion>
   
   <Accordion title="Performance Problems">
-    **Symptoms**: Slow syncs, timeouts, high resource usage
+    **Symptoms**: Slow syncs or timeouts
     
     **Solutions**:
-    - Reduce sync frequency during peak hours
+    - Large environments take longer to sync. Follow progress in **Sync Status** on the integration's page.
     - Monitor Jamf Pro server performance during sync windows
-    - You could be hitting the rate limit of the Jamf Pro API. You could try to increase the sync frequency to reduce the number of devices that are synced.
+    - If a sync fails, check the **Activity** section for the error and contact June support
   </Accordion>
 </AccordionGroup>
 
@@ -228,20 +216,20 @@ Before starting the integration, ensure you have:
 Once your Jamf Pro integration is configured:
 
 <CardGroup cols={2}>
-  <Card title="Identity Provider Setup" href="/integrations/okta">
-    Connect your identity provider for complete user correlation
+  <Card title="Assets" href="/assets/assets">
+    Find, filter and assign the devices Jamf Pro syncs
   </Card>
-  
-  <Card title="Device Management" href="/device-management/asset-discovery">
-    Start managing your synced Mac devices with June's features
+
+  <Card title="Asset status" href="/assets/asset-status">
+    How Jamf Pro sets each device's status and assignee
   </Card>
-  
-  <Card title="Custom Views" href="/smart-search/creating-custom-views">
-    Create Mac-specific views and searches
+
+  <Card title="Compliance" href="/assets/compliance">
+    See which devices meet your security requirements
   </Card>
-  
-  <Card title="Compliance Monitoring" href="/security-compliance/security-policies">
-    Set up Mac-specific compliance monitoring
+
+  <Card title="Employees" href="/people/employees">
+    Connect your identity provider so devices match the right people
   </Card>
 </CardGroup>
 
@@ -250,10 +238,8 @@ Once your Jamf Pro integration is configured:
 Need help with your Jamf Pro integration?
 
 - **Documentation**: Review Jamf Pro API documentation
-- **Community**: Join the June community forum
 - **Support**: Contact June support with integration issues
-- **Professional Services**: Consider professional setup assistance for complex environments
 
 <Note>
-Jamf Pro integration typically syncs data within 15-30 minutes of initial setup. Large environments may take longer for the initial sync to complete.
+The first sync starts as soon as you connect Jamf Pro. Large environments take longer for the initial sync to complete.
 </Note> 

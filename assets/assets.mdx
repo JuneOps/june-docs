@@ -1,0 +1,106 @@
+---
+title: 'Assets'
+description: 'Every device and peripheral in one inventory, with a detail page per asset and a catalog of the products they belong to.'
+---
+
+Assets is June's inventory of devices and peripherals, with a detail page for each and a catalog of the products they belong to.
+
+<Frame caption="The Assets dashboard: totals, compliance, discovery over time and what needs attention.">
+  <img src="/images/assets/assets-dashboard.png" alt="The Assets dashboard with tiles for Total assets, Average age, Total cost and Compliance, an Asset Discovery Over Time chart, and a Needs Attention card listing Lost Assets and Refresh due soon" />
+</Frame>
+
+Owners and Admins can view and edit. Members can view and export. Roles without asset access (Software Procurement, AI Usage) do not see Assets in the sidebar. See [Members and roles](/admin/roles).
+
+## How assets get into June
+
+There is no Add button. Assets arrive from the systems you connect and from files you import.
+
+| Way in | What it brings |
+|---|---|
+| Device management: [Jamf Pro](/integrations/jamf-pro), [Kandji](/integrations/kandji), [Microsoft Intune](/integrations/microsoft-intune) | Managed devices, their user and their security details |
+| [Apple Business](/integrations/apple-business) | Devices bought through Apple, with purchase dates |
+| [Firstbase](/integrations/firstbase) | Managed devices only: computers, phones, tablets and Apple TVs. Accessories are skipped |
+| [CSV import](/admin/import-data) | Devices and peripherals, including costs and dates |
+| Ask June in the [Agent](/agents/agent) | Peripherals (monitors, keyboards, mice, docks, headsets, headphones) created from an existing catalog product, 1 to 50 at a time |
+
+Each serial number is unique in your organization. A peripheral with no serial gets a generated ID that starts with `JUNE-`. When these sources disagree about a device, see [Asset sources](/assets/asset-sources).
+
+## The dashboard
+
+The dashboard shows totals, compliance and discovery over time, plus a **Needs Attention** card for lost assets and devices due for refresh in the next 90 days.
+
+- **Total cost** shows to roles with **Asset Procurement & Depreciation** access, which Members have.
+- **Compliance** shows to roles with **Device Compliance & management details** access, which Members have. It reads "Not configured" until you [set up compliance](/assets/compliance).
+
+## All Assets
+
+Go to **Assets > All Assets**.
+
+The list opens with a default **Status** filter that hides Lost, Decommissioned, Locked and Recycled. Click **Display** and add them under **Status** to see those devices. Your filter choices stay in your browser.
+
+- **Search** matches text, or takes plain language in Smart mode, such as "assets assigned to Bob" or "devices created in the last 30 days".
+- **Export** downloads the rows you are looking at, filters and search included. It needs **Export assets & products** plus view access to costs and security details. Members have all three.
+
+Click a Status, Assignee or Condition cell to edit it in place (Owners and Admins). Tick rows to change the status or condition of many at once. An unlocked status can be replaced by a later sync, see [Asset status](/assets/asset-status).
+
+### Reassign a device
+
+Click the **Assignee** cell (or **Assigned To** on the detail page), choose to assign, re-assign or unassign, pick an employee or location, and confirm.
+
+If the device is in an MDM, June updates the MDM first. For Kandji and Intune you can pick only people who exist in that tool. If the MDM returns an error, nothing changes in June. If the MDM does not have the device, June saves the assignment and sets Awaiting Enrollment.
+
+Assigning to a location removes the person in Kandji and Intune, and in Jamf when the location is one of its buildings. Assigning to a person turns Available, Other or blank into Deployed. Assigning to a location turns Deployed, Other or blank into Available. See [Employees](/people/employees) and [Locations](/people/locations).
+
+## Asset detail
+
+Click a row to open the asset. The header shows who it is assigned to, last check-in, status, condition and sources.
+
+<Frame caption="A MacBook Pro's Overview tab: header, tabs, summary tiles, Device Details and Compliance.">
+  <img src="/images/assets/asset-detail-overview.png" alt="The Overview tab of a MacBook Pro named Boltpalm, Deployed, assigned to Addison Miller, with the tab row, tiles for Purchase Cost, Warranty Expiry, Installed Apps, Refresh Status (Refresh Now) and Operating System, a Device Details card, and a Compliance card reading Compliant; every applicable check passed" />
+</Frame>
+
+**Overview** holds device and purchase details, compliance, sources, and a history of status, assignment and ownership changes. **Device Activity** shows check-ins, device groups, and recovery keys and unlock codes for people allowed to reveal them. **Procurement** holds orders and returns; see [Orders and returns](/assets/orders-and-returns). **Refresh**, **Depreciation** and **Applications** cover replacement planning, value and installed apps.
+
+Peripherals hide Device Activity, Refresh, Depreciation and Applications, and are never assessed for compliance.
+
+Click **Ownership** in Device Details to set Corporate, Personal, Other or Unknown. Your choice is kept over what the MDM reports.
+
+### Remove a device from its MDM
+
+Open the "..." menu on the detail page, click **Remove from MDM**, and confirm. The menu item appears only for devices in an MDM, and only for Owners and Admins (**Delete assets & Refresh Policies**). June never removes a device on its own.
+
+## Product Catalog
+
+Go to **Assets > Product Catalog**. A product is a model, such as a laptop line, that assets belong to. The list shows Active products by default; use **Display** to show Archived ones.
+
+<Frame caption="The Product Catalog: name, SKU, manufacturer, asset count, price and status for each product.">
+  <img src="/images/assets/product-catalog.png" alt="The Product Catalog list with columns Name, SKU, Manufacturer, Assets, Price, Updated, Status and Actions" />
+</Frame>
+
+Products are created by your connected sources and by the Agent; there is no New product button. From a row's menu you can add or edit a price, and archive or activate the product.
+
+A price must be above zero, prices for one product cannot overlap, and only one can be open-ended. A price change updates the catalog price on every asset of that product. Where an asset's price label comes from is on [Refresh and depreciation](/assets/refresh-and-depreciation#purchase-details).
+
+## If something looks wrong
+
+**A status you expect is missing from the picker.** The picker offers only statuses that fit the assignee. See [Asset status](/assets/asset-status).
+
+**Condition cannot be clicked.** The device has no condition data yet.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="How do I add a monitor or dock?">
+Ask June in the [Agent](/agents/agent) to create it from a catalog product, or import a CSV. The product must already exist in the Product Catalog.
+</Accordion>
+<Accordion title="When does a change take effect?">
+A status, assignee or condition you change in June applies immediately, and an assignment is written to the MDM at once. What your integrations report arrives with their next sync, see [Asset status](/assets/asset-status).
+</Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Asset status](/assets/asset-status)
+- [Asset sources](/assets/asset-sources)
+- [Compliance](/assets/compliance)
+- [Employees](/people/employees)

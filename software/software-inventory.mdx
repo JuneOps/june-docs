@@ -1,0 +1,138 @@
+---
+title: 'Software inventory'
+description: 'Every application June has found in your organization, with who uses it, what it costs and who owns it.'
+---
+
+The software inventory lists every application June has found, with its users, devices, contract, health status and owners. The list is called **All Applications**.
+
+**Who can do this:** every role except AI Usage can view the inventory. Software Procurement, Admin and Owner can edit stakeholders, categories, departments, vendor contacts and groups. Member, Software Procurement, Admin and Owner can export. See [Members and roles](/admin/roles).
+
+## The Software dashboard
+
+Click **Resources > Software**. The dashboard opens first.
+
+<Frame caption="The Software dashboard">
+  <img src="/images/software/software-inventory-dashboard.png" alt="The Software dashboard with cards for Total Applications, Total Spend, Contracts and Apps with Owners, then App Discovery Over Time and Spend by Department" />
+</Frame>
+
+The dashboard shows totals, app discovery over time, spend by department, upcoming renewals, apps without a contract or owner, and the most recent, most active and least active apps. On **Apps with Owners** you can switch between Managed and Unmanaged apps. Click **Total Applications** or **Contracts** to open that list. Cards that need contract or usage permissions are hidden without them.
+
+## Open the list
+
+Click **All Applications**, or **Total Applications** on the dashboard. Click a row to open the app.
+
+<Frame caption="All Applications in list view">
+  <img src="/images/software/software-inventory-list.png" alt="The All Applications list with columns for Application, Users / Devices, Contract, Last Activity, Status and Source" />
+</Frame>
+
+## Where apps come from
+
+| Source | What June learns |
+|---|---|
+| [Okta](/integrations/okta) | Apps active in your Okta org, and sign-ins through Okta |
+| [Google Workspace](/integrations/google-workspace) | Apps people sign into with Google. The source appears once June sees a **Sign in with Google** event for the app |
+| [Microsoft Entra](/integrations/microsoft-entra) | Apps people sign into through Entra |
+| [Microsoft Intune](/integrations/microsoft-intune), [Jamf Pro](/integrations/jamf-pro), [Kandji](/integrations/kandji) | Apps installed on managed devices |
+| [Zip](/integrations/zip), [Coupa](/integrations/coupa) | Apps named in contracts, when June recognizes the product |
+| [Browser extension](/agents-extensions/browser-extension) | People and active time in apps your organization has set it to track |
+| Added manually, Added via chat | Apps a person created from a contract or through [Agent](/agents/agent) |
+
+If people reach an app through Okta, Okta records the sign-in instead of Google. "Added manually" and "Added via chat" show only while they are the app's only source.
+
+**What June does on its own:**
+
+- It adds apps and updates them from your connected sources.
+- It removes a source when Okta, Microsoft Entra (including Intune devices), Jamf Pro or Kandji stop seeing the app on a full sync. Google, Zip, Coupa and the browser extension keep their history.
+- It recalculates health.
+- It raises a daily **New apps detected** signal in Signals (June's alerts, under **Signals** in the sidebar when Signals is turned on) for apps found in the last 24 hours. The signal needs no action.
+
+June never changes your apps and never removes anyone's access.
+
+### Managed and unmanaged
+
+An app is **Managed** when it comes from Okta: it is an active app in your Okta org, or June sees people sign in to it through Okta. Apps found any other way are **Unmanaged**, including those from Google or Microsoft Entra sign-ins, device scans, contracts and the browser extension.
+
+<Warning>
+The list opens filtered to **Managed** the first time you visit. If you use Google Workspace or Microsoft Entra for sign-in and have not connected Okta, it can look empty. Open the display settings (the filter icon at the right end of the toolbar) and set **Managed** to **All**. June remembers your settings in this browser, and the toolbar shows **Showing X of Y** when the list is shorter than the catalog.
+</Warning>
+
+## Add an app June has not found
+
+There is no add-app form. Use either path:
+
+1. [Create a contract](/software/contracts), type the app's name in **Software Application** and choose **Link to "name"**.
+2. Ask June in the [Agent](/agents/agent) to add it.
+
+## Find apps in the list
+
+Type in **Search software...** or open the display settings. You can filter by contract, minimum users or devices, platform (which hides browser-only apps) and source, and sort by name, health status, users, contract value and more. A few defaults change what you see:
+
+- **Managed** starts on Managed on your first visit.
+- **Include OS-bundled apps** is off. Turning it on adds system apps such as Finder and Notepad.
+- **Unused apps** are left out by default. They have no users, no devices and no active contract. An app with an active contract and no usage stays in the list.
+
+For paid seats nobody uses, see [Unused licenses](/software/unused-licenses). Settings you lack permission for are hidden.
+
+**Unmanaged apps installed on 10 or more devices:** set **Managed** to **Unmanaged** and **Min Devices** to **10+**.
+
+**An app with no users and no contract:** set **Managed** to **All** and **Unused apps** to **Include**.
+
+**Apps with an active contract:** set **Contract** to **Active Contract**, then click the download icon (**Export CSV**) at the right end of the toolbar.
+
+## Health status
+
+Each app has a health badge. June recalculates it when a contract changes and when synced users or devices for the app change. It checks the rules in this order and uses the first match.
+
+| Status | Group | Rule |
+|---|---|---|
+| **Needs licenses** | Attention Needed | An active contract has a license count, and users or devices (whichever is higher) exceed it. Site licenses are skipped |
+| **Shadow IT** | Attention Needed | Unmanaged, no active contract, and installed on 10 or more devices, or on at least as many devices as 5% of your employee count |
+| **No Activity** | Attention Needed | 5 or more users, or users equal to at least 5% of employees, and none active in the last 30 days |
+| **Low adoption** | Attention Needed | Same user threshold, and either more than 10 are inactive or more than half are |
+| **Excess licenses** | Attention Needed | Licensed seats are more than 1.5 times actual usage. Site licenses are skipped |
+| **No contract** | Missing Info | Managed, the same user threshold, and no active contract |
+| **Healthy** | Healthy | Managed with 80% or more of users active, or Managed with a contract and significant installs |
+| **Needs review** | Missing Info | None of the above match |
+
+"Active" means last active in the last 30 days. "Significant installs" means 10 or more devices, or devices equal to at least 5% of employees. Click a badge on the app page to ask June in the Agent why the app has that status and what you can do.
+
+## The app page
+
+An app's page has tabs for its overview (usage, spend, contract details, stakeholders, vendor contact, security, categories, departments and grouped apps), **Subscriptions** (each person with access, with last active), **Installations** (devices), **Access** (see [Access policies](/agents/access-policies)), **Contracts** (see [Contracts](/software/contracts)), **Notes & Docs** and **Runbooks** (see [Unused licenses](/software/unused-licenses)). **Entitlements** and **Reviews** hold access reviews, on Enterprise with access reviews enabled.
+
+Tabs and cards depend on your permissions. Apps grouped under another app show only Overview, Subscriptions and Installations.
+
+## Owners and stakeholders
+
+Stakeholders are the people responsible for an app. Add one under **Overview > Stakeholders** by choosing an employee and a role. Remove one with the trash icon. Changes take effect immediately.
+
+A **Budget Owner** or **Contract Owner** is what counts as an owner. It sets **Apps with Owners** and the owner shown on **Upcoming Renewals**. The **No Designated Owner** Quick start checks for an owner and for a vendor contact. The role picker lists the other roles, including Access Approver, which [access policies](/agents/access-policies) use.
+
+## Organize apps
+
+- **Categories and Departments:** on Overview, click **+** on the card and select values. Categories can be created, renamed and deleted there.
+- **Vendor Contact:** add a name, email and phone. Contract document processing fills an empty contact but never overwrites one you typed.
+- **Group duplicates:** on **Grouped Applications**, click **Group another application** and select the apps. A grouped app leaves the list, and its users, devices and contracts count once under the parent. Click **Ungroup** to reverse it.
+
+## Export
+
+Click the download icon (**Export CSV**) at the right end of the toolbar to get a CSV of the apps in the current filters and sort. It has every list column plus contract, compliance and vendor contact fields. Exporting needs the Export software data permission.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="An app I sign into with Google or Microsoft Entra shows as Unmanaged">
+    Only Okta makes an app Managed. Google and Microsoft Entra add the app and its sign-ins, so it is listed as Unmanaged.
+  </Accordion>
+  <Accordion title="What happens when someone leaves?">
+    June removes the access it learned from their Google, Microsoft Entra and browser-extension activity. Apps assigned in Okta stay on their record until the assignment is removed in Okta, for example when you deactivate them. Usage from people who are not employees does not count.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Contracts](/software/contracts)
+- [Software renewals](/software/software-renewals)
+- [Unused licenses](/software/unused-licenses)
+- [Access policies](/agents/access-policies)
+- [Members and roles](/admin/roles)

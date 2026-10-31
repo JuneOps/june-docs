@@ -1,0 +1,74 @@
+---
+title: 'Orders and returns'
+description: 'See device orders, returns and tracking from your logistics provider, and what June does when a device ships or comes back.'
+---
+
+When you connect a logistics provider such as [Firstbase](/integrations/firstbase), June reads its orders and returns and shows them next to the device and the person.
+
+June does not place orders or start returns. It does not remove a device from your MDM when someone leaves: **Remove from MDM** on the asset is a manual action. Decisions such as legal hold or what to do with damaged devices stay with you, and you can automate your own policy with a [runbook](/agents/runbooks).
+
+Orders and returns show on the **Procurement** tab, which Owners, Admins and Members can open. Assigning a device from a suggestion in Signals (June's alerts, under **Signals** in the sidebar when Signals is turned on) needs an Owner or Admin. See [Members and roles](/admin/roles).
+
+## The Procurement tab
+
+Open an asset and click **Procurement**.
+
+<Frame caption="The Procurement tab during a return"><img src="/images/assets/orders-and-returns-procurement.png" alt="Procurement tab tiles for Deploy Status, Condition, Reported Assignee, Open Return and Source (Firstbase), with Order History showing a pending offboarding return" /></Frame>
+
+The tiles show the provider's own view of the device: its stage (with the reason on hover), condition grade, who it says has the device (or "Provider warehouse: [name]"), whether a return is open, and the source. Members do not see the source tile. June's own status is in the header.
+
+**Order History** lists one row per order or return, such as an onboarding order, an offboarding return or a replacement. Each row shows its status and date, who it is for, the return reason, and the serial. Open tracking from the row, or copy the tracking code.
+
+A return sent with no retrieval arranged has no tracking. An order line has no device until the provider assigns a serial. If the tab is empty, it says "No procurement data" (no provider reports this device) or "No order history".
+
+## Ship a laptop to a new hire
+
+1. Place the order in your logistics provider.
+2. June picks it up in the next sync, see [Asset status](/assets/asset-status). It appears on the device's Procurement tab once the item has a serial.
+3. Until the device enrolls in device management, June shows it as **Awaiting Enrollment** with the new hire as assignee, as long as the new hire is an employee in June.
+4. As soon as it enrolls, it becomes **Deployed** with the new hire. If your device management tool later names a different user, that user wins.
+
+June also raises an **Onboarding scheduled** signal for the new hire in Signals. It lists their devices and access, and while they have no device it suggests assigning one in June and in your MDM.
+
+## Get a laptop back from a leaver
+
+1. Start the return in your logistics provider.
+2. June shows the return and its tracking. The device becomes **Pending Return** and keeps the leaver as assignee.
+3. When the provider's warehouse receives the device, June removes the leaver and assigns the device to the provider's warehouse. Restocked devices become **Available**, repairs **In Repair**, and anything else **Pending Return** until restocked. A device under a data hold keeps its status. The full list is on [Asset sources](/assets/asset-sources).
+
+June also raises an **Offboarding scheduled** signal for the leaver in Signals. It stays open past the last day until the person holds no devices and no managed app access, and it can suggest moving a returned device to the warehouse location.
+
+## When the signals appear
+
+- **Onboarding scheduled** opens when the start date is within 90 days and is due 3 days after the start date.
+- **Offboarding scheduled** opens when the leave date is within 90 days and is due 14 days after the leave date.
+
+Before the start date, Onboarding scheduled stays open even if the person has a device. After the start date it resolves once the person has a device, or when the due date passes. Change the due days in **Settings > Organization Policies**. Hire and leave dates come from [Employees](/people/employees).
+
+## If something looks wrong
+
+| You see | Why |
+|---|---|
+| The return was delivered but the leaver is still the assignee | June unassigns when the provider's warehouse holds the device. Until the warehouse records it, the device stays Pending Return with the person |
+| The Offboarding scheduled signal is still open | The person still holds a device or managed app access |
+| No tracking link on a return | The return was created without a retrieval method |
+| An accessory order is missing | June reads managed devices only, not accessory-only orders |
+| The provider shipped a device but nothing shows on Procurement | The order line needs a serial, then the next sync |
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="What can I ask June about orders?">
+You can ask June in the [Agent](/agents/agent) to list orders, returns and inventory by person or serial, and to flag orders that were declined or have a delivery exception, and returns that were not returned.
+</Accordion>
+<Accordion title="Why does Procurement show a different status from the header?">
+Procurement shows the provider's own stage for the device. The header shows June's status, which follows the order on [Asset status](/assets/asset-status).
+</Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Asset sources](/assets/asset-sources)
+- [Asset status](/assets/asset-status)
+- [Employees](/people/employees)
+- [Locations](/people/locations)

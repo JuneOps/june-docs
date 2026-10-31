@@ -1,0 +1,111 @@
+---
+title: 'Unused licenses'
+description: 'Find seats nobody uses, ask employees whether they still need them, and take the seats back before renewal.'
+---
+
+Unused licenses are paid seats nobody is using. You find them in each app's usage numbers, check with the people who hold them, then remove access and lower the seat count at renewal.
+
+This page is about seats. For apps with no users, devices or contract, see the **Unused apps** setting in [Software inventory](/software/software-inventory#find-apps-in-the-list).
+
+**Who can do this:** Member, Software Procurement, Admin and Owner can see usage and idle seats. Creating a runbook from a template needs an Admin or Owner. Admins and Owners can also ask June in the [Agent](/agents/agent) to remove access and manage access policies. Removing someone directly in your identity provider needs admin rights there. See [Members and roles](/admin/roles).
+
+## What counts as unused
+
+A person is **active** in an app when they have access and were last active in the last 30 days. **Active Users** on the app Overview shows active over total.
+
+June learns when someone was last active from these sources:
+
+- [Okta](/integrations/okta): sign-ins.
+- [Google Workspace](/integrations/google-workspace): Sign in with Google events.
+- [Microsoft Entra](/integrations/microsoft-entra): sign-ins.
+- [Browser extension](/agents-extensions/browser-extension): active time in apps you set it to track.
+
+Jamf Pro also reports how long each app is used on each Mac, shown as **Daily Usage** and **Last Used** on the app's **Installations** tab. Device usage does not count toward Active Users, idle seats or health status.
+
+An assignment alone gives no activity. On the app Overview and in health status, anyone not active in the last 30 days counts as inactive, including people June has no activity for. The Software Usage Report and the Agent treat missing activity as unknown instead, and list those people separately.
+
+## See idle seats and what they cost
+
+Open the app, then **Overview**.
+
+- **Active Users:** active over total, such as 18 / 40.
+- **Licenses:** the number you pay for. It turns red when users exceed licenses.
+- **Seat Allocation:** subscriptions against licenses. Amber is 80 to 99%, red is 100% or more.
+- **Idle seat cost:** shown as "~\$X / yr" with a note such as "3 idle × \$240".
+
+Idle seats are the smaller of two numbers: your inactive users, or your licenses minus active users. Idle seat cost is idle seats times annual spend divided by licenses.
+
+## List who has not used an app
+
+Open the app's **Subscriptions** tab and sort the **Last Active** column oldest first. The line above the list shows how many people used the app in the last 30 days.
+
+To find former employees who still hold access, set **Employee status** to **Inactive** in the display settings. The **Last used** filter keeps only people who used the app within 30, 60 or 90 days, or in a custom range. The **Installations** tab works the same way for devices.
+
+## Find apps where spend is wasted
+
+- **All Applications**, sorted by **Health Status**: badges for **No Activity**, **Low adoption**, **Excess licenses** and **Needs licenses**. Rules are in [Software inventory](/software/software-inventory#health-status).
+- **Software** dashboard: the **Top 10 least active** apps.
+- **Runbooks > Quick starts > Low Adoption**: licensed apps where users are below 25% of licensed seats.
+- [Agent](/agents/agent): ask "Which users have not used Miro in 60 days?" The Agent lists someone as a candidate only when their last-used date exists and is older than your cutoff.
+
+## Ask before you remove
+
+Open the app's **Runbooks** tab and pick a template. Once the app has runbooks, click **New runbook** first. Choose who it covers: everyone assigned, or specific groups.
+
+- **Software Usage Report:** reports who used the app in the last 30 days, who did not (with last-used dates), and who has no data.
+- **Software Usage Employee Survey:** messages each assigned employee in Slack asking whether they still need access, with Yes and No. Sends one reminder after 1 day and closes after 4 days. Needs [Slack](/integrations/slack).
+
+Both run every Monday at 1:00 PM Eastern and act only when the app's earliest active contract ends in 84 to 90 days. If the contract ends sooner, or has no end date, they do not run; ask June in the Agent instead. A "No" answer does not remove anyone. See [Runbooks](/agents/runbooks).
+
+## Take seats back
+
+June does not remove a seat on its own initiative.
+
+| Way | How it works |
+|---|---|
+| **Approved June action** | Ask June in the Agent to remove someone from the Okta or Google group that grants the app. Only an Admin or Owner can ask, and June asks for approval before it runs |
+| **Access policy** | When time-bound access ends, June starts removal: an Okta or Google group or a custom tool removes the seat, and with **Manual task** (the default) IT removes it and confirms. See [Access policies](/agents/access-policies) for when a policy runs |
+| **A runbook your team built** | A runbook action that removes access runs without asking each time when its actions are **Autonomous**. See [when June acts without asking](/agents/agent#when-june-acts-without-asking) |
+| **Your identity provider** | Remove the assignment in Okta, Google Workspace or Microsoft Entra directly |
+
+To free one app's seat, remove the person from the group that grants it. June has no per-app unassign. Deactivating or suspending someone in Okta removes their access to every app, not one.
+
+After you remove an Okta assignment, the person drops off the app's Subscriptions list on the next Okta sync, unless June also recorded their access another way. Access June learned from Google or Microsoft Entra sign-ins, or from the browser extension, stays on the list until the person leaves your organization, even after you remove them from a Google group. If they still need the app, assign it again in your identity provider.
+
+Removing access does not change what you pay. At renewal, lower the seat count with the vendor, then update **Number of Licenses** on the [contract](/software/contracts) so idle seat cost reflects it.
+
+## If something looks wrong
+
+<AccordionGroup>
+  <Accordion title="Last Active is blank for some people">
+    The source gave June the assignment but no sign-in or usage. Connect sign-in data from Okta, Google Workspace or Microsoft Entra, or deploy the [browser extension](/agents-extensions/browser-extension) for the app.
+  </Accordion>
+  <Accordion title="Idle seat cost shows None">
+    The app has no license count, is a site license, or has no idle seats. If the row is missing, you lack permission to see subscriptions and usage. Add the count in the app's [contract](/software/contracts).
+  </Accordion>
+  <Accordion title="The templates are not on the Runbooks page">
+    The Software Usage Report and Software Usage Employee Survey templates appear only on an app's **Runbooks** tab.
+  </Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How does June decide someone is not using an app?">
+    No recorded activity in the last 30 days. Idle seat counts include people June has no activity for; the usage report and the Agent list those people separately as unknown.
+  </Accordion>
+  <Accordion title="Is there one total for what I could save?">
+    Idle seat cost is shown per app on its Overview. There is no organization-wide total.
+  </Accordion>
+  <Accordion title="Can I survey users without Slack?">
+    No. The survey runs over Slack. The usage report does not need Slack.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Software inventory](/software/software-inventory)
+- [Contracts](/software/contracts)
+- [Software renewals](/software/software-renewals)
+- [Runbooks](/agents/runbooks)
+- [Access policies](/agents/access-policies)
