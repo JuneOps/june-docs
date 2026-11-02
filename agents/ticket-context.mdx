@@ -10,8 +10,8 @@ Ticket context is a comment June adds to your Jira tickets with the details IT n
 **Who can do this:** Admin and Owner, who can set up integrations.
 
 <Steps>
-  <Step title="Connect Jira">
-    Follow [Jira](/integrations/jira) to connect Jira and its webhooks.
+  <Step title="Connect Jira and register the webhook">
+    Follow [Jira](/integrations/jira) to connect Jira, then [register the webhook](/integrations/jira#webhook-configuration) and save its secret. Without the webhook, June doesn't hear about new tickets, so it adds no context. The webhook's JQL filter must include your IT project.
   </Step>
   <Step title="Enter the project key">
     Under **Settings** > **Integrations** > **Jira**, enter your IT project's key in **Default Project Key** (the same field June uses when it creates tickets), for example `IT`. June tracks one project, so enter one key.
@@ -20,7 +20,7 @@ Ticket context is a comment June adds to your Jira tickets with the details IT n
 
 June considers each new ticket in that project for a comment. For tickets that already exist, it considers each one the first time it changes after you set the key. With **Default Project Key** blank, June doesn't track tickets and posts nothing. June posts this comment on its own; see [When June acts without asking](/agents/agent#when-june-acts-without-asking).
 
-**Automatically enrich tickets**, in the same settings, is on by default. Turn it off to stop June from adding this comment and linking tickets to people and devices. Tickets June already linked stay in June.
+**Automatically enrich tickets**, in the **Webhooks** section of the Jira integration page, is on by default. Turn it off to stop June from adding this comment and linking tickets to people and devices. Tickets June already linked stay in June.
 
 ## Who can see the comment
 
@@ -83,7 +83,7 @@ The **Tickets** tab on an employee or an asset lists each linked ticket. Click a
 
 <AccordionGroup>
   <Accordion title="June didn't comment on a ticket">
-    Check that the ticket is in the project entered in **Default Project Key**, and that the Jira connection is active. If the reporter couldn't be matched, June posts a comment saying so; see "The wrong person, or nobody, was matched" below. If your organization has the comment chosen by ticket, June also posts nothing for an announcement or FYI, for a ticket that isn't about the reporter, and for an AI usage request that isn't clearly about Claude, ChatGPT or Cursor.
+    Check that the ticket is in the project entered in **Default Project Key**, that the Jira connection is active, and that the webhook is connected with a JQL filter that includes the project. If the reporter couldn't be matched, June posts a comment saying so; see "The wrong person, or nobody, was matched" below. If your organization has the comment chosen by ticket, June also posts nothing for an announcement or FYI, for a ticket that isn't about the reporter, and for an AI usage request that isn't clearly about Claude, ChatGPT or Cursor.
   </Accordion>
   <Accordion title="It says No devices currently assigned">
     No asset in June is assigned to that employee. Assign one on the asset page.
