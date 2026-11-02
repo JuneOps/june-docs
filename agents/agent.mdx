@@ -14,7 +14,6 @@ The Agent is June's assistant. You ask in plain language, in the web app or in S
 - [Reachouts and forms](/agents/reachouts): June messages employees by Slack or email and collects their answers.
 - [Signals](/agents/signals): June's alerts about devices, people, apps and contracts that need attention.
 - [Access policies](/agents/access-policies): the rules for who can get an app, who approves, and how access is granted and removed.
-- [Ticket context](/agents/ticket-context): a comment on your Jira tickets with the reporter's details and devices. Separate from Context and memory.
 
 ### Set up June's agent
 
@@ -35,7 +34,7 @@ The Agent is June's assistant. You ask in plain language, in the web app or in S
 | Employee Request runbooks | Approval for an action is an approval chain, such as the requester's manager. It is off until you add one. |
 | Access policies | A policy with no approval step approves on its own; one with approvers waits for them. June then grants and later removes access itself through an Okta or Google group or a custom tool, or asks IT to do it with a **Manual task** (the default). See [Access requests](/help-desk/access-requests). |
 | AI limit policies | A tier with no approval step raises the limit on its own; one with approvers waits for them. June then changes the limit in Claude or ChatGPT itself. See [AI limit requests](/help-desk/ai-limit-requests). |
-| Notes and notifications | June writes to Jira and Slack on its own, for example: the [Reporter Details comment](/agents/ticket-context), a Jira tracking ticket (kept in sync with the request) and a Slack notifications thread when it hands a request to IT, access notices to requesters and IT, and runbook failure alerts. |
+| Notes and notifications | June writes to Jira and Slack on its own, for example: the [ticket context comment](/agents/ticket-context), a Jira tracking ticket (kept in sync with the request) and a Slack notifications thread when it hands a request to IT, access notices to requesters and IT, and runbook failure alerts. |
 | Memory | June saves durable, organization-wide facts without asking. It never saves private or person-specific details. |
 
 Runbook actions still ask for approval when:

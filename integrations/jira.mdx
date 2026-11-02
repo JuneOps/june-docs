@@ -9,7 +9,7 @@ icon: '/images/jira_logo.png'
 Connect your Jira environment with June to enable an intelligent AI agent that can triage, respond to, and manage tickets on your behalf.
 
 <Info>
-June does **not** import your Jira backlog. June works on tickets you assign to it or mention it in. In the projects you track, June also records new tickets so it can link them to the reporter and their devices.
+June does **not** import your Jira backlog. June works on tickets you assign to it or mention it in. In the projects you track, June also records new tickets so it can link them to the people and devices they are about. See [Ticket context](/agents/ticket-context#linking-tickets-to-people-and-devices).
 </Info>
 
 ## What you'll accomplish
@@ -70,8 +70,8 @@ Once triggered, June can perform the following actions on Jira tickets:
     Mention June in a comment to get AI-assisted responses based on your knowledge base and asset data.
   </Accordion>
   
-  <Accordion title="Add reporter context">
-    In the projects you track, June adds an internal comment to each new ticket with the reporter's details and devices. See [Ticket context](/agents/ticket-context).
+  <Accordion title="Add context to new tickets">
+    In the projects you track, June adds an internal comment to new tickets with the details IT needs about the people and devices involved. See [Ticket context](/agents/ticket-context).
   </Accordion>
   
   <Accordion title="Run a runbook on new tickets">
@@ -402,7 +402,7 @@ Once your Jira integration is configured:
   </Card>
 
   <Card title="Ticket context" href="/agents/ticket-context">
-    Add the reporter's details and devices to each ticket
+    Add the details of the people and devices involved to new tickets
   </Card>
 
   <Card title="Runbooks" href="/agents/runbooks">
