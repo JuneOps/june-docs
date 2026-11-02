@@ -42,13 +42,13 @@
               "agents/runbooks",
               "agents/reachouts",
               "agents/signals",
-              "agents/access-policies",
-              "agents/ticket-context"
+              "agents/access-policies"
             ]
           },
           {
             "group": "Help desk",
             "pages": [
+              "agents/ticket-context",
               "help-desk/requests",
               "help-desk/access-requests",
               "help-desk/ai-limit-requests",

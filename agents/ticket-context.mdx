@@ -1,9 +1,9 @@
 ---
 title: 'Ticket context'
-description: 'See who filed an IT ticket and which devices they have, without looking anything up, and see every ticket a person or device has filed.'
+description: 'See the details IT needs on an IT ticket, such as the person, their devices and their AI usage, without looking anything up, and see the tickets linked to each person and device.'
 ---
 
-Ticket context is a comment June adds to your Jira tickets with the reporter's details and devices. It is separate from [Context and memory](/agents/context-and-memory), which is the knowledge June uses in chats.
+Ticket context is a comment June adds to your Jira tickets with the details IT needs about the people and devices involved. It is separate from [Context and memory](/agents/context-and-memory), which is the knowledge June uses in chats.
 
 ## Turn it on
 
@@ -18,38 +18,60 @@ Ticket context is a comment June adds to your Jira tickets with the reporter's d
   </Step>
 </Steps>
 
-June comments on each new ticket in that project. For tickets that already exist, it comments the first time each one changes after you set the key. With **Default Project Key** blank, June doesn't track tickets and posts nothing. June posts this comment on its own; see [When June acts without asking](/agents/agent#when-june-acts-without-asking).
+June considers each new ticket in that project for a comment. For tickets that already exist, it considers each one the first time it changes after you set the key. With **Default Project Key** blank, June doesn't track tickets and posts nothing. June posts this comment on its own; see [When June acts without asking](/agents/agent#when-june-acts-without-asking).
+
+**Automatically enrich tickets**, in the same settings, is on by default. Turn it off to stop June from adding this comment and linking tickets to people and devices. Tickets June already linked stay in June.
 
 ## Who can see the comment
 
 In a Jira Service Management project, June posts the comment as an internal note, so the requester doesn't see it in the portal.
 
+<Note>
 In other Jira project types, Jira has no internal comments. Anyone who can view the ticket, including the reporter, can see the comment. If that matters for your project, track a Service Management project.
+</Note>
 
 ## What the comment contains
 
-The comment is titled **Reporter Details** and signed "Posted by June". It has two sections:
+June posts at most one comment per new ticket, signed "Posted by June". It doesn't update when the ticket changes. If June can't post it because Jira is unreachable, it doesn't retry.
+
+Choosing the comment by the kind of ticket is being turned on for organizations one at a time, after linking. To turn it on for yours, contact us. Until it is on, June posts the Reporter Details comment on every ticket.
+
+### Reporter Details
+
+The comment is titled **Reporter Details**. It has two sections:
 
 - **Reporter Details:** name, email, department, location and title. Fields June doesn't have are left out. Email is always shown.
 - **Assigned Devices:** a numbered list. Each device shows product, serial, operating system and status, plus last check-in, purchase date and warranty expiry where June knows them. If no device is assigned, the comment says so.
 
-June posts the comment once per ticket. It doesn't update when the ticket changes. If June can't post it because Jira is unreachable, it doesn't retry.
+### When the comment depends on the ticket
 
-## How June finds the reporter
+June reads each ticket and posts the comment that fits it:
 
-Matching the reporter uses fixed rules and no AI. June matches the Jira reporter to an employee in this order and stops at the first match:
+- **A device problem or a device request.** When June is confident the ticket is about a device, the comment has a section for each person the ticket is about, titled **Assigned Devices for** and the person's name. Each device shows product, serial, operating system and status, plus last check-in, purchase date and warranty expiry where June knows them. If a person has no device, the section says "No devices currently assigned."
+- **A request about AI usage,** such as a request for a higher limit. The comment has a section for each person, titled **AI Usage for** and the person's name. For each AI tool the ticket is about that is connected to June (Claude, ChatGPT or Cursor), the section shows their monthly limit, or "no limit", and what they have used this month. It also lists their earlier limit requests with date and status. If the ticket isn't clearly about a connected AI tool, June posts no comment.
+- **A ticket that isn't a request,** such as an announcement or an FYI. June posts no comment.
+- **A ticket that clearly isn't about the reporter,** and isn't a device or AI usage ticket. June posts no comment, because the reporter's details would point IT at the wrong person.
+- **Any other ticket.** June posts the Reporter Details comment.
 
-1. A link it already has for that reporter.
-2. The same email address, ignoring case. Only the employee's primary email counts.
-3. The exact same full name among active employees, ignoring case, accents and spacing.
+The device and AI usage comments are posted only in Jira Service Management projects, where the comment is internal. In other project types, June posts the Reporter Details comment in their place.
 
-If several employees share that name, June picks one only when exactly one of them comes from your identity provider. Otherwise it leaves the reporter unmatched.
+## Linking tickets to people and devices
 
-When June can't match a new ticket, it posts a comment saying it couldn't confidently match the reporter to an employee record, so reporter details were skipped. To fix it, correct the employee's email or name in your directory so it matches the Jira account. See [Employees](/people/employees).
+June links each tracked ticket to the people it is about, so the ticket shows on their employee page. When the ticket is about a device, June also links the devices assigned to those people. The links appear on the **Tickets** tab described below.
 
-## Devices and linking
+Linking to the people a ticket is about is being turned on for organizations one at a time. To turn it on for yours, contact us. Until it is on, June links every tracked ticket to its reporter. It also links the reporter's devices when June classifies the ticket as a device problem or a device request.
 
-June links every tracked ticket to its reporter, so the ticket shows up on their pages in June. Whether a ticket is about a device is decided by June's ticket classification, which does use AI. If June classifies the ticket as a device problem or a device request, it also links the ticket to each device assigned to the reporter. If the reporter changes, June rebuilds the links.
+When it is on:
+
+- **A ticket is linked to the people it is about.** Filing a ticket doesn't link it to the reporter. If a manager files "Set up a laptop for Priya", the ticket shows on Priya's page and not on the manager's. If the reporter files "My laptop won't charge", the ticket shows on the reporter's page.
+- **June considers the people the ticket names.** A person counts as named when the ticket has a Jira @-mention of them or the exact email address of an employee. Names typed as plain text aren't matched.
+- **AI decides whether the ticket is about each person.** Someone tagged only to keep them informed isn't linked.
+- **When June isn't confident who a ticket is about, it links no one.** A missing link is better than a wrong one.
+- **Devices follow the people.** When June is confident the ticket is about a device, it links the devices assigned to the people the ticket is about. The reporter's devices are linked only when the ticket is about the reporter.
+- **Links follow edits.** If a ticket is edited and is no longer about someone, June removes that person's link and the device links made for them. If the reporter changes, June works out the links again.
+- **Existing tickets are updated once.** When linking is turned on for your organization, June updates the links on tickets it already tracks, so older tickets also show on the right person's page.
+
+How June matches the reporter, the **Tickets** tab and who can see it stay the same.
 
 ## See tickets on employee and asset pages
 
@@ -61,13 +83,25 @@ The **Tickets** tab on an employee or an asset lists each linked ticket. Click a
 
 <AccordionGroup>
   <Accordion title="June didn't comment on a ticket">
-    Check that the ticket is in the project entered in **Default Project Key**, and that the Jira connection is active. If the reporter couldn't be matched, look for June's "couldn't confidently match" comment.
+    Check that the ticket is in the project entered in **Default Project Key**, and that the Jira connection is active. If the reporter couldn't be matched, June posts a comment saying so; see "The wrong person, or nobody, was matched" below. If your organization has the comment chosen by ticket, June also posts nothing for an announcement or FYI, for a ticket that isn't about the reporter, and for an AI usage request that isn't clearly about Claude, ChatGPT or Cursor.
   </Accordion>
   <Accordion title="It says No devices currently assigned">
     No asset in June is assigned to that employee. Assign one on the asset page.
   </Accordion>
   <Accordion title="The wrong person, or nobody, was matched">
-    Compare the reporter's Jira email and name with the employee record. Matching is exact, so a nickname or a different email won't match.
+    June matches the Jira reporter to an employee by email address, then by full name, without AI. If it can't match the reporter on a new ticket, it posts a comment saying so. To fix it, make the employee's email or name in your directory match the Jira account. See [Employees](/people/employees).
+  </Accordion>
+  <Accordion title="The comment shows Reporter Details when I expected devices or AI usage">
+    The comment chosen by ticket may not be on for your organization yet. The device and AI usage comments are also posted only in Jira Service Management projects. In other project types, June posts the Reporter Details comment in their place.
+  </Accordion>
+  <Accordion title="A ticket doesn't show on the person it is about">
+    Check that the ticket @-mentions the person or includes their exact email address. A name typed as plain text isn't matched. June also links no one when it isn't confident who the ticket is about.
+  </Accordion>
+  <Accordion title="A ticket doesn't show on a device">
+    The device must be assigned to a person the ticket is about, and June must be confident the ticket is about a device. Assign the device on the asset page if it has no assignee.
+  </Accordion>
+  <Accordion title="A ticket shows on the reporter but is about someone else">
+    Linking to the people a ticket is about may not be on for your organization yet. Until it is, June links every tracked ticket to its reporter. Contact us to turn it on.
   </Accordion>
 </AccordionGroup>
 
@@ -76,6 +110,12 @@ The **Tickets** tab on an employee or an asset lists each linked ticket. Click a
 <AccordionGroup>
   <Accordion title="Will June comment again when the ticket changes?">
     No. It comments once, when the ticket is first recorded.
+  </Accordion>
+  <Accordion title="Do links change when the ticket changes?">
+    Yes. If an edit means the ticket is no longer about someone, June removes their link and the device links made for them.
+  </Accordion>
+  <Accordion title="Does June link a ticket to everyone tagged on it?">
+    No. Someone tagged only to keep them informed isn't linked.
   </Accordion>
   <Accordion title="Is this the comment June posts when it can't start a request?">
     No. That is a different comment, posted when you assign a ticket to June. See [Requests](/help-desk/requests).
