@@ -12,6 +12,7 @@ Connect your Jamf Pro environment with June for comprehensive Mac device managem
 ## What you'll accomplish
 - Set up API access in Jamf Pro
 - Configure the June integration
+- Get device changes into June within minutes using webhooks
 - Understand data synchronization
 - Troubleshoot common issues
 
@@ -98,7 +99,7 @@ Before starting the integration, ensure you have:
 
 <Steps>
   <Step title="Sync Schedule">
-    June syncs with Jamf Pro once a day. Use **Sync Now** whenever you need fresher data.
+    June syncs with Jamf Pro once a day. With [webhooks](#webhooks) set up, a device's changes reach June within minutes, and the daily sync still runs. Use **Sync Now** whenever you need fresher data.
   </Step>
   
   <Step title="What June Syncs">
@@ -112,6 +113,68 @@ Before starting the integration, ensure you have:
     It also lists the device actions June can take in Jamf Pro: delete a device, restart, shut down, lock, turn Remote Desktop on or off, force a check-in, and look up a device lock PIN, recovery lock password or FileVault recovery key. Device actions need the device action privileges from Step 1. June also sends assignee and location changes made in June back to Jamf Pro.
   </Step>
 </Steps>
+
+## Webhooks
+
+Webhooks are optional. Without them, June updates devices from Jamf Pro once a day. With webhooks, Jamf Pro tells June when a device changes, and June updates that device within a few minutes. The daily sync keeps running either way.
+
+Webhooks need no extra privileges for the API role you created in Step 1.
+
+Three Jamf Pro events are covered. You add each one in Jamf Pro as its own webhook:
+
+| Event | When it fires | What June does |
+|-------|---------------|----------------|
+| `ComputerInventoryCompleted` | A Mac sent Jamf Pro an inventory update. Jamf Pro does this on the inventory schedule, by default daily, and whenever inventory is updated. | Updates that Mac |
+| `MobileDeviceInventoryCompleted` | An iPhone or iPad sent an inventory update. | Updates that device |
+| `MobileDeviceUnEnrolled` | An iPhone or iPad was removed from management. | Shows the device is no longer managed by Jamf Pro |
+
+A new device appears in June after its first inventory update, not at the moment it enrolls. Two changes still wait for the daily sync: a Mac removed from management, and any device deleted from Jamf Pro.
+
+### Step 1: Register the webhook in June
+
+You need the Admin or Owner role in June.
+
+<Steps>
+  <Step title="Register">
+    1. In June, go to **Settings** > **Integrations** and select **Jamf Pro** under **Configured Integrations**
+    2. In the **Webhooks** section, which says **No webhook configured**, click **Register**
+    3. June creates the webhook URL and secret and opens **Status**
+  </Step>
+
+  <Step title="Copy the URL and header">
+    Once registered, the **Webhooks** section shows **Webhook connected** with **Status**, **Pause** and **Unregister**. Below it:
+    - **Webhook URL**: use the copy button
+    - **Webhook Secret**: shows a **Set** badge, with a show button, a copy button and **Replace**. The copy button copies the header in the form Jamf Pro asks for, for example `{"X-June-Webhook-Secret":"<your-webhook-secret>"}`.
+
+    Other roles see the URL and **Status**, but not the secret or the buttons.
+  </Step>
+</Steps>
+
+### Step 2: Create the webhooks in Jamf Pro
+
+Repeat these steps once per event, so you end up with three webhooks.
+
+<Steps>
+  <Step title="Create the webhook">
+    1. In Jamf Pro, go to **Settings** > **Global** > **Webhooks** and click **New**
+    2. **Display Name**: anything you like, for example "June: ComputerInventoryCompleted". Keep **Enabled** checked.
+    3. **Webhook URL**: paste the URL from June
+    4. **Authentication type**: choose **Header Authentication** and paste the header you copied from June
+    5. **Content Type**: choose **JSON**
+    6. **Webhook Event**: choose `ComputerInventoryCompleted`, `MobileDeviceInventoryCompleted` or `MobileDeviceUnEnrolled`, a different one for each webhook
+    7. Save. Leave the timeouts at their defaults.
+  </Step>
+
+  <Step title="Check it works">
+    After the next inventory update, open **Status** in June's **Webhooks** section. It opens a window titled **Jamf webhooks** that lists the three events. An event that has arrived shows when June last received it, instead of **Not received yet**.
+  </Step>
+</Steps>
+
+### Manage the webhook
+
+- **Pause**: June ignores what Jamf Pro sends until you click **Resume**. The URL and secret stay the same, so nothing changes in Jamf Pro. Devices still update in the daily sync.
+- **Replace** (next to the secret): asks you to confirm. The old secret stops working at once. Paste the new header into all three webhooks in Jamf Pro, or June stops getting changes.
+- **Unregister**: asks you to confirm. The URL and secret stop working, so delete the three webhooks in Jamf Pro. Registering again gives a new URL and secret to enter in every webhook.
 
 ## Data Synchronization
 
@@ -132,7 +195,7 @@ Before starting the integration, ensure you have:
 ### Sync Process
 
 1. **Initial Sync**: Complete inventory sync on first connection
-2. **Daily Updates**: June pulls the latest data from Jamf Pro once a day. App usage data syncs once a week.
+2. **Daily Updates**: June pulls the latest data from Jamf Pro once a day, and with [webhooks](#webhooks) set up, a device's changes reach June within minutes. App usage data syncs once a week.
 3. **Conflict Resolution**: When your identity provider and Jamf Pro disagree about a person's details, the identity provider wins. See [Asset status](/assets/asset-status) for how Jamf Pro sets a device's status and assignee.
 4. **Removed Devices**: Each night, June checks for devices that are no longer in Jamf Pro and stops counting them as managed by Jamf Pro.
 5. **Failed Syncs**: The integration's page shows **Sync failed**, and the **Activity** section shows the error.
@@ -199,6 +262,22 @@ Before starting the integration, ensure you have:
     - Select **Sync Now** from the **Connected** menu on the integration's page to pull the latest data from Jamf Pro. Jamf Pro only has new inventory after a device checks in.
     - Check device connectivity and management status
     - Check the **Activity** section on the integration's page for specific error messages
+  </Accordion>
+
+  <Accordion title="Webhook Events Not Arriving">
+    **Symptoms**: An event in **Status** still shows **Not received yet** after devices have updated in Jamf Pro
+
+    **Possible Causes**:
+    - The webhook for that event is missing or disabled in Jamf Pro
+    - The URL was pasted incompletely
+    - The header is wrong, or it is from before the secret was replaced
+    - The webhook is **Paused** in June
+
+    **Solutions**:
+    - In Jamf Pro, check that a webhook exists for that event and that **Enabled** is checked
+    - Copy the **Webhook URL** from June again and paste it in full
+    - Copy the header from June again and update the webhook
+    - If June shows **Paused**, click **Resume**
   </Accordion>
   
   <Accordion title="Performance Problems">
