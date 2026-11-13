@@ -1,7 +1,7 @@
 ---
 sidebarTitle: 'Microsoft Entra'
 title: 'Microsoft Entra Integration'
-description: 'Connect Microsoft Entra ID with June to sync employees and manage devices'
+description: 'Connect Microsoft Entra ID with June to sync employees and manage devices, and optionally show Azure virtual machines'
 icon: '/images/ms_entra_id_logo.png'
 ---
 
@@ -9,12 +9,13 @@ icon: '/images/ms_entra_id_logo.png'
   <img src="/images/integrations/entra-setup.png" alt="The Microsoft Entra setup page in June, with a Connect button and the list of what June syncs" />
 </Frame>
 
-Connect Microsoft Entra ID with June to sync your employees and directory, and to manage enrolled devices, all from one place.
+Connect Microsoft Entra ID with June to sync your employees and directory, and to manage enrolled devices, all from one place. You can also choose to show your Azure virtual machines.
 
 ## What you'll accomplish
 - Connect Microsoft Entra with a single admin-consent sign-in
 - Sync employees, locations, and software applications
 - Manage enrolled devices and run device actions
+- Optionally, show your Azure virtual machines and what they cost
 
 ## Capabilities
 
@@ -26,6 +27,7 @@ Connect Microsoft Entra ID with June to sync your employees and directory, and t
 | **Sync locations** | Your office locations. |
 | **Sync software applications** | Applications managed through Microsoft Entra. |
 | **Sync devices** | Inventory and specifications for devices enrolled through Microsoft. |
+| **Include Azure virtual machines** | Optional, off by default. Your Azure virtual machines as devices, with their state, activity, and daily cost. See [Include Azure virtual machines](#include-azure-virtual-machines). |
 
 ### Device actions
 
@@ -93,6 +95,15 @@ Requires a Microsoft Intune license.
 |------------|------------------------|
 | **User.Read** | Lets the administrator sign in to approve the connection. |
 
+### Azure virtual machines (optional)
+
+Only needed if you turn on [Include Azure virtual machines](#include-azure-virtual-machines). These are Azure roles that you assign on each subscription that holds virtual machines, not Microsoft Graph permissions, so they are not part of admin consent and don't require a reconnect.
+
+| Role | What June uses it for |
+|------|------------------------|
+| **Reader** | Reads virtual machines, disks, network cards, public IP addresses, and the Azure activity log. |
+| **Cost Management Reader** | Reads each virtual machine's daily cost. |
+
 <Note>
 **When June asks for new permissions**
 
@@ -117,3 +128,51 @@ When June adds a capability that needs a new Microsoft permission, June adds it 
     June syncs your directory and devices, then refreshes daily. To sync sooner, open the **Connected** menu on the integration's page and select **Sync Now**.
   </Step>
 </Steps>
+
+## Include Azure virtual machines
+
+Show your Azure virtual machines in June, next to the rest of your devices. This is optional and off by default.
+
+### What June shows
+
+- Each Azure virtual machine appears as a device of type virtual machine.
+- Whether it is running or stopped, its disks, network cards, and public IP addresses, and when it was created in Azure.
+- Azure activity: who started, stopped, resized, or deleted the virtual machine, and when. Azure keeps about 90 days of this.
+- Running cost: the virtual machine's daily cost from Azure, including reservations and savings plans, and the hours Azure billed for compute each day. A stopped (deallocated) virtual machine bills no compute hours.
+- A virtual machine that Intune also manages shows as one device, not two.
+- An Azure Virtual Desktop session host shows as a virtual machine device. June does not show host pools, assigned users, or sessions.
+
+This is read-only. June never starts, stops, or changes a virtual machine.
+
+### Turn it on
+
+<Steps>
+  <Step title="Give June access in Azure">
+    Do this on each subscription that holds virtual machines. You need the **Owner** or **User Access Administrator** role in Azure to assign roles.
+
+    1. In the Azure portal, open the subscription and go to **Access control (IAM)** > **Add role assignment**.
+    2. Choose **Reader**, then select the June app as the member. In Azure it appears as **June Ops Integration**.
+    3. Repeat for **Cost Management Reader**.
+  </Step>
+  <Step title="Turn it on in June">
+    1. Go to **Settings** > **Integrations** and select **Microsoft Entra**.
+    2. Turn on **Include Azure virtual machines**.
+  </Step>
+  <Step title="Wait for the next sync">
+    Virtual machines appear after the next sync, which runs daily. To sync sooner, open the **Connected** menu and select **Sync Now**.
+  </Step>
+</Steps>
+
+No new Microsoft Graph permission and no reconnect is needed.
+
+### Check that it works
+
+Open the **Connected** menu on the integration's page and select **Test Connection** to see each Azure subscription and what June can read on it: virtual machines and cost readable, or which role is missing (**Reader**, **Cost Management Reader**, or both). If no subscriptions are listed, the **June Ops Integration** app has no role on any subscription yet.
+
+With only **Reader**, virtual machines show without cost.
+
+### Limits
+
+- Subscriptions billed through a reseller (classic CSP) are not supported.
+- June reads only subscriptions where the app holds a role.
+- A problem reading Azure never stops the rest of the Microsoft Entra sync.
