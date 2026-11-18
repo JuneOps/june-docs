@@ -14,9 +14,10 @@ Anyone who can view assets sees the Sources section. Source icons elsewhere need
 | Logistics provider | [Firstbase](/integrations/firstbase) | Status when it returns, holds, repairs, locks or retires a device. Warehouse and office stock. Condition grade. Orders and returns |
 | Device management | [Jamf Pro](/integrations/jamf-pro), [Kandji](/integrations/kandji), [Microsoft Intune](/integrations/microsoft-intune) | Who uses the device, lost mode, whether it is enrolled, building, OS and security facts, ownership type |
 | Apple Business | [Apple Business](/integrations/apple-business) | That the device exists, whether it is assigned to an MDM server, purchase dates and a warranty estimate |
+| Security tool | [CrowdStrike Falcon](/integrations/crowdstrike) | Which devices it monitors and the vulnerabilities on them. A device only it reports is added to inventory, assigned to its last signed-in user when exactly one employee matches. It never changes a device another source reports |
 | Your team | Admins in June | Manual status, assignee, condition, ownership. A lock stops syncs changing status and assignee |
 
-A source you did not connect has no say, and a source you disconnected gives no opinion. June never sets a status from age or a missed check-in, see [Asset status](/assets/asset-status). If a source names a person June cannot match to an employee, the status and assignee stay as they are, unless a provider rule below or lost mode applies.
+A source you did not connect has no say, and a source you disconnected gives no opinion. June never sets a status from age or a missed check-in, see [Asset status](/assets/asset-status). If a source names a person June cannot match to an employee, the status and assignee stay as they are, unless a provider rule below or lost mode applies. A security tool never overrides another source.
 
 ## The logistics provider
 

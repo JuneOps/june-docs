@@ -63,6 +63,7 @@
               "assets/asset-sources",
               "assets/orders-and-returns",
               "assets/compliance",
+              "assets/vulnerabilities",
               "assets/refresh-and-depreciation"
             ]
           },
@@ -115,6 +116,12 @@
               "integrations/jamf-pro",
               "integrations/microsoft-intune",
               "integrations/kandji"
+            ]
+          },
+          {
+            "group": "Security",
+            "pages": [
+              "integrations/crowdstrike"
             ]
           },
           {
