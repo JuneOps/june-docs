@@ -13,22 +13,22 @@ A request is one employee's IT issue, kept as a single timeline: what they asked
 - [AI limit requests](/help-desk/ai-limit-requests): an employee asks for a higher monthly Claude or ChatGPT limit, and approvers or IT decide.
 - [Knowledge Base](/help-desk/knowledge-base): connect Confluence or Google shared drives so June answers questions from your documents.
 
-Requests needs [Slack](/integrations/slack) connected. Connect [Jira](/integrations/jira) with a default project to get a tracking ticket for each request June hands to IT. Employees reach Requests through Slack or Jira. Microsoft Teams conversations don't create requests.
-
 ## How requests arrive
 
 Employees never create requests in the June web app. A request starts when:
 
 - **An employee messages June in Slack.** They DM June or tag @June in a channel June is in. One Slack thread is one request. If the employee asks about something else, June suggests starting a new chat.
 - **A Jira ticket is assigned to June.** If the reporter doesn't match an employee in June, June adds a comment on the ticket saying it couldn't start the request (internal in Jira Service Management projects; visible to anyone who can open the ticket elsewhere). See [Ticket context](/agents/ticket-context).
+- **June is mentioned on a Jira ticket and asked to do the work.** June always answers the comment. When the comment asks June to handle the ticket, for example to fix, investigate or provision something, June also starts a request and assigns the ticket to itself. A question or a status check gets an answer only. The person who mentions June must match an employee in June.
 
 ## What June does and what needs IT
 
 **June, on its own**
 
-- Answers from your [runbooks](/agents/runbooks), your [Knowledge Base](/help-desk/knowledge-base) and its tools, and closes the request as **Done** when it delivers an answer. Under the answer in Slack, the employee can say whether it solved the problem. Yes records that it worked. No reopens the request and June keeps working.
-- Hands the request to IT when it can't solve it, and tells the employee "I've passed this to IT with what we covered and what I tried. You can keep replying here." June then opens the Jira tracking ticket, investigates in the background and leaves its findings as internal notes, and opens a "Handed to IT" thread in your Slack notifications channel.
-- Reopens a request it closed if the employee writes again in the thread.
+- Answers from your [runbooks](/agents/runbooks), your [Knowledge Base](/help-desk/knowledge-base) and its tools, and closes the request as **Done** when it delivers an answer. Under an answer in Slack, the employee can say whether it solved the problem: **Yes** records that it worked, **No** reopens the request and June keeps working.
+- Files an [access request](/help-desk/access-requests) or an [AI limit request](/help-desk/ai-limit-requests) when the employee asks for one, and runs it through your policy: approval, then the grant or the new limit, and for time-bound access, its removal. The request stays open until that finishes, and IT steps in only when the policy needs them.
+- Hands the request to IT when it can't solve it, and tells the employee "I've passed this to IT with what we covered and what I tried. You can keep replying here." June then investigates in the background and leaves its findings as internal notes. For a request that started in Slack, June also opens the Jira tracking ticket, if Jira is connected. If you have a Slack notifications channel, June posts a "Handed to IT" thread there.
+- Reopens a request it closed when the employee writes again in the Slack thread. On a Jira ticket, a comment on a closed request doesn't reopen it: reopen the ticket in Jira. See [Comments and edits on the ticket](#comments-and-edits-on-the-ticket).
 
 **Needs IT:** replies, status changes and hand backs.
 
@@ -36,13 +36,28 @@ Employees never create requests in the June web app. A request starts when:
 
 ## Find what needs you
 
-Open **Requests**. The list opens on **Needs attention**: requests IT owns that are Open or Waiting for IT. The same condition puts a dot on **Requests** in the sidebar. Requests June is still handling never light it.
+Open **Requests**. The list shows every request, most recent activity first. A dot on **Requests** in the sidebar means IT has a request that is Open or Waiting for IT. Requests June is still handling never light it.
 
-Search by request ID, title, or requester name or email. Filter by status (**Needs attention**, **Active**, **Closed** or **All**) and by type: **IT** requests, or **Self-service** requests June is still handling. To see only what June is still handling, set Type to **Self-service** and Status to **Active** or **All**.
+Search by request ID, Jira ticket ID, title, or requester name or email. Open the filter menu next to the search box to narrow the list:
 
-Switch between the board and the list. The board opens on **All**. Change a status by dragging a card or from the card's **...** menu.
+- **Status**: pick one or more statuses. With none picked, you see all of them.
+- **Automation**: closed requests by who worked them: **Full** (June alone), **Partial** (June and IT) or **None** (IT alone).
+- **Sort by**: last updated, created date, requester or status, in either direction.
+- **View**: the list or the board.
 
-The list shows the source (a Jira tracking ticket appears as a link) and the status. A Done request also shows who closed it, IT or June, and whether the employee confirmed June's answer.
+Your filters, sort and view are remembered in your browser.
+
+On the board, change a status by dragging a card or from the card's **...** menu.
+
+Each row in the list shows:
+
+| Column | What it shows |
+|---|---|
+| Status | The request's status. |
+| Request | The title, where it came from (a Jira ticket appears as a link) and the request ID. |
+| Requester | The employee, with their department and job title. |
+| Actor | Who has the request now, **June** or **IT**, and what happened: June handed it to IT, who closed or canceled it, its Jira ticket was closed, or the employee said June's answer didn't solve it. A bolt after **June** on a closed request means June handled it without IT. |
+| Updated | When something last happened on the request. |
 
 ## Statuses
 
@@ -51,9 +66,9 @@ The list shows the source (a Jira tracking ticket appears as a link) and the sta
 | Open | A new request, IT handed it back to June, or the employee wrote again after June closed it. |
 | In progress | IT took over, an access request is running, or the employee answered a question from June. |
 | Waiting for employee | IT's reply was delivered, or the employee said June's answer didn't help. |
-| Waiting for IT | June handed the request to IT, or an access or AI limit request needs IT. |
-| Done | IT closed it, June delivered its answer, or its access request was granted or rejected. |
-| Canceled | IT canceled it, the employee canceled it through June, or its Jira ticket was closed while an AI limit ask was waiting. |
+| Waiting for IT | June handed the request to IT, an access or AI limit request needs IT, or its closed Jira ticket was reopened. |
+| Done | IT closed it, June delivered its answer, its access request was granted or rejected, or its Jira ticket was resolved. |
+| Canceled | IT canceled it, the employee canceled it through June, or its Jira ticket was canceled. |
 
 Changing a status sends the employee no message of its own, with two exceptions. If the request started in a channel thread and your change takes it over, the thread tells the employee IT is taking over. Canceling a request with a waiting AI limit ask tells the employee it was canceled.
 
@@ -93,11 +108,13 @@ Jira hides internal comments from the reporter only in Jira Service Management p
 
 ### Ask June
 
-The **Ask June** tab is a private chat with June about this request, visible only to IT. It is read-only on a closed request, and hidden while an access request, AI limit request or approval is attached.
+The **Ask June** tab is a private chat with June about this request, visible only to IT. It is read-only on a closed request, and hidden while an access request or AI limit request is still in progress, or an approval is waiting. Once a request's access request has finished and the request is open again with IT, Ask June is back beside the **Access** tab.
 
 ## Jira sync
 
-When a request has a Jira tracking ticket, June moves the ticket's status to match the request. Replies and notes are copied to the ticket as comments.
+When a request has a Jira tracking ticket, June moves the ticket's status to match the request. Replies and notes are copied to the ticket as comments, each marked **Posted via June**. What the employee and June said before the handoff is added as one comment you can collapse.
+
+June sets the employee as the reporter of a tracking ticket it creates. This needs the **Modify Reporter** permission in the Jira project. Without it, the ticket shows June's service account as the reporter and names the employee in the description. See [Add Service Account to Projects](/integrations/jira#step-3-add-service-account-to-projects).
 
 | Request status | Jira ticket moves to |
 |---|---|
@@ -106,7 +123,48 @@ When a request has a Jira tracking ticket, June moves the ticket's status to mat
 | Done | A done status (not Won't Do, Duplicate or Canceled) |
 | Canceled | Canceled, Won't Do or Declined |
 
-Changes flow from June to Jira. The one exception: closing a Jira ticket cancels its June request when an AI limit ask is waiting on it. For any other request, closing the ticket changes nothing in June.
+Closing the ticket in Jira closes the request in June:
+
+| Jira ticket moves to | Request becomes |
+|---|---|
+| Canceled, Won't Do, Declined, Rejected or Duplicate | Canceled |
+| Any other done status, such as Done or Resolved | Done |
+
+A request with an AI limit ask still waiting is always canceled, whichever done status the ticket moves to.
+
+Reopening a closed ticket in Jira reopens the request in June. The request goes to IT as **Waiting for IT**, whoever closed it before. June does not pick the request back up by itself.
+
+Any other status change in Jira changes nothing in June.
+
+A request stays open when June still has work running on it: an access request that has not finished, access that was already granted, or an AI limit increase that is being applied. June adds an internal note to the ticket saying why.
+
+<Note>
+  June recognizes a closed ticket by Jira's **Done** status category, not by the status name. Check that every closed and canceled status in your workflow is in the Done category. A status named "Canceled" in the In Progress category does not close the request.
+</Note>
+
+### Comments and edits on the ticket
+
+This covers any Jira ticket tied to a request: a ticket assigned to June, and a tracking ticket June created for a request that started elsewhere.
+
+**Comments**
+
+- **From the requester, while June has the request.** When the request started as a Jira ticket, a public comment from the requester continues the conversation. June answers on the ticket.
+- **From the requester, while IT has the request.** The comment shows on the request as the employee's message.
+- **From anyone else, and internal notes.** These show on the request's timeline with the person's name, marked as commented in Jira. June does not act on them. Only IT can see internal notes.
+
+June recognizes the requester by their linked Jira account or their email.
+
+<Frame caption="A comment made on the Jira ticket, on the request's timeline">
+  <img src="/images/help-desk/request-jira-comment.png" alt="A request timeline entry reading Shubham Bansal commented in Jira, 7h ago, with the comment Was this done?" />
+</Frame>
+
+A comment on a closed request still shows on the request. On a ticket that started in Jira, June replies once that the request is closed. A comment does not reopen a request. Reopening the ticket in Jira does: the request reopens with IT, as described above.
+
+**Title and description**
+
+Editing a ticket's title in Jira updates the request's title in June.
+
+Editing the ticket's description updates the request's description for requests that started as a Jira ticket. For a tracking ticket June created, the request keeps its own description.
 
 ## If something looks wrong
 
