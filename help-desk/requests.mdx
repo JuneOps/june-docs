@@ -19,7 +19,7 @@ Employees never create requests in the June web app. A request starts when:
 
 - **An employee messages June in Slack.** They DM June or tag @June in a channel June is in. One Slack thread is one request. If the employee asks about something else, June suggests starting a new chat.
 - **A Jira ticket is assigned to June.** If the reporter doesn't match an employee in June, June adds a comment on the ticket saying it couldn't start the request (internal in Jira Service Management projects; visible to anyone who can open the ticket elsewhere). See [Ticket context](/agents/ticket-context).
-- **June is mentioned on a Jira ticket.** June answers the comment, and starts a request when the ticket needs work it can do.
+- **June is mentioned on a Jira ticket and asked to do the work.** June always answers the comment. When the comment asks June to handle the ticket, for example to fix, investigate or provision something, June also starts a request and assigns the ticket to itself. A question or a status check gets an answer only. The person who mentions June must match an employee in June.
 
 ## What June does and what needs IT
 
