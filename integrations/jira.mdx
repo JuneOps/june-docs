@@ -45,6 +45,18 @@ There are two ways to have June act on a Jira ticket:
   </Card>
 </CardGroup>
 
+### Closing and Reopening Tickets
+
+When a ticket June is tracking is closed in Jira, June closes its request too. A ticket moved to a canceled status cancels the request, and a ticket moved to any other done status marks it Done. Reopening the ticket reopens the request and gives it to IT. See [Jira sync](/help-desk/requests#jira-sync) for the full rules.
+
+<Note>
+  June recognizes a closed ticket by Jira's **Done** status category, not by the status name. Before you go live, open each workflow June works with and check that every closed and canceled status is in the Done category.
+</Note>
+
+### Comments and Edits
+
+Comments on a ticket reach its request in June, and edits to the ticket's title and description update the request. See [Comments and edits on the ticket](/help-desk/requests#comments-and-edits-on-the-ticket). To have June handle every ticket of an issue type as a specific request, see [Issue type mapping](#issue-type-mapping).
+
 ### Available Actions
 
 Once triggered, June can perform the following actions on Jira tickets:
@@ -149,6 +161,15 @@ The service account needs access to each Jira project you want to integrate with
     4. Click **Add** to confirm
   </Step>
   
+  <Step title="Let June Set the Reporter">
+    When June hands a Slack request to IT, it creates a tracking ticket and sets the employee as its reporter. Jira allows this only if the service account has the **Modify Reporter** permission in the project.
+
+    - **Company-managed project**: grant **Modify Reporter** to the service account's role in the project's permission scheme.
+    - **Team-managed project**: give the service account a role that includes it, such as **Administrator**.
+
+    Without this permission, June still creates the ticket. It shows the service account as the reporter and names the employee in the description.
+  </Step>
+
   <Step title="Repeat for Additional Projects">
     Repeat the above steps for each project you want to integrate with June.
   </Step>
@@ -255,6 +276,73 @@ Webhooks notify June when tickets are created, updated, or commented on, so June
   </Step>
 </Steps>
 
+## Issue type mapping
+
+Tell June that every ticket of a Jira issue type is a specific kind of request. June then handles those tickets as that request, without working out what each ticket is about.
+
+Managing integrations requires an admin. Go to **Settings** > **Integrations**, select **Jira Service Management** under **Configured Integrations**, and open **Issue type mapping**. The section lists each connected Jira project. Click **Edit**, make your changes, and click **Save changes**.
+
+<Frame caption="Issue type mapping in Edit mode: two issue types, their fields, and the options of a product dropdown">
+  <img src="/images/integrations/jira-issue-type-mapping.png" alt="The Issue type mapping section with an Access request issue type mapped to Software access request and an AI limit increase request issue type mapped to AI limit increase request, each with a Justification field, a Required switch and an application or product field" />
+</Frame>
+
+### What a mapping does
+
+A mapping pairs one Jira issue type with one June request type:
+
+| Request type | Use it for |
+|---|---|
+| **Software access request** | Tickets where an employee asks for access to an application. See [Access requests](/help-desk/access-requests). |
+| **AI limit increase request** | Tickets where an employee asks for a higher AI limit. Available when [AI limit requests](/help-desk/ai-limit-requests) are turned on for your organization. |
+
+When a ticket of a mapped issue type is assigned to June and is for the person who filed it, June handles it as that request. Two kinds of ticket go to IT instead:
+
+- Tickets June reads as being for someone else.
+- Tickets filed by someone who is not an active employee.
+
+Issue types with no mapping work as before: June reads the ticket and decides how to handle it.
+
+<Note>
+  A mapping applies when a ticket is assigned to June. It does not apply when June is only mentioned on a ticket.
+</Note>
+
+### Fields you can set
+
+| Field | What it does |
+|---|---|
+| **Justification field** (optional) | The ticket field that holds the reason for the request. Only text fields on that issue type's own form are offered. |
+| **Required** | Turn it on and a ticket that leaves the justification field empty goes to IT. Turn it off and June uses the ticket's own text as the reason when the field is empty. |
+| **Application field** (optional) | A dropdown on the ticket that names the application. On an AI limit mapping it is called **Product field** and names the AI product. |
+| **Default application** | Every ticket of this issue type is for this one application. Choose it when you have no application field. On an AI limit mapping it is called **Default product**. |
+
+Each option in the application dropdown is matched to an application in June. June suggests matches by name. A suggestion shows **Matched by name, not saved** until you click **Save changes**. Click **Review options** to see the list of options and change any match. For an option with no match, June works out the application from the ticket.
+
+When the requester changes the justification or the application on the ticket later, June uses the new value and adds an internal note to the request saying what changed. This applies until an access request or AI limit request is filed.
+
+Next to an application you may see one of these warnings:
+
+| Warning | What it means |
+|---|---|
+| **No access policy yet** | The application has no access policy in June, so June cannot grant it. |
+| **No limit policy yet** | The AI product has no limit policy in June. |
+| **No limit requests for this product** | AI limit requests are not available for this AI product. |
+
+### Example
+
+Your service desk has a **Software Access Request** issue type. Its form has a **Business justification** paragraph field and an **Application** dropdown.
+
+1. Under **Issue type mapping**, click **Edit** on the project.
+2. Pair **Software Access Request** with **Software access request**.
+3. Set **Justification field** to **Business justification** and turn on **Required**.
+4. Set **Application field** to **Application**, then click **Review options** and check each match.
+5. Click **Save changes**.
+
+### What the employee sees
+
+When the ticket already says everything June needs, June files the request straight away and replies on the ticket. That means one matched application with a single access level, and a justification if one is required.
+
+When something is missing, June asks the employee on the ticket. For example, an application with several access levels needs the employee to pick one. Approvals work as they do for any [access request](/help-desk/access-requests) or [AI limit request](/help-desk/ai-limit-requests).
+
 ## API Scopes Reference
 
 | Scope | Description | Required |
@@ -358,6 +446,28 @@ Webhooks notify June when tickets are created, updated, or commented on, so June
     - Check project workflow rules for assignment restrictions
   </Accordion>
   
+  <Accordion title="Closing a ticket in Jira doesn't close the request in June">
+    **Possible Causes**:
+    - The closed or canceled status is not in Jira's Done status category
+    - Webhook events for issue updates not enabled
+    - June still has work running on the request, such as an access request that has not finished
+
+    **Solutions**:
+    - In the project's workflow, set the status category of each closed and canceled status to Done, then publish the workflow
+    - Ensure "Issue updated" webhook event is enabled
+    - Look for June's internal note on the ticket, which says why the request stayed open
+  </Accordion>
+
+  <Accordion title="Tickets June creates show June as the reporter">
+    **Possible Causes**:
+    - The service account does not have the Modify Reporter permission in the project
+    - The employee has no Jira account, or June has not matched one to them yet
+
+    **Solutions**:
+    - Grant **Modify Reporter** to the service account in the project. See [Add Service Account to Projects](#step-3-add-service-account-to-projects)
+    - Tickets created before the change keep their reporter. New tickets show the employee
+  </Accordion>
+
   <Accordion title="June's actions fail">
     **Possible Causes**:
     - Insufficient permissions for the action (e.g., transitioning tickets)
