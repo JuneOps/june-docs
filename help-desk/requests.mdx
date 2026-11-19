@@ -19,14 +19,16 @@ Employees never create requests in the June web app. A request starts when:
 
 - **An employee messages June in Slack.** They DM June or tag @June in a channel June is in. One Slack thread is one request. If the employee asks about something else, June suggests starting a new chat.
 - **A Jira ticket is assigned to June.** If the reporter doesn't match an employee in June, June adds a comment on the ticket saying it couldn't start the request (internal in Jira Service Management projects; visible to anyone who can open the ticket elsewhere). See [Ticket context](/agents/ticket-context).
+- **June is mentioned on a Jira ticket.** June answers the comment, and starts a request when the ticket needs work it can do.
 
 ## What June does and what needs IT
 
 **June, on its own**
 
-- Answers from your [runbooks](/agents/runbooks), your [Knowledge Base](/help-desk/knowledge-base) and its tools, and closes the request as **Done** when it delivers an answer. Under the answer in Slack, the employee can say whether it solved the problem. Yes records that it worked. No reopens the request and June keeps working.
-- Hands the request to IT when it can't solve it, and tells the employee "I've passed this to IT with what we covered and what I tried. You can keep replying here." June then opens the Jira tracking ticket, investigates in the background and leaves its findings as internal notes, and opens a "Handed to IT" thread in your Slack notifications channel.
-- Reopens a request it closed if the employee writes again in the thread.
+- Answers from your [runbooks](/agents/runbooks), your [Knowledge Base](/help-desk/knowledge-base) and its tools, and closes the request as **Done** when it delivers an answer. Under an answer in Slack, the employee can say whether it solved the problem: **Yes** records that it worked, **No** reopens the request and June keeps working.
+- Files an [access request](/help-desk/access-requests) or an [AI limit request](/help-desk/ai-limit-requests) when the employee asks for one, and runs it through your policy: approval, then the grant or the new limit, and for time-bound access, its removal. The request stays open until that finishes, and IT steps in only when the policy needs them.
+- Hands the request to IT when it can't solve it, and tells the employee "I've passed this to IT with what we covered and what I tried. You can keep replying here." June then investigates in the background and leaves its findings as internal notes. For a request that started in Slack, June also opens the Jira tracking ticket, if Jira is connected. If you have a Slack notifications channel, June posts a "Handed to IT" thread there.
+- Reopens a request it closed when the employee writes again in the Slack thread. On a Jira ticket, a comment on a closed request doesn't reopen it: reopen the ticket in Jira. See [Comments and edits on the ticket](#comments-and-edits-on-the-ticket).
 
 **Needs IT:** replies, status changes and hand backs.
 
