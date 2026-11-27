@@ -71,10 +71,15 @@ Each step has a **Nudge** (default 1 hour) that re-sends the request, and an **E
 
 **How approvers are reached:**
 
-- Approval requests go to approvers as Slack DMs with **Approve** and **Reject**.
-- Slack must be connected, each approver needs a Slack account linked to them in June, and everyone in a step must be in the same Slack workspace.
+- Each step goes either to approvers' Slack DMs or to a Slack channel you choose on the step. Approvers decide with **Approve** and **Reject**.
+- Slack must be connected. On a DM step, each approver needs a Slack account linked to them in June, and everyone in the step must be in the same Slack workspace.
+- On a channel step, June posts one card in the channel and tags the step's approvers. Approvers who aren't in the channel, or have no Slack account linked in June, are named on the card, so someone can add them to the channel or link their Slack account. The step still waits, nudges and escalates on its settings.
+- Only the step's approvers can decide. Anyone else who clicks is told they're not an approver for this request.
+- A channel step needs June to be able to post there. June can't post when it isn't in the channel, the channel is archived or shared with another company (Slack Connect), or Slack refuses the post. To use a private channel, add June to it in Slack first. The builder warns about these when you pick the channel.
 - A rejection requires a reason, which the requester sees.
 - Microsoft Teams doesn't deliver approvals.
+
+If June can't reach a step's approvers, the request moves to **Needs review**. See [Access requests](/help-desk/access-requests).
 
 ## Grant and revoke
 
@@ -103,7 +108,7 @@ If the app isn't listed, the employee chooses **Not listed**, and the request go
 
 <AccordionGroup>
   <Accordion title="A request is in Needs review">
-    Typical causes: an approver isn't in Slack, the requester has no manager for a manager step, or a grant step failed or its outcome is unknown. June doesn't retry an unknown outcome. Open the request, check the Activity log, then **Retry step** or complete it by hand.
+    Typical causes: an approver on a DM step has no linked Slack account, June can't post in a channel step's channel, the requester has no manager for a manager step, or a grant step failed or its outcome is unknown. June doesn't retry an unknown outcome. Open the request, check the Activity log, then **Retry step** or complete it by hand.
   </Accordion>
   <Accordion title="An approver is away">
     Use **Override approval...** on the request (**Approve & continue** on the policy's **Access requests** tab), or set **Escalate** on the step for next time.

@@ -295,10 +295,7 @@ A mapping pairs one Jira issue type with one June request type:
 | **Software access request** | Tickets where an employee asks for access to an application. See [Access requests](/help-desk/access-requests). |
 | **AI limit increase request** | Tickets where an employee asks for a higher AI limit. Available when [AI limit requests](/help-desk/ai-limit-requests) are turned on for your organization. |
 
-When a ticket of a mapped issue type is assigned to June and is for the person who filed it, June handles it as that request. Two kinds of ticket go to IT instead:
-
-- Tickets June reads as being for someone else.
-- Tickets filed by someone who is not an active employee.
+When a ticket of a mapped issue type is assigned to June, June handles it as that request for one person, chosen by the **Requester field** (see [Fields you can set](#fields-you-can-set)). A ticket whose reporter isn't an active employee goes to IT when the requester field is **Reporter**.
 
 Issue types with no mapping work as before: June reads the ticket and decides how to handle it.
 
@@ -310,10 +307,22 @@ Issue types with no mapping work as before: June reads the ticket and decides ho
 
 | Field | What it does |
 |---|---|
+| **Requester field** | Who the request is for. The default is **Reporter**, Jira's reporter. You can instead pick a user field or a People field on that issue type's form. A ticket that leaves it empty goes to IT. |
 | **Justification field** (optional) | The ticket field that holds the reason for the request. Only text fields on that issue type's own form are offered. |
 | **Required** | Turn it on and a ticket that leaves the justification field empty goes to IT. Turn it off and June uses the ticket's own text as the reason when the field is empty. |
 | **Application field** (optional) | A dropdown on the ticket that names the application. On an AI limit mapping it is called **Product field** and names the AI product. |
 | **Default application** | Every ticket of this issue type is for this one application. Choose it when you have no application field. On an AI limit mapping it is called **Default product**. |
+
+When the requester field names one active employee, the request is for that person. When you use a field other than **Reporter**, June sends the ticket to IT if the field:
+
+- is empty,
+- names more than one person,
+- names someone who isn't an active employee in June, or
+- is no longer on the ticket.
+
+June still creates the request, in the reporter's name, and sets it to **Waiting for IT**. It files no access or limit request. It says why in a note on the request and in a comment on the Jira ticket, for example: "June couldn't tell who this request is for: … It's with IT as REQ-…".
+
+Filling in or changing the requester field after June has taken the ticket doesn't change who the request is for.
 
 Each option in the application dropdown is matched to an application in June. June suggests matches by name. A suggestion shows **Matched by name, not saved** until you click **Save changes**. Click **Review options** to see the list of options and change any match. For an option with no match, June works out the application from the ticket.
 

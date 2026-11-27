@@ -30,17 +30,21 @@ A limit policy decides what happens to Slack and Jira asks: who approves, how mu
     **Business justification** is on by default. Turn it off if you don't need a reason. Set **Limit duration** to **Permanent** or **Until end of month**.
   </Step>
   <Step title="Add tiers">
-    A policy has 1 to 5 tiers, chosen by how many raises the person has had approved this month. Tier 1 covers the first raise, tier 2 the second, and the last tier applies to every later raise.
+    A policy has 1 or 2 tiers: **First raise** and **Subsequent raises**. A one-tier policy's tier is labelled **Every request**. **First raise** applies when the person is on their default limit at Claude or ChatGPT. **Subsequent raises** applies once their limit has been raised, by June or in the provider's console.
   </Step>
 </Steps>
 
+June checks the provider's limit when the ask comes in. A limit set for the person, whether by June or in the provider's console, counts as raised. If the provider doesn't answer, June uses the limit it last saw.
+
+A policy saved earlier with more than two tiers still works. Tiers past the second never apply and show as **Not used**. To save that policy again, cut it to two tiers.
+
 Each tier sets:
 
-- **Approval:** none, or up to six steps. Each step is **Access approver** (the app's current approvers), the requester's manager, or named people. Turning on **Require approval** adds an **Access approver** step first.
+- **Approval:** none, or up to six steps. Each step is **Access approver** (the app's current approvers), the requester's manager, or named people. Each step goes to approvers' Slack DMs or to a Slack channel you choose on the step. Turning on **Require approval** adds an **Access approver** step first.
 - **Amount:** increase by a percentage, increase by a fixed amount, set to an amount, or approver decides.
 - **Maximum limit:** the highest the new limit can reach. June caps the rule's result at it. A "Set to an amount" tier has no maximum: the amount is its maximum.
 
-For example, for someone on a \$200 limit, tier 1 could need no approval and add 25%, up to \$500, which takes them to \$250. Tier 2 could need the manager, who picks a new limit up to \$2,000.
+For example, for someone on a \$200 default limit, **First raise** could need no approval and add 25%, up to \$500, which takes them to \$250. Their next ask uses **Subsequent raises**, which could need the manager, who picks a new limit up to \$2,000.
 
 **Who can do this:** Owner and Admin manage limit policies. Members can view them. Only policies that are turned on handle asks.
 
@@ -49,7 +53,7 @@ For example, for someone on a \$200 limit, tier 1 could need no approval and add
 | Situation | What happens |
 |---|---|
 | Tier needs no approval | June raises the limit automatically. The Actor column shows "Automatically via June". |
-| Tier needs approval | Approvers get a Slack card, then June raises the limit once they approve. |
+| Tier needs approval | Approvers get a Slack card, in a DM or in the step's channel, then June raises the limit once they approve. |
 | Several approvers approve different amounts | June raises to the lowest amount approved. Later approvers can approve up to that amount, or reject. |
 | No policy covers the person, or two do | The ask goes to IT with a note. |
 | One of the cases below | The ask goes to IT with a note that says why and how to avoid it. |
@@ -58,7 +62,8 @@ For example, for someone on a \$200 limit, tier 1 could need no approval and add
 June sends the ask to IT, with a note, when:
 
 - There is no manager.
-- An approver is inactive or unreachable.
+- On a DM step, an approver is inactive or unreachable.
+- On a channel step, June can't post in the channel (see [Decide in Slack](#decide-in-slack)).
 - The rule doesn't give a higher limit.
 - The new limit is above June's ceilings (see [Decide a request in June](#decide-a-request-in-june)).
 - The policy changed, or no longer covers the person, while the ask waited.
@@ -110,9 +115,13 @@ To cancel a Slack or Jira ask, open the matching request in [Requests](/help-des
 
 ## Decide in Slack
 
-The approvers on the tier's current step get a DM card showing who is asking, their usage this month (for example "\$150 of \$200 used this month (75%)"), raises already approved this month, the amount and duration the policy gives, and the reason.
+Each approval step goes either to approvers' Slack DMs or to a Slack channel chosen on the step. The card shows who is asking, their usage this month (for example "\$150 of \$200 used this month (75%)"), raises already approved this month, the amount and duration the policy gives, and the reason.
 
-They click **Approve** or **Reject**. On an "approver decides" tier, Approve opens a form to pick the new limit: the employee's ask, 25%, 50% or 100% more, or another amount, within the tier's maximum. Reject asks for a reason the employee will see. Approvers don't need a June role.
+On a DM step, each approver on the tier's current step gets the card. On a channel step, June posts one card in the channel and tags the step's approvers. An approver who isn't in the channel, or has no Slack account linked in June, is named on the card, so someone can add them to the channel or link their Slack account. The step still waits, nudges and escalates on its settings.
+
+Approvers click **Approve** or **Reject**. Only the step's approvers can decide. Anyone else who clicks is told they're not an approver for this request. On an "approver decides" tier, Approve opens a form to pick the new limit: the employee's ask, 25%, 50% or 100% more, or another amount, within the tier's maximum. Reject asks for a reason the employee will see. Approvers don't need a June role.
+
+A channel step goes to IT only when June can't post there: June isn't in the channel, the channel is archived or shared with another company (Slack Connect), or Slack refuses the post. To use a private channel, add June to it in Slack first. The policy builder warns about these when you pick the channel.
 
 ## What the employee sees
 
@@ -125,7 +134,11 @@ For Slack and Jira asks, June answers where the employee asked. Asks from inside
 
 ## Temporary raises and history
 
-A raise set to **Until end of month** ends at the end of the calendar month, UTC, and June puts back the earlier limit. See [Spend limits](/ai-usage/spend-limits#temporary-raises) for the revert rules. Every ask and change stays in the **Limit requests** list, and the employee's profile shows a **Limit history** card on its AI usage tab.
+A raise set to **Until end of month** ends at the end of the calendar month, UTC. Shortly after midnight UTC on the 1st, June puts back the limit from before the raise. Someone raised from their default goes back to the default, and someone who already had a personal limit goes back to that amount. Several temporary raises in one month go back to where the first started. If someone changed the limit after June's raise, June leaves it. See [Spend limits](/ai-usage/spend-limits#temporary-raises) for the full revert rules.
+
+So a person June raised from their default starts the next month on **First raise** again. A person whose limit was set in the provider's console stays on **Subsequent raises** until it's removed.
+
+Every ask and change stays in the **Limit requests** list, and the employee's profile shows a **Limit history** card on its AI usage tab.
 
 ## If something looks wrong
 
