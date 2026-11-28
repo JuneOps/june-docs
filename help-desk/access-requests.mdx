@@ -30,9 +30,9 @@ If the app isn't in the list, the employee chooses **Not listed** and enters the
 
 An approval step lists the app's **Access approver**s, the requester's manager, or named people, and needs All or Any of them. A policy can have up to six steps. An employee is never their own approver. June sends a reminder after the step's **Nudge** time and moves it on after its **Escalate** time (1 and 2 hours by default; see [Access policies](/agents/access-policies)).
 
-If June can't find an approver (for example, the employee has no manager) or an approver has no Slack account in your workspace, the request moves to **Needs review** and waits for IT. Approvals go out only in Slack, so Slack must be connected.
+If June can't find an approver (for example, the employee has no manager), or can't reach a step's approvers, the request moves to **Needs review** and waits for IT. That happens when an approver on a DM step has no Slack account in your workspace, or when June can't post in a channel step's channel. See [How approvers are reached](/agents/access-policies#approval-chains). Approvals go out only in Slack, so Slack must be connected.
 
-**The approver's view.** An approver gets a Slack DM card with the app and access level, who it's for, the duration and the reason. They click **Approve** or **Reject**. Reject asks for a reason the employee will see. If June can't send that text to the employee, it asks the approver to rephrase. Approvers don't need a June role.
+**The approver's view.** Each approval step goes to approvers' Slack DMs or to a Slack channel chosen on the step. The card shows the app and access level, who it's for, the duration and the reason. In a channel, June tags the step's approvers, and only they can decide. Approvers click **Approve** or **Reject**. Reject asks for a reason the employee will see. If June can't send that text to the employee, it asks the approver to rephrase. Approvers don't need a June role.
 
 ## What the employee sees
 
