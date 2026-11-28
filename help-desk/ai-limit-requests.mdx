@@ -36,8 +36,6 @@ A limit policy decides what happens to Slack and Jira asks: who approves, how mu
 
 June checks the provider's limit when the ask comes in. A limit set for the person, whether by June or in the provider's console, counts as raised. If the provider doesn't answer, June uses the limit it last saw.
 
-A policy saved earlier with more than two tiers still works. Tiers past the second never apply and show as **Not used**. To save that policy again, cut it to two tiers.
-
 Each tier sets:
 
 - **Approval:** none, or up to six steps. Each step is **Access approver** (the app's current approvers), the requester's manager, or named people. Each step goes to approvers' Slack DMs or to a Slack channel you choose on the step. Turning on **Require approval** adds an **Access approver** step first.
